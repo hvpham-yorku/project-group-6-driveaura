@@ -26,7 +26,7 @@ function IconChevronLeft() {
   );
 }
 
-function IconCheck() {
+function IconCheck({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -39,13 +39,14 @@ function IconCheck() {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
+      className={className}
     >
       <path d="M20 6L9 17l-5-5" />
     </svg>
   );
 }
 
-function IconX() {
+function IconX({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -58,6 +59,7 @@ function IconX() {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
+      className={className}
     >
       <path d="M18 6 6 18" />
       <path d="m6 6 12 12" />
