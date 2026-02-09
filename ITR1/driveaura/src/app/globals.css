@@ -3,11 +3,22 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Ontario Government–inspired palette */
+  --ontario-blue: #003366;
+  --ontario-blue-light: #00478f;
+  --ontario-slate: #4a5568;
+  --ontario-slate-light: #718096;
+  --ontario-gray: #e2e8f0;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-ontario-blue: var(--ontario-blue);
+  --color-ontario-blue-light: var(--ontario-blue-light);
+  --color-ontario-slate: var(--ontario-slate);
+  --color-ontario-slate-light: var(--ontario-slate-light);
+  --color-ontario-gray: var(--ontario-gray);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
