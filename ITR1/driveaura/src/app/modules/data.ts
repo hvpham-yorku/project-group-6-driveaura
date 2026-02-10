@@ -21,30 +21,112 @@ export interface ModuleItem {
 
 export const MODULES: ModuleItem[] = [
   {
-    id: "g1-rules",
+    id: "g1-signs-signals-markings",
     licenseLevel: "G1",
-    title: "Rules of the Road",
-    category: "Rules of the Road",
+    title: "Signs, Signals, and Markings",
+    category: "G1 Knowledge Path",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
     lessons: [
       {
         id: "1",
-        title: "Lesson 1: Signs and Signals",
+        title: "Lesson 1: Traffic Signs",
         content:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
       },
       {
         id: "2",
-        title: "Lesson 2: Right-of-Way",
+        title: "Lesson 2: Signals and Markings",
         content:
           "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
       },
+    ],
+  },
+  {
+    id: "g1-right-of-way",
+    licenseLevel: "G1",
+    title: "Right-of-Way Rules",
+    category: "G1 Knowledge Path",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    lessons: [
       {
-        id: "3",
-        title: "Lesson 3: Speed and Following Distance",
+        id: "1",
+        title: "Lesson 1: Understanding Right-of-Way",
         content:
-          "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
+      },
+      {
+        id: "2",
+        title: "Lesson 2: Intersections and Yielding",
+        content:
+          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
+      },
+    ],
+  },
+  {
+    id: "g1-demerit-points",
+    licenseLevel: "G1",
+    title: "The Demerit Point System",
+    category: "G1 Knowledge Path",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    lessons: [
+      {
+        id: "1",
+        title: "Lesson 1: How Demerit Points Work",
+        content:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
+      },
+      {
+        id: "2",
+        title: "Lesson 2: Consequences and Suspension",
+        content:
+          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
+      },
+    ],
+  },
+  {
+    id: "g1-sharing-the-road",
+    licenseLevel: "G1",
+    title: "Sharing the Road",
+    category: "G1 Knowledge Path",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.",
+    lessons: [
+      {
+        id: "1",
+        title: "Lesson 1: Pedestrians and Cyclists",
+        content:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
+      },
+      {
+        id: "2",
+        title: "Lesson 2: Large Vehicles and Emergency",
+        content:
+          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
+      },
+    ],
+  },
+  {
+    id: "g1-impaired-driving",
+    licenseLevel: "G1",
+    title: "Impaired Driving & Legal Limits",
+    category: "G1 Knowledge Path",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat.",
+    lessons: [
+      {
+        id: "1",
+        title: "Lesson 1: Alcohol and Drugs",
+        content:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
+      },
+      {
+        id: "2",
+        title: "Lesson 2: Legal Limits and Penalties",
+        content:
+          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
       },
     ],
   },

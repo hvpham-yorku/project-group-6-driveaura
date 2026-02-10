@@ -51,3 +51,16 @@ Course: EECS 2311 - Software Development Project
 Institution: York University
 
 Group: Group 6
+
+Design Choices & Visual Identity
+DriveAura utilizes a "Night-Drive" aesthetic to create a focused, modern, and high-energy learning environment. The design choices are rooted in both psychological comfort and automotive precision:
+
+Backgrounds: We utilize a two-tier dark system with Void Purple (#0F051D) for the deep background to reduce eye strain, and Midnight Indigo (#1C1132) for surface elements like cards and menus to create visual depth.
+
+Primary Action: The Crimson Spark (#FF3B3F) is used exclusively for "Main Buttons." This high-energy red symbolizes ignition and focus, providing an unmistakable call to action.
+
+The "Aura" Accent: Electric Cyan (#00F5FF) is applied to progress bars and active module borders. This glowing accent represents clarity and the user's growing "Aura" of driving knowledge.
+
+Typography: We prioritize legibility with Ghost White (#F5F5F7) for primary headers and Lavender Mist (#B8B0D3) for secondary descriptions, ensuring the interface is accessible during late-night study sessions.
+
+Feedback Systems: Success states and completed modules are highlighted in Neon Mint (#39FF14), providing a clear, high-contrast indicator of progress.

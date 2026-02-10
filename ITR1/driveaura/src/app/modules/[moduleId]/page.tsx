@@ -69,11 +69,15 @@ function ModuleReaderContent() {
 
   if (!moduleItem) {
     return (
-      <main className="mx-auto max-w-5xl px-4 py-12">
-        <p className="text-slate-600">Module not found.</p>
+      <main
+        className="mx-auto min-h-screen px-4 py-12"
+        style={{ backgroundColor: "var(--void-purple)" }}
+      >
+        <p style={{ color: "var(--lavender-mist)" }}>Module not found.</p>
         <Link
           href="/modules"
-          className="mt-4 inline-flex items-center gap-2 text-ontario-blue hover:underline"
+          className="mt-4 inline-flex items-center gap-2 text-sm font-medium hover:underline"
+          style={{ color: "var(--electric-cyan)" }}
         >
           <IconChevronLeft />
           Back to Learning Hub
@@ -83,26 +87,50 @@ function ModuleReaderContent() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--void-purple)" }}
+    >
       {/* Top bar: back link */}
-      <div className="border-b border-slate-200 bg-white px-4 py-3">
+      <div
+        className="border-b px-4 py-3"
+        style={{
+          borderColor: "var(--midnight-indigo)",
+          backgroundColor: "var(--midnight-indigo)",
+        }}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link
             href="/modules"
-            className="inline-flex items-center gap-2 text-sm font-medium text-ontario-blue hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
+            style={{ color: "var(--electric-cyan)" }}
           >
             <IconChevronLeft />
             Back to Learning Hub
           </Link>
-          <span className="text-sm text-slate-500">{moduleItem.title}</span>
+          <span
+            className="text-sm"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            {moduleItem.title}
+          </span>
         </div>
       </div>
 
       <div className="mx-auto flex max-w-6xl flex-col lg:flex-row">
         {/* Left: lesson nav */}
-        <aside className="w-full border-b border-slate-200 bg-white lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r">
+        <aside
+          className="w-full border-b lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--midnight-indigo)",
+          }}
+        >
           <nav className="p-4" aria-label="Module chapters">
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <h2
+              className="mb-3 text-xs font-semibold uppercase tracking-wide"
+              style={{ color: "var(--lavender-mist)" }}
+            >
               Lessons
             </h2>
             <ul className="space-y-1">
@@ -113,11 +141,29 @@ function ModuleReaderContent() {
                   <li key={lesson.id}>
                     <Link
                       href={href}
-                      className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
+                      className="block rounded-lg px-3 py-2 text-sm transition-colors"
+                      style={
                         isActive
-                          ? "bg-ontario-blue text-white"
-                          : "text-slate-700 hover:bg-slate-100"
-                      }`}
+                          ? {
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }
+                          : {
+                              color: "var(--lavender-mist)",
+                            }
+                      }
+                      onMouseEnter={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.backgroundColor = "var(--void-purple)";
+                          e.currentTarget.style.color = "var(--ghost-white)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.color = "var(--lavender-mist)";
+                        }
+                      }}
                     >
                       {lesson.title}
                     </Link>
@@ -132,21 +178,32 @@ function ModuleReaderContent() {
         <div className="flex-1 p-4 lg:p-8">
           {currentLesson ? (
             <>
-              <h1 className="mb-4 text-xl font-bold text-slate-900 sm:text-2xl">
+              <h1
+                className="mb-4 text-xl font-bold sm:text-2xl"
+                style={{ color: "var(--ghost-white)" }}
+              >
                 {currentLesson.title}
               </h1>
 
               {/* Video placeholder */}
               <div
-                className="mb-6 flex aspect-video w-full items-center justify-center rounded-lg border border-slate-200 bg-slate-200 text-slate-500"
+                className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
+                style={{
+                  borderColor: "var(--midnight-indigo)",
+                  backgroundColor: "var(--void-purple)",
+                  color: "var(--lavender-mist)",
+                }}
                 aria-hidden
               >
                 <span className="text-sm">Video placeholder</span>
               </div>
 
               {/* Lesson text */}
-              <div className="prose prose-slate max-w-none mb-8">
-                <p className="text-slate-700 leading-relaxed">
+              <div className="mb-8 max-w-none">
+                <p
+                  className="leading-relaxed"
+                  style={{ color: "var(--lavender-mist)" }}
+                >
                   {currentLesson.content}
                 </p>
               </div>
@@ -157,11 +214,20 @@ function ModuleReaderContent() {
                   type="button"
                   onClick={() => setMarkedComplete(true)}
                   disabled={markedComplete}
-                  className={`inline-flex items-center gap-2 rounded px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2 ${
+                  className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--electric-cyan)] focus:ring-offset-2 focus:ring-offset-[var(--void-purple)]"
+                  style={
                     markedComplete
-                      ? "cursor-default bg-slate-200 text-slate-600"
-                      : "bg-ontario-blue text-white hover:bg-ontario-blue-light"
-                  }`}
+                      ? {
+                          cursor: "default",
+                          backgroundColor: "var(--midnight-indigo)",
+                          color: "var(--neon-mint)",
+                          border: "1px solid var(--neon-mint)",
+                        }
+                      : {
+                          backgroundColor: "var(--crimson-spark)",
+                          color: "white",
+                        }
+                  }
                 >
                   <IconCheck />
                   {markedComplete ? "Marked complete" : "Mark as complete"}
@@ -169,7 +235,8 @@ function ModuleReaderContent() {
                 {lessonIndex < moduleItem.lessons.length - 1 && (
                   <Link
                     href={`/modules/${moduleId}?lesson=${moduleItem.lessons[lessonIndex + 1].id}`}
-                    className="text-sm font-medium text-ontario-blue hover:underline"
+                    className="text-sm font-medium hover:underline"
+                    style={{ color: "var(--electric-cyan)" }}
                   >
                     Next lesson →
                   </Link>
@@ -177,7 +244,9 @@ function ModuleReaderContent() {
               </div>
             </>
           ) : (
-            <p className="text-slate-600">No lesson selected.</p>
+            <p style={{ color: "var(--lavender-mist)" }}>
+              No lesson selected.
+            </p>
           )}
         </div>
       </div>
@@ -187,7 +256,16 @@ function ModuleReaderContent() {
 
 export default function ModuleReaderPage() {
   return (
-    <Suspense fallback={<div className="flex min-h-screen items-center justify-center text-slate-500">Loading…</div>}>
+    <Suspense
+      fallback={
+        <div
+          className="flex min-h-screen items-center justify-center"
+          style={{ backgroundColor: "var(--void-purple)", color: "var(--lavender-mist)" }}
+        >
+          Loading…
+        </div>
+      }
+    >
       <ModuleReaderContent />
     </Suspense>
   );

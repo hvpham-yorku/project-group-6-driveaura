@@ -74,37 +74,66 @@ function IconCheck() {
 /** Demo: completed module IDs for progress calculation. Replace with real state later. */
 const DEMO_COMPLETED_IDS = new Set<string>([]);
 
-function ModuleCard({ module: m }: { module: ModuleItem }) {
+function ModuleCard({
+  module: m,
+  isActive,
+}: {
+  module: ModuleItem;
+  isActive: boolean;
+}) {
   const completed = DEMO_COMPLETED_IDS.has(m.id);
   return (
-    <article className="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+    <article
+      className={`module-card group relative flex flex-col overflow-hidden rounded-xl border-2 ${
+        isActive ? "module-card--active" : ""
+      }`}
+      style={{
+        backgroundColor: "var(--midnight-indigo)",
+        borderColor: "transparent",
+      }}
+    >
       {/* Placeholder image area */}
       <div
-        className="h-36 w-full shrink-0 bg-slate-200"
-        style={{ backgroundColor: "var(--ontario-gray)" }}
+        className="h-32 w-full shrink-0 opacity-80"
+        style={{ backgroundColor: "var(--void-purple)" }}
         aria-hidden
       />
-      <div className="flex flex-1 flex-col p-4">
-        <span className="mb-2 inline-flex w-fit items-center gap-1.5 rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-ontario-slate">
+      <div className="flex flex-1 flex-col p-5">
+        <span
+          className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium"
+          style={{ backgroundColor: "var(--void-purple)", color: "var(--lavender-mist)" }}
+        >
           <IconBook />
           {m.category}
         </span>
-        <h2 className="mb-2 text-lg font-semibold text-slate-900">{m.title}</h2>
-        <p className="mb-4 flex-1 text-sm text-slate-600 line-clamp-3">
+        <h2
+          className="mb-2 text-lg font-semibold"
+          style={{ color: "var(--ghost-white)" }}
+        >
+          {m.title}
+        </h2>
+        <p
+          className="mb-4 flex-1 text-sm line-clamp-3"
+          style={{ color: "var(--lavender-mist)" }}
+        >
           {m.description}
         </p>
         <div className="flex items-center justify-between gap-2">
           {completed ? (
-            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ontario-blue">
+            <span
+              className="inline-flex items-center gap-1.5 text-sm font-medium"
+              style={{ color: "var(--neon-mint)" }}
+            >
               <IconCheck />
               Completed
             </span>
           ) : null}
           <Link
             href={`/modules/${m.id}`}
-            className="inline-flex items-center justify-center rounded bg-ontario-blue px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ontario-blue-light focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2"
+            className="ml-auto inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-[var(--electric-cyan)] focus:ring-offset-2 focus:ring-offset-[var(--midnight-indigo)]"
+            style={{ backgroundColor: "var(--crimson-spark)" }}
           >
-            Start
+            Start Module
           </Link>
         </div>
       </div>
@@ -131,20 +160,44 @@ export default function ModulesPage() {
   const tabs: LicenseLevel[] = ["G1", "G2", "G"];
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--void-purple)" }}
+    >
       {/* Progress bar */}
-      <section className="border-b border-slate-200 bg-white px-4 py-3">
+      <section
+        className="border-b px-4 py-4"
+        style={{
+          borderColor: "var(--midnight-indigo)",
+          backgroundColor: "var(--void-purple)",
+        }}
+      >
         <div className="mx-auto max-w-5xl">
           <div className="flex items-center justify-between gap-2">
-            <span className="text-sm font-medium text-slate-700">
+            <span
+              className="text-sm font-medium"
+              style={{ color: "var(--lavender-mist)" }}
+            >
               {LICENSE_LABELS[activeLicense]} progress
             </span>
-            <span className="text-sm text-slate-500">{progress}%</span>
+            <span
+              className="text-sm"
+              style={{ color: "var(--ghost-white)" }}
+            >
+              {progress}%
+            </span>
           </div>
-          <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-200">
+          <div
+            className="mt-2 h-2 w-full overflow-hidden rounded-full"
+            style={{ backgroundColor: "var(--midnight-indigo)" }}
+          >
             <div
-              className="h-full rounded-full bg-ontario-blue transition-all duration-300"
-              style={{ width: `${progress}%` }}
+              className="h-full rounded-full transition-all duration-300"
+              style={{
+                width: `${progress}%`,
+                backgroundColor: "var(--electric-cyan)",
+                boxShadow: "0 0 12px var(--electric-cyan)",
+              }}
               role="progressbar"
               aria-valuenow={progress}
               aria-valuemin={0}
@@ -154,14 +207,18 @@ export default function ModulesPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-5xl px-4 py-6 sm:py-8">
-        <h1 className="mb-6 text-2xl font-bold text-slate-900 sm:text-3xl">
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
+        <h1
+          className="mb-6 text-2xl font-bold sm:text-3xl"
+          style={{ color: "var(--ghost-white)" }}
+        >
           Learning Hub
         </h1>
 
         {/* License switcher (tabs) */}
         <nav
-          className="mb-8 border-b border-slate-200"
+          className="mb-8 border-b"
+          style={{ borderColor: "var(--midnight-indigo)" }}
           aria-label="License level"
         >
           <ul className="flex gap-0">
@@ -172,9 +229,15 @@ export default function ModulesPage() {
                   onClick={() => setActiveLicense(level)}
                   className={`relative border-b-2 px-4 py-3 text-sm font-medium transition-colors sm:px-6 sm:py-4 sm:text-base ${
                     activeLicense === level
-                      ? "border-ontario-blue text-ontario-blue"
-                      : "border-transparent text-slate-600 hover:border-slate-300 hover:text-slate-900"
+                      ? "text-[var(--electric-cyan)]"
+                      : "text-[var(--lavender-mist)] hover:text-[var(--ghost-white)]"
                   }`}
+                  style={{
+                    borderBottomColor:
+                      activeLicense === level
+                        ? "var(--electric-cyan)"
+                        : "transparent",
+                  }}
                 >
                   <span className="inline-flex items-center gap-2">
                     <IconClock />
@@ -189,12 +252,22 @@ export default function ModulesPage() {
         {/* Module grid */}
         <section aria-label={`Modules for ${LICENSE_LABELS[activeLicense]}`}>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredModules.map((m) => (
-              <ModuleCard key={m.id} module={m} />
+            {filteredModules.map((m, index) => (
+              <ModuleCard
+                key={m.id}
+                module={m}
+                isActive={activeLicense === "G1" && index === 0}
+              />
             ))}
           </div>
           {filteredModules.length === 0 && (
-            <p className="rounded-lg border border-slate-200 bg-white p-8 text-center text-slate-600">
+            <p
+              className="rounded-xl border-2 border-[var(--midnight-indigo)] p-8 text-center"
+              style={{
+                backgroundColor: "var(--midnight-indigo)",
+                color: "var(--lavender-mist)",
+              }}
+            >
               No modules for this license level yet.
             </p>
           )}

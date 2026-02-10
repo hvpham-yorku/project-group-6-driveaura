@@ -9,6 +9,14 @@
   --ontario-slate: #4a5568;
   --ontario-slate-light: #718096;
   --ontario-gray: #e2e8f0;
+  /* DriveAura Midnight palette */
+  --void-purple: #0F051D;
+  --midnight-indigo: #1C1132;
+  --crimson-spark: #FF3B3F;
+  --electric-cyan: #00F5FF;
+  --ghost-white: #F5F5F7;
+  --lavender-mist: #B8B0D3;
+  --neon-mint: #39FF14;
 }
 
 @theme inline {
@@ -19,6 +27,13 @@
   --color-ontario-slate: var(--ontario-slate);
   --color-ontario-slate-light: var(--ontario-slate-light);
   --color-ontario-gray: var(--ontario-gray);
+  --color-void-purple: var(--void-purple);
+  --color-midnight-indigo: var(--midnight-indigo);
+  --color-crimson-spark: var(--crimson-spark);
+  --color-electric-cyan: var(--electric-cyan);
+  --color-ghost-white: var(--ghost-white);
+  --color-lavender-mist: var(--lavender-mist);
+  --color-neon-mint: var(--neon-mint);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -34,4 +49,17 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Module card aura glow — active and hover */
+.module-card {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.module-card.module-card--active {
+  border-color: var(--electric-cyan);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.4), 0 0 40px rgba(0, 245, 255, 0.2);
+}
+.module-card:hover {
+  border-color: var(--electric-cyan);
+  box-shadow: 0 0 24px rgba(0, 245, 255, 0.5), 0 0 48px rgba(0, 245, 255, 0.25);
 }
