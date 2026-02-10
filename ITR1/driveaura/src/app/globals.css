@@ -63,3 +63,16 @@ body {
   border-color: var(--electric-cyan);
   box-shadow: 0 0 24px rgba(0, 245, 255, 0.5), 0 0 48px rgba(0, 245, 255, 0.25);
 }
+
+/* Pathway Selector card — Electric Cyan "Aura" glow (active + hover) */
+.pathway-card {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.pathway-card.pathway-card--active {
+  border-color: var(--electric-cyan);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.4), 0 0 40px rgba(0, 245, 255, 0.2);
+}
+.pathway-card:not(.pathway-card--locked):hover {
+  border-color: var(--electric-cyan);
+  box-shadow: 0 0 24px rgba(0, 245, 255, 0.5), 0 0 48px rgba(0, 245, 255, 0.25);
+}

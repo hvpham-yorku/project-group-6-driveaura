@@ -101,12 +101,12 @@ function ModuleReaderContent() {
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link
-            href="/modules"
+            href={`/modules/level/${moduleItem.licenseLevel}`}
             className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
             style={{ color: "var(--electric-cyan)" }}
           >
             <IconChevronLeft />
-            Back to Learning Hub
+            Back to {moduleItem.licenseLevel} modules
           </Link>
           <span
             className="text-sm"

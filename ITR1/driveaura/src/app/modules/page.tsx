@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
 import {
-  LICENSE_LABELS,
-  MODULES,
+  PATHWAY_LEVELS,
   type LicenseLevel,
-  type ModuleItem,
+  type PathwayLevel,
 } from "./data";
 
 /* Inline SVG icons — no external library */
-function IconBook() {
+function IconArrowRight() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,15 +22,13 @@ function IconBook() {
       strokeLinejoin="round"
       aria-hidden
     >
-      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-      <path d="M8 7h8" />
-      <path d="M8 11h8" />
+      <path d="M5 12h14" />
+      <path d="m12 5 7 7-7 7" />
     </svg>
   );
 }
 
-function IconClock() {
+function IconMap() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -46,231 +42,161 @@ function IconClock() {
       strokeLinejoin="round"
       aria-hidden
     >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 6v6l4 2" />
+      <path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z" />
+      <path d="M9 3v15" />
+      <path d="M15 6v15" />
     </svg>
   );
 }
 
-function IconCheck() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M20 6L9 17l-5-5" />
-    </svg>
-  );
-}
+function PathwayCard({ level }: { level: PathwayLevel }) {
+  const href = `/modules/level/${level.licenseLevel}`;
 
-/** Demo: completed module IDs for progress calculation. Replace with real state later. */
-const DEMO_COMPLETED_IDS = new Set<string>([]);
-
-function ModuleCard({
-  module: m,
-  isActive,
-}: {
-  module: ModuleItem;
-  isActive: boolean;
-}) {
-  const completed = DEMO_COMPLETED_IDS.has(m.id);
   return (
-    <article
-      className={`module-card group relative flex flex-col overflow-hidden rounded-xl border-2 ${
-        isActive ? "module-card--active" : ""
-      }`}
+    <Link
+      href={href}
+      className="pathway-card group relative flex flex-1 flex-col overflow-hidden rounded-xl border-2 transition-all duration-300"
       style={{
         backgroundColor: "var(--midnight-indigo)",
         borderColor: "transparent",
       }}
     >
-      {/* Placeholder image area */}
-      <div
-        className="h-32 w-full shrink-0 opacity-80"
-        style={{ backgroundColor: "var(--void-purple)" }}
-        aria-hidden
-      />
-      <div className="flex flex-1 flex-col p-5">
-        <span
-          className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium"
-          style={{ backgroundColor: "var(--void-purple)", color: "var(--lavender-mist)" }}
-        >
-          <IconBook />
-          {m.category}
-        </span>
+      <article className="flex flex-1 flex-col p-5">
+        <div className="mb-3 flex items-start justify-between gap-2">
+          <span
+            className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-[12px] text-base font-bold"
+            style={{
+              backgroundColor: "var(--lavender-mist)",
+              color: "var(--void-purple)",
+            }}
+          >
+            {level.licenseLevel}
+          </span>
+        </div>
+
         <h2
-          className="mb-2 text-lg font-semibold"
+          className="mb-2 text-lg font-bold"
           style={{ color: "var(--ghost-white)" }}
         >
-          {m.title}
+          {level.title}
         </h2>
         <p
-          className="mb-4 flex-1 text-sm line-clamp-3"
+          className="mb-4 flex-1 text-sm leading-relaxed"
           style={{ color: "var(--lavender-mist)" }}
         >
-          {m.description}
+          {level.description}
         </p>
-        <div className="flex items-center justify-between gap-2">
-          {completed ? (
-            <span
-              className="inline-flex items-center gap-1.5 text-sm font-medium"
-              style={{ color: "var(--neon-mint)" }}
-            >
-              <IconCheck />
-              Completed
-            </span>
-          ) : null}
-          <Link
-            href={`/modules/${m.id}`}
-            className="ml-auto inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-[var(--electric-cyan)] focus:ring-offset-2 focus:ring-offset-[var(--midnight-indigo)]"
+
+        <div
+          className="mb-4 flex w-fit items-baseline gap-1 rounded-lg px-3 py-2"
+          style={{
+            backgroundColor: "var(--void-purple)",
+            color: "var(--ghost-white)",
+          }}
+        >
+          <span className="text-xl font-bold">{level.moduleCount}</span>
+          <span className="text-sm">Modules</span>
+        </div>
+
+        <div className="mt-auto">
+          <span
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-white transition-all duration-200 group-hover:opacity-95"
             style={{ backgroundColor: "var(--crimson-spark)" }}
           >
-            Start Module
-          </Link>
+            View modules
+            <IconArrowRight />
+          </span>
         </div>
-      </div>
-    </article>
+      </article>
+    </Link>
+  );
+}
+
+function PathwayConnector() {
+  return (
+    <div
+      className="flex shrink-0 items-center"
+      style={{ color: "var(--lavender-mist)" }}
+      aria-hidden
+    >
+      <div
+        className="h-0.5 w-6 sm:w-10"
+        style={{ backgroundColor: "var(--lavender-mist)", opacity: 0.5 }}
+      />
+      <span
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+        style={{
+          backgroundColor: "var(--void-purple)",
+          border: "1px solid var(--lavender-mist)",
+        }}
+      >
+        <IconArrowRight />
+      </span>
+      <div
+        className="h-0.5 w-6 sm:w-10"
+        style={{ backgroundColor: "var(--lavender-mist)", opacity: 0.5 }}
+      />
+    </div>
   );
 }
 
 export default function ModulesPage() {
-  const [activeLicense, setActiveLicense] = useState<LicenseLevel>("G1");
-
-  const filteredModules = useMemo(
-    () => MODULES.filter((m) => m.licenseLevel === activeLicense),
-    [activeLicense]
-  );
-
-  /* Progress: count completed vs total for current license path */
-  const progress = useMemo(() => {
-    const forLicense = MODULES.filter((m) => m.licenseLevel === activeLicense);
-    const total = forLicense.length;
-    const completed = forLicense.filter((m) => DEMO_COMPLETED_IDS.has(m.id)).length;
-    return total ? Math.round((completed / total) * 100) : 0;
-  }, [activeLicense]);
-
-  const tabs: LicenseLevel[] = ["G1", "G2", "G"];
-
   return (
     <main
       className="min-h-screen"
       style={{ backgroundColor: "var(--void-purple)" }}
     >
-      {/* Progress bar */}
-      <section
-        className="border-b px-4 py-4"
-        style={{
-          borderColor: "var(--midnight-indigo)",
-          backgroundColor: "var(--void-purple)",
-        }}
-      >
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-center justify-between gap-2">
-            <span
-              className="text-sm font-medium"
-              style={{ color: "var(--lavender-mist)" }}
-            >
-              {LICENSE_LABELS[activeLicense]} progress
-            </span>
-            <span
-              className="text-sm"
-              style={{ color: "var(--ghost-white)" }}
-            >
-              {progress}%
-            </span>
-          </div>
-          <div
-            className="mt-2 h-2 w-full overflow-hidden rounded-full"
-            style={{ backgroundColor: "var(--midnight-indigo)" }}
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+        <header className="mb-10 text-center">
+          <p
+            className="mb-2 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium"
+            style={{
+              backgroundColor: "var(--lavender-mist)",
+              color: "var(--void-purple)",
+            }}
           >
-            <div
-              className="h-full rounded-full transition-all duration-300"
-              style={{
-                width: `${progress}%`,
-                backgroundColor: "var(--electric-cyan)",
-                boxShadow: "0 0 12px var(--electric-cyan)",
-              }}
-              role="progressbar"
-              aria-valuenow={progress}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            />
-          </div>
-        </div>
-      </section>
+            <IconMap />
+            Your Learning Journey
+          </p>
+          <h1 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">
+            <span style={{ color: "var(--ghost-white)" }}>Progress Through </span>
+            <span style={{ color: "var(--crimson-spark)" }}>Every </span>
+            <span style={{ color: "var(--ghost-white)" }}>Stage with </span>
+            <span style={{ color: "var(--crimson-spark)" }}>Aura</span>
+          </h1>
+          <p
+            className="mx-auto max-w-2xl text-base sm:text-lg"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            Follow our structured learning pathway from G1 to G, with comprehensive
+            modules designed for each licence level.
+          </p>
+        </header>
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
-        <h1
-          className="mb-6 text-2xl font-bold sm:text-3xl"
-          style={{ color: "var(--ghost-white)" }}
+        <section
+          className="flex flex-col items-stretch gap-6 sm:flex-row sm:items-stretch sm:gap-0"
+          aria-label="License pathway: G1, G2, G"
         >
-          Learning Hub
-        </h1>
-
-        {/* License switcher (tabs) */}
-        <nav
-          className="mb-8 border-b"
-          style={{ borderColor: "var(--midnight-indigo)" }}
-          aria-label="License level"
-        >
-          <ul className="flex gap-0">
-            {tabs.map((level) => (
-              <li key={level}>
-                <button
-                  type="button"
-                  onClick={() => setActiveLicense(level)}
-                  className={`relative border-b-2 px-4 py-3 text-sm font-medium transition-colors sm:px-6 sm:py-4 sm:text-base ${
-                    activeLicense === level
-                      ? "text-[var(--electric-cyan)]"
-                      : "text-[var(--lavender-mist)] hover:text-[var(--ghost-white)]"
-                  }`}
-                  style={{
-                    borderBottomColor:
-                      activeLicense === level
-                        ? "var(--electric-cyan)"
-                        : "transparent",
-                  }}
+          {PATHWAY_LEVELS.flatMap((level, index) => {
+            const card = (
+              <div
+                key={level.licenseLevel}
+                className="flex min-w-0 flex-1 justify-center"
+              >
+                <PathwayCard level={level} />
+              </div>
+            );
+            const connector =
+              index < PATHWAY_LEVELS.length - 1 ? (
+                <div
+                  key={`connector-${level.licenseLevel}`}
+                  className="flex shrink-0 items-center justify-center py-4 sm:py-0"
                 >
-                  <span className="inline-flex items-center gap-2">
-                    <IconClock />
-                    {LICENSE_LABELS[level]}
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Module grid */}
-        <section aria-label={`Modules for ${LICENSE_LABELS[activeLicense]}`}>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredModules.map((m, index) => (
-              <ModuleCard
-                key={m.id}
-                module={m}
-                isActive={activeLicense === "G1" && index === 0}
-              />
-            ))}
-          </div>
-          {filteredModules.length === 0 && (
-            <p
-              className="rounded-xl border-2 border-[var(--midnight-indigo)] p-8 text-center"
-              style={{
-                backgroundColor: "var(--midnight-indigo)",
-                color: "var(--lavender-mist)",
-              }}
-            >
-              No modules for this license level yet.
-            </p>
-          )}
+                  <PathwayConnector />
+                </div>
+              ) : null;
+            return connector ? [card, connector] : [card];
+          })}
         </section>
       </div>
     </main>

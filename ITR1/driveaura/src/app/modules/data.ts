@@ -1,6 +1,6 @@
 /**
- * Learning Hub module data — edit here to add real content.
- * licenseLevel drives the tab filter on /modules.
+ * Learning Hub module data — G1 Phase 1 (Theory) only for now.
+ * licenseLevel drives the pathway and module list on /modules.
  */
 export type LicenseLevel = "G1" | "G2" | "G";
 
@@ -19,6 +19,7 @@ export interface ModuleItem {
   lessons: Lesson[];
 }
 
+/** G1 Phase 1: The G1 Knowledge Path (Theory) — 5 modules only. Content to be added later. */
 export const MODULES: ModuleItem[] = [
   {
     id: "g1-signs-signals-markings",
@@ -26,20 +27,10 @@ export const MODULES: ModuleItem[] = [
     title: "Signs, Signals, and Markings",
     category: "G1 Knowledge Path",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "Regulatory, warning, and pavement line markings you need to know for the G1 written test.",
     lessons: [
-      {
-        id: "1",
-        title: "Lesson 1: Traffic Signs",
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
-      },
-      {
-        id: "2",
-        title: "Lesson 2: Signals and Markings",
-        content:
-          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
-      },
+      { id: "1", title: "Regulatory signs", content: "" },
+      { id: "2", title: "Warning signs and pavement lines", content: "" },
     ],
   },
   {
@@ -48,20 +39,10 @@ export const MODULES: ModuleItem[] = [
     title: "Right-of-Way Rules",
     category: "G1 Knowledge Path",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "4-way stops, yielding, and emergency vehicles — when to go and when to wait.",
     lessons: [
-      {
-        id: "1",
-        title: "Lesson 1: Understanding Right-of-Way",
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
-      },
-      {
-        id: "2",
-        title: "Lesson 2: Intersections and Yielding",
-        content:
-          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
-      },
+      { id: "1", title: "4-way stops and yielding", content: "" },
+      { id: "2", title: "Emergency vehicles", content: "" },
     ],
   },
   {
@@ -70,20 +51,10 @@ export const MODULES: ModuleItem[] = [
     title: "The Demerit Point System",
     category: "G1 Knowledge Path",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "The consequences of traffic violations in Ontario and how demerit points affect your licence.",
     lessons: [
-      {
-        id: "1",
-        title: "Lesson 1: How Demerit Points Work",
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
-      },
-      {
-        id: "2",
-        title: "Lesson 2: Consequences and Suspension",
-        content:
-          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
-      },
+      { id: "1", title: "How demerit points work", content: "" },
+      { id: "2", title: "Consequences and suspension", content: "" },
     ],
   },
   {
@@ -92,20 +63,10 @@ export const MODULES: ModuleItem[] = [
     title: "Sharing the Road",
     category: "G1 Knowledge Path",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.",
+      "Rules for streetcars, school buses, and cyclists so everyone stays safe.",
     lessons: [
-      {
-        id: "1",
-        title: "Lesson 1: Pedestrians and Cyclists",
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
-      },
-      {
-        id: "2",
-        title: "Lesson 2: Large Vehicles and Emergency",
-        content:
-          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
-      },
+      { id: "1", title: "Streetcars and school buses", content: "" },
+      { id: "2", title: "Cyclists and other road users", content: "" },
     ],
   },
   {
@@ -114,64 +75,10 @@ export const MODULES: ModuleItem[] = [
     title: "Impaired Driving & Legal Limits",
     category: "G1 Knowledge Path",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat.",
+      "BAC rules and cannabis laws for novice drivers in Ontario.",
     lessons: [
-      {
-        id: "1",
-        title: "Lesson 1: Alcohol and Drugs",
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
-      },
-      {
-        id: "2",
-        title: "Lesson 2: Legal Limits and Penalties",
-        content:
-          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
-      },
-    ],
-  },
-  {
-    id: "g2-highway",
-    licenseLevel: "G2",
-    title: "Highway Driving",
-    category: "Highway",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Highway driving requires higher speeds and merging skills. Practice in low-traffic conditions first.",
-    lessons: [
-      {
-        id: "1",
-        title: "Entering the Highway",
-        content:
-          "Lorem ipsum dolor sit amet. Use the acceleration lane to match highway speed before merging. Signal and check blind spots.",
-      },
-      {
-        id: "2",
-        title: "Lane Discipline",
-        content:
-          "Keep right except to pass. Use the left lane only for passing. Return to the right lane when safe.",
-      },
-    ],
-  },
-  {
-    id: "g-exit",
-    licenseLevel: "G",
-    title: "G Exit Test Prep",
-    category: "Test Prep",
-    description:
-      "Final preparation for the full G license. Covers advanced scenarios, highway exit test expectations, and defensive driving review.",
-    lessons: [
-      {
-        id: "1",
-        title: "What to Expect on the G Test",
-        content:
-          "Lorem ipsum dolor sit amet. The G exit test includes highway driving, complex intersections, and independent driving. Be prepared for examiner directions.",
-      },
-      {
-        id: "2",
-        title: "Defensive Driving Review",
-        content:
-          "Scan ahead, manage space, and communicate with other road users. Examiners look for consistent safe habits.",
-      },
+      { id: "1", title: "BAC and legal limits", content: "" },
+      { id: "2", title: "Cannabis and novice drivers", content: "" },
     ],
   },
 ];
@@ -181,3 +88,35 @@ export const LICENSE_LABELS: Record<LicenseLevel, string> = {
   G2: "G2 Road Prep",
   G: "G Exit",
 };
+
+/** Pathway Selector: G1, G2, G license level cards for the learning modules landing page. */
+export interface PathwayLevel {
+  licenseLevel: LicenseLevel;
+  title: string;
+  description: string;
+  moduleCount: number;
+}
+
+export const PATHWAY_LEVELS: PathwayLevel[] = [
+  {
+    licenseLevel: "G1",
+    title: "Written Knowledge Test",
+    description:
+      "Master road signs, rules of the road, and safe driving practices to pass your written G1 test.",
+    moduleCount: 5,
+  },
+  {
+    licenseLevel: "G2",
+    title: "Road Test Level 1",
+    description:
+      "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
+    moduleCount: 5,
+  },
+  {
+    licenseLevel: "G",
+    title: "Full License Test",
+    description:
+      "Advanced highway driving, complex intersections, and emergency maneuvers for your G test.",
+    moduleCount: 4,
+  },
+];
