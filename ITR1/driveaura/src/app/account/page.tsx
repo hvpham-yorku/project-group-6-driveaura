@@ -1,5 +1,10 @@
 import PlaceholderPage from "@/components/PlaceholderPage";
+import RequireAuth from "@/components/auth/RequireAuth";
 
 export default function AccountPage() {
-  return <PlaceholderPage title="Account" />;
+  return (
+    <RequireAuth>
+      <PlaceholderPage title="Account" />
+    </RequireAuth>
+  );
 }

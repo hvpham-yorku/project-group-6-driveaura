@@ -51,3 +51,34 @@ Course: EECS 2311 - Software Development Project
 Institution: York University
 
 Group: Group 6
+
+---
+
+## Firebase Auth (Login)
+
+This project includes a Firebase Auth-based login at `/login`.
+
+### Environment variables
+
+Create a `.env.local` file in `ITR1/driveaura/` with:
+
+```bash
+NEXT_PUBLIC_FIREBASE_API_KEY="..."
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="..."
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="..."
+NEXT_PUBLIC_FIREBASE_APP_ID="..."
+
+# Optional:
+# NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="..."
+# NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="..."
+# NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID="..."
+```
+
+Get these values from **Firebase Console → Project settings → Your apps → Web app → SDK setup and configuration**.
+
+### Enable providers
+
+In **Firebase Console → Authentication → Sign-in method** enable:
+
+- Email/Password
+- Google (optional, but supported by the UI)
