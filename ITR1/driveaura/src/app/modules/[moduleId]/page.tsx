@@ -45,6 +45,56 @@ function IconCheck() {
   );
 }
 
+/** Placeholder for sign icon in the Regulatory Signs table. */
+function SignIconPlaceholder() {
+  return (
+    <div
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded border"
+      style={{
+        borderColor: "var(--lavender-mist)",
+        color: "var(--lavender-mist)",
+        backgroundColor: "var(--midnight-indigo)",
+      }}
+      aria-hidden
+    >
+      <span className="text-xs">?</span>
+    </div>
+  );
+}
+
+/** Regulatory signs reference table — G1 Module 1. */
+const REGULATORY_SIGN_TABLE_DATA: Array<{
+  signName: string;
+  instruction: string;
+}> = [
+  { signName: "Stop Sign", instruction: "Complete stop at line, crosswalk, sidewalk, or edge of intersection. Wait for clear path." },
+  { signName: "Yield Sign", instruction: "Let traffic in/near intersection go first. Stop only if necessary." },
+  { signName: "Railway Crossing", instruction: "X-shaped. Slow down, look both ways, and prepare to stop." },
+  { signName: "Bicycle Route", instruction: "Official route. Watch for and share the road with cyclists." },
+  { signName: "Parking Permitted", instruction: "Parking allowed between signs during posted times." },
+  { signName: "Snowmobiles", instruction: "Snowmobiles are permitted to use this road." },
+  { signName: "Do Not Enter", instruction: "Do not enter this road." },
+  { signName: "No Stopping", instruction: "Do not stop even for a moment between these signs." },
+  { signName: "No Standing", instruction: "No stopping except to load/unload passengers." },
+  { signName: "No Parking", instruction: "No stopping except to load/unload passengers or merchandise." },
+  { signName: "No Left / Right / U-Turn", instruction: "Forbidden maneuvers at the intersection or light." },
+  { signName: "No Bicycles / Pedestrians", instruction: "Bicycles or pedestrians are not allowed on this road." },
+  { signName: "Keep Right", instruction: "Keep to the right of the traffic island." },
+  { signName: "Do Not Pass", instruction: "Passing other vehicles is forbidden on this road." },
+  { signName: "Slow Traffic Keep Right", instruction: "Slower traffic on multi-lane roads must stay in the right lane." },
+  { signName: "One Way", instruction: "Traffic may only travel in the direction of the arrow." },
+  { signName: "Community Safety Zone", instruction: "Special risk area; traffic offences subject to increased fines." },
+  { signName: "School Zone Speed", instruction: "Lower speed limit applies when yellow lights are flashing." },
+  { signName: "Stop for School Bus", instruction: "Must stop for bus with flashing signals (even on multi-lane roads without medians)." },
+  { signName: "Lane Directional Arrows", instruction: "Above road or on pavement; dictates mandatory travel direction for that lane." },
+  { signName: "Two-Way Left Turn", instruction: "Center lane reserved exclusively for two-way left turns." },
+  { signName: "Reserved (HOV) Lanes", instruction: "Lanes for specific vehicles (buses, taxis, 3+ people) during set hours." },
+  { signName: "Climbing / Passing Lane", instruction: "Keep right except when passing on two-lane sections." },
+  { signName: "Yield to Bus", instruction: "Reminder to yield to buses signaling intent to return to a lane." },
+  { signName: "Road Forks Right", instruction: "Indicates the road splits to the right ahead." },
+  { signName: "Pedestrian Crossover", instruction: "Be prepared to stop and yield to pedestrians." },
+];
+
 function ModuleReaderContent() {
   const params = useParams();
   const searchParams = useSearchParams();
@@ -200,12 +250,109 @@ function ModuleReaderContent() {
 
               {/* Lesson text */}
               <div className="mb-8 max-w-none">
-                <p
-                  className="leading-relaxed"
-                  style={{ color: "var(--lavender-mist)" }}
-                >
-                  {currentLesson.content}
-                </p>
+                {moduleId === "g1-signs-signals-markings" &&
+                currentLesson.id === "1" ? (
+                  <>
+                    <p
+                      className="mb-6 leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Regulatory signs tell you about laws and rules that apply
+                      to the road. Follow them as required by the Ontario
+                      Highway Traffic Act.
+                    </p>
+                    <div
+                      className="overflow-x-auto rounded-lg border"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <table className="w-full min-w-[640px] border-collapse text-left">
+                        <thead>
+                          <tr
+                            style={{
+                              backgroundColor: "var(--midnight-indigo)",
+                              color: "var(--ghost-white)",
+                            }}
+                          >
+                            <th
+                              className="w-16 px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Signs
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Sign Name
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Instruction / Legal Rule
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {REGULATORY_SIGN_TABLE_DATA.map((row, index) => (
+                            <tr
+                              key={`${row.signName}-${index}`}
+                              className="transition-shadow duration-200"
+                              style={{
+                                backgroundColor: "var(--void-purple)",
+                                color: "var(--lavender-mist)",
+                                borderBottom:
+                                  index < REGULATORY_SIGN_TABLE_DATA.length - 1
+                                    ? "1px solid var(--midnight-indigo)"
+                                    : undefined,
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow =
+                                  "0 0 20px rgba(0, 245, 255, 0.25)";
+                                e.currentTarget.style.color =
+                                  "var(--ghost-white)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = "none";
+                                e.currentTarget.style.color =
+                                  "var(--lavender-mist)";
+                              }}
+                            >
+                              <td
+                                className="px-4 py-3"
+                                style={{ color: "inherit" }}
+                              >
+                                <SignIconPlaceholder />
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm font-medium"
+                                style={{ color: "inherit" }}
+                              >
+                                {row.signName}
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm leading-relaxed"
+                                style={{ color: "inherit" }}
+                              >
+                                {row.instruction}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                ) : (
+                  <p
+                    className="leading-relaxed"
+                    style={{ color: "var(--lavender-mist)" }}
+                  >
+                    {currentLesson.content}
+                  </p>
+                )}
               </div>
 
               {/* Mark as complete */}
@@ -214,7 +361,7 @@ function ModuleReaderContent() {
                   type="button"
                   onClick={() => setMarkedComplete(true)}
                   disabled={markedComplete}
-                  className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--electric-cyan)] focus:ring-offset-2 focus:ring-offset-[var(--void-purple)]"
+                  className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple"
                   style={
                     markedComplete
                       ? {
