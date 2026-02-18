@@ -17,14 +17,14 @@ function getDirectionsUrl(address: string): string {
 export default function RouteDetails({ centre }: RouteDetailsProps) {
   return (
     <div className="flex flex-col">
-      {/* Compact header: name, address, Get Directions */}
-      <header className="flex-shrink-0 border-b border-zinc-200 pb-4 dark:border-zinc-700">
+      {/* Compact header: name, address, Get Directions — Crimson Spark main button */}
+      <header className="flex-shrink-0 border-b border-[#00F5FF]/20 pb-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+            <h1 className="text-xl font-bold text-[#F5F5F7]">
               {centre.name}
             </h1>
-            <p className="mt-0.5 flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-0.5 flex items-center gap-1.5 text-sm text-[#B8B0D3]">
               <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
               {centre.address}
             </p>
@@ -33,7 +33,7 @@ export default function RouteDetails({ centre }: RouteDetailsProps) {
             href={getDirectionsUrl(centre.address)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 dark:focus:ring-offset-zinc-900"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-[#FF3B3F] px-3 py-2 text-sm font-medium text-[#F5F5F7] transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#FF3B3F] focus:ring-offset-2 focus:ring-offset-[#0F051D]"
           >
             Get Directions
             <ExternalLink className="h-4 w-4" aria-hidden />
@@ -41,8 +41,8 @@ export default function RouteDetails({ centre }: RouteDetailsProps) {
         </div>
       </header>
 
-      {/* One big map — shows selected centre; key ensures it updates when centre changes */}
-      <div className="relative my-4 min-h-[360px] overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800 sm:min-h-[480px]">
+      {/* One big map — Electric Cyan active border */}
+      <div className="relative my-4 min-h-[360px] overflow-hidden rounded-xl border-2 border-[#00F5FF]/30 bg-[#1C1132] sm:min-h-[480px]">
         {centre.mapEmbedUrl ? (
           <iframe
             key={centre.id}
@@ -55,11 +55,11 @@ export default function RouteDetails({ centre }: RouteDetailsProps) {
           />
         ) : (
           <div className="flex h-full min-h-[320px] flex-col items-center justify-center">
-            <MapPin className="h-12 w-12 text-amber-500 dark:text-amber-400" aria-hidden />
-            <p className="mt-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            <MapPin className="h-12 w-12 text-[#00F5FF]" aria-hidden />
+            <p className="mt-2 text-sm font-medium text-[#F5F5F7]">
               {centre.address}
             </p>
-            <p className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">
+            <p className="mt-0.5 text-xs text-[#B8B0D3]">
               Map placeholder — add mapEmbedUrl in data for live map
             </p>
           </div>
@@ -75,7 +75,7 @@ export default function RouteDetails({ centre }: RouteDetailsProps) {
                 href={centre.mapEmbedUrlG2.replace("?output=embed", "")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-amber-600 underline hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300"
+                className="text-[#00F5FF] underline hover:opacity-80"
               >
                 View G2 route in Google Maps
               </a>
@@ -85,7 +85,7 @@ export default function RouteDetails({ centre }: RouteDetailsProps) {
                 href={centre.mapEmbedUrlG.replace("?output=embed", "")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-amber-600 underline hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300"
+                className="text-[#00F5FF] underline hover:opacity-80"
               >
                 View G route in Google Maps
               </a>
@@ -94,7 +94,7 @@ export default function RouteDetails({ centre }: RouteDetailsProps) {
         )}
 
         <section aria-label="Key watch-outs">
-          <h2 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+          <h2 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-[#B8B0D3]">
             <AlertTriangle className="h-3.5 w-3.5" aria-hidden />
             Key watch-outs
           </h2>
@@ -102,9 +102,9 @@ export default function RouteDetails({ centre }: RouteDetailsProps) {
             {centre.checkpoints.map((checkpoint, index) => (
               <li
                 key={index}
-                className="flex gap-2 rounded-lg border border-zinc-200 bg-white py-2 pl-3 pr-3 text-sm text-zinc-700 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300"
+                className="flex gap-2 rounded-lg border border-[#00F5FF]/20 bg-[#1C1132] py-2 pl-3 pr-3 text-sm text-[#F5F5F7]"
               >
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-100 text-xs font-semibold text-amber-800 dark:bg-amber-900/50 dark:text-amber-200">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#39FF14]/20 text-xs font-semibold text-[#39FF14]">
                   {index + 1}
                 </span>
                 {checkpoint}

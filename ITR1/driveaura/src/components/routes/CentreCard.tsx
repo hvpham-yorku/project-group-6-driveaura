@@ -22,27 +22,27 @@ export default function CentreCard({
     <button
       type="button"
       onClick={onSelect}
-      className={`w-full rounded-xl border p-4 text-left transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 dark:focus:ring-offset-zinc-900 ${
+      className={`w-full rounded-xl border p-4 text-left transition-colors focus:outline-none focus:ring-2 focus:ring-[#00F5FF] focus:ring-offset-2 focus:ring-offset-[#0F051D] ${
         isSelected
-          ? "border-amber-500 bg-amber-50 dark:border-amber-400 dark:bg-amber-950/30"
-          : "border-zinc-200 bg-white hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-500 dark:hover:bg-zinc-700/50"
+          ? "border-[#00F5FF] bg-[#1C1132] shadow-[0_0_12px_rgba(0,245,255,0.2)]"
+          : "border-[#B8B0D3]/20 bg-[#1C1132] hover:border-[#B8B0D3]/40 hover:bg-[#0F051D]/40"
       }`}
     >
       <div className="flex items-start gap-3">
-        <span className="rounded-lg bg-zinc-100 p-2 dark:bg-zinc-700">
+        <span className="rounded-lg bg-[#0F051D]/60 p-2">
           <MapPin
-            className="h-4 w-4 text-zinc-600 dark:text-zinc-300"
+            className="h-4 w-4 text-[#00F5FF]"
             aria-hidden
           />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="font-semibold text-zinc-900 dark:text-zinc-100">
+          <p className="font-semibold text-[#F5F5F7]">
             {centre.name}
           </p>
-          <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-0.5 text-sm text-[#B8B0D3]">
             {centre.address}
           </p>
-          <span className="mt-2 inline-block rounded-full bg-zinc-200 px-2 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-600 dark:text-zinc-300">
+          <span className="mt-2 inline-block rounded-full bg-[#0F051D]/80 px-2 py-0.5 text-xs font-medium text-[#B8B0D3]">
             {centre.testType}
           </span>
         </div>

@@ -5,9 +5,17 @@
   --foreground: #171717;
 }
 
+/* DriveAura Night-Drive design tokens — hex in @theme so utilities are generated */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-driveaura-void: #0F051D;
+  --color-driveaura-midnight: #1C1132;
+  --color-driveaura-crimson: #FF3B3F;
+  --color-driveaura-cyan: #00F5FF;
+  --color-driveaura-ghost: #F5F5F7;
+  --color-driveaura-lavender: #B8B0D3;
+  --color-driveaura-mint: #39FF14;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
