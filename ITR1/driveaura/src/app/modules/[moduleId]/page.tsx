@@ -45,6 +45,56 @@ function IconCheck() {
   );
 }
 
+/** Placeholder for sign icon in the Regulatory Signs table. */
+function SignIconPlaceholder() {
+  return (
+    <div
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded border"
+      style={{
+        borderColor: "var(--lavender-mist)",
+        color: "var(--lavender-mist)",
+        backgroundColor: "var(--midnight-indigo)",
+      }}
+      aria-hidden
+    >
+      <span className="text-xs">?</span>
+    </div>
+  );
+}
+
+/** Regulatory signs reference table — G1 Module 1. */
+const REGULATORY_SIGN_TABLE_DATA: Array<{
+  signName: string;
+  instruction: string;
+}> = [
+  { signName: "Stop Sign", instruction: "Complete stop at line, crosswalk, sidewalk, or edge of intersection. Wait for clear path." },
+  { signName: "Yield Sign", instruction: "Let traffic in/near intersection go first. Stop only if necessary." },
+  { signName: "Railway Crossing", instruction: "X-shaped. Slow down, look both ways, and prepare to stop." },
+  { signName: "Bicycle Route", instruction: "Official route. Watch for and share the road with cyclists." },
+  { signName: "Parking Permitted", instruction: "Parking allowed between signs during posted times." },
+  { signName: "Snowmobiles", instruction: "Snowmobiles are permitted to use this road." },
+  { signName: "Do Not Enter", instruction: "Do not enter this road." },
+  { signName: "No Stopping", instruction: "Do not stop even for a moment between these signs." },
+  { signName: "No Standing", instruction: "No stopping except to load/unload passengers." },
+  { signName: "No Parking", instruction: "No stopping except to load/unload passengers or merchandise." },
+  { signName: "No Left / Right / U-Turn", instruction: "Forbidden maneuvers at the intersection or light." },
+  { signName: "No Bicycles / Pedestrians", instruction: "Bicycles or pedestrians are not allowed on this road." },
+  { signName: "Keep Right", instruction: "Keep to the right of the traffic island." },
+  { signName: "Do Not Pass", instruction: "Passing other vehicles is forbidden on this road." },
+  { signName: "Slow Traffic Keep Right", instruction: "Slower traffic on multi-lane roads must stay in the right lane." },
+  { signName: "One Way", instruction: "Traffic may only travel in the direction of the arrow." },
+  { signName: "Community Safety Zone", instruction: "Special risk area; traffic offences subject to increased fines." },
+  { signName: "School Zone Speed", instruction: "Lower speed limit applies when yellow lights are flashing." },
+  { signName: "Stop for School Bus", instruction: "Must stop for bus with flashing signals (even on multi-lane roads without medians)." },
+  { signName: "Lane Directional Arrows", instruction: "Above road or on pavement; dictates mandatory travel direction for that lane." },
+  { signName: "Two-Way Left Turn", instruction: "Center lane reserved exclusively for two-way left turns." },
+  { signName: "Reserved (HOV) Lanes", instruction: "Lanes for specific vehicles (buses, taxis, 3+ people) during set hours." },
+  { signName: "Climbing / Passing Lane", instruction: "Keep right except when passing on two-lane sections." },
+  { signName: "Yield to Bus", instruction: "Reminder to yield to buses signaling intent to return to a lane." },
+  { signName: "Road Forks Right", instruction: "Indicates the road splits to the right ahead." },
+  { signName: "Pedestrian Crossover", instruction: "Be prepared to stop and yield to pedestrians." },
+];
+
 function ModuleReaderContent() {
   const params = useParams();
   const searchParams = useSearchParams();
@@ -69,11 +119,15 @@ function ModuleReaderContent() {
 
   if (!moduleItem) {
     return (
-      <main className="mx-auto max-w-5xl px-4 py-12">
-        <p className="text-slate-600">Module not found.</p>
+      <main
+        className="mx-auto min-h-screen px-4 py-12"
+        style={{ backgroundColor: "var(--void-purple)" }}
+      >
+        <p style={{ color: "var(--lavender-mist)" }}>Module not found.</p>
         <Link
           href="/modules"
-          className="mt-4 inline-flex items-center gap-2 text-ontario-blue hover:underline"
+          className="mt-4 inline-flex items-center gap-2 text-sm font-medium hover:underline"
+          style={{ color: "var(--electric-cyan)" }}
         >
           <IconChevronLeft />
           Back to Learning Hub
@@ -83,26 +137,50 @@ function ModuleReaderContent() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--void-purple)" }}
+    >
       {/* Top bar: back link */}
-      <div className="border-b border-slate-200 bg-white px-4 py-3">
+      <div
+        className="border-b px-4 py-3"
+        style={{
+          borderColor: "var(--midnight-indigo)",
+          backgroundColor: "var(--midnight-indigo)",
+        }}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link
-            href="/modules"
-            className="inline-flex items-center gap-2 text-sm font-medium text-ontario-blue hover:underline"
+            href={`/modules/level/${moduleItem.licenseLevel}`}
+            className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
+            style={{ color: "var(--electric-cyan)" }}
           >
             <IconChevronLeft />
-            Back to Learning Hub
+            Back to {moduleItem.licenseLevel} modules
           </Link>
-          <span className="text-sm text-slate-500">{moduleItem.title}</span>
+          <span
+            className="text-sm"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            {moduleItem.title}
+          </span>
         </div>
       </div>
 
       <div className="mx-auto flex max-w-6xl flex-col lg:flex-row">
         {/* Left: lesson nav */}
-        <aside className="w-full border-b border-slate-200 bg-white lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r">
+        <aside
+          className="w-full border-b lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--midnight-indigo)",
+          }}
+        >
           <nav className="p-4" aria-label="Module chapters">
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <h2
+              className="mb-3 text-xs font-semibold uppercase tracking-wide"
+              style={{ color: "var(--lavender-mist)" }}
+            >
               Lessons
             </h2>
             <ul className="space-y-1">
@@ -113,11 +191,29 @@ function ModuleReaderContent() {
                   <li key={lesson.id}>
                     <Link
                       href={href}
-                      className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
+                      className="block rounded-lg px-3 py-2 text-sm transition-colors"
+                      style={
                         isActive
-                          ? "bg-ontario-blue text-white"
-                          : "text-slate-700 hover:bg-slate-100"
-                      }`}
+                          ? {
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }
+                          : {
+                              color: "var(--lavender-mist)",
+                            }
+                      }
+                      onMouseEnter={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.backgroundColor = "var(--void-purple)";
+                          e.currentTarget.style.color = "var(--ghost-white)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.color = "var(--lavender-mist)";
+                        }
+                      }}
                     >
                       {lesson.title}
                     </Link>
@@ -132,23 +228,131 @@ function ModuleReaderContent() {
         <div className="flex-1 p-4 lg:p-8">
           {currentLesson ? (
             <>
-              <h1 className="mb-4 text-xl font-bold text-slate-900 sm:text-2xl">
+              <h1
+                className="mb-4 text-xl font-bold sm:text-2xl"
+                style={{ color: "var(--ghost-white)" }}
+              >
                 {currentLesson.title}
               </h1>
 
               {/* Video placeholder */}
               <div
-                className="mb-6 flex aspect-video w-full items-center justify-center rounded-lg border border-slate-200 bg-slate-200 text-slate-500"
+                className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
+                style={{
+                  borderColor: "var(--midnight-indigo)",
+                  backgroundColor: "var(--void-purple)",
+                  color: "var(--lavender-mist)",
+                }}
                 aria-hidden
               >
                 <span className="text-sm">Video placeholder</span>
               </div>
 
               {/* Lesson text */}
-              <div className="prose prose-slate max-w-none mb-8">
-                <p className="text-slate-700 leading-relaxed">
-                  {currentLesson.content}
-                </p>
+              <div className="mb-8 max-w-none">
+                {moduleId === "g1-signs-signals-markings" &&
+                currentLesson.id === "1" ? (
+                  <>
+                    <p
+                      className="mb-6 leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Regulatory signs tell you about laws and rules that apply
+                      to the road. Follow them as required by the Ontario
+                      Highway Traffic Act.
+                    </p>
+                    <div
+                      className="overflow-x-auto rounded-lg border"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <table className="w-full min-w-[640px] border-collapse text-left">
+                        <thead>
+                          <tr
+                            style={{
+                              backgroundColor: "var(--midnight-indigo)",
+                              color: "var(--ghost-white)",
+                            }}
+                          >
+                            <th
+                              className="w-16 px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Signs
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Sign Name
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Instruction / Legal Rule
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {REGULATORY_SIGN_TABLE_DATA.map((row, index) => (
+                            <tr
+                              key={`${row.signName}-${index}`}
+                              className="transition-shadow duration-200"
+                              style={{
+                                backgroundColor: "var(--void-purple)",
+                                color: "var(--lavender-mist)",
+                                borderBottom:
+                                  index < REGULATORY_SIGN_TABLE_DATA.length - 1
+                                    ? "1px solid var(--midnight-indigo)"
+                                    : undefined,
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow =
+                                  "0 0 20px rgba(0, 245, 255, 0.25)";
+                                e.currentTarget.style.color =
+                                  "var(--ghost-white)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = "none";
+                                e.currentTarget.style.color =
+                                  "var(--lavender-mist)";
+                              }}
+                            >
+                              <td
+                                className="px-4 py-3"
+                                style={{ color: "inherit" }}
+                              >
+                                <SignIconPlaceholder />
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm font-medium"
+                                style={{ color: "inherit" }}
+                              >
+                                {row.signName}
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm leading-relaxed"
+                                style={{ color: "inherit" }}
+                              >
+                                {row.instruction}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                ) : (
+                  <p
+                    className="leading-relaxed"
+                    style={{ color: "var(--lavender-mist)" }}
+                  >
+                    {currentLesson.content}
+                  </p>
+                )}
               </div>
 
               {/* Mark as complete */}
@@ -157,11 +361,20 @@ function ModuleReaderContent() {
                   type="button"
                   onClick={() => setMarkedComplete(true)}
                   disabled={markedComplete}
-                  className={`inline-flex items-center gap-2 rounded px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2 ${
+                  className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple"
+                  style={
                     markedComplete
-                      ? "cursor-default bg-slate-200 text-slate-600"
-                      : "bg-ontario-blue text-white hover:bg-ontario-blue-light"
-                  }`}
+                      ? {
+                          cursor: "default",
+                          backgroundColor: "var(--midnight-indigo)",
+                          color: "var(--neon-mint)",
+                          border: "1px solid var(--neon-mint)",
+                        }
+                      : {
+                          backgroundColor: "var(--crimson-spark)",
+                          color: "white",
+                        }
+                  }
                 >
                   <IconCheck />
                   {markedComplete ? "Marked complete" : "Mark as complete"}
@@ -169,7 +382,8 @@ function ModuleReaderContent() {
                 {lessonIndex < moduleItem.lessons.length - 1 && (
                   <Link
                     href={`/modules/${moduleId}?lesson=${moduleItem.lessons[lessonIndex + 1].id}`}
-                    className="text-sm font-medium text-ontario-blue hover:underline"
+                    className="text-sm font-medium hover:underline"
+                    style={{ color: "var(--electric-cyan)" }}
                   >
                     Next lesson →
                   </Link>
@@ -177,7 +391,9 @@ function ModuleReaderContent() {
               </div>
             </>
           ) : (
-            <p className="text-slate-600">No lesson selected.</p>
+            <p style={{ color: "var(--lavender-mist)" }}>
+              No lesson selected.
+            </p>
           )}
         </div>
       </div>
@@ -187,7 +403,16 @@ function ModuleReaderContent() {
 
 export default function ModuleReaderPage() {
   return (
-    <Suspense fallback={<div className="flex min-h-screen items-center justify-center text-slate-500">Loading…</div>}>
+    <Suspense
+      fallback={
+        <div
+          className="flex min-h-screen items-center justify-center"
+          style={{ backgroundColor: "var(--void-purple)", color: "var(--lavender-mist)" }}
+        >
+          Loading…
+        </div>
+      }
+    >
       <ModuleReaderContent />
     </Suspense>
   );
