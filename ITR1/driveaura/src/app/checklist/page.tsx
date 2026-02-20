@@ -32,11 +32,14 @@ export default function ChecklistPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12">
-      <h1 className="mb-2 text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+    <div
+      className="mx-auto max-w-2xl px-4 py-12 min-h-screen"
+      style={{ backgroundColor: "#0F051D" }}
+    >
+      <h1 className="mb-2 text-2xl font-semibold" style={{ color: "#F5F5F7" }}>
         Checklist for Passenger – G2 and G
       </h1>
-      <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="mb-6 text-sm" style={{ color: "#B8B0D3" }}>
         Yes/No per category. Optional notes. Generate a report to see pass/fail
         readiness, strengths, and weaknesses.
       </p>
@@ -59,7 +62,25 @@ export default function ChecklistPage() {
 
         <button
           type="submit"
-          className="w-full rounded-md bg-ontario-blue px-4 py-3 text-sm font-medium text-white hover:bg-ontario-blue-light focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2 dark:focus:ring-offset-zinc-950"
+          className="w-full rounded-md px-4 py-3 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
+          style={{
+            backgroundColor: "#FF3B3F",
+            color: "#F5F5F7",
+            focusRingColor: "#FF3B3F",
+            focusRingOffsetColor: "#0F051D",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "#FF5A5E";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "#FF3B3F";
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.boxShadow = "0 0 0 2px #FF3B3F";
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.boxShadow = "none";
+          }}
         >
           Generate Report
         </button>
@@ -74,7 +95,14 @@ export default function ChecklistPage() {
       <div className="mt-8">
         <Link
           href="/"
-          className="text-sm text-zinc-600 underline hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          className="text-sm underline transition-colors"
+          style={{ color: "#B8B0D3" }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = "#F5F5F7";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = "#B8B0D3";
+          }}
         >
           ← Back to Home
         </Link>
