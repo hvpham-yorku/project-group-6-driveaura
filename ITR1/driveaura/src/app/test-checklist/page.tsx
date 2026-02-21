@@ -127,32 +127,58 @@ export default function TestChecklistPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12">
-      <h1 className="mb-2 text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+    <div
+      className="mx-auto max-w-2xl px-4 py-12 min-h-screen"
+      style={{ backgroundColor: "#0F051D" }}
+    >
+      <h1 className="mb-2 text-2xl font-semibold" style={{ color: "#F5F5F7" }}>
         Test Checklist
       </h1>
-      <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="mb-6 text-sm" style={{ color: "#B8B0D3" }}>
         Simple steps to help you feel ready.
       </p>
 
-      <div className="mb-6 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
+      <div
+        className="mb-6 rounded-lg border p-4"
+        style={{
+          backgroundColor: "#1C1132",
+          borderColor: "#00F5FF",
+        }}
+      >
         <div className="mb-2 flex items-center justify-between gap-3">
-          <div className="text-sm text-zinc-700 dark:text-zinc-300">
-            Progress: <span className="font-medium">{completed}</span> / {total} (
+          <div className="text-sm" style={{ color: "#B8B0D3" }}>
+            Progress: <span className="font-medium" style={{ color: "#F5F5F7" }}>{completed}</span> / {total} (
             {percent}%)
           </div>
           <button
             type="button"
             onClick={reset}
-            className="rounded-md border border-zinc-200 px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-900"
+            className="rounded-md border px-3 py-1.5 text-sm transition-colors"
+            style={{
+              backgroundColor: "#FF3B3F",
+              borderColor: "#FF3B3F",
+              color: "#F5F5F7",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "#FF5A5E";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "#FF3B3F";
+            }}
           >
             Reset
           </button>
         </div>
-        <div className="h-2 w-full overflow-hidden rounded bg-zinc-100 dark:bg-zinc-900">
+        <div
+          className="h-2 w-full overflow-hidden rounded"
+          style={{ backgroundColor: "#0F051D" }}
+        >
           <div
-            className="h-full bg-zinc-900 dark:bg-zinc-100"
-            style={{ width: `${percent}%` }}
+            className="h-full transition-all duration-300"
+            style={{
+              backgroundColor: "#00F5FF",
+              width: `${percent}%`,
+            }}
             aria-hidden="true"
           />
         </div>
@@ -161,7 +187,7 @@ export default function TestChecklistPage() {
       <div className="space-y-6">
         {sections.map((section) => (
           <section key={section.key}>
-            <h2 className="mb-2 text-base font-semibold text-zinc-900 dark:text-zinc-100">
+            <h2 className="mb-2 text-base font-semibold" style={{ color: "#F5F5F7" }}>
               {section.title}
             </h2>
             <ul className="space-y-2">
@@ -170,27 +196,36 @@ export default function TestChecklistPage() {
                 return (
                   <li
                     key={item.id}
-                    className="rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-950"
+                    className="rounded-lg border p-3"
+                    style={{
+                      backgroundColor: "#1C1132",
+                      borderColor: checked ? "#39FF14" : "#00F5FF",
+                      borderWidth: checked ? "2px" : "1px",
+                    }}
                   >
                     <label className="flex cursor-pointer items-start gap-3">
                       <input
                         type="checkbox"
-                        className="mt-1 h-4 w-4"
+                        className="mt-1 h-4 w-4 cursor-pointer"
                         checked={checked}
                         onChange={() => toggle(item.id)}
+                        style={{
+                          accentColor: checked ? "#39FF14" : "#00F5FF",
+                        }}
                       />
                       <div>
                         <div
-                          className={`text-sm ${
-                            checked
-                              ? "text-zinc-500 line-through dark:text-zinc-500"
-                              : "text-zinc-900 dark:text-zinc-100"
-                          }`}
+                          className="text-sm"
+                          style={{
+                            color: checked ? "#39FF14" : "#F5F5F7",
+                            textDecoration: checked ? "line-through" : "none",
+                            opacity: checked ? 0.8 : 1,
+                          }}
                         >
                           {item.text}
                         </div>
                         {item.tip ? (
-                          <div className="mt-1 text-xs text-zinc-600 dark:text-zinc-400">
+                          <div className="mt-1 text-xs" style={{ color: "#B8B0D3" }}>
                             Tip: {item.tip}
                           </div>
                         ) : null}
@@ -207,7 +242,14 @@ export default function TestChecklistPage() {
       <div className="mt-8">
         <Link
           href="/"
-          className="text-sm text-zinc-600 underline hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          className="text-sm underline transition-colors"
+          style={{ color: "#B8B0D3" }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = "#F5F5F7";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = "#B8B0D3";
+          }}
         >
           ← Back to Home
         </Link>
