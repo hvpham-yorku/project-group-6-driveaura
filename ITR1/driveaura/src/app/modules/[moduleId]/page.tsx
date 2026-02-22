@@ -3,7 +3,7 @@
 /// <reference types="react" />
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
-import { Suspense, useMemo, useState } from "react";
+import React, { Suspense, useMemo, useState } from "react";
 import { MODULES, type Lesson } from "../data";
 
 /* Inline SVG */
@@ -93,6 +93,54 @@ const REGULATORY_SIGN_TABLE_DATA: Array<{
   { signName: "Yield to Bus", instruction: "Reminder to yield to buses signaling intent to return to a lane." },
   { signName: "Road Forks Right", instruction: "Indicates the road splits to the right ahead." },
   { signName: "Pedestrian Crossover", instruction: "Be prepared to stop and yield to pedestrians." },
+];
+
+/** Warning signs and HOV lanes reference table — G1 Module 1. */
+const WARNING_SIGN_TABLE_DATA: Array<{
+  category: string;
+  signName: string;
+  instruction: string;
+}> = [
+  { category: "HOV", signName: "HOV Lane (Diamond)", instruction: "Only public vehicles (buses) or vehicles with a minimum number of passengers (2+ or 3+) may use this lane." },
+  { category: "HOV", signName: "HOV Do Not Cross", instruction: "Vehicles cannot change lanes into or out of an HOV lane in this area (marked by solid lines)." },
+  { category: "Warning", signName: "General Warning", instruction: "Usually diamond-shaped with a yellow background; warns of dangerous or unusual conditions ahead." },
+  { category: "Warning", signName: "Narrow Bridge", instruction: "The bridge ahead is narrower than the road; slow down and use caution." },
+  { category: "Warning", signName: "Road Branching Off", instruction: "Indicates a road branches off ahead." },
+  { category: "Warning", signName: "Intersection Ahead", instruction: "An intersection is ahead; the arrow shows which direction of traffic has the right-of-way." },
+  { category: "Warning", signName: "Roundabout Ahead", instruction: "Reduce speed; counter-clockwise arrows show the direction of traffic within the roundabout." },
+  { category: "Warning", signName: "Hidden Side Road", instruction: "Drivers on the side road at the intersection ahead do not have a clear view of traffic." },
+  { category: "Warning", signName: "Pavement Narrows", instruction: "The road surface becomes narrower ahead." },
+  { category: "Warning", signName: "Slight Curve", instruction: "There is a slight bend or curve in the road ahead." },
+  { category: "Warning", signName: "Safe Curve Speed", instruction: "Posted under a curve warning; shows the maximum safe speed for that curve." },
+  { category: "Warning", signName: "Sharp Bend/Turn", instruction: "A sharp bend or turn is in the road ahead." },
+  { category: "Warning", signName: "Chevron (Arrowhead)", instruction: "Posted in groups to guide drivers around sharp curves." },
+  { category: "Warning", signName: "Winding Road", instruction: "There is a winding road ahead." },
+  { category: "Warning", signName: "Opening Bridge", instruction: "The bridge ahead lifts or swings to let boats pass." },
+  { category: "Warning", signName: "Paved Surface Ends", instruction: "The paved portion of the road ends ahead." },
+  { category: "Warning", signName: "Bicycle Crossing", instruction: "A bicycle crossing is ahead." },
+  { category: "Warning", signName: "Stop Sign Ahead", instruction: "Slow down and prepare for a stop sign you cannot see yet." },
+  { category: "Warning", signName: "Share the Road", instruction: "Warns motorists to provide safe space for cyclists and other vehicles." },
+  { category: "Warning", signName: "Slippery When Wet", instruction: "Pavement is slick when wet; slow down and drive with caution." },
+  { category: "Warning", signName: "Hazard Marker", instruction: "Downward lines show the side on which you may safely pass a hazard near the road edge." },
+  { category: "Warning", signName: "Divided Highway Begins", instruction: "Traffic travels on separated roads ahead; keep to the right-hand road." },
+  { category: "Warning", signName: "Right Lane Ends", instruction: "Merge safely with traffic in the lane to the left." },
+  { category: "Warning", signName: "Traffic Lights Ahead", instruction: "Slow down for an upcoming signalized intersection." },
+  { category: "Warning", signName: "Steep Hill", instruction: "A steep hill is ahead; you may need to use a lower gear." },
+  { category: "Warning", signName: "Merging Traffic", instruction: "Two roads joining into one; both drivers are equally responsible for merging safely." },
+  { category: "Warning", signName: "Snowmobile Crossing", instruction: "Snowmobiles cross this road." },
+  { category: "Warning", signName: "Divided Highway Ends", instruction: "Traffic travels in both directions on the same road ahead; keep right." },
+  { category: "Warning", signName: "Underpass Clearance", instruction: "Shows the height clearance for tall vehicles." },
+  { category: "Warning", signName: "Bump / Uneven Road", instruction: "Slow down and keep control of your vehicle." },
+  { category: "Warning", signName: "Railway Crossing Ahead", instruction: "Be alert for trains; sign shows the angle the tracks cross the road." },
+  { category: "Warning", signName: "Sharp Turn (Checkerboard)", instruction: "Sharp turn in the arrow's direction; checkerboard border warns of danger." },
+  { category: "Warning", signName: "Animal Crossing (Deer)", instruction: "Deer regularly cross here; be alert for animals." },
+  { category: "Warning", signName: "Truck Entrance", instruction: "Watch for trucks entering the road from the side indicated on the sign." },
+  { category: "Warning", signName: "Ramp Speed", instruction: "Shows the maximum safe speed on the ramp." },
+  { category: "Warning", signName: "Fallen Rock", instruction: "Watch for rocks on the road and be prepared to avoid them." },
+  { category: "Warning", signName: "Water Over Road", instruction: "There may be water flowing over the road surface." },
+  { category: "Warning", signName: "Hidden Bus Stop", instruction: "Slow down and watch for children and school buses with flashing red lights." },
+  { category: "Warning", signName: "Emergency Entrance", instruction: "Upcoming bus or fire truck entrance; be prepared to yield." },
+  { category: "Warning", signName: "School Crossing", instruction: "Watch for children and follow directions of crossing guards." },
 ];
 
 function ModuleReaderContent() {
@@ -341,6 +389,137 @@ function ModuleReaderContent() {
                               </td>
                             </tr>
                           ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                ) : moduleId === "g1-signs-signals-markings" &&
+                  currentLesson.id === "2" ? (
+                  <>
+                    <p
+                      className="mb-6 leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Warning signs alert you to potential hazards or unusual
+                      conditions ahead. HOV (High-Occupancy Vehicle) lanes have
+                      specific rules for entry and exit. Always be prepared to
+                      adjust your driving when you see these signs.
+                    </p>
+                    <div
+                      className="overflow-x-auto rounded-lg border"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <table className="w-full min-w-[640px] border-collapse text-left">
+                        <thead>
+                          <tr
+                            style={{
+                              backgroundColor: "var(--midnight-indigo)",
+                              color: "var(--ghost-white)",
+                            }}
+                          >
+                            <th
+                              className="w-16 px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Signs
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Sign Name
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Instruction / Rule
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {WARNING_SIGN_TABLE_DATA.map((row, index) => {
+                            const prevCategory =
+                              index > 0
+                                ? WARNING_SIGN_TABLE_DATA[index - 1].category
+                                : null;
+                            const showCategoryDivider =
+                              index === 0 ||
+                              (prevCategory !== null &&
+                                prevCategory !== row.category);
+                            const isLastRow =
+                              index === WARNING_SIGN_TABLE_DATA.length - 1;
+
+                            return (
+                              <React.Fragment key={`row-${index}`}>
+                                {showCategoryDivider && (
+                                  <tr
+                                    style={{
+                                      backgroundColor: "var(--midnight-indigo)",
+                                    }}
+                                  >
+                                    <td
+                                      colSpan={3}
+                                      className="px-4 py-2 text-xs font-semibold uppercase tracking-wide"
+                                      style={{
+                                        color: "var(--ghost-white)",
+                                        borderTop:
+                                          index === 0
+                                            ? undefined
+                                            : "2px solid var(--electric-cyan)",
+                                        borderBottom: "1px solid var(--midnight-indigo)",
+                                      }}
+                                    >
+                                      {row.category} Signs
+                                    </td>
+                                  </tr>
+                                )}
+                                <tr
+                                  className="transition-shadow duration-200"
+                                  style={{
+                                    backgroundColor: "var(--void-purple)",
+                                    color: "var(--lavender-mist)",
+                                    borderBottom: isLastRow
+                                      ? undefined
+                                      : "1px solid var(--midnight-indigo)",
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.boxShadow =
+                                      "0 0 20px rgba(0, 245, 255, 0.25)";
+                                    e.currentTarget.style.color =
+                                      "var(--ghost-white)";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.boxShadow = "none";
+                                    e.currentTarget.style.color =
+                                      "var(--lavender-mist)";
+                                  }}
+                                >
+                                  <td
+                                    className="px-4 py-3"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    <SignIconPlaceholder />
+                                  </td>
+                                  <td
+                                    className="px-4 py-3 text-sm font-medium"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    {row.signName}
+                                  </td>
+                                  <td
+                                    className="px-4 py-3 text-sm leading-relaxed"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    {row.instruction}
+                                  </td>
+                                </tr>
+                              </React.Fragment>
+                            );
+                          })}
                         </tbody>
                       </table>
                     </div>

@@ -30,7 +30,7 @@ export const MODULES: ModuleItem[] = [
       "Regulatory, warning, and pavement line markings you need to know for the G1 written test.",
     lessons: [
       { id: "1", title: "Regulatory signs", content: "" },
-      { id: "2", title: "Warning signs and pavement lines", content: "" },
+      { id: "2", title: "Warning signs and high occupancy vehicle (HOV) signs", content: "" },
     ],
   },
   {
