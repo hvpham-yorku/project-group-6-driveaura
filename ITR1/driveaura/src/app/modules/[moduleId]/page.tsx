@@ -1426,6 +1426,364 @@ function ModuleReaderContent() {
                       </p>
                     </div>
                   </div>
+                ) : moduleId === "g1-demerit-points" &&
+                  currentLesson.id === "4" ? (
+                  <div className="space-y-6">
+                    {/* 1. Novice Drivers Section */}
+                    <div>
+                      <h2
+                        className="mb-4 text-xl font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        1. Novice Drivers (G1, G2, M1, M2): Stricter Rules
+                      </h2>
+                      <div
+                        className="overflow-x-auto rounded-lg border"
+                        style={{
+                          backgroundColor: "var(--void-purple)",
+                          borderColor: "var(--midnight-indigo)",
+                        }}
+                      >
+                        <table className="w-full min-w-[500px] border-collapse text-left">
+                          <thead>
+                            <tr
+                              style={{
+                                backgroundColor: "var(--midnight-indigo)",
+                                color: "var(--ghost-white)",
+                              }}
+                            >
+                              <th
+                                className="px-4 py-3 text-sm font-semibold"
+                                style={{ color: "var(--ghost-white)" }}
+                              >
+                                Point Total
+                              </th>
+                              <th
+                                className="px-4 py-3 text-sm font-semibold"
+                                style={{ color: "var(--ghost-white)" }}
+                              >
+                                Penalty / Action
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              className="transition-shadow duration-200"
+                              style={{
+                                backgroundColor: "var(--void-purple)",
+                                color: "var(--lavender-mist)",
+                                borderBottom: "1px solid var(--midnight-indigo)",
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow =
+                                  "0 0 20px rgba(0, 245, 255, 0.25)";
+                                e.currentTarget.style.color =
+                                  "var(--ghost-white)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = "none";
+                                e.currentTarget.style.color =
+                                  "var(--lavender-mist)";
+                              }}
+                            >
+                              <td
+                                className="px-4 py-3 text-sm font-medium"
+                                style={{ color: "inherit" }}
+                              >
+                                2 – 5 Points
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm leading-relaxed"
+                                style={{ color: "inherit" }}
+                              >
+                                Warning Letter: You will receive a letter
+                                encouraging you to improve your driving habits.
+                              </td>
+                            </tr>
+                            <tr
+                              className="transition-shadow duration-200"
+                              style={{
+                                backgroundColor: "var(--void-purple)",
+                                color: "var(--lavender-mist)",
+                                borderBottom: "1px solid var(--midnight-indigo)",
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow =
+                                  "0 0 20px rgba(0, 245, 255, 0.25)";
+                                e.currentTarget.style.color =
+                                  "var(--ghost-white)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = "none";
+                                e.currentTarget.style.color =
+                                  "var(--lavender-mist)";
+                              }}
+                            >
+                              <td
+                                className="px-4 py-3 text-sm font-medium"
+                                style={{ color: "inherit" }}
+                              >
+                                6 – 8 Points
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm leading-relaxed"
+                                style={{ color: "inherit" }}
+                              >
+                                Mandatory Interview: You may be required to
+                                attend an interview ($50 fee) to discuss your
+                                record. Failure to attend results in suspension.
+                              </td>
+                            </tr>
+                            <tr
+                              className="transition-shadow duration-200"
+                              style={{
+                                backgroundColor: "var(--void-purple)",
+                                color: "var(--lavender-mist)",
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow =
+                                  "0 0 20px rgba(0, 245, 255, 0.25)";
+                                e.currentTarget.style.color =
+                                  "var(--ghost-white)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = "none";
+                                e.currentTarget.style.color =
+                                  "var(--lavender-mist)";
+                              }}
+                            >
+                              <td
+                                className="px-4 py-3 text-sm font-medium"
+                                style={{ color: "inherit" }}
+                              >
+                                9 or more Points
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm leading-relaxed"
+                                style={{ color: "inherit" }}
+                              >
+                                60-Day Suspension: Your license is automatically
+                                suspended for 60 days. You must surrender your
+                                license to ServiceOntario.
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* 2. Fully Licensed Drivers Section */}
+                    <div>
+                      <h2
+                        className="mb-4 text-xl font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        2. Fully Licensed Drivers (Class G): Standard Rules
+                      </h2>
+                      <div
+                        className="overflow-x-auto rounded-lg border"
+                        style={{
+                          backgroundColor: "var(--void-purple)",
+                          borderColor: "var(--midnight-indigo)",
+                        }}
+                      >
+                        <table className="w-full min-w-[500px] border-collapse text-left">
+                          <thead>
+                            <tr
+                              style={{
+                                backgroundColor: "var(--midnight-indigo)",
+                                color: "var(--ghost-white)",
+                              }}
+                            >
+                              <th
+                                className="px-4 py-3 text-sm font-semibold"
+                                style={{ color: "var(--ghost-white)" }}
+                              >
+                                Point Total
+                              </th>
+                              <th
+                                className="px-4 py-3 text-sm font-semibold"
+                                style={{ color: "var(--ghost-white)" }}
+                              >
+                                Penalty / Action
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              className="transition-shadow duration-200"
+                              style={{
+                                backgroundColor: "var(--void-purple)",
+                                color: "var(--lavender-mist)",
+                                borderBottom: "1px solid var(--midnight-indigo)",
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow =
+                                  "0 0 20px rgba(0, 245, 255, 0.25)";
+                                e.currentTarget.style.color =
+                                  "var(--ghost-white)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = "none";
+                                e.currentTarget.style.color =
+                                  "var(--lavender-mist)";
+                              }}
+                            >
+                              <td
+                                className="px-4 py-3 text-sm font-medium"
+                                style={{ color: "inherit" }}
+                              >
+                                6 – 8 Points
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm leading-relaxed"
+                                style={{ color: "inherit" }}
+                              >
+                                Warning Letter: A notification is mailed to your
+                                address on record.
+                              </td>
+                            </tr>
+                            <tr
+                              className="transition-shadow duration-200"
+                              style={{
+                                backgroundColor: "var(--void-purple)",
+                                color: "var(--lavender-mist)",
+                                borderBottom: "1px solid var(--midnight-indigo)",
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow =
+                                  "0 0 20px rgba(0, 245, 255, 0.25)";
+                                e.currentTarget.style.color =
+                                  "var(--ghost-white)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = "none";
+                                e.currentTarget.style.color =
+                                  "var(--lavender-mist)";
+                              }}
+                            >
+                              <td
+                                className="px-4 py-3 text-sm font-medium"
+                                style={{ color: "inherit" }}
+                              >
+                                9 – 14 Points
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm leading-relaxed"
+                                style={{ color: "inherit" }}
+                              >
+                                Mandatory Interview: You must attend a meeting to
+                                provide reasons why your license should not be
+                                suspended ($50 fee).
+                              </td>
+                            </tr>
+                            <tr
+                              className="transition-shadow duration-200"
+                              style={{
+                                backgroundColor: "var(--void-purple)",
+                                color: "var(--lavender-mist)",
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow =
+                                  "0 0 20px rgba(0, 245, 255, 0.25)";
+                                e.currentTarget.style.color =
+                                  "var(--ghost-white)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = "none";
+                                e.currentTarget.style.color =
+                                  "var(--lavender-mist)";
+                              }}
+                            >
+                              <td
+                                className="px-4 py-3 text-sm font-medium"
+                                style={{ color: "inherit" }}
+                              >
+                                15 or more Points
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm leading-relaxed"
+                                style={{ color: "inherit" }}
+                              >
+                                30-Day Suspension: Your license is automatically
+                                suspended for 30 days.
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* 3. Escalating Penalties Special Section */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Escalating Penalties for Novice Drivers
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Any single offence carrying 4 or more points (like
+                        following too closely or 30km/h+ speeding) can trigger
+                        these escalating penalties:
+                      </p>
+                      <ol
+                        className="list-inside list-decimal space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            1st Offence:
+                          </strong>{" "}
+                          30-day suspension.
+                        </li>
+                        <li>
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            2nd Offence:
+                          </strong>{" "}
+                          90-day suspension.
+                        </li>
+                        <li>
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            3rd Offence:
+                          </strong>{" "}
+                          Permanent loss of novice license (must restart the G1
+                          process from scratch).
+                        </li>
+                      </ol>
+                    </div>
+
+                    {/* 4. Post-Suspension Logic */}
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          Post-Suspension Logic:
+                        </strong>{" "}
+                        When a suspension ends and your license is reinstated,
+                        your point total is reduced. Fully licensed drivers are
+                        reduced to 7 points; Novice drivers are reduced to 4
+                        points.
+                      </p>
+                    </div>
+                  </div>
                 ) : (
                   <p
                     className="leading-relaxed"

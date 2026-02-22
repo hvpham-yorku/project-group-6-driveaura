@@ -59,6 +59,7 @@ export const MODULES: ModuleItem[] = [
       { id: "1", title: "How demerit points work", content: "" },
       { id: "2", title: "How Demerit Points Are Applied", content: "" },
       { id: "3", title: "Points by Offence", content: "" },
+      { id: "4", title: "Consequences & Penalties", content: "" },
     ],
   },
   {
