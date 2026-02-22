@@ -974,6 +974,105 @@ function ModuleReaderContent() {
                       </table>
                     </div>
                   </>
+                ) : moduleId === "g1-demerit-points" &&
+                  currentLesson.id === "1" ? (
+                  <div className="space-y-6">
+                    {/* Introduction */}
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        What Are Demerit Points?
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Demerit points are a system used by the Ministry of
+                        Transportation (MTO) to track your driving record.
+                      </p>
+                    </div>
+
+                    {/* Quick Fact Callout */}
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <p
+                        className="text-sm font-medium leading-relaxed"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        <span
+                          className="mr-2 font-semibold"
+                          style={{ color: "var(--electric-cyan)" }}
+                        >
+                          Quick Fact:
+                        </span>
+                        You don't lose points; you gain them. The goal is to
+                        keep your point total as low as possible.
+                      </p>
+                    </div>
+
+                    {/* Key Mechanics */}
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        How Points Are Added
+                      </h2>
+                      <p
+                        className="mb-4 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <strong
+                          style={{ color: "var(--ghost-white)" }}
+                        >
+                          The Zero-Start Rule:
+                        </strong>{" "}
+                        Drivers start with zero points. Points are added to your
+                        record only if you are convicted of breaking certain
+                        traffic laws.
+                      </p>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <strong
+                          style={{ color: "var(--ghost-white)" }}
+                        >
+                          Jurisdiction:
+                        </strong>{" "}
+                        Points can be added to your Ontario record for
+                        convictions occurring in other Canadian
+                        provinces/territories, as well as New York State and
+                        Michigan.
+                      </p>
+                    </div>
+
+                    {/* Expiry Rule */}
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        The 2-Year Rule
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Points remain on your record for two years from the date
+                        of the offence. Once two years have passed, the points
+                        are removed, but the conviction remains on your permanent
+                        driving record.
+                      </p>
+                    </div>
+                  </div>
                 ) : (
                   <p
                     className="leading-relaxed"
