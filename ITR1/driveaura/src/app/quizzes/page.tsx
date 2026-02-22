@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { LicenseLevel } from "@/app/modules/data";
 import { getLicenseLabel, QUIZZES, type QuizItem } from "./data";
+import { getPassedQuizIds } from "./passedQuizzes";
 
 function IconClipboard() {
   return (
@@ -68,40 +69,76 @@ function IconCheck() {
   );
 }
 
-/** Demo: completed quiz IDs for progress. Replace with real state later. */
-const DEMO_COMPLETED_IDS = new Set<string>([]);
-
-function QuizCard({ quiz }: { quiz: QuizItem }) {
-  const completed = DEMO_COMPLETED_IDS.has(quiz.id);
+function QuizCard({
+  quiz,
+  passedIds,
+}: {
+  quiz: QuizItem;
+  passedIds: Set<string>;
+}) {
+  const completed = passedIds.has(quiz.id);
   return (
-    <article className="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+    <article
+      className="pathway-card group flex flex-col overflow-hidden rounded-xl border-2 transition-all duration-300"
+      style={{
+        backgroundColor: "var(--midnight-indigo)",
+        borderColor: "transparent",
+      }}
+    >
       <div
-        className="h-36 w-full shrink-0 bg-slate-200"
-        style={{ backgroundColor: "var(--ontario-gray)" }}
+        className="h-36 w-full shrink-0"
+        style={{ backgroundColor: "var(--void-purple)" }}
         aria-hidden
       />
-      <div className="flex flex-1 flex-col p-4">
-        <span className="mb-2 inline-flex w-fit items-center gap-1.5 rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-ontario-slate">
+      <div className="flex flex-1 flex-col p-5">
+        <span
+          className="mb-3 inline-flex w-fit items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium"
+          style={{
+            backgroundColor: "var(--lavender-mist)",
+            color: "var(--void-purple)",
+          }}
+        >
           <IconClipboard />
           {quiz.category}
         </span>
-        <h2 className="mb-2 text-lg font-semibold text-slate-900">{quiz.title}</h2>
-        <p className="mb-4 flex-1 text-sm text-slate-600 line-clamp-3">
+        <h2
+          className="mb-2 text-lg font-bold"
+          style={{ color: "var(--ghost-white)" }}
+        >
+          {quiz.title}
+        </h2>
+        <p
+          className="mb-4 flex-1 text-sm leading-relaxed line-clamp-3"
+          style={{ color: "var(--lavender-mist)" }}
+        >
           {quiz.description}
         </p>
-        <p className="mb-3 text-xs text-slate-500">
-          {quiz.questionCount} question{quiz.questionCount !== 1 ? "s" : ""}
-        </p>
-        <div className="flex items-center justify-between gap-2">
+        <div
+          className="mb-4 flex w-fit items-baseline gap-1 rounded-lg px-3 py-2"
+          style={{
+            backgroundColor: "var(--void-purple)",
+            color: "var(--ghost-white)",
+          }}
+        >
+          <span className="text-xl font-bold">{quiz.questionCount}</span>
+          <span className="text-sm">
+            question{quiz.questionCount !== 1 ? "s" : ""}
+          </span>
+        </div>
+        <div className="mt-auto flex items-center justify-between gap-2">
           {completed ? (
-            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ontario-blue">
+            <span
+              className="inline-flex items-center gap-1.5 text-sm font-medium"
+              style={{ color: "var(--neon-mint)" }}
+            >
               <IconCheck />
               Completed
             </span>
           ) : null}
           <Link
             href={`/quizzes/${quiz.id}`}
-            className="inline-flex items-center justify-center rounded bg-ontario-blue px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ontario-blue-light focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2"
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-white transition-all duration-200 hover:opacity-95"
+            style={{ backgroundColor: "var(--crimson-spark)" }}
           >
             {completed ? "Retake quiz" : "Take quiz"}
           </Link>
@@ -113,6 +150,19 @@ function QuizCard({ quiz }: { quiz: QuizItem }) {
 
 export default function QuizzesListPage() {
   const [activeLicense, setActiveLicense] = useState<LicenseLevel>("G1");
+  const [passedIds, setPassedIds] = useState<Set<string>>(() => getPassedQuizIds());
+
+  // Re-read passed quizzes when returning from a quiz or when storage is updated
+  useEffect(() => {
+    const sync = () => setPassedIds(getPassedQuizIds());
+    sync();
+    window.addEventListener("driveaura-quizzes-passed-updated", sync);
+    window.addEventListener("focus", sync);
+    return () => {
+      window.removeEventListener("driveaura-quizzes-passed-updated", sync);
+      window.removeEventListener("focus", sync);
+    };
+  }, []);
 
   const filteredQuizzes = useMemo(
     () => QUIZZES.filter((q) => q.licenseLevel === activeLicense),
@@ -122,77 +172,124 @@ export default function QuizzesListPage() {
   const progress = useMemo(() => {
     const forLicense = QUIZZES.filter((q) => q.licenseLevel === activeLicense);
     const total = forLicense.length;
-    const completed = forLicense.filter((q) => DEMO_COMPLETED_IDS.has(q.id)).length;
-    return total ? Math.round((completed / total) * 100) : 0;
-  }, [activeLicense]);
+    const passed = forLicense.filter((q) => passedIds.has(q.id)).length;
+    return total ? Math.round((passed / total) * 100) : 0;
+  }, [activeLicense, passedIds]);
 
   const tabs: LicenseLevel[] = ["G1", "G2", "G"];
 
   return (
-    <main className="min-h-screen bg-slate-50">
-      <section className="border-b border-slate-200 bg-white px-4 py-3">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-sm font-medium text-slate-700">
-              {getLicenseLabel(activeLicense)} quiz progress
-            </span>
-            <span className="text-sm text-slate-500">{progress}%</span>
-          </div>
-          <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-200">
-            <div
-              className="h-full rounded-full bg-ontario-blue transition-all duration-300"
-              style={{ width: `${progress}%` }}
-              role="progressbar"
-              aria-valuenow={progress}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            />
-          </div>
-        </div>
-      </section>
+    <main
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--void-purple)" }}
+    >
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+        <header className="mb-10 text-center">
+          <p
+            className="mb-2 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium"
+            style={{
+              backgroundColor: "var(--lavender-mist)",
+              color: "var(--void-purple)",
+            }}
+          >
+            <IconClipboard />
+            Quizzes
+          </p>
+          <h1 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">
+            <span style={{ color: "var(--ghost-white)" }}>Test Your </span>
+            <span style={{ color: "var(--crimson-spark)" }}>Knowledge</span>
+          </h1>
+          <p
+            className="mx-auto max-w-2xl text-base sm:text-lg"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            Test your knowledge with a quiz for each learning module. Complete
+            quizzes to track your progress.
+          </p>
+        </header>
 
-      <div className="mx-auto max-w-5xl px-4 py-6 sm:py-8">
-        <h1 className="mb-6 text-2xl font-bold text-slate-900 sm:text-3xl">
-          Quizzes
-        </h1>
-        <p className="mb-8 text-slate-600">
-          Test your knowledge with a quiz for each learning module. Complete quizzes to track your progress.
-        </p>
+        <section
+          className="mb-8 rounded-xl p-4 sm:p-5"
+          style={{ backgroundColor: "var(--midnight-indigo)" }}
+          aria-label={`${getLicenseLabel(activeLicense)} quiz progress`}
+        >
+          <div className="mx-auto max-w-2xl">
+            <div className="flex items-center justify-between gap-2">
+              <span
+                className="text-sm font-medium"
+                style={{ color: "var(--lavender-mist)" }}
+              >
+                {getLicenseLabel(activeLicense)} quiz progress
+              </span>
+              <span
+                className="text-sm font-semibold"
+                style={{ color: "var(--ghost-white)" }}
+              >
+                {progress}%
+              </span>
+            </div>
+            <div
+              className="mt-2 h-2 w-full overflow-hidden rounded-full"
+              style={{ backgroundColor: "var(--void-purple)" }}
+            >
+              <div
+                className="h-full rounded-full transition-all duration-300"
+                style={{
+                  width: `${progress}%`,
+                  backgroundColor: "var(--ghost-white)",
+                }}
+                role="progressbar"
+                aria-valuenow={progress}
+                aria-valuemin={0}
+                aria-valuemax={100}
+              />
+            </div>
+          </div>
+        </section>
 
         <nav
-          className="mb-8 border-b border-slate-200"
+          className="mb-8 flex flex-wrap justify-center gap-2"
           aria-label="License level"
         >
-          <ul className="flex gap-0">
-            {tabs.map((level) => (
-              <li key={level}>
-                <button
-                  type="button"
-                  onClick={() => setActiveLicense(level)}
-                  className={`relative border-b-2 px-4 py-3 text-sm font-medium transition-colors sm:px-6 sm:py-4 sm:text-base ${
-                    activeLicense === level
-                      ? "border-ontario-blue text-ontario-blue"
-                      : "border-transparent text-slate-600 hover:border-slate-300 hover:text-slate-900"
-                  }`}
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <IconClock />
-                    {getLicenseLabel(level)}
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
+          {tabs.map((level) => (
+            <button
+              key={level}
+              type="button"
+              onClick={() => setActiveLicense(level)}
+              className="inline-flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-all sm:px-6 sm:py-3 sm:text-base"
+              style={{
+                backgroundColor:
+                  activeLicense === level
+                    ? "var(--crimson-spark)"
+                    : "var(--midnight-indigo)",
+                color: "var(--ghost-white)",
+                border:
+                  activeLicense === level
+                    ? "2px solid var(--crimson-spark)"
+                    : "2px solid var(--lavender-mist)",
+              }}
+            >
+              <IconClock />
+              {getLicenseLabel(level)}
+            </button>
+          ))}
         </nav>
 
         <section aria-label={`Quizzes for ${getLicenseLabel(activeLicense)}`}>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredQuizzes.map((q) => (
-              <QuizCard key={q.id} quiz={q} />
+              <QuizCard key={q.id} quiz={q} passedIds={passedIds} />
             ))}
           </div>
           {filteredQuizzes.length === 0 && (
-            <p className="rounded-lg border border-slate-200 bg-white p-8 text-center text-slate-600">
+            <p
+              className="rounded-xl border-2 p-8 text-center"
+              style={{
+                backgroundColor: "var(--midnight-indigo)",
+                borderColor: "var(--lavender-mist)",
+                color: "var(--lavender-mist)",
+              }}
+            >
               No quizzes for this license level yet.
             </p>
           )}
