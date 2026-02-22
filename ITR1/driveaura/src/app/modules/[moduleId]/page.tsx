@@ -1073,6 +1073,150 @@ function ModuleReaderContent() {
                       </p>
                     </div>
                   </div>
+                ) : moduleId === "g1-demerit-points" &&
+                  currentLesson.id === "2" ? (
+                  <div className="space-y-6">
+                    {/* 1. The Conviction Trigger */}
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        1. The Conviction Trigger
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          Key Point:
+                        </strong>{" "}
+                        Demerit points are not added when you receive a ticket.
+                        They are only added to your record after you are
+                        convicted.
+                      </p>
+                      <p
+                        className="mb-2 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          Definition of Conviction:
+                        </strong>{" "}
+                        A conviction occurs when:
+                      </p>
+                      <ul
+                        className="list-inside list-disc space-y-1 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>You pay the fine (pleading guilty).</li>
+                        <li>You are found guilty in court.</li>
+                        <li>
+                          You fail to respond to the ticket (conviction in
+                          absence).
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* 2. The Back-Dated Rule */}
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        2. The "Back-Dated" Rule (Crucial for G1 Test)
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        While points only appear on your record after conviction,
+                        they are <strong style={{ color: "var(--ghost-white)" }}>back-dated to the date of the offence</strong>.
+                      </p>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          Why it matters:
+                        </strong>{" "}
+                        Since points expire 2 years from the offence date,
+                        fighting a ticket in court (which delays conviction)
+                        actually reduces the amount of time the points
+                        effectively stay on your active record.
+                      </p>
+                    </div>
+
+                    {/* 3. Out-of-Province Reciprocity */}
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        3. Out-of-Province Reciprocity
+                      </h2>
+                      <p
+                        className="mb-2 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Points will be added to your Ontario record for
+                        equivalent offences committed in:
+                      </p>
+                      <ul
+                        className="list-inside list-disc space-y-1 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>All other Canadian provinces and territories.</li>
+                        <li>Michigan (USA).</li>
+                        <li>New York (USA).</li>
+                      </ul>
+                    </div>
+
+                    {/* Pro-Tip Box */}
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <p
+                        className="text-sm font-medium leading-relaxed"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        <span
+                          className="mr-2 font-semibold"
+                          style={{ color: "var(--electric-cyan)" }}
+                        >
+                          Pro-Tip:
+                        </span>
+                        If you are convicted of multiple offences arising from
+                        the same incident, only the points for the most serious
+                        offence (the one with the highest points) are added to
+                        your record.
+                      </p>
+                    </div>
+
+                    {/* Point Expiry Note */}
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          Point Expiry Note:
+                        </strong>{" "}
+                        While points disappear after 2 years, the conviction
+                        (the "line" on your abstract) stays for at least 3 years
+                        and can still be seen by insurance companies.
+                      </p>
+                    </div>
+                  </div>
                 ) : (
                   <p
                     className="leading-relaxed"

@@ -57,7 +57,7 @@ export const MODULES: ModuleItem[] = [
       "The consequences of traffic violations in Ontario and how demerit points affect your licence.",
     lessons: [
       { id: "1", title: "How demerit points work", content: "" },
-      { id: "2", title: "Consequences and suspension", content: "" },
+      { id: "2", title: "How Demerit Points Are Applied", content: "" },
     ],
   },
   {
