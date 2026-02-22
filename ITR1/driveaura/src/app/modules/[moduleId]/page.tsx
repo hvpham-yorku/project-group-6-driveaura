@@ -143,6 +143,63 @@ const WARNING_SIGN_TABLE_DATA: Array<{
   { category: "Warning", signName: "School Crossing", instruction: "Watch for children and follow directions of crossing guards." },
 ];
 
+/** Temporary condition signs reference table — G1 Module 1. */
+const TEMPORARY_SIGN_TABLE_DATA: Array<{
+  category: string;
+  signName: string;
+  instruction: string;
+}> = [
+  { category: "Temporary", signName: "General Temporary Signs", instruction: "Usually diamond-shaped with an orange background and black symbols. Warn of unusual conditions like road work or detours." },
+  { category: "Temporary", signName: "Construction Ahead", instruction: "Indicates that construction work is one kilometre ahead." },
+  { category: "Temporary", signName: "Road Work Ahead", instruction: "Workers are currently on or near the road ahead." },
+  { category: "Temporary", signName: "Survey Crew", instruction: "A survey crew is working on the road ahead." },
+  { category: "Temporary", signName: "Traffic Control Person", instruction: "A person is ahead directing traffic. Drive slowly and watch for instructions." },
+  { category: "Temporary", signName: "Construction Zone Entry", instruction: "You are entering a zone; drive with extra caution and expect a lower speed limit." },
+  { category: "Temporary", signName: "Temporary Detour", instruction: "Normal route is diverted. Follow flashing lights on arrows for direction." },
+  { category: "Temporary", signName: "Grooved Pavement", instruction: "Surface has been milled; stopping ability is affected. Motorcyclists may have reduced traction." },
+  { category: "Temporary", signName: "Lane Closed", instruction: "Lane ahead is closed for roadwork. Obey the speed limit and merge into the open lane." },
+  { category: "Temporary", signName: "Closed Lane (Arrow)", instruction: "Follow the direction of the arrow and adjust speed to merge safely." },
+  { category: "Temporary", signName: "Pilot / Pace Vehicle", instruction: "Do not pass the vehicle bearing this sign. Reduce speed and be prepared to stop." },
+  { category: "Temporary", signName: "Detour Marker", instruction: "Follow this marker until you return to your regular route." },
+  { category: "Temporary", signName: "Bridge Staging", instruction: "Used to control traffic over a one-lane bridge (often using traffic lights or signs)." },
+  { category: "Temporary", signName: "Increased Fines Sign", instruction: "Enforces doubling of HTA fines for speeding in a construction zone when workers are present." },
+];
+
+/** Information and direction signs reference table — G1 Module 1. */
+const INFORMATION_SIGN_TABLE_DATA: Array<{
+  category: string;
+  signName: string;
+  instruction: string;
+}> = [
+  { category: "Information", signName: "Town/City Directions", instruction: "Green signs providing directions to nearby towns and cities." },
+  { category: "Information", signName: "Distances", instruction: "Shows the distance in kilometres to towns and cities on the road." },
+  { category: "Information", signName: "Exit Guidance", instruction: "Helps drivers choose the correct lane to exit or stay on a freeway using arrows and destination names." },
+  { category: "Information", signName: "Interchange Numbers", instruction: "Numbers corresponding to the distance in km from the start of the freeway." },
+  { category: "Information", signName: "VIA (Road Route)", instruction: "Describes specific roads that must be followed to reach a particular destination." },
+  { category: "Information", signName: "Roundabout Exits", instruction: "Shows upcoming roundabout exits and their respective destinations." },
+  { category: "Information", signName: "Dynamic Info Signs", instruction: "Electronic signs providing real-time information on traffic delays and lane closures." },
+  { category: "Information", signName: "Off-Road Facilities", instruction: "Blue signs indicating services like hospitals, airports, universities, or carpool lots." },
+  { category: "Information", signName: "Railway Station", instruction: "Indicates the route to a passenger railway station." },
+  { category: "Information", signName: "Accessible Facilities", instruction: "Indicates buildings or rest areas that are wheelchair accessible." },
+  { category: "Information", signName: "D sign – Oversize load", instruction: "Indicates a vehicle is carrying an oversize load." },
+  { category: "Information", signName: "Slow-Moving Vehicle", instruction: "Orange triangle with red border; alerts that the vehicle ahead travels at 40 km/h or less." },
+  { category: "Information", signName: "EDR (Emergency Detour)", instruction: "Markers providing direction around an unscheduled highway closure back to the highway." },
+  { category: "Information", signName: "LCV (Long Commercial)", instruction: "Identifies double trailers up to 40m long; anticipate extended length and limited speed." },
+];
+
+/** Other signs reference table — G1 Module 1. */
+const OTHER_SIGN_TABLE_DATA: Array<{
+  category: string;
+  signName: string;
+  instruction: string;
+}> = [
+  { category: "Other", signName: "Slow-Moving Vehicle", instruction: "An orange triangle with a red border. Alerts that the vehicle (e.g., farm tractor) travels at 40 km/h or less. Drivers must reduce speed and use caution." },
+  { category: "Other", signName: "EDR (Emergency Detour)", instruction: "Used during unscheduled provincial highway closures. Follow these markers along alternative routes to be directed around the closure and back onto the highway." },
+  { category: "Other", signName: "LCV (Long Commercial Vehicle)", instruction: "A placard identifying a double trailer up to 40m in length. Drivers should anticipate extended length and limited speed when preparing to pass." },
+  { category: "Other", signName: "Emergency Response Signs", instruction: "Information signs that include a numbering system along the bottom to assist emergency vehicles and drivers in determining an appropriate route." },
+  { category: "Other", signName: "Bilingual Signs", instruction: "Signs in designated bilingual areas featuring messages in both English and French. Read the message in the language you understand best." },
+];
+
 function ModuleReaderContent() {
   const params = useParams();
   const searchParams = useSearchParams();
@@ -452,6 +509,399 @@ function ModuleReaderContent() {
                                 prevCategory !== row.category);
                             const isLastRow =
                               index === WARNING_SIGN_TABLE_DATA.length - 1;
+
+                            return (
+                              <React.Fragment key={`row-${index}`}>
+                                {showCategoryDivider && (
+                                  <tr
+                                    style={{
+                                      backgroundColor: "var(--midnight-indigo)",
+                                    }}
+                                  >
+                                    <td
+                                      colSpan={3}
+                                      className="px-4 py-2 text-xs font-semibold uppercase tracking-wide"
+                                      style={{
+                                        color: "var(--ghost-white)",
+                                        borderTop:
+                                          index === 0
+                                            ? undefined
+                                            : "2px solid var(--electric-cyan)",
+                                        borderBottom: "1px solid var(--midnight-indigo)",
+                                      }}
+                                    >
+                                      {row.category} Signs
+                                    </td>
+                                  </tr>
+                                )}
+                                <tr
+                                  className="transition-shadow duration-200"
+                                  style={{
+                                    backgroundColor: "var(--void-purple)",
+                                    color: "var(--lavender-mist)",
+                                    borderBottom: isLastRow
+                                      ? undefined
+                                      : "1px solid var(--midnight-indigo)",
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.boxShadow =
+                                      "0 0 20px rgba(0, 245, 255, 0.25)";
+                                    e.currentTarget.style.color =
+                                      "var(--ghost-white)";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.boxShadow = "none";
+                                    e.currentTarget.style.color =
+                                      "var(--lavender-mist)";
+                                  }}
+                                >
+                                  <td
+                                    className="px-4 py-3"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    <SignIconPlaceholder />
+                                  </td>
+                                  <td
+                                    className="px-4 py-3 text-sm font-medium"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    {row.signName}
+                                  </td>
+                                  <td
+                                    className="px-4 py-3 text-sm leading-relaxed"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    {row.instruction}
+                                  </td>
+                                </tr>
+                              </React.Fragment>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                ) : moduleId === "g1-signs-signals-markings" &&
+                  currentLesson.id === "3" ? (
+                  <>
+                    <p
+                      className="mb-6 leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Temporary condition signs use an orange background to alert
+                      you to road work, detours, and other short-term hazards.
+                      Slow down, follow instructions, and watch for workers and
+                      equipment.
+                    </p>
+                    <div
+                      className="overflow-x-auto rounded-lg border"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <table className="w-full min-w-[640px] border-collapse text-left">
+                        <thead>
+                          <tr
+                            style={{
+                              backgroundColor: "var(--midnight-indigo)",
+                              color: "var(--ghost-white)",
+                            }}
+                          >
+                            <th
+                              className="w-16 px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Signs
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Sign Name
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Instruction / Legal Rule
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {TEMPORARY_SIGN_TABLE_DATA.map((row, index) => {
+                            const prevCategory =
+                              index > 0
+                                ? TEMPORARY_SIGN_TABLE_DATA[index - 1].category
+                                : null;
+                            const showCategoryDivider =
+                              index === 0 ||
+                              (prevCategory !== null &&
+                                prevCategory !== row.category);
+                            const isLastRow =
+                              index === TEMPORARY_SIGN_TABLE_DATA.length - 1;
+
+                            return (
+                              <React.Fragment key={`row-${index}`}>
+                                {showCategoryDivider && (
+                                  <tr
+                                    style={{
+                                      backgroundColor: "var(--midnight-indigo)",
+                                    }}
+                                  >
+                                    <td
+                                      colSpan={3}
+                                      className="px-4 py-2 text-xs font-semibold uppercase tracking-wide"
+                                      style={{
+                                        color: "var(--ghost-white)",
+                                        borderTop:
+                                          index === 0
+                                            ? undefined
+                                            : "2px solid var(--electric-cyan)",
+                                        borderBottom: "1px solid var(--midnight-indigo)",
+                                      }}
+                                    >
+                                      {row.category} Signs
+                                    </td>
+                                  </tr>
+                                )}
+                                <tr
+                                  className="transition-shadow duration-200"
+                                  style={{
+                                    backgroundColor: "var(--void-purple)",
+                                    color: "var(--lavender-mist)",
+                                    borderBottom: isLastRow
+                                      ? undefined
+                                      : "1px solid var(--midnight-indigo)",
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.boxShadow =
+                                      "0 0 20px rgba(0, 245, 255, 0.25)";
+                                    e.currentTarget.style.color =
+                                      "var(--ghost-white)";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.boxShadow = "none";
+                                    e.currentTarget.style.color =
+                                      "var(--lavender-mist)";
+                                  }}
+                                >
+                                  <td
+                                    className="px-4 py-3"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    <SignIconPlaceholder />
+                                  </td>
+                                  <td
+                                    className="px-4 py-3 text-sm font-medium"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    {row.signName}
+                                  </td>
+                                  <td
+                                    className="px-4 py-3 text-sm leading-relaxed"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    {row.instruction}
+                                  </td>
+                                </tr>
+                              </React.Fragment>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                ) : moduleId === "g1-signs-signals-markings" &&
+                  currentLesson.id === "4" ? (
+                  <>
+                    <p
+                      className="mb-6 leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Information and direction signs help you navigate, find
+                      services, and understand road conditions. They include
+                      green direction signs, blue facility signs, and special
+                      markers such as the D sign for oversize loads.
+                    </p>
+                    <div
+                      className="overflow-x-auto rounded-lg border"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <table className="w-full min-w-[640px] border-collapse text-left">
+                        <thead>
+                          <tr
+                            style={{
+                              backgroundColor: "var(--midnight-indigo)",
+                              color: "var(--ghost-white)",
+                            }}
+                          >
+                            <th
+                              className="w-16 px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Signs
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Sign Name
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Instruction / Legal Rule
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {INFORMATION_SIGN_TABLE_DATA.map((row, index) => {
+                            const prevCategory =
+                              index > 0
+                                ? INFORMATION_SIGN_TABLE_DATA[index - 1].category
+                                : null;
+                            const showCategoryDivider =
+                              index === 0 ||
+                              (prevCategory !== null &&
+                                prevCategory !== row.category);
+                            const isLastRow =
+                              index === INFORMATION_SIGN_TABLE_DATA.length - 1;
+
+                            return (
+                              <React.Fragment key={`row-${index}`}>
+                                {showCategoryDivider && (
+                                  <tr
+                                    style={{
+                                      backgroundColor: "var(--midnight-indigo)",
+                                    }}
+                                  >
+                                    <td
+                                      colSpan={3}
+                                      className="px-4 py-2 text-xs font-semibold uppercase tracking-wide"
+                                      style={{
+                                        color: "var(--ghost-white)",
+                                        borderTop:
+                                          index === 0
+                                            ? undefined
+                                            : "2px solid var(--electric-cyan)",
+                                        borderBottom: "1px solid var(--midnight-indigo)",
+                                      }}
+                                    >
+                                      {row.category} Signs
+                                    </td>
+                                  </tr>
+                                )}
+                                <tr
+                                  className="transition-shadow duration-200"
+                                  style={{
+                                    backgroundColor: "var(--void-purple)",
+                                    color: "var(--lavender-mist)",
+                                    borderBottom: isLastRow
+                                      ? undefined
+                                      : "1px solid var(--midnight-indigo)",
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.boxShadow =
+                                      "0 0 20px rgba(0, 245, 255, 0.25)";
+                                    e.currentTarget.style.color =
+                                      "var(--ghost-white)";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.boxShadow = "none";
+                                    e.currentTarget.style.color =
+                                      "var(--lavender-mist)";
+                                  }}
+                                >
+                                  <td
+                                    className="px-4 py-3"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    <SignIconPlaceholder />
+                                  </td>
+                                  <td
+                                    className="px-4 py-3 text-sm font-medium"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    {row.signName}
+                                  </td>
+                                  <td
+                                    className="px-4 py-3 text-sm leading-relaxed"
+                                    style={{ color: "inherit" }}
+                                  >
+                                    {row.instruction}
+                                  </td>
+                                </tr>
+                              </React.Fragment>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                ) : moduleId === "g1-signs-signals-markings" &&
+                  currentLesson.id === "5" ? (
+                  <>
+                    <p
+                      className="mb-6 leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Other signs cover slow-moving vehicles, emergency detours,
+                      long commercial vehicles, emergency response numbering,
+                      and bilingual messaging. Recognize them to drive safely
+                      and follow alternate routes when needed.
+                    </p>
+                    <div
+                      className="overflow-x-auto rounded-lg border"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <table className="w-full min-w-[640px] border-collapse text-left">
+                        <thead>
+                          <tr
+                            style={{
+                              backgroundColor: "var(--midnight-indigo)",
+                              color: "var(--ghost-white)",
+                            }}
+                          >
+                            <th
+                              className="w-16 px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Signs
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Sign Name
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Instruction / Legal Rule
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {OTHER_SIGN_TABLE_DATA.map((row, index) => {
+                            const prevCategory =
+                              index > 0
+                                ? OTHER_SIGN_TABLE_DATA[index - 1].category
+                                : null;
+                            const showCategoryDivider =
+                              index === 0 ||
+                              (prevCategory !== null &&
+                                prevCategory !== row.category);
+                            const isLastRow =
+                              index === OTHER_SIGN_TABLE_DATA.length - 1;
 
                             return (
                               <React.Fragment key={`row-${index}`}>

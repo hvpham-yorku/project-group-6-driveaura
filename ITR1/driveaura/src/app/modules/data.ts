@@ -31,6 +31,9 @@ export const MODULES: ModuleItem[] = [
     lessons: [
       { id: "1", title: "Regulatory signs", content: "" },
       { id: "2", title: "Warning signs and high occupancy vehicle (HOV) signs", content: "" },
+      { id: "3", title: "Temporary Condition Signs", content: "" },
+      { id: "4", title: "Information and Direction Signs", content: "" },
+      { id: "5", title: "Other Signs", content: "" },
     ],
   },
   {
