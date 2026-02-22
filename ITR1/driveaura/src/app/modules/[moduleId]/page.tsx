@@ -1217,6 +1217,215 @@ function ModuleReaderContent() {
                       </p>
                     </div>
                   </div>
+                ) : moduleId === "g1-demerit-points" &&
+                  currentLesson.id === "3" ? (
+                  <div className="space-y-6">
+                    {/* 7 Points Section */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-3 text-xl font-bold"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        7 Points: The Most Serious Offences
+                      </h2>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Failing to remain at the scene of a collision (Hit and
+                          Run).
+                        </li>
+                        <li>
+                          Failing to stop when signaled or asked by a police
+                          officer.
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* 6 Points Section */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-3 text-xl font-bold"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        6 Points: High-Risk Driving
+                      </h2>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Careless driving.</li>
+                        <li>Racing or Stunt Driving.</li>
+                        <li>
+                          Exceeding the speed limit by 50 km/h or more.
+                        </li>
+                        <li>
+                          Failing to stop for a school bus with red lights
+                          flashing.
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* 5 Points Section */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-3 text-xl font-bold"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        5 Points: Specialized Vehicles
+                      </h2>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Failing to stop at an unprotected railway crossing
+                          (applies to bus drivers only).
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* 4 Points Section */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-3 text-xl font-bold"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        4 Points: Severe Safety Breaches
+                      </h2>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Exceeding the speed limit by 30 to 49 km/h.
+                        </li>
+                        <li>Following too closely (Tailgating).</li>
+                        <li>
+                          Failing to stop at a pedestrian crossover.
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* 3 Points Section */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-3 text-xl font-bold"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        3 Points: Common Moving Violations
+                      </h2>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Exceeding the speed limit by 16 to 29 km/h.
+                        </li>
+                        <li>
+                          Distracted Driving (using a handheld device while
+                          driving).
+                        </li>
+                        <li>Failing to yield the right-of-way.</li>
+                        <li>
+                          Failing to obey a stop sign, traffic light, or
+                          railway crossing signal.
+                        </li>
+                        <li>
+                          Driving the wrong way on a divided road or one-way
+                          street.
+                        </li>
+                        <li>
+                          Failing to report a collision to a police officer.
+                        </li>
+                        <li>
+                          Improper passing or crowding the driver's seat.
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* 2 Points Section */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-3 text-xl font-bold"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        2 Points: Minor Infractions
+                      </h2>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Improper right or left turns.</li>
+                        <li>Failing to signal.</li>
+                        <li>Failing to share the road or obey signs.</li>
+                        <li>Driver failing to wear a seatbelt.</li>
+                        <li>
+                          Failing to lower high-beam headlamps.
+                        </li>
+                        <li>
+                          Unnecessary slow driving or backing on a highway.
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* Special Note */}
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          Special Note:
+                        </strong>{" "}
+                        Speeding 1–15 km/h over carries 0 demerit points but
+                        results in a fine and remains on your record.
+                      </p>
+                    </div>
+                  </div>
                 ) : (
                   <p
                     className="leading-relaxed"
