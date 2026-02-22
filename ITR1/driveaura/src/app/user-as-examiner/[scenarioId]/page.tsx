@@ -85,31 +85,33 @@ export default function UserAsExaminerScenarioPage() {
 
   if (!scenario) {
     return (
-      <main className="mx-auto max-w-5xl px-4 py-12">
-        <p className="text-slate-600">Scenario not found.</p>
-        <Link
-          href="/user-as-examiner"
-          className="mt-4 inline-flex items-center gap-2 text-ontario-blue hover:underline"
-        >
-          <IconChevronLeft />
-          Back to User as Examiner
-        </Link>
+      <main className="min-h-screen bg-void-purple px-4 py-12">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-lavender-mist">Scenario not found.</p>
+          <Link
+            href="/user-as-examiner"
+            className="mt-4 inline-flex items-center gap-2 text-electric-cyan hover:underline"
+          >
+            <IconChevronLeft />
+            Back to User as Examiner
+          </Link>
+        </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-slate-50">
-      <div className="border-b border-slate-200 bg-white px-4 py-3">
+    <main className="min-h-screen bg-void-purple">
+      <div className="border-b border-midnight-indigo bg-midnight-indigo/50 px-4 py-3">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link
             href="/user-as-examiner"
-            className="inline-flex items-center gap-2 text-sm font-medium text-ontario-blue hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-medium text-electric-cyan hover:underline"
           >
             <IconChevronLeft />
             Back to User as Examiner
           </Link>
-          <span className="text-sm text-slate-500">
+          <span className="text-sm text-lavender-mist">
             {ENVIRONMENT_LABELS[scenario.environment]} — {scenario.title}
           </span>
         </div>
@@ -118,15 +120,15 @@ export default function UserAsExaminerScenarioPage() {
       <div className="mx-auto max-w-3xl px-4 py-6 sm:py-8">
         {step === "watch" && (
           <>
-            <h1 className="mb-4 text-xl font-bold text-slate-900 sm:text-2xl">
+            <h1 className="mb-4 text-xl font-bold text-ghost-white sm:text-2xl">
               Watch the clip (10 seconds)
             </h1>
-            <p className="mb-4 text-sm text-slate-600">
+            <p className="mb-4 text-sm text-lavender-mist">
               As the examiner, observe the driver&apos;s actions. A video would
               play here; below is the visual script for this scenario.
             </p>
-            <div className="mb-6 rounded-lg border border-slate-200 bg-slate-100/80 p-4 text-sm text-slate-700">
-              <p className="whitespace-pre-wrap font-medium text-slate-800">
+            <div className="mb-6 rounded-lg border border-electric-cyan/30 bg-midnight-indigo p-4 text-sm text-lavender-mist">
+              <p className="font-medium text-ghost-white">
                 Video visual script:
               </p>
               <p className="mt-2 whitespace-pre-wrap">{scenario.videoVisualScript}</p>
@@ -134,7 +136,7 @@ export default function UserAsExaminerScenarioPage() {
             <button
               type="button"
               onClick={() => setStep("answer")}
-              className="inline-flex items-center justify-center rounded bg-ontario-blue px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ontario-blue-light focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2"
+              className="inline-flex items-center justify-center rounded bg-crimson-spark px-4 py-2 text-sm font-medium text-ghost-white transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple"
             >
               I&apos;ve watched the clip — Continue to question
             </button>
@@ -143,7 +145,7 @@ export default function UserAsExaminerScenarioPage() {
 
         {step === "answer" && !submitted && (
           <>
-            <h1 className="mb-6 text-xl font-bold text-slate-900 sm:text-2xl">
+            <h1 className="mb-6 text-xl font-bold text-ghost-white sm:text-2xl">
               {scenario.question}
             </h1>
             <div
@@ -156,8 +158,8 @@ export default function UserAsExaminerScenarioPage() {
                   key={idx}
                   className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-sm transition-colors ${
                     selectedIndex === idx
-                      ? "border-ontario-blue bg-ontario-blue/5"
-                      : "border-slate-200 bg-white hover:border-slate-300"
+                      ? "border-electric-cyan bg-electric-cyan/10"
+                      : "border-midnight-indigo bg-midnight-indigo hover:border-electric-cyan/50"
                   }`}
                 >
                   <input
@@ -166,12 +168,12 @@ export default function UserAsExaminerScenarioPage() {
                     value={idx}
                     checked={selectedIndex === idx}
                     onChange={() => setSelectedIndex(idx)}
-                    className="h-4 w-4 border-slate-300 text-ontario-blue focus:ring-ontario-blue"
+                    className="h-4 w-4 border-lavender-mist/50 text-crimson-spark focus:ring-electric-cyan"
                   />
-                  <span className="font-medium text-slate-700">
+                  <span className="font-medium text-ghost-white">
                     {OPTION_LETTERS[idx]}.
                   </span>
-                  <span className="text-slate-800">{option}</span>
+                  <span className="text-lavender-mist">{option}</span>
                 </label>
               ))}
             </div>
@@ -183,10 +185,10 @@ export default function UserAsExaminerScenarioPage() {
                   setStep("feedback");
                 }}
                 disabled={selectedIndex === null}
-                className={`inline-flex items-center justify-center rounded px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2 ${
+                className={`inline-flex items-center justify-center rounded px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple ${
                   selectedIndex === null
-                    ? "pointer-events-none bg-slate-200 text-slate-500"
-                    : "bg-ontario-blue text-white hover:bg-ontario-blue-light"
+                    ? "pointer-events-none bg-midnight-indigo/80 text-lavender-mist/50"
+                    : "bg-crimson-spark text-ghost-white hover:opacity-90"
                 }`}
               >
                 Submit answer
@@ -200,39 +202,39 @@ export default function UserAsExaminerScenarioPage() {
             <div
               className={`mb-6 rounded-lg border-2 p-6 ${
                 correct
-                  ? "border-green-600 bg-green-50"
-                  : "border-amber-600 bg-amber-50"
+                  ? "border-neon-mint bg-neon-mint/10"
+                  : "border-crimson-spark bg-crimson-spark/10"
               }`}
             >
-              <p className="flex items-center gap-2 text-lg font-bold text-slate-900">
+              <p className="flex items-center gap-2 text-lg font-bold text-ghost-white">
                 {correct ? (
                   <>
-                    <IconCheck className="shrink-0 text-green-600" />
+                    <IconCheck className="shrink-0 text-neon-mint" />
                     Correct
                   </>
                 ) : (
                   <>
-                    <IconX className="shrink-0 text-amber-600" />
+                    <IconX className="shrink-0 text-crimson-spark" />
                     Incorrect
                   </>
                 )}
               </p>
-              <p className="mt-2 text-sm text-slate-700">
-                The major mistake was: <strong>{scenario.majorMistake}</strong>
+              <p className="mt-2 text-sm text-lavender-mist">
+                The major mistake was: <strong className="text-ghost-white">{scenario.majorMistake}</strong>
               </p>
             </div>
-            <div className="rounded-lg border border-slate-200 bg-white p-6">
-              <h2 className="mb-3 text-base font-semibold text-slate-900">
+            <div className="rounded-lg border border-electric-cyan/30 bg-midnight-indigo p-6">
+              <h2 className="mb-3 text-base font-semibold text-ghost-white">
                 Examiner&apos;s feedback
               </h2>
-              <p className="text-sm text-slate-700">
+              <p className="text-sm text-lavender-mist">
                 {scenario.examinerFeedback}
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/user-as-examiner"
-                className="inline-flex items-center justify-center rounded bg-ontario-blue px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ontario-blue-light focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2"
+                className="inline-flex items-center justify-center rounded bg-crimson-spark px-4 py-2 text-sm font-medium text-ghost-white transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple"
               >
                 Back to scenarios
               </Link>
@@ -243,7 +245,7 @@ export default function UserAsExaminerScenarioPage() {
                   setSelectedIndex(null);
                   setSubmitted(false);
                 }}
-                className="inline-flex items-center justify-center rounded border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2"
+                className="inline-flex items-center justify-center rounded border border-electric-cyan/50 bg-midnight-indigo px-4 py-2 text-sm font-medium text-lavender-mist transition-colors hover:border-electric-cyan focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple"
               >
                 Try again
               </button>

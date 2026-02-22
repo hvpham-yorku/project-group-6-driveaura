@@ -9,6 +9,16 @@
   --ontario-slate: #4a5568;
   --ontario-slate-light: #718096;
   --ontario-gray: #e2e8f0;
+
+  /* Examiner dark theme palette */
+  --void-purple: #0F051D;
+  --midnight-indigo: #1C1132;
+  --crimson-spark: #FF3B3F;
+  --crimson-spark-hover: #ff5a5e;
+  --electric-cyan: #00F5FF;
+  --ghost-white: #F5F5F7;
+  --lavender-mist: #B8B0D3;
+  --neon-mint: #39FF14;
 }
 
 @theme inline {
@@ -19,6 +29,14 @@
   --color-ontario-slate: var(--ontario-slate);
   --color-ontario-slate-light: var(--ontario-slate-light);
   --color-ontario-gray: var(--ontario-gray);
+  /* Examiner theme colors */
+  --color-void-purple: var(--void-purple);
+  --color-midnight-indigo: var(--midnight-indigo);
+  --color-crimson-spark: var(--crimson-spark);
+  --color-electric-cyan: var(--electric-cyan);
+  --color-ghost-white: var(--ghost-white);
+  --color-lavender-mist: var(--lavender-mist);
+  --color-neon-mint: var(--neon-mint);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

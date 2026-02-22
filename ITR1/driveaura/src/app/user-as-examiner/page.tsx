@@ -49,27 +49,27 @@ function IconPlay() {
 
 function ScenarioCard({ scenario }: { scenario: ExaminerScenario }) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+    <article className="flex flex-col overflow-hidden rounded-lg border border-electric-cyan/30 bg-midnight-indigo shadow-lg shadow-black/20 transition-all hover:border-electric-cyan/60 hover:shadow-xl">
       <div
-        className="h-36 w-full shrink-0 bg-slate-200"
-        style={{ backgroundColor: "var(--ontario-gray)" }}
+        className="h-36 w-full shrink-0 bg-midnight-indigo/80"
+        style={{ backgroundColor: "var(--midnight-indigo)" }}
         aria-hidden
       />
       <div className="flex flex-1 flex-col p-4">
-        <span className="mb-2 inline-flex w-fit items-center gap-1.5 rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-ontario-slate">
+        <span className="mb-2 inline-flex w-fit items-center gap-1.5 rounded bg-midnight-indigo/80 px-2 py-0.5 text-xs font-medium text-electric-cyan border border-electric-cyan/20">
           <IconClipboard />
           {ENVIRONMENT_LABELS[scenario.environment]}
         </span>
-        <h2 className="mb-2 text-lg font-semibold text-slate-900">
+        <h2 className="mb-2 text-lg font-semibold text-ghost-white">
           {scenario.title}
         </h2>
-        <p className="mb-4 flex-1 text-sm text-slate-600 line-clamp-2">
+        <p className="mb-4 flex-1 text-sm text-lavender-mist line-clamp-2">
           Watch the 10-second clip as the examiner and spot the driver&apos;s
           mistake.
         </p>
         <Link
           href={`/user-as-examiner/${scenario.id}`}
-          className="inline-flex items-center justify-center gap-2 rounded bg-ontario-blue px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ontario-blue-light focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2"
+          className="inline-flex items-center justify-center gap-2 rounded bg-crimson-spark px-4 py-2 text-sm font-medium text-ghost-white transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple"
         >
           <IconPlay />
           Start scenario
@@ -81,12 +81,12 @@ function ScenarioCard({ scenario }: { scenario: ExaminerScenario }) {
 
 export default function UserAsExaminerListPage() {
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-void-purple">
       <div className="mx-auto max-w-5xl px-4 py-6 sm:py-8">
-        <h1 className="mb-6 text-2xl font-bold text-slate-900 sm:text-3xl">
+        <h1 className="mb-6 text-2xl font-bold text-ghost-white sm:text-3xl">
           User as Examiner
         </h1>
-        <p className="mb-8 text-slate-600">
+        <p className="mb-8 text-lavender-mist">
           Act as the examiner: watch each 10-second first-person driving clip and
           identify what the driver did wrong. Practice spotting common
           automatic-fail violations and earn examiner-style feedback.
