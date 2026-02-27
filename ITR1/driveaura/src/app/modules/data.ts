@@ -66,7 +66,22 @@ export const MODULES: ModuleItem[] = [
       "Rules for streetcars, school buses, and cyclists so everyone stays safe.",
     lessons: [
       { id: "1", title: "Streetcars and school buses", content: "" },
-      { id: "2", title: "Cyclists and other road users", content: "" },
+      {
+        id: "2",
+        title: "Cyclists and other road users",
+        content: `
+### G1.1: Who You Share the Road With
+
+On Ontario roads, you are **never alone**. You must drive in a way that protects more vulnerable road users.
+
+- **Pedestrians**: People walking, running, using mobility devices, or crossing at intersections and crosswalks.
+- **Cyclists**: Riders in bike lanes, on the right side of the road, or crossing intersections.
+- **Motorcyclists and moped riders**: Smaller, harder to see, and more exposed than car drivers.
+- **Large vehicles**: Buses and transport trucks that need more space to turn, change lanes, and stop.
+- **School buses**: Vehicles carrying children, with strict stopping and passing rules.
+- **Emergency vehicles**: Police, fire, and ambulances that may need you to move over or stop quickly.
+        `,
+      },
     ],
   },
   {
