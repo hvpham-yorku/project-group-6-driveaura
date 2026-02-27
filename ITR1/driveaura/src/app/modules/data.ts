@@ -100,6 +100,12 @@ On Ontario roads, you are **never alone**. You must drive in a way that protects
 - **Passing cyclists**: In Ontario, leave at least 1 metre of space when passing a cyclist, where possible. Change lanes to pass if you need more room.
 - **Right turns and bike lanes**: Check mirrors and do a right shoulder check before turning across a bike lane. Yield to any cyclist beside or just behind you.
 - **Crosswalks and turning**: When turning at an intersection, yield to pedestrians already in the crosswalk you are entering.
+
+### G1.4: Large Vehicles and Blind Spots
+
+- **No-zones**: Avoid driving beside or close behind large trucks and buses; if you can’t see their mirrors, they likely can’t see you.
+- **Wide turns**: Never squeeze between a large vehicle and the curb when it is turning right; it may swing wide then move back.
+- **Stopping distance**: Do not cut in front of large vehicles; they need more space to stop than a car.
         `,
       },
     ],
