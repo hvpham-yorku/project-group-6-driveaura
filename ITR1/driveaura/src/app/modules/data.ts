@@ -94,6 +94,12 @@ On Ontario roads, you are **never alone**. You must drive in a way that protects
 - **Large vehicles**: Buses and transport trucks that need more space to turn, change lanes, and stop.
 - **School buses**: Vehicles carrying children, with strict stopping and passing rules.
 - **Emergency vehicles**: Police, fire, and ambulances that may need you to move over or stop quickly.
+
+### G1.3: Safe Space for Cyclists and Pedestrians
+
+- **Passing cyclists**: In Ontario, leave at least 1 metre of space when passing a cyclist, where possible. Change lanes to pass if you need more room.
+- **Right turns and bike lanes**: Check mirrors and do a right shoulder check before turning across a bike lane. Yield to any cyclist beside or just behind you.
+- **Crosswalks and turning**: When turning at an intersection, yield to pedestrians already in the crosswalk you are entering.
         `,
       },
     ],
