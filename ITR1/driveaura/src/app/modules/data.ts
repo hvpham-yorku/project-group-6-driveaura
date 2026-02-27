@@ -65,7 +65,21 @@ export const MODULES: ModuleItem[] = [
     description:
       "Rules for streetcars, school buses, and cyclists so everyone stays safe.",
     lessons: [
-      { id: "1", title: "Streetcars and school buses", content: "" },
+      {
+        id: "1",
+        title: "Streetcars and school buses",
+        content: `
+### G1.2: School Buses and Streetcars – Key Rules
+
+- **School buses (no median)**: Stop in both directions when red lights flash and the stop arm is out. Stay at least 20 metres back until the lights stop.
+- **School buses (divided road with median)**: Only vehicles behind the bus must stop; oncoming traffic can continue with caution.
+- **Streetcars without a safety island**: Stop at least 2 metres behind the rear door and wait until passengers are safely off the road.
+
+**Quick knowledge check**
+
+Q2: On a two-lane road with no median, what must you do when a school bus has its red lights flashing and stop arm extended?
+        `,
+      },
       {
         id: "2",
         title: "Cyclists and other road users",
