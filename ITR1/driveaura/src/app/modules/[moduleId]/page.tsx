@@ -345,6 +345,56 @@ function ModuleReaderContent() {
                       </table>
                     </div>
                   </>
+                ) : moduleId === "g1-sharing-the-road" &&
+                  currentLesson.id === "1" ? (
+                  <>
+                    <div className="space-y-4">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Sharing the road means watching out for pedestrians,
+                        cyclists, buses, and other drivers so everyone gets
+                        home safely. As a G1 driver, you are learning to plan
+                        ahead and leave extra space instead of reacting late.
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="text-sm font-semibold">
+                        Quick knowledge check
+                      </h2>
+                      <p className="mt-2 text-sm">
+                        Q1: Why is it important for a G1 driver to learn how to
+                        share the road with other road users?
+                      </p>
+                      <ol className="mt-3 space-y-2 text-sm">
+                        <li>
+                          <span className="font-semibold">A.</span> It reduces
+                          the chance of crashes and keeps vulnerable road users
+                          safe.
+                        </li>
+                        <li>
+                          <span className="font-semibold">B.</span> It only
+                          matters on highways, not in the city.
+                        </li>
+                        <li>
+                          <span className="font-semibold">C.</span> It is mainly
+                          for experienced G drivers, not beginners.
+                        </li>
+                        <li>
+                          <span className="font-semibold">D.</span> It just
+                          helps you drive faster through intersections.
+                        </li>
+                      </ol>
+                    </div>
+                  </>
                 ) : (
                   <p
                     className="leading-relaxed"
