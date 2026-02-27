@@ -91,39 +91,7 @@ Q1: Why is it important for a G1 driver to learn how to share the road with othe
 Q2: On a two-lane road with no median, what must you do when a school bus has its red lights flashing and stop arm extended?
         `,
       },
-      {
-        id: "2",
-        title: "Cyclists and other road users",
-        content: `
-### G1.1: Who You Share the Road With
-
-On Ontario roads, you are **never alone**. You must drive in a way that protects more vulnerable road users.
-
-- **Pedestrians**: People walking, running, using mobility devices, or crossing at intersections and crosswalks.
-- **Cyclists**: Riders in bike lanes, on the right side of the road, or crossing intersections.
-- **Motorcyclists and moped riders**: Smaller, harder to see, and more exposed than car drivers.
-- **Large vehicles**: Buses and transport trucks that need more space to turn, change lanes, and stop.
-- **School buses**: Vehicles carrying children, with strict stopping and passing rules.
-- **Emergency vehicles**: Police, fire, and ambulances that may need you to move over or stop quickly.
-
-### G1.3: Safe Space for Cyclists and Pedestrians
-
-- **Passing cyclists**: In Ontario, leave at least 1 metre of space when passing a cyclist, where possible. Change lanes to pass if you need more room.
-- **Right turns and bike lanes**: Check mirrors and do a right shoulder check before turning across a bike lane. Yield to any cyclist beside or just behind you.
-- **Crosswalks and turning**: When turning at an intersection, yield to pedestrians already in the crosswalk you are entering.
-
-### G1.4: Large Vehicles and Blind Spots
-
-- **No-zones**: Avoid driving beside or close behind large trucks and buses; if you can’t see their mirrors, they likely can’t see you.
-- **Wide turns**: Never squeeze between a large vehicle and the curb when it is turning right; it may swing wide then move back.
-- **Stopping distance**: Do not cut in front of large vehicles; they need more space to stop than a car.
-
-**Quick knowledge check**
-
-- Q3: In Ontario, how much space should you leave when passing a cyclist, where possible?
-- Q4: Why is it unsafe to drive beside a large truck in its blind spot for a long time?
-        `,
-      },
+      { id: "2", title: "Cyclists and other road users", content: "" },
     ],
   },
   {
