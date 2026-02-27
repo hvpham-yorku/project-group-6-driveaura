@@ -69,6 +69,17 @@ export const MODULES: ModuleItem[] = [
         id: "1",
         title: "Streetcars and school buses",
         content: `
+### G1: Sharing the Road – Overview
+
+Sharing the road means driving in a way that keeps pedestrians, cyclists, and other drivers safe. You need to know who you share the road with and how to give them space.
+
+- **Learning objective 1**: Recognize the main road users you will drive around (pedestrians, cyclists, large vehicles, school buses, emergency vehicles).
+- **Learning objective 2**: Understand why giving others space and respecting right-of-way reduces crashes and tickets in Ontario.
+
+**Quick knowledge check**
+
+Q1: Why is it important for a G1 driver to learn how to share the road with other road users?
+
 ### G1.2: School Buses and Streetcars – Key Rules
 
 - **School buses (no median)**: Stop in both directions when red lights flash and the stop arm is out. Stay at least 20 metres back until the lights stop.
