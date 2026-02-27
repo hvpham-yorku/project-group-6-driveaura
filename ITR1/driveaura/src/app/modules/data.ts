@@ -91,7 +91,24 @@ Q1: Why is it important for a G1 driver to learn how to share the road with othe
 Q2: On a two-lane road with no median, what must you do when a school bus has its red lights flashing and stop arm extended?
         `,
       },
-      { id: "2", title: "Cyclists and other road users", content: "" },
+      {
+        id: "2",
+        title: "Cyclists and other road users",
+        content: `
+### G1: Sharing the Road – Cyclists and Vulnerable Users
+
+Cyclists, pedestrians, and people using mobility devices do not have a steel frame to protect them. As the driver, you are responsible for giving them extra space and time.
+
+- **Minimum 1-metre space**: When passing a cyclist, leave at least 1 metre of space when safe to do so.
+- **Check blind spots**: Always shoulder check for cyclists before turning right or opening your door.
+- **No squeezing**: If the lane is too narrow to pass safely, slow down and wait instead of trying to “squeeze by”.
+- **School zones and crosswalks**: Reduce speed and be ready to stop for pedestrians at crossings and at signed school zones.
+
+**Quick knowledge check**
+
+Q3: When you want to pass a cyclist, what is the safest way to do it on a narrow city street?
+        `,
+      },
     ],
   },
   {
