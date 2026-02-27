@@ -394,6 +394,72 @@ function ModuleReaderContent() {
                         </li>
                       </ol>
                     </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        School buses and streetcars – key rules
+                      </h2>
+                      <ul className="list-disc space-y-2 pl-5 text-sm">
+                        <li>
+                          <strong>School buses (no median):</strong> Stop in
+                          both directions when red lights flash and the stop arm
+                          is out. Stay at least 20 metres back until the lights
+                          stop.
+                        </li>
+                        <li>
+                          <strong>School buses (divided road with median):</strong>{" "}
+                          Only vehicles behind the bus must stop; oncoming
+                          traffic may continue with caution.
+                        </li>
+                        <li>
+                          <strong>Streetcars (no safety island):</strong> Stop
+                          at least 2 metres behind the rear door and wait until
+                          passengers are safely off the road.
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="text-sm font-semibold">
+                        Quick knowledge check
+                      </h2>
+                      <p className="mt-2 text-sm">
+                        Q2: On a two-lane road with no median, what must you do
+                        when a school bus has its red lights flashing and stop
+                        arm extended?
+                      </p>
+                      <ol className="mt-3 space-y-2 text-sm">
+                        <li>
+                          <span className="font-semibold">A.</span> Stop in
+                          both directions and stay at least 20 metres back until
+                          the lights stop.
+                        </li>
+                        <li>
+                          <span className="font-semibold">B.</span> Only slow
+                          down and pass with caution.
+                        </li>
+                        <li>
+                          <span className="font-semibold">C.</span> Stop only if
+                          you are behind the bus; oncoming traffic may continue.
+                        </li>
+                        <li>
+                          <span className="font-semibold">D.</span> Honk and
+                          drive past quickly so children clear the road.
+                        </li>
+                      </ol>
+                    </div>
                   </>
                 ) : moduleId === "g1-sharing-the-road" &&
                   currentLesson.id === "2" ? (
