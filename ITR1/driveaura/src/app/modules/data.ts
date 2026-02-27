@@ -106,6 +106,11 @@ On Ontario roads, you are **never alone**. You must drive in a way that protects
 - **No-zones**: Avoid driving beside or close behind large trucks and buses; if you can’t see their mirrors, they likely can’t see you.
 - **Wide turns**: Never squeeze between a large vehicle and the curb when it is turning right; it may swing wide then move back.
 - **Stopping distance**: Do not cut in front of large vehicles; they need more space to stop than a car.
+
+**Quick knowledge check**
+
+- Q3: In Ontario, how much space should you leave when passing a cyclist, where possible?
+- Q4: Why is it unsafe to drive beside a large truck in its blind spot for a long time?
         `,
       },
     ],
