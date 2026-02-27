@@ -395,6 +395,78 @@ function ModuleReaderContent() {
                       </ol>
                     </div>
                   </>
+                ) : moduleId === "g1-sharing-the-road" &&
+                  currentLesson.id === "2" ? (
+                  <>
+                    <div className="space-y-3">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Cyclists, pedestrians, and people using mobility
+                        devices do not have a vehicle to protect them. You must
+                        give them extra space and time.
+                      </p>
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Leave at least{" "}
+                          <span className="font-semibold">1 metre</span> when
+                          passing a cyclist where possible.
+                        </li>
+                        <li>
+                          Shoulder check for cyclists before turning right or
+                          opening your door.
+                        </li>
+                        <li>
+                          If the lane is too narrow to pass safely, slow down
+                          and wait instead of trying to squeeze by.
+                        </li>
+                        <li>
+                          In school zones and at crosswalks, reduce speed and be
+                          prepared to stop for pedestrians.
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="text-sm font-semibold">
+                        Quick knowledge check
+                      </h2>
+                      <p className="mt-2 text-sm">
+                        Q3: When you want to pass a cyclist, what is the safest
+                        way to do it on a narrow city street?
+                      </p>
+                      <ol className="mt-3 space-y-2 text-sm">
+                        <li>
+                          <span className="font-semibold">A.</span> Slow down,
+                          wait for a safe gap, and pass with at least 1 metre of
+                          space.
+                        </li>
+                        <li>
+                          <span className="font-semibold">B.</span> Honk and
+                          pass closely so the cyclist moves out of the way.
+                        </li>
+                        <li>
+                          <span className="font-semibold">C.</span> Squeeze
+                          between the cyclist and oncoming traffic to save time.
+                        </li>
+                        <li>
+                          <span className="font-semibold">D.</span> Drive on the
+                          shoulder to get around the cyclist as fast as
+                          possible.
+                        </li>
+                      </ol>
+                    </div>
+                  </>
                 ) : (
                   <p
                     className="leading-relaxed"
