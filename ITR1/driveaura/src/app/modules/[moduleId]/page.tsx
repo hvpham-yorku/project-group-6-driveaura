@@ -1784,6 +1784,75 @@ function ModuleReaderContent() {
                       </p>
                     </div>
                   </div>
+                ) : moduleId === "g2-licensing-restrictions" &&
+                  currentLesson.id === "1" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      This lesson covers the strict sobriety requirements for
+                      novice drivers.
+                    </p>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        The Zero BAC Limit
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        As a G2 driver, you must have a Blood Alcohol
+                        Concentration of 0%. Even one drink can put you over
+                        this limit.
+                      </p>
+                    </div>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Drug Restrictions
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        The same zero-tolerance policy applies to cannabis and
+                        other drugs that impair driving.
+                      </p>
+                    </div>
+
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Consequences
+                      </h2>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Immediate 3-day roadside suspension</li>
+                        <li>A fine</li>
+                        <li>
+                          A further 30-day suspension upon conviction
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 ) : (
                   <p
                     className="leading-relaxed"

@@ -86,6 +86,21 @@ export const MODULES: ModuleItem[] = [
       { id: "2", title: "Cannabis and novice drivers", content: "" },
     ],
   },
+  {
+    id: "g2-licensing-restrictions",
+    licenseLevel: "G2",
+    title: "G2 Licensing Restrictions",
+    category: "G2 Road Prep",
+    description:
+      "Rules and restrictions that apply to G2 licence holders in Ontario.",
+    lessons: [
+      {
+        id: "1",
+        title: "The \"Zero Tolerance\" Rule (Alcohol & Drugs)",
+        content: "",
+      },
+    ],
+  },
 ];
 
 export const LICENSE_LABELS: Record<LicenseLevel, string> = {
@@ -115,7 +130,7 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Road Test Level 1",
     description:
       "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
-    moduleCount: 5,
+    moduleCount: 1,
   },
   {
     licenseLevel: "G",
