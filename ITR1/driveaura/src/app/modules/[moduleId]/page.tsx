@@ -220,6 +220,7 @@ function ModuleReaderContent() {
   }, [moduleItem, lessonParam]);
 
   const [markedComplete, setMarkedComplete] = useState(false);
+  const [g2PassengerTab, setG2PassengerTab] = useState<"first6" | "after6">("first6");
   const currentLesson = moduleItem?.lessons[lessonIndex];
 
   if (!moduleItem) {
@@ -1999,6 +2000,416 @@ function ModuleReaderContent() {
                         reduced to 7 points; Novice drivers are reduced to 4
                         points.
                       </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-licensing-restrictions" &&
+                  currentLesson.id === "1" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      This lesson covers the strict sobriety requirements for
+                      novice drivers.
+                    </p>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        The Zero BAC Limit
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        As a G2 driver, you must have a Blood Alcohol
+                        Concentration of 0%. Even one drink can put you over
+                        this limit.
+                      </p>
+                    </div>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Drug Restrictions
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        The same zero-tolerance policy applies to cannabis and
+                        other drugs that impair driving.
+                      </p>
+                    </div>
+
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Consequences
+                      </h2>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Immediate 3-day roadside suspension</li>
+                        <li>A fine</li>
+                        <li>
+                          A further 30-day suspension upon conviction
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-licensing-restrictions" &&
+                  currentLesson.id === "2" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      These rules apply to G2 drivers aged 19 and under between
+                      midnight and 5:00 AM.
+                    </p>
+
+                    {/* Timeline Toggle */}
+                    <div
+                      className="flex rounded-xl border-2 p-1"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                      role="tablist"
+                      aria-label="Passenger limit period"
+                    >
+                      <button
+                        type="button"
+                        role="tab"
+                        aria-selected={g2PassengerTab === "first6"}
+                        onClick={() => setG2PassengerTab("first6")}
+                        className="flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-all"
+                        style={
+                          g2PassengerTab === "first6"
+                            ? {
+                                backgroundColor: "var(--electric-cyan)",
+                                color: "var(--void-purple)",
+                              }
+                            : {
+                                color: "var(--lavender-mist)",
+                              }
+                        }
+                      >
+                        First 6 Months
+                      </button>
+                      <button
+                        type="button"
+                        role="tab"
+                        aria-selected={g2PassengerTab === "after6"}
+                        onClick={() => setG2PassengerTab("after6")}
+                        className="flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-all"
+                        style={
+                          g2PassengerTab === "after6"
+                            ? {
+                                backgroundColor: "var(--electric-cyan)",
+                                color: "var(--void-purple)",
+                              }
+                            : {
+                                color: "var(--lavender-mist)",
+                              }
+                        }
+                      >
+                        After 6 Months (until age 20)
+                      </button>
+                    </div>
+
+                    {/* Tab content */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      {g2PassengerTab === "first6" ? (
+                        <>
+                          <div
+                            className="mb-3 inline-flex items-center rounded-full px-4 py-2 text-sm font-bold"
+                            style={{
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }}
+                          >
+                            1 Passenger Limit
+                          </div>
+                          <p
+                            className="leading-relaxed"
+                            style={{ color: "var(--lavender-mist)" }}
+                          >
+                            You may carry only ONE passenger aged 19 or under.
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            className="mb-3 inline-flex items-center rounded-full px-4 py-2 text-sm font-bold"
+                            style={{
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }}
+                          >
+                            3 Passenger Limit
+                          </div>
+                          <p
+                            className="leading-relaxed"
+                            style={{ color: "var(--lavender-mist)" }}
+                          >
+                            You may carry up to THREE passengers aged 19 or
+                            under.
+                          </p>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Immediate Family Exception */}
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-sm font-semibold uppercase tracking-wide"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        The &quot;Immediate Family&quot; Exception
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        These limits do not apply to immediate family members
+                        (e.g., siblings).
+                      </p>
+                    </div>
+
+                    {/* Golden Rule / Exemption Card */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Exemption Card
+                      </div>
+                      <h3
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        The Golden Rule
+                      </h3>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        If a fully licensed driver with 4+ years of experience is
+                        in the front seat,                         these passenger restrictions are
+                        waived.
+                      </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-licensing-restrictions" &&
+                  currentLesson.id === "3" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      A G2 driver is legally responsible for ensuring every
+                      passenger is buckled up, regardless of age, and must never
+                      exceed the number of working seatbelts.
+                    </p>
+
+                    {/* The G2 Shift — side-by-side comparison */}
+                    <div>
+                      <h2
+                        className="mb-4 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        The G2 Shift
+                      </h2>
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div
+                          className="rounded-lg border-2 p-4"
+                          style={{
+                            borderColor: "var(--midnight-indigo)",
+                            backgroundColor: "var(--midnight-indigo)",
+                          }}
+                        >
+                          <div
+                            className="mb-2 text-sm font-bold"
+                            style={{ color: "var(--electric-cyan)" }}
+                          >
+                            Full G Driver
+                          </div>
+                          <p
+                            className="text-sm leading-relaxed"
+                            style={{ color: "var(--lavender-mist)" }}
+                          >
+                            Responsible for passengers under 16. Passengers 16+
+                            get their own tickets.
+                          </p>
+                        </div>
+                        <div
+                          className="rounded-lg border-2 p-4"
+                          style={{
+                            borderColor: "var(--electric-cyan)",
+                            backgroundColor: "var(--midnight-indigo)",
+                          }}
+                        >
+                          <div
+                            className="mb-2 text-sm font-bold"
+                            style={{ color: "var(--electric-cyan)" }}
+                          >
+                            G2 Driver
+                          </div>
+                          <p
+                            className="text-sm leading-relaxed"
+                            style={{ color: "var(--lavender-mist)" }}
+                          >
+                            Responsible for <strong style={{ color: "var(--ghost-white)" }}>EVERYONE</strong>. If a 30-year-old passenger
+                            isn&apos;t buckled, the G2 driver can face a license
+                            suspension.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* One Belt, One Person — car graphic */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h2
+                        className="mb-4 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        One Belt, One Person
+                      </h2>
+                      <p
+                        className="mb-4 text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Trying to fit a 6th person (even if they &quot;squeeze
+                        in&quot;) is a violation of the Capacity law.
+                      </p>
+                      <div
+                        className="mx-auto flex max-w-md flex-col items-center gap-4 rounded-xl border-2 p-5"
+                        style={{
+                          borderColor: "var(--midnight-indigo)",
+                          backgroundColor: "var(--midnight-indigo)",
+                        }}
+                        aria-hidden
+                      >
+                        {/* 5 valid seats (belt icon) + 6th = violation */}
+                        <div className="flex flex-wrap items-center justify-center gap-2">
+                          {[1, 2, 3, 4, 5].map((n) => (
+                            <div
+                              key={n}
+                              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
+                              style={{
+                                backgroundColor: "var(--void-purple)",
+                                border: "2px solid var(--electric-cyan)",
+                              }}
+                              title={`Seat ${n} — one belt, one person`}
+                            >
+                              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
+                                <rect x="5" y="4" width="18" height="20" rx="2" stroke="var(--electric-cyan)" strokeWidth="1.5" fill="none" />
+                                <path d="M5 8l18 14" stroke="var(--electric-cyan)" strokeWidth="1.5" strokeLinecap="round" />
+                              </svg>
+                            </div>
+                          ))}
+                          <span className="px-1 text-xl font-bold" style={{ color: "var(--lavender-mist)" }} aria-hidden>+</span>
+                          <div
+                            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
+                            style={{
+                              backgroundColor: "rgba(238, 68, 68, 0.12)",
+                              border: "2px dashed var(--crimson-spark)",
+                            }}
+                            title="6th person — capacity violation"
+                          >
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
+                              <rect x="4" y="4" width="20" height="20" rx="2" stroke="var(--crimson-spark)" strokeWidth="2" fill="none" />
+                              <path d="M8 8l12 12 M20 8L8 20" stroke="var(--crimson-spark)" strokeWidth="2" strokeLinecap="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap items-center justify-center gap-3 text-center text-sm">
+                          <span style={{ color: "var(--lavender-mist)" }}>
+                            5 seatbelts = 5 people max
+                          </span>
+                          <span style={{ color: "var(--crimson-spark)", fontWeight: 600 }}>
+                            6th person = capacity violation
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Escalating Sanctions — high-visibility alert */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--crimson-spark)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-3 text-sm font-bold uppercase tracking-wide"
+                        style={{ color: "var(--crimson-spark)" }}
+                      >
+                        Escalating Sanctions
+                      </div>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Penalty for a G2 seatbelt violation:
+                      </p>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            30-day license suspension
+                          </strong>{" "}
+                          for a first-time novice driver restriction violation.
+                        </li>
+                        <li>
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            2 demerit points
+                          </strong>{" "}
+                          + a fine (up to $1,000).
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 ) : (
