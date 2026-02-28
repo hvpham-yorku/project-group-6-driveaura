@@ -123,6 +123,18 @@ Q3: When you want to pass a cyclist, what is the safest way to do it on a narrow
       { id: "2", title: "Cannabis and novice drivers", content: "" },
     ],
   },
+  {
+    id: "g2-defensive-driving-observation",
+    licenseLevel: "G2",
+    title: "Defensive Driving and Observation",
+    category: "G2 Road Prep",
+    description:
+      "Scanning, following distance, and hazard recognition so you stay safe on your G2 road test.",
+    lessons: [
+      { id: "1", title: "Defensive driving basics and observation", content: "" },
+      { id: "2", title: "Space cushion and mirror use", content: "" },
+    ],
+  },
 ];
 
 export const LICENSE_LABELS: Record<LicenseLevel, string> = {

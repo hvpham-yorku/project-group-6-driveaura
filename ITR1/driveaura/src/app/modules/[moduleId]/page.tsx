@@ -601,6 +601,193 @@ function ModuleReaderContent() {
                       </p>
                     </div>
                   </>
+                ) : moduleId === "g2-defensive-driving-observation" &&
+                  currentLesson.id === "1" ? (
+                  <>
+                    <div className="space-y-4">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Defensive driving means always looking ahead, checking
+                        mirrors, and leaving enough space so you can react in
+                        time. Good observation is the foundation of passing your
+                        G2 road test.
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Key habits for defensive driving
+                      </h2>
+                      <ul className="list-disc space-y-2 pl-5 text-sm">
+                        <li>
+                          <strong>Scan ahead 12–15 seconds</strong> — look down
+                          the road, not just at the car in front.
+                        </li>
+                        <li>
+                          <strong>Check mirrors every 5–8 seconds</strong> — know
+                          what is beside and behind you.
+                        </li>
+                        <li>
+                          <strong>Keep a following distance</strong> — at least
+                          2 seconds in good conditions, more in rain or snow.
+                        </li>
+                        <li>
+                          <strong>Identify hazards early</strong> — pedestrians,
+                          cyclists, parked cars, and intersections.
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="text-sm font-semibold">
+                        Quick knowledge check
+                      </h2>
+                      <p className="mt-2 text-sm">
+                        What is a safe following distance in good conditions?
+                      </p>
+                      <ol className="mt-3 space-y-2 text-sm">
+                        <li>
+                          <span className="font-semibold">A.</span> At least 2
+                          seconds behind the vehicle ahead.
+                        </li>
+                        <li>
+                          <span className="font-semibold">B.</span> As close as
+                          one car length so you can stop quickly.
+                        </li>
+                        <li>
+                          <span className="font-semibold">C.</span> Only 1 second
+                          in city traffic.
+                        </li>
+                        <li>
+                          <span className="font-semibold">D.</span> It does not
+                          matter as long as you brake hard when needed.
+                        </li>
+                      </ol>
+                      <p className="mt-3 text-xs" style={{ color: "var(--neon-mint)" }}>
+                        Correct: A
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--midnight-indigo)",
+                        borderColor: "var(--electric-cyan)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Key takeaway
+                      </h2>
+                      <p className="text-sm">
+                        Scan 12–15 seconds ahead, check mirrors every 5–8
+                        seconds, and keep at least a 2-second following distance
+                        so you have time to react safely.
+                      </p>
+                    </div>
+                  </>
+                ) : moduleId === "g2-defensive-driving-observation" &&
+                  currentLesson.id === "2" ? (
+                  <>
+                    <div className="space-y-3">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        A &quot;space cushion&quot; is the space you keep around
+                        your vehicle so you have room to steer or brake if
+                        something goes wrong. Mirrors help you maintain that
+                        cushion without turning your head away from the road for
+                        long.
+                      </p>
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Keep space in front, behind, and to the sides when
+                          possible.
+                        </li>
+                        <li>
+                          Adjust the rear-view and side mirrors so you can see
+                          the road behind and in your blind spots with a quick
+                          glance.
+                        </li>
+                        <li>
+                          Do a shoulder check before changing lanes or turning—
+                          mirrors do not show everything.
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="text-sm font-semibold">
+                        Quick knowledge check
+                      </h2>
+                      <p className="mt-2 text-sm">
+                        Why should you do a shoulder check before changing lanes
+                        even if your mirrors are correctly set?
+                      </p>
+                      <ol className="mt-3 space-y-2 text-sm">
+                        <li>
+                          <span className="font-semibold">A.</span> Mirrors have
+                          blind spots; a shoulder check catches vehicles or
+                          cyclists there.
+                        </li>
+                        <li>
+                          <span className="font-semibold">B.</span> Shoulder
+                          checks are only required on the highway.
+                        </li>
+                        <li>
+                          <span className="font-semibold">C.</span> It is only
+                          needed when traffic is heavy.
+                        </li>
+                        <li>
+                          <span className="font-semibold">D.</span> Mirrors
+                          are enough if they are adjusted correctly.
+                        </li>
+                      </ol>
+                      <p className="mt-3 text-xs" style={{ color: "var(--neon-mint)" }}>
+                        Correct: A
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--midnight-indigo)",
+                        borderColor: "var(--electric-cyan)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Key takeaway
+                      </h2>
+                      <p className="text-sm">
+                        Keep a space cushion around your car, use mirrors every
+                        5–8 seconds, and always shoulder check before changing
+                        lanes or turning—mirrors cannot replace a direct look.
+                      </p>
+                    </div>
+                  </>
                 ) : (
                   <p
                     className="leading-relaxed"
