@@ -3,8 +3,9 @@
 /// <reference types="react" />
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
-import React, { Suspense, useMemo, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import { MODULES, type Lesson } from "../data";
+import { isLessonComplete, setLessonComplete } from "../progress";
 
 /* Inline SVG */
 function IconChevronLeft() {
@@ -223,6 +224,12 @@ function ModuleReaderContent() {
   const [g2PassengerTab, setG2PassengerTab] = useState<"first6" | "after6">("first6");
   const [g2PathsTab, setG2PathsTab] = useState<"demerits" | "escalating">("demerits");
   const currentLesson = moduleItem?.lessons[lessonIndex];
+
+  useEffect(() => {
+    if (moduleId && currentLesson) {
+      setMarkedComplete(isLessonComplete(moduleId, currentLesson.id));
+    }
+  }, [moduleId, currentLesson?.id]);
 
   if (!moduleItem) {
     return (
@@ -2854,7 +2861,10 @@ function ModuleReaderContent() {
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   type="button"
-                  onClick={() => setMarkedComplete(true)}
+                  onClick={() => {
+                  setLessonComplete(moduleId, currentLesson.id);
+                  setMarkedComplete(true);
+                }}
                   disabled={markedComplete}
                   className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple"
                   style={

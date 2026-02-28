@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
+  MODULES,
   PATHWAY_LEVELS,
   type LicenseLevel,
   type PathwayLevel,
 } from "./data";
+import { getCompletedLessonKeys } from "./progress";
 
 /* Inline SVG icons — no external library */
 function IconArrowRight() {
@@ -64,7 +67,7 @@ function PathwayCard({ level }: { level: PathwayLevel }) {
       <article className="flex flex-1 flex-col p-5">
         <div className="mb-3 flex items-start justify-between gap-2">
           <span
-            className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-[12px] text-base font-bold"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] text-base font-bold"
             style={{
               backgroundColor: "var(--lavender-mist)",
               color: "var(--void-purple)",
@@ -140,6 +143,70 @@ function PathwayConnector() {
   );
 }
 
+const TOTAL_LESSONS = MODULES.reduce((sum, m) => sum + m.lessons.length, 0);
+const VALID_KEYS = new Set(
+  MODULES.flatMap((m) => m.lessons.map((l) => `${m.id}-${l.id}`))
+);
+
+function ModulesProgressBar() {
+  const [completed, setCompleted] = useState(0);
+
+  useEffect(() => {
+    const keys = getCompletedLessonKeys().filter((k) => VALID_KEYS.has(k));
+    setCompleted(keys.length);
+    const onStorage = () => {
+      const next = getCompletedLessonKeys().filter((k) => VALID_KEYS.has(k));
+      setCompleted(next.length);
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
+  const percent = TOTAL_LESSONS > 0 ? Math.round((completed / TOTAL_LESSONS) * 100) : 0;
+
+  return (
+    <div
+      className="rounded-xl border-2 p-4"
+      style={{
+        borderColor: "var(--midnight-indigo)",
+        backgroundColor: "var(--midnight-indigo)",
+      }}
+      role="progressbar"
+      aria-valuenow={completed}
+      aria-valuemin={0}
+      aria-valuemax={TOTAL_LESSONS}
+      aria-label="Learning modules progress"
+    >
+      <div className="mb-2 flex items-baseline justify-between gap-2">
+        <span
+          className="text-sm font-semibold"
+          style={{ color: "var(--ghost-white)" }}
+        >
+          Your progress
+        </span>
+        <span
+          className="text-sm"
+          style={{ color: "var(--lavender-mist)" }}
+        >
+          {completed} of {TOTAL_LESSONS} lessons
+        </span>
+      </div>
+      <div
+        className="h-2 w-full overflow-hidden rounded-full"
+        style={{ backgroundColor: "var(--void-purple)" }}
+      >
+        <div
+          className="h-full rounded-full transition-all duration-300"
+          style={{
+            width: `${percent}%`,
+            backgroundColor: "var(--electric-cyan)",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function ModulesPage() {
   return (
     <main
@@ -147,7 +214,8 @@ export default function ModulesPage() {
       style={{ backgroundColor: "var(--void-purple)" }}
     >
       <div className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
-        <header className="mb-10 text-center">
+        <ModulesProgressBar />
+        <header className="mb-10 mt-8 text-center">
           <p
             className="mb-2 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium"
             style={{
