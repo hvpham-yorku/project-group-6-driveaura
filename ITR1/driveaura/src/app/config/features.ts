@@ -7,7 +7,8 @@ export const iteration1 = [
   { href: "/quizzes", label: "Quizzes" },
   { href: "/data-visualization", label: "Data Visualization" },
   { href: "/test-checklist", label: "Test Checklist" },
-  { href: "/test-routes", label: "Test Routes" },
+  { href: "/routes", label: "Test Routes" },
+  { href: "/user-as-examiner", label: "User as Examiner" },
 ] as const;
 
 export const iteration2 = [
