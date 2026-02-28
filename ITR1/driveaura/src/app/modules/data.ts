@@ -114,6 +114,11 @@ export const MODULES: ModuleItem[] = [
         title: "Escalating Sanctions & Demerits",
         content: "",
       },
+      {
+        id: "5",
+        title: "Progression to the Full G License",
+        content: "",
+      },
     ],
   },
 ];

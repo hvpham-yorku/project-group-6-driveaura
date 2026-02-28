@@ -2640,6 +2640,206 @@ function ModuleReaderContent() {
                       </ul>
                     </div>
                   </div>
+                ) : moduleId === "g2-licensing-restrictions" &&
+                  currentLesson.id === "5" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      A clear summary of how you move from G2 to a Full G license.
+                    </p>
+
+                    {/* G2 Exit Timeline */}
+                    <div>
+                      <h2
+                        className="mb-4 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        The G2 Exit Timeline
+                      </h2>
+                      <div className="space-y-4">
+                        <div className="flex gap-4">
+                          <div
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold"
+                            style={{
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }}
+                          >
+                            1
+                          </div>
+                          <div>
+                            <span
+                              className="font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Step 1:
+                            </span>{" "}
+                            <span style={{ color: "var(--lavender-mist)" }}>
+                              Hold G2 for 12 months (minimum).
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex gap-4">
+                          <div
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold"
+                            style={{
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }}
+                          >
+                            2
+                          </div>
+                          <div>
+                            <span
+                              className="font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Step 2:
+                            </span>{" "}
+                            <span style={{ color: "var(--lavender-mist)" }}>
+                              Gain highway experience (400-series or 80 km/h+ roads).
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex gap-4">
+                          <div
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold"
+                            style={{
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }}
+                          >
+                            3
+                          </div>
+                          <div>
+                            <span
+                              className="font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Step 3:
+                            </span>{" "}
+                            <span style={{ color: "var(--lavender-mist)" }}>
+                              Pass the &quot;G&quot; Road Test.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Highway Requirements — Pro-Tip */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-sm font-bold uppercase tracking-wide"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Pro-Tip: Highway Requirements
+                      </div>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        You must have driven on 400-series highways or high-speed
+                        roads (80 km/h or faster) at least 5 times in the 3
+                        months before your test.
+                      </p>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Examples: 401, 400, 404, 407, QEW, Gardiner, DVP, or
+                        high-speed regional roads.
+                      </p>
+                    </div>
+
+                    {/* 5-Year Deadline Warning */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--crimson-spark)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-3 text-sm font-bold uppercase tracking-wide"
+                        style={{ color: "var(--crimson-spark)" }}
+                      >
+                        The 5-Year Deadline
+                      </div>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        You have <strong style={{ color: "var(--ghost-white)" }}>5 years</strong> from the day you get your G1 to finish the entire process.
+                      </p>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        If the 5 years pass and you don&apos;t have your
+                        &quot;G&quot;, you must start over from the beginning
+                        (G1 test).
+                      </p>
+                    </div>
+
+                    {/* G Road Test vs G2 Road Test — two-column table */}
+                    <div
+                      className="overflow-x-auto rounded-lg border-2"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <table className="w-full min-w-[320px] border-collapse text-left">
+                        <thead>
+                          <tr
+                            style={{
+                              backgroundColor: "var(--midnight-indigo)",
+                              color: "var(--ghost-white)",
+                            }}
+                          >
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              G2 Test
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              G Test
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            style={{
+                              backgroundColor: "var(--void-purple)",
+                              color: "var(--lavender-mist)",
+                              borderBottom: "1px solid var(--midnight-indigo)",
+                            }}
+                          >
+                            <td className="px-4 py-3 text-sm leading-relaxed">
+                              Residential streets, basic turns, parallel parking,
+                              3-point turns.
+                            </td>
+                            <td className="px-4 py-3 text-sm leading-relaxed">
+                              Everything in G2 + highway merging, lane changes at
+                              high speeds, and advanced hazard perception.
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 ) : (
                   <p
                     className="leading-relaxed"
