@@ -416,6 +416,9 @@ function ModuleReaderContent() {
                           helps you drive faster through intersections.
                         </li>
                       </ol>
+                      <p className="mt-3 text-xs" style={{ color: "var(--neon-mint)" }}>
+                        Correct: A
+                      </p>
                     </div>
                     <div
                       className="mt-6 rounded-lg border p-4"
@@ -482,6 +485,9 @@ function ModuleReaderContent() {
                           drive past quickly so children clear the road.
                         </li>
                       </ol>
+                      <p className="mt-3 text-xs" style={{ color: "var(--neon-mint)" }}>
+                        Correct: A
+                      </p>
                     </div>
                     <div
                       className="mt-6 rounded-lg border p-4"
@@ -572,6 +578,9 @@ function ModuleReaderContent() {
                           possible.
                         </li>
                       </ol>
+                      <p className="mt-3 text-xs" style={{ color: "var(--neon-mint)" }}>
+                        Correct: A
+                      </p>
                     </div>
                     <div
                       className="mt-6 rounded-lg border p-4"
