@@ -99,6 +99,11 @@ export const MODULES: ModuleItem[] = [
         title: "The \"Zero Tolerance\" Rule (Alcohol & Drugs)",
         content: "",
       },
+      {
+        id: "2",
+        title: "G2 Passenger Restrictions (Under 19)",
+        content: "",
+      },
     ],
   },
 ];

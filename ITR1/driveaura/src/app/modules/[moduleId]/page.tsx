@@ -220,6 +220,7 @@ function ModuleReaderContent() {
   }, [moduleItem, lessonParam]);
 
   const [markedComplete, setMarkedComplete] = useState(false);
+  const [g2PassengerTab, setG2PassengerTab] = useState<"first6" | "after6">("first6");
   const currentLesson = moduleItem?.lessons[lessonIndex];
 
   if (!moduleItem) {
@@ -1851,6 +1852,168 @@ function ModuleReaderContent() {
                           A further 30-day suspension upon conviction
                         </li>
                       </ul>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-licensing-restrictions" &&
+                  currentLesson.id === "2" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      These rules apply to G2 drivers aged 19 and under between
+                      midnight and 5:00 AM.
+                    </p>
+
+                    {/* Timeline Toggle */}
+                    <div
+                      className="flex rounded-xl border-2 p-1"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                      role="tablist"
+                      aria-label="Passenger limit period"
+                    >
+                      <button
+                        type="button"
+                        role="tab"
+                        aria-selected={g2PassengerTab === "first6"}
+                        onClick={() => setG2PassengerTab("first6")}
+                        className="flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-all"
+                        style={
+                          g2PassengerTab === "first6"
+                            ? {
+                                backgroundColor: "var(--electric-cyan)",
+                                color: "var(--void-purple)",
+                              }
+                            : {
+                                color: "var(--lavender-mist)",
+                              }
+                        }
+                      >
+                        First 6 Months
+                      </button>
+                      <button
+                        type="button"
+                        role="tab"
+                        aria-selected={g2PassengerTab === "after6"}
+                        onClick={() => setG2PassengerTab("after6")}
+                        className="flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-all"
+                        style={
+                          g2PassengerTab === "after6"
+                            ? {
+                                backgroundColor: "var(--electric-cyan)",
+                                color: "var(--void-purple)",
+                              }
+                            : {
+                                color: "var(--lavender-mist)",
+                              }
+                        }
+                      >
+                        After 6 Months (until age 20)
+                      </button>
+                    </div>
+
+                    {/* Tab content */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      {g2PassengerTab === "first6" ? (
+                        <>
+                          <div
+                            className="mb-3 inline-flex items-center rounded-full px-4 py-2 text-sm font-bold"
+                            style={{
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }}
+                          >
+                            1 Passenger Limit
+                          </div>
+                          <p
+                            className="leading-relaxed"
+                            style={{ color: "var(--lavender-mist)" }}
+                          >
+                            You may carry only ONE passenger aged 19 or under.
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            className="mb-3 inline-flex items-center rounded-full px-4 py-2 text-sm font-bold"
+                            style={{
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }}
+                          >
+                            3 Passenger Limit
+                          </div>
+                          <p
+                            className="leading-relaxed"
+                            style={{ color: "var(--lavender-mist)" }}
+                          >
+                            You may carry up to THREE passengers aged 19 or
+                            under.
+                          </p>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Immediate Family Exception */}
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-sm font-semibold uppercase tracking-wide"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        The &quot;Immediate Family&quot; Exception
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        These limits do not apply to immediate family members
+                        (e.g., siblings).
+                      </p>
+                    </div>
+
+                    {/* Golden Rule / Exemption Card */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Exemption Card
+                      </div>
+                      <h3
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        The Golden Rule
+                      </h3>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        If a fully licensed driver with 4+ years of experience is
+                        in the front seat, these passenger restrictions are
+                        waived.
+                      </p>
                     </div>
                   </div>
                 ) : (
