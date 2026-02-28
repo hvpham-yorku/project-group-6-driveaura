@@ -367,6 +367,29 @@ function ModuleReaderContent() {
                         color: "var(--lavender-mist)",
                       }}
                     >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Who you share the road with
+                      </h2>
+                      <p className="mb-2 text-sm">
+                        You will drive around many different road users. Know who
+                        they are and give them space:
+                      </p>
+                      <ul className="list-disc space-y-1 pl-5 text-sm">
+                        <li>Pedestrians</li>
+                        <li>Cyclists</li>
+                        <li>Large vehicles (trucks, buses)</li>
+                        <li>School buses</li>
+                        <li>Emergency vehicles</li>
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
                       <h2 className="text-sm font-semibold">
                         Quick knowledge check
                       </h2>
