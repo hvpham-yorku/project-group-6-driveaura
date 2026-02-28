@@ -104,6 +104,11 @@ export const MODULES: ModuleItem[] = [
         title: "G2 Passenger Restrictions (Under 19)",
         content: "",
       },
+      {
+        id: "3",
+        title: "Seatbelt & Capacity Laws",
+        content: "",
+      },
     ],
   },
 ];
