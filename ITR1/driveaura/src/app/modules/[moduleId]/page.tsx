@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
 import { MODULES, type Lesson } from "../data";
+import { ROAD_MANEUVERS_CONTENT, type ManeuverContent } from "../road-maneuvers-content";
 
 /* Inline SVG */
 function IconChevronLeft() {
@@ -58,6 +59,137 @@ function SignIconPlaceholder() {
       aria-hidden
     >
       <span className="text-xs">?</span>
+    </div>
+  );
+}
+
+/** G2 Essential Road Maneuvers: structured lesson block (Golden Rule, Steps, Tips, Quiz). */
+function ManeuverLessonContent({ content }: { content: ManeuverContent }) {
+  return (
+    <div className="space-y-8">
+      {/* Golden Rule */}
+      <div
+        className="rounded-xl border-2 p-4"
+        style={{
+          borderColor: "var(--electric-cyan)",
+          backgroundColor: "var(--midnight-indigo)",
+          color: "var(--ghost-white)",
+        }}
+      >
+        <h3
+          className="mb-2 text-sm font-semibold uppercase tracking-wide"
+          style={{ color: "var(--electric-cyan)" }}
+        >
+          The Golden Rule
+        </h3>
+        <p className="leading-relaxed">{content.goldenRule}</p>
+      </div>
+
+      {/* Step-by-Step Guide */}
+      <div>
+        <h3
+          className="mb-3 text-base font-semibold"
+          style={{ color: "var(--ghost-white)" }}
+        >
+          Step-by-Step Guide
+        </h3>
+        <ol
+          className="list-inside list-decimal space-y-2 text-sm leading-relaxed"
+          style={{ color: "var(--lavender-mist)" }}
+        >
+          {content.steps.map((step, i) => (
+            <li key={i}>{step}</li>
+          ))}
+        </ol>
+      </div>
+
+      {/* Test Examiner Tips */}
+      <div
+        className="rounded-lg border p-4"
+        style={{
+          borderColor: "var(--midnight-indigo)",
+          backgroundColor: "var(--void-purple)",
+        }}
+      >
+        <h3
+          className="mb-3 text-base font-semibold"
+          style={{ color: "var(--ghost-white)" }}
+        >
+          Test Examiner Tips
+        </h3>
+        <p className="mb-2 text-sm" style={{ color: "var(--lavender-mist)" }}>
+          Common mistakes that cost points on the G2 road test:
+        </p>
+        <ul
+          className="list-inside list-disc space-y-1.5 text-sm"
+          style={{ color: "var(--lavender-mist)" }}
+        >
+          {content.examinerTips.map((tip, i) => (
+            <li key={i}>{tip}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Quick Quiz */}
+      <div
+        className="rounded-lg border p-4"
+        style={{
+          borderColor: "var(--midnight-indigo)",
+          backgroundColor: "var(--midnight-indigo)",
+        }}
+      >
+        <h3
+          className="mb-4 text-base font-semibold"
+          style={{ color: "var(--ghost-white)" }}
+        >
+          Quick Quiz
+        </h3>
+        <div className="space-y-6">
+          {content.quiz.map((q, qIdx) => (
+            <div key={qIdx}>
+              <p
+                className="mb-2 text-sm font-medium"
+                style={{ color: "var(--ghost-white)" }}
+              >
+                {q.question}
+              </p>
+              <ul className="space-y-1.5">
+                {q.options.map((opt, oIdx) => (
+                  <li
+                    key={oIdx}
+                    className="rounded px-3 py-1.5 text-sm"
+                    style={{
+                      backgroundColor: "var(--void-purple)",
+                      color: "var(--lavender-mist)",
+                      listStyle: "none",
+                    }}
+                  >
+                    {String.fromCharCode(65 + oIdx)}. {opt}
+                    {oIdx === q.correctIndex && (
+                      <span
+                        className="ml-2 text-xs"
+                        style={{ color: "var(--neon-mint)" }}
+                      >
+                        ✓ Correct
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <p
+                className="mt-2 text-xs leading-relaxed"
+                style={{ color: "var(--lavender-mist)" }}
+              >
+                <strong style={{ color: "var(--electric-cyan)" }}>
+                  Answer: {q.options[q.correctIndex]}
+                </strong>
+                {" — "}
+                {q.explanation}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -345,6 +477,11 @@ function ModuleReaderContent() {
                       </table>
                     </div>
                   </>
+                ) : moduleId === "g2-essential-road-maneuvers" &&
+                  ROAD_MANEUVERS_CONTENT[currentLesson.id] ? (
+                  <ManeuverLessonContent
+                    content={ROAD_MANEUVERS_CONTENT[currentLesson.id]}
+                  />
                 ) : (
                   <p
                     className="leading-relaxed"

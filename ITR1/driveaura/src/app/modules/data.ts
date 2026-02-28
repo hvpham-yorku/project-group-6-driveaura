@@ -81,6 +81,21 @@ export const MODULES: ModuleItem[] = [
       { id: "2", title: "Cannabis and novice drivers", content: "" },
     ],
   },
+  {
+    id: "g2-essential-road-maneuvers",
+    licenseLevel: "G2",
+    title: "Essential Road Maneuvers",
+    category: "G2 Road Prep",
+    description:
+      "Master left and right turns, lane changes, reversing, three-point and U-turns, and parking for your G2 road test.",
+    lessons: [
+      { id: "1", title: "Left and Right Turns", content: "" },
+      { id: "2", title: "Lane Changes and Lane Positioning", content: "" },
+      { id: "3", title: "Reversing and Backing Up", content: "" },
+      { id: "4", title: "Three-Point Turns and U-Turns", content: "" },
+      { id: "5", title: "Parking (Parallel, Perpendicular, Hill)", content: "" },
+    ],
+  },
 ];
 
 export const LICENSE_LABELS: Record<LicenseLevel, string> = {
@@ -110,7 +125,7 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Road Test Level 1",
     description:
       "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
-    moduleCount: 5,
+    moduleCount: 1,
   },
   {
     licenseLevel: "G",
