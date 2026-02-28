@@ -555,6 +555,24 @@ function ModuleReaderContent() {
                         </li>
                       </ol>
                     </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--midnight-indigo)",
+                        borderColor: "var(--electric-cyan)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Key takeaway
+                      </h2>
+                      <p className="text-sm">
+                        When sharing the road with cyclists and pedestrians:
+                        give at least 1 metre when passing, always shoulder
+                        check before turning or opening your door, and never
+                        squeeze by—slow down and wait for a safe gap.
+                      </p>
+                    </div>
                   </>
                 ) : (
                   <p
