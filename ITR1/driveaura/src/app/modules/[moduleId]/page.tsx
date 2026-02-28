@@ -976,6 +976,223 @@ function ModuleReaderContent() {
                       </table>
                     </div>
                   </>
+                ) : moduleId === "g1-impaired-driving" &&
+                  currentLesson.id === "1" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Content in this module is based on the{" "}
+                      <a
+                        href="https://www.ontario.ca/document/official-mto-drivers-handbook"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Official MTO Driver&apos;s Handbook
+                      </a>{" "}
+                      and{" "}
+                      <a
+                        href="https://www.ontario.ca/page/impaired-driving"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Ontario&apos;s impaired driving laws
+                      </a>
+                      .
+                    </p>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        What Is Impaired Driving?
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Impaired driving means operating a vehicle while your
+                        ability to do so has been compromised by alcohol or
+                        drugs—including illegal substances, prescription and
+                        over-the-counter medication, and cannabis. Impaired
+                        driving laws apply to cars, trucks, boats, snowmobiles,
+                        and off-road vehicles.
+                      </p>
+                    </div>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Alcohol and Driving
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Alcohol-impaired driving is one of the leading causes of
+                        death on Ontario roads. Your gender, weight, age, mood,
+                        and what you ate can affect how your body responds to
+                        alcohol. When you drink, you may experience slowed
+                        reflexes, difficulty paying attention, and blurred or
+                        double vision.
+                      </p>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        You can face charges if your{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          blood alcohol concentration (BAC) is 0.08 or more
+                        </strong>
+                        , or if you are in the{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          warn range (0.05 to 0.079)
+                        </strong>
+                        .
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Zero tolerance for young and novice drivers
+                      </h3>
+                      <p
+                        className="mb-2 text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        You cannot have any alcohol in your system if you are:
+                      </p>
+                      <ul
+                        className="list-inside list-disc space-y-1 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Age 21 or under</li>
+                        <li>Holding a G1, G2, M1, or M2 licence</li>
+                        <li>Driving a road-building machine or a vehicle requiring an A–F licence or CVOR</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        How to Avoid Impaired Driving
+                      </h2>
+                      <p
+                        className="mb-2 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Plan ahead: stay overnight, use a taxi or ride share, call
+                        a friend or family member, use public transit, or have
+                        a designated driver.
+                      </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g1-impaired-driving" &&
+                  currentLesson.id === "2" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Cannabis and other drugs affect your ability to drive.
+                      Ontario&apos;s zero-tolerance laws for young, novice, and
+                      commercial drivers apply to cannabis the same as alcohol.
+                    </p>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Cannabis and Driving
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        It is dangerous to drive with cannabis in your system.
+                        Penalties are the same as for alcohol-impaired driving.
+                        If you are 21 or under or hold a G1, G2, M1, or M2
+                        licence, you cannot have any cannabis (or other drugs or
+                        alcohol) in your system while driving.
+                      </p>
+                    </div>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Penalties for Young and Novice Drivers
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        If you have any drugs or alcohol in your system as a
+                        young or novice driver, you can face administrative
+                        penalties plus the same impairment penalties as any other
+                        driver if applicable.
+                      </p>
+                      <ul
+                        className="list-inside list-disc space-y-1 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          <strong style={{ color: "var(--ghost-white)" }}>First time:</strong> $250 penalty, 8-hour education course, $60–$1,000 fine if convicted, 7-day immediate roadside licence suspension.
+                        </li>
+                        <li>
+                          <strong style={{ color: "var(--ghost-white)" }}>Second time:</strong> $350 penalty, 16-hour treatment program, $60–$1,000 fine if convicted, 14-day immediate roadside licence suspension.
+                        </li>
+                        <li>
+                          <strong style={{ color: "var(--ghost-white)" }}>Third time:</strong> $450 penalty, ignition interlock condition for six months, 16-hour treatment program, $60–$1,000 fine if convicted, 30-day immediate roadside licence suspension.
+                        </li>
+                      </ul>
+                      <p
+                        className="mt-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        After conviction, your licence can be suspended for an
+                        additional 30 or 90 days, or cancelled, depending on
+                        your age and licence class. You must pay a licence
+                        reinstatement fee every time your licence is suspended.
+                      </p>
+                    </div>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        General Impaired Driving Penalties
+                      </h2>
+                      <p
+                        className="mb-2 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Police use roadside drug screening and sobriety tests. If
+                        they determine you are impaired, you can face: vehicle
+                        impoundment, education or treatment programs, fines and
+                        reinstatement fees, and immediate licence suspensions.
+                        Criminal conviction can add ignition interlock
+                        requirements, longer suspensions, and possible jail
+                        time. Penalties vary by age, licence type, substance
+                        levels, and prior convictions.
+                      </p>
+                    </div>
+                  </div>
                 ) : moduleId === "g1-demerit-points" &&
                   currentLesson.id === "1" ? (
                   <div className="space-y-6">
