@@ -483,6 +483,24 @@ function ModuleReaderContent() {
                         </li>
                       </ol>
                     </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--midnight-indigo)",
+                        borderColor: "var(--electric-cyan)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Key takeaway
+                      </h2>
+                      <p className="text-sm">
+                        Know who you share the road with, and follow the rules:
+                        stop for school buses (both ways when there is no
+                        median), stay 20 m back until lights stop, and stop
+                        behind streetcar doors when there is no safety island.
+                      </p>
+                    </div>
                   </>
                 ) : moduleId === "g1-sharing-the-road" &&
                   currentLesson.id === "2" ? (
