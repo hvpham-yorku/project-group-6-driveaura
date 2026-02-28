@@ -109,6 +109,11 @@ export const MODULES: ModuleItem[] = [
         title: "Seatbelt & Capacity Laws",
         content: "",
       },
+      {
+        id: "4",
+        title: "Escalating Sanctions & Demerits",
+        content: "",
+      },
     ],
   },
 ];

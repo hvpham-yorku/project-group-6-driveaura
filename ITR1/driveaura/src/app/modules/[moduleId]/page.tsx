@@ -221,6 +221,7 @@ function ModuleReaderContent() {
 
   const [markedComplete, setMarkedComplete] = useState(false);
   const [g2PassengerTab, setG2PassengerTab] = useState<"first6" | "after6">("first6");
+  const [g2PathsTab, setG2PathsTab] = useState<"demerits" | "escalating">("demerits");
   const currentLesson = moduleItem?.lessons[lessonIndex];
 
   if (!moduleItem) {
@@ -2192,6 +2193,233 @@ function ModuleReaderContent() {
                           </strong>{" "}
                           + a fine (up to $1,000).
                         </li>
+                      </ul>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-licensing-restrictions" &&
+                  currentLesson.id === "4" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      G2 drivers face two parallel penalty systems:{" "}
+                      <strong style={{ color: "var(--ghost-white)" }}>
+                        Demerit Point Accumulation
+                      </strong>{" "}
+                      (standard) and{" "}
+                      <strong style={{ color: "var(--ghost-white)" }}>
+                        Escalating Sanctions
+                      </strong>{" "}
+                      (the &quot;Novice Driver&quot; fast-track to suspension).
+                    </p>
+
+                    {/* Two Paths to Suspension — toggle */}
+                    <div>
+                      <h2
+                        className="mb-4 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Two Paths to Suspension
+                      </h2>
+                      <div
+                        className="mb-4 flex rounded-xl border-2 p-1"
+                        style={{
+                          borderColor: "var(--midnight-indigo)",
+                          backgroundColor: "var(--midnight-indigo)",
+                        }}
+                        role="tablist"
+                        aria-label="Path to suspension"
+                      >
+                        <button
+                          type="button"
+                          role="tab"
+                          aria-selected={g2PathsTab === "demerits"}
+                          onClick={() => setG2PathsTab("demerits")}
+                          className="flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-all"
+                          style={
+                            g2PathsTab === "demerits"
+                              ? {
+                                  backgroundColor: "var(--electric-cyan)",
+                                  color: "var(--void-purple)",
+                                }
+                              : { color: "var(--lavender-mist)" }
+                          }
+                        >
+                          Path A: Demerits
+                        </button>
+                        <button
+                          type="button"
+                          role="tab"
+                          aria-selected={g2PathsTab === "escalating"}
+                          onClick={() => setG2PathsTab("escalating")}
+                          className="flex-1 rounded-lg px-4 py-3 text-sm font-semibold transition-all"
+                          style={
+                            g2PathsTab === "escalating"
+                              ? {
+                                  backgroundColor: "var(--electric-cyan)",
+                                  color: "var(--void-purple)",
+                                }
+                              : { color: "var(--lavender-mist)" }
+                          }
+                        >
+                          Path B: Escalating Sanctions
+                        </button>
+                      </div>
+
+                      {g2PathsTab === "demerits" ? (
+                        <div
+                          className="rounded-lg border-2 p-4"
+                          style={{
+                            borderColor: "var(--midnight-indigo)",
+                            backgroundColor: "var(--void-purple)",
+                          }}
+                        >
+                          <ul
+                            className="space-y-3 text-sm leading-relaxed"
+                            style={{ color: "var(--lavender-mist)" }}
+                          >
+                            <li>
+                              <strong style={{ color: "var(--ghost-white)" }}>2–5 points:</strong> Warning Letter.
+                            </li>
+                            <li>
+                              <strong style={{ color: "var(--ghost-white)" }}>6–8 points:</strong> Interview + $50 fee.
+                            </li>
+                            <li>
+                              <strong style={{ color: "var(--ghost-white)" }}>9 points:</strong> Automatic 60-day suspension.
+                            </li>
+                          </ul>
+                        </div>
+                      ) : (
+                        <div
+                          className="rounded-lg border-2 p-4"
+                          style={{
+                            borderColor: "var(--midnight-indigo)",
+                            backgroundColor: "var(--void-purple)",
+                          }}
+                        >
+                          <p
+                            className="text-sm leading-relaxed"
+                            style={{ color: "var(--lavender-mist)" }}
+                          >
+                            Triggered by any G2 condition violation (e.g. the midnight passenger rule or zero-alcohol rule){" "}
+                            <strong style={{ color: "var(--ghost-white)" }}>or</strong> any 4+ demerit point conviction (e.g. speeding 30 km/h over).
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Sanction Ladder */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-4 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Sanction Ladder
+                      </h2>
+                      <div className="space-y-4">
+                        <div className="flex gap-4">
+                          <div
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold"
+                            style={{
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }}
+                          >
+                            1
+                          </div>
+                          <div>
+                            <span
+                              className="font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              1st Occurrence:
+                            </span>{" "}
+                            <span style={{ color: "var(--lavender-mist)" }}>
+                              30-day suspension.
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex gap-4">
+                          <div
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold"
+                            style={{
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }}
+                          >
+                            2
+                          </div>
+                          <div>
+                            <span
+                              className="font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              2nd Occurrence:
+                            </span>{" "}
+                            <span style={{ color: "var(--lavender-mist)" }}>
+                              90-day suspension.
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex gap-4">
+                          <div
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold"
+                            style={{
+                              backgroundColor: "var(--crimson-spark)",
+                              color: "white",
+                            }}
+                          >
+                            3
+                          </div>
+                          <div>
+                            <span
+                              className="font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              3rd Occurrence:
+                            </span>{" "}
+                            <span style={{ color: "var(--lavender-mist)" }}>
+                              License <strong style={{ color: "var(--crimson-spark)" }}>CANCELLED</strong>. Must restart from G1 (all tests and fees).
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 4-Point Trap */}
+                    <div
+                      className="rounded-lg border-2 p-5"
+                      style={{
+                        borderColor: "var(--crimson-spark)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-3 text-sm font-bold uppercase tracking-wide"
+                        style={{ color: "var(--crimson-spark)" }}
+                      >
+                        The 4-Point Trap
+                      </div>
+                      <p
+                        className="mb-4 text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Common offences that carry 4+ points and trigger an immediate 30-day suspension for a G2 driver:
+                      </p>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Speeding 30 km/h–49 km/h over the limit.</li>
+                        <li>Following too closely (tailgating).</li>
+                        <li>Failing to stop for a pedestrian crossover.</li>
                       </ul>
                     </div>
                   </div>
