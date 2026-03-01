@@ -5,8 +5,8 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <main className="mx-auto max-w-md px-4 py-10">
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">Loading…</p>
+        <main className="w-full max-w-md">
+          <p className="text-sm text-[#B8B0D3]">Loading…</p>
         </main>
       }
     >

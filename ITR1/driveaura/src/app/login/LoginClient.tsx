@@ -72,19 +72,19 @@ export default function LoginClient() {
   }
 
   return (
-    <main className="mx-auto max-w-md px-4 py-10">
-      <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+    <main className="w-full max-w-md">
+      <div className="rounded-2xl border border-[#00F5FF]/20 bg-[#1C1132] p-6 shadow-[0_0_0_1px_rgba(0,245,255,0.08),0_20px_60px_rgba(0,0,0,0.45)]">
         <header className="mb-5">
-          <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+          <h1 className="text-2xl font-semibold text-[#F5F5F7]">
             {mode === "login" ? "Log in" : "Create account"}
           </h1>
-          <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="mt-1 text-sm text-[#B8B0D3]">
             Sign in to access DriveAura.
           </p>
         </header>
 
         {error ? (
-          <div className="mb-4 rounded border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-200">
+          <div className="mb-4 rounded-lg border border-[#FF3B3F]/35 bg-[#0F051D] px-3 py-2 text-sm text-[#F5F5F7]">
             {error}
           </div>
         ) : null}
@@ -93,37 +93,33 @@ export default function LoginClient() {
           type="button"
           onClick={handleGoogle}
           disabled={submitting}
-          className="mb-4 w-full rounded border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-800 hover:bg-zinc-50 disabled:opacity-60 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:bg-zinc-900"
+          className="mb-4 w-full rounded-lg border border-[#00F5FF]/25 bg-[#0F051D] px-3 py-2 text-sm font-medium text-[#F5F5F7] hover:border-[#00F5FF]/45 hover:bg-[#0F051D]/80 disabled:opacity-60"
         >
           Continue with Google
         </button>
 
         <div className="mb-4 flex items-center gap-3">
-          <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
-          <span className="text-xs text-zinc-500 dark:text-zinc-400">or</span>
-          <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+          <div className="h-px flex-1 bg-[#00F5FF]/15" />
+          <span className="text-xs text-[#B8B0D3]">or</span>
+          <div className="h-px flex-1 bg-[#00F5FF]/15" />
         </div>
 
         <form onSubmit={handleEmailAuth} className="space-y-3">
           <label className="block">
-            <span className="mb-1 block text-sm text-zinc-700 dark:text-zinc-300">
-              Email
-            </span>
+            <span className="mb-1 block text-sm text-[#B8B0D3]">Email</span>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               autoComplete="email"
               required
-              className="w-full rounded border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-600"
+              className="w-full rounded-lg border border-[#00F5FF]/20 bg-[#0F051D] px-3 py-2 text-sm text-[#F5F5F7] outline-none placeholder:text-[#B8B0D3]/60 focus:border-[#00F5FF] focus:ring-2 focus:ring-[#00F5FF]/15"
               placeholder="you@example.com"
             />
           </label>
 
           <label className="block">
-            <span className="mb-1 block text-sm text-zinc-700 dark:text-zinc-300">
-              Password
-            </span>
+            <span className="mb-1 block text-sm text-[#B8B0D3]">Password</span>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -131,7 +127,7 @@ export default function LoginClient() {
               autoComplete={mode === "login" ? "current-password" : "new-password"}
               required
               minLength={6}
-              className="w-full rounded border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-600"
+              className="w-full rounded-lg border border-[#00F5FF]/20 bg-[#0F051D] px-3 py-2 text-sm text-[#F5F5F7] outline-none placeholder:text-[#B8B0D3]/60 focus:border-[#00F5FF] focus:ring-2 focus:ring-[#00F5FF]/15"
               placeholder="••••••••"
             />
           </label>
@@ -139,20 +135,20 @@ export default function LoginClient() {
           <button
             disabled={submitting}
             type="submit"
-            className="w-full rounded bg-zinc-900 px-3 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+            className="w-full rounded-lg bg-[#FF3B3F] px-3 py-2 text-sm font-semibold text-white shadow-[0_0_0_1px_rgba(255,59,63,0.25)] hover:bg-[#e23337] disabled:opacity-60"
           >
             {submitting ? "Working…" : mode === "login" ? "Log in" : "Create account"}
           </button>
         </form>
 
-        <div className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+        <div className="mt-4 text-sm text-[#B8B0D3]">
           {mode === "login" ? (
             <>
               Don&apos;t have an account?{" "}
               <button
                 type="button"
                 onClick={() => setMode("signup")}
-                className="font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+                className="font-semibold text-[#00F5FF] hover:underline"
               >
                 Sign up
               </button>
@@ -163,7 +159,7 @@ export default function LoginClient() {
               <button
                 type="button"
                 onClick={() => setMode("login")}
-                className="font-medium text-zinc-900 hover:underline dark:text-zinc-100"
+                className="font-semibold text-[#00F5FF] hover:underline"
               >
                 Log in
               </button>
@@ -171,8 +167,8 @@ export default function LoginClient() {
           )}
         </div>
 
-        <footer className="mt-6 border-t border-zinc-200 pt-4 text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
-          <Link href="/" className="hover:underline">
+        <footer className="mt-6 border-t border-[#00F5FF]/15 pt-4 text-xs text-[#B8B0D3]">
+          <Link href="/" className="hover:underline hover:decoration-[#00F5FF]">
             Back to Home
           </Link>
         </footer>
