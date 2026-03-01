@@ -983,6 +983,335 @@ function ModuleReaderContent() {
                       </table>
                     </div>
                   </>
+                ) : moduleId === "g1-sharing-the-road" &&
+                  currentLesson.id === "1" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      This lesson is based on the{" "}
+                      <a
+                        href="https://www.ontario.ca/document/official-mto-drivers-handbook/sharing-road-other-road-users"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        MTO section on sharing the road with other road users
+                      </a>{" "}
+                      and the{" "}
+                      <a
+                        href="https://www.ontario.ca/document/official-mto-drivers-handbook/stopping"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        MTO section on stopping
+                      </a>
+                      .
+                    </p>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        School Buses: When You Must Stop
+                      </h2>
+                      <p
+                        className="mb-2 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        School buses are chrome yellow with the words
+                        &quot;School Bus&quot; on them. Whenever a school bus is
+                        stopped with its upper{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          red lights flashing
+                        </strong>{" "}
+                        or stop arm out, you must stop whether you are{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          approaching from the front or rear
+                        </strong>
+                        .
+                      </p>
+                      <ul
+                        className="mb-3 list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          If you are{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            behind
+                          </strong>{" "}
+                          the bus, stop at least{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            20 metres
+                          </strong>{" "}
+                          away.
+                        </li>
+                        <li>
+                          If you are{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            approaching from the front
+                          </strong>
+                          , stop far enough back for children to safely cross in
+                          front of you.
+                        </li>
+                        <li>
+                          Stay stopped until the bus moves again, the red lights
+                          stop flashing, and the stop arm folds away.
+                        </li>
+                        <li>
+                          On a road with a{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            median
+                          </strong>
+                          , only vehicles coming from{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            behind
+                          </strong>{" "}
+                          the bus must stop.
+                        </li>
+                      </ul>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Failing to stop for a school bus with red lights
+                        flashing is illegal and can result in heavy fines and{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          six demerit points
+                        </strong>{" "}
+                        for a first offence.
+                      </p>
+                    </div>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        School Crossings &amp; Pedestrian Crossovers
+                      </h2>
+                      <ul
+                        className="mb-3 list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Where a{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            school crossing guard
+                          </strong>{" "}
+                          displays the red-and-white stop sign, you must stop
+                          before the crossing and remain stopped until{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            all people, including the guard, have cleared the
+                            entire roadway
+                          </strong>
+                          .
+                        </li>
+                        <li>
+                          At{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            pedestrian crossovers
+                          </strong>
+                          , drivers and cyclists must stop and yield the whole
+                          roadway to pedestrians and crossing guards, and only
+                          proceed once everyone has reached the sidewalk.
+                        </li>
+                        <li>
+                          Never pass another vehicle within{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            30 metres
+                          </strong>{" "}
+                          of a pedestrian crossover.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Sharing the Road with Streetcars
+                      </h2>
+                      <p
+                        className="mb-2 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Some streetcar stops have special safety islands or
+                        zones. Pass these at a reasonable speed and be ready for
+                        pedestrians stepping out unexpectedly.
+                      </p>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Where passengers board or exit directly from the road,
+                        you must{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          stop behind the streetcar
+                        </strong>{" "}
+                        and only proceed once all passengers are safely off the
+                        roadway and the streetcar doors are closed (per local
+                        rules; always follow posted signs and markings).
+                      </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g1-sharing-the-road" &&
+                  currentLesson.id === "2" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Key rules in this lesson come from the{" "}
+                      <a
+                        href="https://www.ontario.ca/document/official-mto-drivers-handbook/sharing-road-other-road-users"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        MTO Sharing the Road section
+                      </a>
+                      .
+                    </p>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Sharing with Cyclists
+                      </h2>
+                      <ul
+                        className="mb-3 list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Cyclists usually ride about{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            one metre
+                          </strong>{" "}
+                          from the curb or parked cars. They may use any part of
+                          the lane to avoid hazards, cross tracks at a safe
+                          angle, or when the lane is too narrow to share safely.
+                        </li>
+                        <li>
+                          When{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            passing a cyclist
+                          </strong>
+                          , you must leave at least{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            one metre
+                          </strong>{" "}
+                          of space where practical. Whenever possible, change
+                          lanes to pass. Failing to give one metre can lead to a
+                          fine and{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            two demerit points
+                          </strong>
+                          .
+                        </li>
+                        <li>
+                          Do not follow closely behind cyclists—they do not have
+                          brake lights to warn you when slowing or stopping.
+                        </li>
+                        <li>
+                          Check mirrors and right-side blind spots carefully
+                          before turning or changing lanes, especially across a{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            bike lane
+                          </strong>
+                          .
+                        </li>
+                        <li>
+                          Watch for cyclists&apos;{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            hand signals
+                          </strong>{" "}
+                          and try to make eye contact when possible.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Large Vehicles, Buses, and Slow-Moving Traffic
+                      </h2>
+                      <ul
+                        className="mb-3 list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Large trucks and buses have{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            big blind spots
+                          </strong>{" "}
+                          on both sides and directly behind. If you can&apos;t
+                          see the driver&apos;s face in their mirror, they
+                          likely can&apos;t see you.
+                        </li>
+                        <li>
+                          They need{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            longer distances to stop
+                          </strong>
+                          , so never cut in closely after passing.
+                        </li>
+                        <li>
+                          When a municipal bus is leaving a{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            bus bay
+                          </strong>{" "}
+                          with its left signal on, you must allow it to re-enter
+                          traffic.
+                        </li>
+                        <li>
+                          Farm machinery and horse-drawn vehicles often travel
+                          at{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            40 km/h or less
+                          </strong>{" "}
+                          and display a slow-moving vehicle sign. Stay well back
+                          and only pass when it is clearly safe.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Safe Sharing Mindset
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Ontario roads are shared by pedestrians, cyclists,
+                        motorcycles, large trucks, buses, farm machinery, and
+                        horse-drawn vehicles. Giving extra time, space, and
+                        attention to more vulnerable road users prevents
+                        collisions and keeps everyone safer.
+                      </p>
+                    </div>
+                  </div>
                 ) : moduleId === "g1-right-of-way" &&
                   currentLesson.id === "1" ? (
                   <div className="space-y-6">
