@@ -4,40 +4,33 @@ import { getAuth, GoogleAuthProvider, type Auth } from "firebase/auth";
 let cachedApp: FirebaseApp | null = null;
 let cachedAuth: Auth | null = null;
 
-function requiredPublicEnvClient(name: string, value: string | undefined): string {
-  // IMPORTANT: In Next.js client bundles, env vars are only inlined when accessed
-  // as `process.env.NEXT_PUBLIC_*` (static). Dynamic access like `process.env[name]`
-  // will be undefined in the browser.
-  if (!value) {
-    throw new Error(`Missing environment variable: ${name}. Add it to your .env.local.`);
-  }
-  return value;
+/** True if Firebase env vars are set so we can initialize. */
+function isFirebaseConfigured(): boolean {
+  return Boolean(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
 }
 
-export function getFirebaseApp(): FirebaseApp {
+export function getFirebaseApp(): FirebaseApp | null {
   if (typeof window === "undefined") {
-    throw new Error("Firebase client SDK can only be initialized in the browser.");
+    return null;
   }
-
+  if (!isFirebaseConfigured()) {
+    return null;
+  }
   if (cachedApp) return cachedApp;
 
+  const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
+  const authDomain = process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN;
+  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+  const appId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID;
+  if (!apiKey || !authDomain || !projectId || !appId) {
+    return null;
+  }
+
   const firebaseConfig = {
-    apiKey: requiredPublicEnvClient(
-      "NEXT_PUBLIC_FIREBASE_API_KEY",
-      process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    ),
-    authDomain: requiredPublicEnvClient(
-      "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN",
-      process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    ),
-    projectId: requiredPublicEnvClient(
-      "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
-      process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    ),
-    appId: requiredPublicEnvClient(
-      "NEXT_PUBLIC_FIREBASE_APP_ID",
-      process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-    ),
+    apiKey,
+    authDomain,
+    projectId,
+    appId,
     storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
@@ -47,9 +40,11 @@ export function getFirebaseApp(): FirebaseApp {
   return cachedApp;
 }
 
-export function getFirebaseAuth(): Auth {
+export function getFirebaseAuth(): Auth | null {
   if (cachedAuth) return cachedAuth;
-  cachedAuth = getAuth(getFirebaseApp());
+  const app = getFirebaseApp();
+  if (!app) return null;
+  cachedAuth = getAuth(app);
   return cachedAuth;
 }
 

@@ -18,6 +18,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const auth = getFirebaseAuth();
+    if (!auth) {
+      setLoading(false);
+      return;
+    }
     const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
       setUser(nextUser);
       setLoading(false);
@@ -30,7 +34,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       user,
       loading,
       logout: async () => {
-        await signOut(getFirebaseAuth());
+        const auth = getFirebaseAuth();
+        if (auth) await signOut(auth);
       },
     }),
     [user, loading],

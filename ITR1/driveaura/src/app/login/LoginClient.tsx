@@ -44,6 +44,11 @@ export default function LoginClient() {
     setSubmitting(true);
     try {
       const auth = getFirebaseAuth();
+      if (!auth) {
+        setError("Sign-in is not configured. Add Firebase keys to .env.local.");
+        setSubmitting(false);
+        return;
+      }
       if (mode === "login") {
         await signInWithEmailAndPassword(auth, email, password);
       } else {
@@ -62,6 +67,11 @@ export default function LoginClient() {
     setSubmitting(true);
     try {
       const auth = getFirebaseAuth();
+      if (!auth) {
+        setError("Sign-in is not configured. Add Firebase keys to .env.local.");
+        setSubmitting(false);
+        return;
+      }
       await signInWithPopup(auth, googleProvider);
       router.replace(next);
     } catch (err) {
