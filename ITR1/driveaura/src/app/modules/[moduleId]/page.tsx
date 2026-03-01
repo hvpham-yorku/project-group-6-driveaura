@@ -983,6 +983,376 @@ function ModuleReaderContent() {
                       </table>
                     </div>
                   </>
+                ) : moduleId === "g1-right-of-way" &&
+                  currentLesson.id === "1" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      These rules are based on the{" "}
+                      <a
+                        href="https://www.ontario.ca/document/official-mto-drivers-handbook/driving-through-intersections"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        MTO section on driving through intersections
+                      </a>{" "}
+                      in the{" "}
+                      <a
+                        href="https://www.ontario.ca/document/official-mto-drivers-handbook"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Official Driver&apos;s Handbook
+                      </a>
+                      .
+                    </p>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Controlled vs. Uncontrolled Intersections
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Intersections with traffic lights, stop signs, or yield
+                        signs are{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          controlled intersections
+                        </strong>
+                        . Intersections without any signs or lights are{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          uncontrolled intersections
+                        </strong>
+                        . At both types, you must be ready to yield the
+                        right-of-way to avoid collisions.
+                      </p>
+                    </div>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Uncontrolled Intersections &amp; 4-Way Stops
+                      </h2>
+                      <ul
+                        className="mb-3 list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          At an{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            uncontrolled intersection
+                          </strong>
+                          , you must yield to a vehicle that reaches the
+                          intersection before you. If you arrive at the same
+                          time, the vehicle on the{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            right
+                          </strong>{" "}
+                          has the right-of-way.
+                        </li>
+                        <li>
+                          At a{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            4-way stop
+                          </strong>
+                          , the first vehicle to come to a complete stop has the
+                          right-of-way.
+                        </li>
+                        <li>
+                          If two vehicles stop at the same time at a 4-way stop,
+                          the driver on the{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            left
+                          </strong>{" "}
+                          must yield to the driver on the right.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Turning at Intersections
+                      </h2>
+                      <p
+                        className="mb-2 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Whenever you turn left or right at an intersection, you
+                        may have to yield:
+                      </p>
+                      <ul
+                        className="mb-3 list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          For{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            left turns
+                          </strong>
+                          , wait for oncoming traffic to pass or turn, and yield
+                          to pedestrians in or approaching your path.
+                        </li>
+                        <li>
+                          For{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            right turns
+                          </strong>
+                          , yield to pedestrians crossing where you will turn
+                          and check your blind spot for cyclists approaching
+                          from behind, especially in bike lanes or on the
+                          sidewalk.
+                        </li>
+                        <li>
+                          For{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            right turns on red
+                          </strong>
+                          , you must come to a complete stop, then yield to
+                          pedestrians and others using the road before turning.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Driveways, Crossovers, and School Crossings
+                      </h2>
+                      <ul
+                        className="mb-3 list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          When entering a road from a{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            private road or driveway
+                          </strong>
+                          , you must yield to vehicles on the road and
+                          pedestrians on the sidewalk.
+                        </li>
+                        <li>
+                          At{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            pedestrian crossovers
+                          </strong>{" "}
+                          and{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            school crossings with crossing guards
+                          </strong>
+                          , you must yield and wait until pedestrians have
+                          completely crossed the road.
+                        </li>
+                      </ul>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Remember:{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          signalling does not give you the right-of-way
+                        </strong>
+                        . You must always make sure the way is clear before
+                        proceeding.
+                      </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g1-right-of-way" &&
+                  currentLesson.id === "2" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Emergency-vehicle rules here are summarized from the{" "}
+                      <a
+                        href="https://www.ontario.ca/document/official-mto-drivers-handbook/dealing-particular-situations"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        MTO section on dealing with particular situations
+                      </a>
+                      .
+                    </p>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Recognizing Emergency Vehicles
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Emergency vehicles include police, fire, ambulance and
+                        certain public-utility vehicles. They may use flashing
+                        red or red-and-blue lights, a siren or bell, or
+                        alternating high-beam headlights. Some firefighters and
+                        volunteer medical responders may use a{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          flashing green light
+                        </strong>{" "}
+                        on their own vehicles—you should still yield to help
+                        them reach an emergency safely.
+                      </p>
+                    </div>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        When an Emergency Vehicle Is Approaching
+                      </h2>
+                      <ul
+                        className="mb-3 list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          When an emergency vehicle approaches from any
+                          direction with lights flashing and siren or bell
+                          sounding, you must{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            bring your vehicle to an immediate stop
+                          </strong>
+                          .
+                        </li>
+                        <li>
+                          Move your vehicle as near as practical to the{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            right-hand curb or edge of the roadway
+                          </strong>{" "}
+                          (or nearest edge on a one-way / multi-lane divided
+                          road), parallel to the road and{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            clear of intersections and ramps
+                          </strong>
+                          .
+                        </li>
+                        <li>
+                          Do not stop on the{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            shoulder
+                          </strong>
+                          ; emergency vehicles may be using it.
+                        </li>
+                        <li>
+                          If you are in an intersection preparing to turn,
+                          abandon the turn, clear the intersection by going
+                          straight when safe, then pull to the right and stop.
+                        </li>
+                        <li>
+                          After the emergency vehicle passes, check that the way
+                          is clear, signal, and merge back into traffic. Watch
+                          for additional emergency vehicles.
+                        </li>
+                        <li>
+                          It is illegal to{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            follow within 150 metres
+                          </strong>{" "}
+                          of a fire vehicle responding to an alarm.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        When an Emergency Vehicle or Tow Truck Is Stopped
+                      </h2>
+                      <ul
+                        className="mb-3 list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          When you approach a{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            stopped emergency vehicle
+                          </strong>{" "}
+                          with red or red-and-blue lights flashing, or a{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            tow truck with amber lights flashing
+                          </strong>
+                          , you must{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            reduce your speed and proceed with caution
+                          </strong>
+                          .
+                        </li>
+                        <li>
+                          If there are{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            two or more lanes
+                          </strong>{" "}
+                          in your direction, you must{" "}
+                          <strong style={{ color: "var(--ghost-white)" }}>
+                            move to a lane away from the stopped vehicle
+                          </strong>{" "}
+                          when safe to do so, in addition to slowing down.
+                        </li>
+                        <li>
+                          Brake early and gradually so other drivers have time
+                          to react, and always shoulder-check before changing
+                          lanes.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Penalties for Not Yielding
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Failing to respond properly to an emergency vehicle or
+                        stopped tow truck can result in fines and{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          three demerit points
+                        </strong>{" "}
+                        for a first offence. For additional offences, fines
+                        increase and you could face up to{" "}
+                        <strong style={{ color: "var(--ghost-white)" }}>
+                          six months in jail
+                        </strong>
+                        . Treat lights and sirens seriously—clear the way and
+                        stop when required.
+                      </p>
+                    </div>
+                  </div>
                 ) : moduleId === "g1-impaired-driving" &&
                   currentLesson.id === "1" ? (
                   <div className="space-y-6">
