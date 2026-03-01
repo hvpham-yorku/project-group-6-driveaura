@@ -38,9 +38,9 @@ export default function TestChecklistPage() {
         Checklist for Passenger – G2 and G driving tests
       </p>
       <p className="mb-6 text-sm" style={{ color: "#B8B0D3" }}>
-        Yes/No per category (safety, mirrors, lane changes, passenger rules).
-        Optional notes. Generate a report to see pass/fail readiness, strengths,
-        and weaknesses.
+        Yes/No per category plus sub-checkpoints to tick off. Optional notes.
+        Generate a report for per-category completion (e.g. 3/4), pass/fail
+        (75%+ in all categories), and strengths/weaknesses.
       </p>
 
       <form

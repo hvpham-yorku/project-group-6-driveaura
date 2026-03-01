@@ -43,6 +43,9 @@ export function ReportSection({ report }: ReportSectionProps) {
           <h3 className="mb-2 text-sm font-medium" style={{ color: "#F5F5F7" }}>
             Per-category completion
           </h3>
+          <p className="mb-2 text-xs" style={{ color: "#B8B0D3" }}>
+            Pass = 75% or more in each category.
+          </p>
           <ul className="space-y-1 text-sm" style={{ color: "#B8B0D3" }}>
             {report.categoryCompletion.map((c) => (
               <li key={c.categoryId}>

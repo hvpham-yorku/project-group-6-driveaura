@@ -103,7 +103,7 @@ export function CategoryRow({ categoryId, value, onChange }: CategoryRowProps) {
         />
       </div>
       {hasSubItems && (
-        <div className="mb-3 space-y-2 pl-1">
+        <div className="mb-4 mt-1 space-y-2 pl-1">
           <span className="block text-xs font-medium" style={{ color: "#B8B0D3" }}>
             Sub-checkpoints
           </span>

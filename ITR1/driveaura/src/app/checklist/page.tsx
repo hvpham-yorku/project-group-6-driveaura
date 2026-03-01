@@ -32,8 +32,9 @@ export default function ChecklistPage() {
         Checklist for Passenger – G2 and G
       </h1>
       <p className="mb-6 text-sm" style={{ color: "#B8B0D3" }}>
-        Yes/No per category. Optional notes. Generate a report to see pass/fail
-        readiness, strengths, and weaknesses.
+        Yes/No per category plus sub-checkpoints to tick off. Optional notes.
+        Generate a report for per-category completion, pass/fail (75%+ in all
+        categories), and strengths/weaknesses.
       </p>
 
       <form
