@@ -2,14 +2,11 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { CategoryRow } from "@/app/checklist/components/CategoryRow";
-import { ReportSection } from "@/app/checklist/components/ReportSection";
-import type { ChecklistCategoryId, ChecklistState } from "@/app/checklist/types";
-import {
-  CHECKLIST_CATEGORY_IDS,
-  type ChecklistReport,
-} from "@/app/checklist/types";
-import { buildReport } from "@/app/checklist/utils";
+import { CategoryRow } from "./components/CategoryRow";
+import { ReportSection } from "./components/ReportSection";
+import type { ChecklistCategoryId, ChecklistState } from "./types";
+import { CHECKLIST_CATEGORY_IDS, type ChecklistReport } from "./types";
+import { buildReport } from "./utils";
 
 function getInitialState(): ChecklistState {
   const state = {} as ChecklistState;
@@ -19,7 +16,7 @@ function getInitialState(): ChecklistState {
   return state;
 }
 
-export default function TestChecklistPage() {
+export default function ChecklistPage() {
   const [state, setState] = useState<ChecklistState>(getInitialState);
   const [report, setReport] = useState<ChecklistReport | null>(null);
 
@@ -40,15 +37,11 @@ export default function TestChecklistPage() {
       style={{ backgroundColor: "#0F051D" }}
     >
       <h1 className="mb-2 text-2xl font-semibold" style={{ color: "#F5F5F7" }}>
-        Test Checklist
+        Checklist for Passenger – G2 and G
       </h1>
-      <p className="mb-1 text-sm font-medium" style={{ color: "#B8B0D3" }}>
-        Checklist for Passenger – G2 and G driving tests
-      </p>
       <p className="mb-6 text-sm" style={{ color: "#B8B0D3" }}>
-        Yes/No per category (safety, mirrors, lane changes, passenger rules).
-        Optional notes. Generate a report to see pass/fail readiness, strengths,
-        and weaknesses.
+        Yes/No per category. Optional notes. Generate a report to see pass/fail
+        readiness, strengths, and weaknesses.
       </p>
 
       <form
@@ -73,6 +66,8 @@ export default function TestChecklistPage() {
           style={{
             backgroundColor: "#FF3B3F",
             color: "#F5F5F7",
+            focusRingColor: "#FF3B3F",
+            focusRingOffsetColor: "#0F051D",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = "#FF5A5E";

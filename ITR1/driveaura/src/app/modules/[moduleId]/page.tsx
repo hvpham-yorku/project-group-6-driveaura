@@ -45,6 +45,56 @@ function IconCheck() {
   );
 }
 
+/** Placeholder for sign icon in the Regulatory Signs table. */
+function SignIconPlaceholder() {
+  return (
+    <div
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded border"
+      style={{
+        borderColor: "var(--lavender-mist)",
+        color: "var(--lavender-mist)",
+        backgroundColor: "var(--midnight-indigo)",
+      }}
+      aria-hidden
+    >
+      <span className="text-xs">?</span>
+    </div>
+  );
+}
+
+/** Regulatory signs reference table — G1 Module 1. */
+const REGULATORY_SIGN_TABLE_DATA: Array<{
+  signName: string;
+  instruction: string;
+}> = [
+  { signName: "Stop Sign", instruction: "Complete stop at line, crosswalk, sidewalk, or edge of intersection. Wait for clear path." },
+  { signName: "Yield Sign", instruction: "Let traffic in/near intersection go first. Stop only if necessary." },
+  { signName: "Railway Crossing", instruction: "X-shaped. Slow down, look both ways, and prepare to stop." },
+  { signName: "Bicycle Route", instruction: "Official route. Watch for and share the road with cyclists." },
+  { signName: "Parking Permitted", instruction: "Parking allowed between signs during posted times." },
+  { signName: "Snowmobiles", instruction: "Snowmobiles are permitted to use this road." },
+  { signName: "Do Not Enter", instruction: "Do not enter this road." },
+  { signName: "No Stopping", instruction: "Do not stop even for a moment between these signs." },
+  { signName: "No Standing", instruction: "No stopping except to load/unload passengers." },
+  { signName: "No Parking", instruction: "No stopping except to load/unload passengers or merchandise." },
+  { signName: "No Left / Right / U-Turn", instruction: "Forbidden maneuvers at the intersection or light." },
+  { signName: "No Bicycles / Pedestrians", instruction: "Bicycles or pedestrians are not allowed on this road." },
+  { signName: "Keep Right", instruction: "Keep to the right of the traffic island." },
+  { signName: "Do Not Pass", instruction: "Passing other vehicles is forbidden on this road." },
+  { signName: "Slow Traffic Keep Right", instruction: "Slower traffic on multi-lane roads must stay in the right lane." },
+  { signName: "One Way", instruction: "Traffic may only travel in the direction of the arrow." },
+  { signName: "Community Safety Zone", instruction: "Special risk area; traffic offences subject to increased fines." },
+  { signName: "School Zone Speed", instruction: "Lower speed limit applies when yellow lights are flashing." },
+  { signName: "Stop for School Bus", instruction: "Must stop for bus with flashing signals (even on multi-lane roads without medians)." },
+  { signName: "Lane Directional Arrows", instruction: "Above road or on pavement; dictates mandatory travel direction for that lane." },
+  { signName: "Two-Way Left Turn", instruction: "Center lane reserved exclusively for two-way left turns." },
+  { signName: "Reserved (HOV) Lanes", instruction: "Lanes for specific vehicles (buses, taxis, 3+ people) during set hours." },
+  { signName: "Climbing / Passing Lane", instruction: "Keep right except when passing on two-lane sections." },
+  { signName: "Yield to Bus", instruction: "Reminder to yield to buses signaling intent to return to a lane." },
+  { signName: "Road Forks Right", instruction: "Indicates the road splits to the right ahead." },
+  { signName: "Pedestrian Crossover", instruction: "Be prepared to stop and yield to pedestrians." },
+];
+
 function ModuleReaderContent() {
   const params = useParams();
   const searchParams = useSearchParams();
@@ -69,11 +119,15 @@ function ModuleReaderContent() {
 
   if (!moduleItem) {
     return (
-      <main className="mx-auto max-w-5xl px-4 py-12">
-        <p className="text-slate-600">Module not found.</p>
+      <main
+        className="mx-auto min-h-screen px-4 py-12"
+        style={{ backgroundColor: "var(--void-purple)" }}
+      >
+        <p style={{ color: "var(--lavender-mist)" }}>Module not found.</p>
         <Link
           href="/modules"
-          className="mt-4 inline-flex items-center gap-2 text-ontario-blue hover:underline"
+          className="mt-4 inline-flex items-center gap-2 text-sm font-medium hover:underline"
+          style={{ color: "var(--electric-cyan)" }}
         >
           <IconChevronLeft />
           Back to Learning Hub
@@ -83,26 +137,50 @@ function ModuleReaderContent() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--void-purple)" }}
+    >
       {/* Top bar: back link */}
-      <div className="border-b border-slate-200 bg-white px-4 py-3">
+      <div
+        className="border-b px-4 py-3"
+        style={{
+          borderColor: "var(--midnight-indigo)",
+          backgroundColor: "var(--midnight-indigo)",
+        }}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link
-            href="/modules"
-            className="inline-flex items-center gap-2 text-sm font-medium text-ontario-blue hover:underline"
+            href={`/modules/level/${moduleItem.licenseLevel}`}
+            className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
+            style={{ color: "var(--electric-cyan)" }}
           >
             <IconChevronLeft />
-            Back to Learning Hub
+            Back to {moduleItem.licenseLevel} modules
           </Link>
-          <span className="text-sm text-slate-500">{moduleItem.title}</span>
+          <span
+            className="text-sm"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            {moduleItem.title}
+          </span>
         </div>
       </div>
 
       <div className="mx-auto flex max-w-6xl flex-col lg:flex-row">
         {/* Left: lesson nav */}
-        <aside className="w-full border-b border-slate-200 bg-white lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r">
+        <aside
+          className="w-full border-b lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--midnight-indigo)",
+          }}
+        >
           <nav className="p-4" aria-label="Module chapters">
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <h2
+              className="mb-3 text-xs font-semibold uppercase tracking-wide"
+              style={{ color: "var(--lavender-mist)" }}
+            >
               Lessons
             </h2>
             <ul className="space-y-1">
@@ -113,11 +191,29 @@ function ModuleReaderContent() {
                   <li key={lesson.id}>
                     <Link
                       href={href}
-                      className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
+                      className="block rounded-lg px-3 py-2 text-sm transition-colors"
+                      style={
                         isActive
-                          ? "bg-ontario-blue text-white"
-                          : "text-slate-700 hover:bg-slate-100"
-                      }`}
+                          ? {
+                              backgroundColor: "var(--electric-cyan)",
+                              color: "var(--void-purple)",
+                            }
+                          : {
+                              color: "var(--lavender-mist)",
+                            }
+                      }
+                      onMouseEnter={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.backgroundColor = "var(--void-purple)";
+                          e.currentTarget.style.color = "var(--ghost-white)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.color = "var(--lavender-mist)";
+                        }
+                      }}
                     >
                       {lesson.title}
                     </Link>
@@ -132,23 +228,574 @@ function ModuleReaderContent() {
         <div className="flex-1 p-4 lg:p-8">
           {currentLesson ? (
             <>
-              <h1 className="mb-4 text-xl font-bold text-slate-900 sm:text-2xl">
+              <h1
+                className="mb-4 text-xl font-bold sm:text-2xl"
+                style={{ color: "var(--ghost-white)" }}
+              >
                 {currentLesson.title}
               </h1>
 
               {/* Video placeholder */}
               <div
-                className="mb-6 flex aspect-video w-full items-center justify-center rounded-lg border border-slate-200 bg-slate-200 text-slate-500"
+                className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
+                style={{
+                  borderColor: "var(--midnight-indigo)",
+                  backgroundColor: "var(--void-purple)",
+                  color: "var(--lavender-mist)",
+                }}
                 aria-hidden
               >
                 <span className="text-sm">Video placeholder</span>
               </div>
 
               {/* Lesson text */}
-              <div className="prose prose-slate max-w-none mb-8">
-                <p className="text-slate-700 leading-relaxed">
-                  {currentLesson.content}
-                </p>
+              <div className="mb-8 max-w-none">
+                {moduleId === "g1-signs-signals-markings" &&
+                currentLesson.id === "1" ? (
+                  <>
+                    <p
+                      className="mb-6 leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Regulatory signs tell you about laws and rules that apply
+                      to the road. Follow them as required by the Ontario
+                      Highway Traffic Act.
+                    </p>
+                    <div
+                      className="overflow-x-auto rounded-lg border"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <table className="w-full min-w-[640px] border-collapse text-left">
+                        <thead>
+                          <tr
+                            style={{
+                              backgroundColor: "var(--midnight-indigo)",
+                              color: "var(--ghost-white)",
+                            }}
+                          >
+                            <th
+                              className="w-16 px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Signs
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Sign Name
+                            </th>
+                            <th
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)" }}
+                            >
+                              Instruction / Legal Rule
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {REGULATORY_SIGN_TABLE_DATA.map((row, index) => (
+                            <tr
+                              key={`${row.signName}-${index}`}
+                              className="transition-shadow duration-200"
+                              style={{
+                                backgroundColor: "var(--void-purple)",
+                                color: "var(--lavender-mist)",
+                                borderBottom:
+                                  index < REGULATORY_SIGN_TABLE_DATA.length - 1
+                                    ? "1px solid var(--midnight-indigo)"
+                                    : undefined,
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow =
+                                  "0 0 20px rgba(0, 245, 255, 0.25)";
+                                e.currentTarget.style.color =
+                                  "var(--ghost-white)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = "none";
+                                e.currentTarget.style.color =
+                                  "var(--lavender-mist)";
+                              }}
+                            >
+                              <td
+                                className="px-4 py-3"
+                                style={{ color: "inherit" }}
+                              >
+                                <SignIconPlaceholder />
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm font-medium"
+                                style={{ color: "inherit" }}
+                              >
+                                {row.signName}
+                              </td>
+                              <td
+                                className="px-4 py-3 text-sm leading-relaxed"
+                                style={{ color: "inherit" }}
+                              >
+                                {row.instruction}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                ) : moduleId === "g1-sharing-the-road" &&
+                  currentLesson.id === "1" ? (
+                  <>
+                    <div className="space-y-4">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Sharing the road means watching out for pedestrians,
+                        cyclists, buses, and other drivers so everyone gets
+                        home safely. As a G1 driver, you are learning to plan
+                        ahead and leave extra space instead of reacting late.
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Who you share the road with
+                      </h2>
+                      <p className="mb-2 text-sm">
+                        You will drive around many different road users. Know who
+                        they are and give them space:
+                      </p>
+                      <ul className="list-disc space-y-1 pl-5 text-sm">
+                        <li>Pedestrians</li>
+                        <li>Cyclists</li>
+                        <li>Large vehicles (trucks, buses)</li>
+                        <li>School buses</li>
+                        <li>Emergency vehicles</li>
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="text-sm font-semibold">
+                        Quick knowledge check
+                      </h2>
+                      <p className="mt-2 text-sm">
+                        Q1: Why is it important for a G1 driver to learn how to
+                        share the road with other road users?
+                      </p>
+                      <ol className="mt-3 space-y-2 text-sm">
+                        <li>
+                          <span className="font-semibold">A.</span> It reduces
+                          the chance of crashes and keeps vulnerable road users
+                          safe.
+                        </li>
+                        <li>
+                          <span className="font-semibold">B.</span> It only
+                          matters on highways, not in the city.
+                        </li>
+                        <li>
+                          <span className="font-semibold">C.</span> It is mainly
+                          for experienced G drivers, not beginners.
+                        </li>
+                        <li>
+                          <span className="font-semibold">D.</span> It just
+                          helps you drive faster through intersections.
+                        </li>
+                      </ol>
+                      <p className="mt-3 text-xs" style={{ color: "var(--neon-mint)" }}>
+                        Correct: A
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        School buses and streetcars – key rules
+                      </h2>
+                      <ul className="list-disc space-y-2 pl-5 text-sm">
+                        <li>
+                          <strong>School buses (no median):</strong> Stop in
+                          both directions when red lights flash and the stop arm
+                          is out. Stay at least 20 metres back until the lights
+                          stop.
+                        </li>
+                        <li>
+                          <strong>School buses (divided road with median):</strong>{" "}
+                          Only vehicles behind the bus must stop; oncoming
+                          traffic may continue with caution.
+                        </li>
+                        <li>
+                          <strong>Streetcars (no safety island):</strong> Stop
+                          at least 2 metres behind the rear door and wait until
+                          passengers are safely off the road.
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="text-sm font-semibold">
+                        Quick knowledge check
+                      </h2>
+                      <p className="mt-2 text-sm">
+                        Q2: On a two-lane road with no median, what must you do
+                        when a school bus has its red lights flashing and stop
+                        arm extended?
+                      </p>
+                      <ol className="mt-3 space-y-2 text-sm">
+                        <li>
+                          <span className="font-semibold">A.</span> Stop in
+                          both directions and stay at least 20 metres back until
+                          the lights stop.
+                        </li>
+                        <li>
+                          <span className="font-semibold">B.</span> Only slow
+                          down and pass with caution.
+                        </li>
+                        <li>
+                          <span className="font-semibold">C.</span> Stop only if
+                          you are behind the bus; oncoming traffic may continue.
+                        </li>
+                        <li>
+                          <span className="font-semibold">D.</span> Honk and
+                          drive past quickly so children clear the road.
+                        </li>
+                      </ol>
+                      <p className="mt-3 text-xs" style={{ color: "var(--neon-mint)" }}>
+                        Correct: A
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--midnight-indigo)",
+                        borderColor: "var(--electric-cyan)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Key takeaway
+                      </h2>
+                      <p className="text-sm">
+                        Know who you share the road with, and follow the rules:
+                        stop for school buses (both ways when there is no
+                        median), stay 20 m back until lights stop, and stop
+                        behind streetcar doors when there is no safety island.
+                      </p>
+                    </div>
+                  </>
+                ) : moduleId === "g1-sharing-the-road" &&
+                  currentLesson.id === "2" ? (
+                  <>
+                    <div className="space-y-3">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Cyclists, pedestrians, and people using mobility
+                        devices do not have a vehicle to protect them. You must
+                        give them extra space and time.
+                      </p>
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Leave at least{" "}
+                          <span className="font-semibold">1 metre</span> when
+                          passing a cyclist where possible.
+                        </li>
+                        <li>
+                          Shoulder check for cyclists before turning right or
+                          opening your door.
+                        </li>
+                        <li>
+                          If the lane is too narrow to pass safely, slow down
+                          and wait instead of trying to squeeze by.
+                        </li>
+                        <li>
+                          In school zones and at crosswalks, reduce speed and be
+                          prepared to stop for pedestrians.
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="text-sm font-semibold">
+                        Quick knowledge check
+                      </h2>
+                      <p className="mt-2 text-sm">
+                        Q3: When you want to pass a cyclist, what is the safest
+                        way to do it on a narrow city street?
+                      </p>
+                      <ol className="mt-3 space-y-2 text-sm">
+                        <li>
+                          <span className="font-semibold">A.</span> Slow down,
+                          wait for a safe gap, and pass with at least 1 metre of
+                          space.
+                        </li>
+                        <li>
+                          <span className="font-semibold">B.</span> Honk and
+                          pass closely so the cyclist moves out of the way.
+                        </li>
+                        <li>
+                          <span className="font-semibold">C.</span> Squeeze
+                          between the cyclist and oncoming traffic to save time.
+                        </li>
+                        <li>
+                          <span className="font-semibold">D.</span> Drive on the
+                          shoulder to get around the cyclist as fast as
+                          possible.
+                        </li>
+                      </ol>
+                      <p className="mt-3 text-xs" style={{ color: "var(--neon-mint)" }}>
+                        Correct: A
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--midnight-indigo)",
+                        borderColor: "var(--electric-cyan)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Key takeaway
+                      </h2>
+                      <p className="text-sm">
+                        When sharing the road with cyclists and pedestrians:
+                        give at least 1 metre when passing, always shoulder
+                        check before turning or opening your door, and never
+                        squeeze by—slow down and wait for a safe gap.
+                      </p>
+                    </div>
+                  </>
+                ) : moduleId === "g2-defensive-driving-observation" &&
+                  currentLesson.id === "1" ? (
+                  <>
+                    <div className="space-y-4">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Defensive driving means always looking ahead, checking
+                        mirrors, and leaving enough space so you can react in
+                        time. Good observation is the foundation of passing your
+                        G2 road test.
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Key habits for defensive driving
+                      </h2>
+                      <ul className="list-disc space-y-2 pl-5 text-sm">
+                        <li>
+                          <strong>Scan ahead 12–15 seconds</strong> — look down
+                          the road, not just at the car in front.
+                        </li>
+                        <li>
+                          <strong>Check mirrors every 5–8 seconds</strong> — know
+                          what is beside and behind you.
+                        </li>
+                        <li>
+                          <strong>Keep a following distance</strong> — at least
+                          2 seconds in good conditions, more in rain or snow.
+                        </li>
+                        <li>
+                          <strong>Identify hazards early</strong> — pedestrians,
+                          cyclists, parked cars, and intersections.
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="text-sm font-semibold">
+                        Quick knowledge check
+                      </h2>
+                      <p className="mt-2 text-sm">
+                        What is a safe following distance in good conditions?
+                      </p>
+                      <ol className="mt-3 space-y-2 text-sm">
+                        <li>
+                          <span className="font-semibold">A.</span> At least 2
+                          seconds behind the vehicle ahead.
+                        </li>
+                        <li>
+                          <span className="font-semibold">B.</span> As close as
+                          one car length so you can stop quickly.
+                        </li>
+                        <li>
+                          <span className="font-semibold">C.</span> Only 1 second
+                          in city traffic.
+                        </li>
+                        <li>
+                          <span className="font-semibold">D.</span> It does not
+                          matter as long as you brake hard when needed.
+                        </li>
+                      </ol>
+                      <p className="mt-3 text-xs" style={{ color: "var(--neon-mint)" }}>
+                        Correct: A
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--midnight-indigo)",
+                        borderColor: "var(--electric-cyan)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Key takeaway
+                      </h2>
+                      <p className="text-sm">
+                        Scan 12–15 seconds ahead, check mirrors every 5–8
+                        seconds, and keep at least a 2-second following distance
+                        so you have time to react safely.
+                      </p>
+                    </div>
+                  </>
+                ) : moduleId === "g2-defensive-driving-observation" &&
+                  currentLesson.id === "2" ? (
+                  <>
+                    <div className="space-y-3">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        A &quot;space cushion&quot; is the space you keep around
+                        your vehicle so you have room to steer or brake if
+                        something goes wrong. Mirrors help you maintain that
+                        cushion without turning your head away from the road for
+                        long.
+                      </p>
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Keep space in front, behind, and to the sides when
+                          possible.
+                        </li>
+                        <li>
+                          Adjust the rear-view and side mirrors so you can see
+                          the road behind and in your blind spots with a quick
+                          glance.
+                        </li>
+                        <li>
+                          Do a shoulder check before changing lanes or turning—
+                          mirrors do not show everything.
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--void-purple)",
+                        borderColor: "var(--midnight-indigo)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="text-sm font-semibold">
+                        Quick knowledge check
+                      </h2>
+                      <p className="mt-2 text-sm">
+                        Why should you do a shoulder check before changing lanes
+                        even if your mirrors are correctly set?
+                      </p>
+                      <ol className="mt-3 space-y-2 text-sm">
+                        <li>
+                          <span className="font-semibold">A.</span> Mirrors have
+                          blind spots; a shoulder check catches vehicles or
+                          cyclists there.
+                        </li>
+                        <li>
+                          <span className="font-semibold">B.</span> Shoulder
+                          checks are only required on the highway.
+                        </li>
+                        <li>
+                          <span className="font-semibold">C.</span> It is only
+                          needed when traffic is heavy.
+                        </li>
+                        <li>
+                          <span className="font-semibold">D.</span> Mirrors
+                          are enough if they are adjusted correctly.
+                        </li>
+                      </ol>
+                      <p className="mt-3 text-xs" style={{ color: "var(--neon-mint)" }}>
+                        Correct: A
+                      </p>
+                    </div>
+                    <div
+                      className="mt-6 rounded-lg border p-4"
+                      style={{
+                        backgroundColor: "var(--midnight-indigo)",
+                        borderColor: "var(--electric-cyan)",
+                        color: "var(--lavender-mist)",
+                      }}
+                    >
+                      <h2 className="mb-2 text-sm font-semibold">
+                        Key takeaway
+                      </h2>
+                      <p className="text-sm">
+                        Keep a space cushion around your car, use mirrors every
+                        5–8 seconds, and always shoulder check before changing
+                        lanes or turning—mirrors cannot replace a direct look.
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <p
+                    className="leading-relaxed"
+                    style={{ color: "var(--lavender-mist)" }}
+                  >
+                    {currentLesson.content}
+                  </p>
+                )}
               </div>
 
               {/* Mark as complete */}
@@ -157,11 +804,20 @@ function ModuleReaderContent() {
                   type="button"
                   onClick={() => setMarkedComplete(true)}
                   disabled={markedComplete}
-                  className={`inline-flex items-center gap-2 rounded px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2 ${
+                  className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple"
+                  style={
                     markedComplete
-                      ? "cursor-default bg-slate-200 text-slate-600"
-                      : "bg-ontario-blue text-white hover:bg-ontario-blue-light"
-                  }`}
+                      ? {
+                          cursor: "default",
+                          backgroundColor: "var(--midnight-indigo)",
+                          color: "var(--neon-mint)",
+                          border: "1px solid var(--neon-mint)",
+                        }
+                      : {
+                          backgroundColor: "var(--crimson-spark)",
+                          color: "white",
+                        }
+                  }
                 >
                   <IconCheck />
                   {markedComplete ? "Marked complete" : "Mark as complete"}
@@ -169,7 +825,8 @@ function ModuleReaderContent() {
                 {lessonIndex < moduleItem.lessons.length - 1 && (
                   <Link
                     href={`/modules/${moduleId}?lesson=${moduleItem.lessons[lessonIndex + 1].id}`}
-                    className="text-sm font-medium text-ontario-blue hover:underline"
+                    className="text-sm font-medium hover:underline"
+                    style={{ color: "var(--electric-cyan)" }}
                   >
                     Next lesson →
                   </Link>
@@ -177,7 +834,9 @@ function ModuleReaderContent() {
               </div>
             </>
           ) : (
-            <p className="text-slate-600">No lesson selected.</p>
+            <p style={{ color: "var(--lavender-mist)" }}>
+              No lesson selected.
+            </p>
           )}
         </div>
       </div>
@@ -187,7 +846,16 @@ function ModuleReaderContent() {
 
 export default function ModuleReaderPage() {
   return (
-    <Suspense fallback={<div className="flex min-h-screen items-center justify-center text-slate-500">Loading…</div>}>
+    <Suspense
+      fallback={
+        <div
+          className="flex min-h-screen items-center justify-center"
+          style={{ backgroundColor: "var(--void-purple)", color: "var(--lavender-mist)" }}
+        >
+          Loading…
+        </div>
+      }
+    >
       <ModuleReaderContent />
     </Suspense>
   );

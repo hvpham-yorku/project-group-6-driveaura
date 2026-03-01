@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { QUIZZES, type QuizQuestion } from "../data";
+import { addPassedQuiz } from "../passedQuizzes";
 
 const PASS_PERCENT = 70;
 
@@ -117,13 +118,24 @@ function QuizContent() {
     return { correct, wrong, total, percent, passed };
   }, [quiz, submitted, answers]);
 
+  // Persist passed quiz so progress bar updates (only when user passes)
+  useEffect(() => {
+    if (results?.passed && quizId) {
+      addPassedQuiz(quizId);
+    }
+  }, [results?.passed, quizId]);
+
   if (!quiz) {
     return (
-      <main className="mx-auto max-w-5xl px-4 py-12">
-        <p className="text-slate-600">Quiz not found.</p>
+      <main
+        className="mx-auto max-w-5xl px-4 py-12"
+        style={{ backgroundColor: "var(--void-purple)" }}
+      >
+        <p style={{ color: "var(--lavender-mist)" }}>Quiz not found.</p>
         <Link
           href="/quizzes"
-          className="mt-4 inline-flex items-center gap-2 text-ontario-blue hover:underline"
+          className="mt-4 inline-flex items-center gap-2 font-medium hover:opacity-90"
+          style={{ color: "var(--crimson-spark)" }}
         >
           <IconChevronLeft />
           Back to Quizzes
@@ -133,17 +145,30 @@ function QuizContent() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50">
-      <div className="border-b border-slate-200 bg-white px-4 py-3">
+    <main
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--void-purple)" }}
+    >
+      <div
+        className="border-b px-4 py-3"
+        style={{
+          backgroundColor: "var(--midnight-indigo)",
+          borderColor: "var(--lavender-mist)",
+        }}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link
             href="/quizzes"
-            className="inline-flex items-center gap-2 text-sm font-medium text-ontario-blue hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-90"
+            style={{ color: "var(--crimson-spark)" }}
           >
             <IconChevronLeft />
             Back to Quizzes
           </Link>
-          <span className="text-sm text-slate-500">
+          <span
+            className="text-sm"
+            style={{ color: "var(--lavender-mist)" }}
+          >
             {submitted
               ? `${quiz.title} — Results`
               : `${quiz.title} — Question ${questionIndex + 1} of ${totalQuestions}`}
@@ -153,9 +178,18 @@ function QuizContent() {
 
       <div className="mx-auto flex max-w-6xl flex-col lg:flex-row">
         {!submitted && (
-          <aside className="w-full border-b border-slate-200 bg-white lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r">
+          <aside
+            className="w-full border-b lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r"
+            style={{
+              backgroundColor: "var(--midnight-indigo)",
+              borderColor: "var(--lavender-mist)",
+            }}
+          >
             <nav className="p-4" aria-label="Quiz questions">
-              <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <h2
+                className="mb-3 text-xs font-semibold uppercase tracking-wide"
+                style={{ color: "var(--lavender-mist)" }}
+              >
                 Questions
               </h2>
               <ul className="space-y-1">
@@ -166,11 +200,15 @@ function QuizContent() {
                     <li key={q.id}>
                       <Link
                         href={href}
-                        className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
-                          isActive
-                            ? "bg-ontario-blue text-white"
-                            : "text-slate-700 hover:bg-slate-100"
-                        }`}
+                        className="block rounded-lg px-3 py-2 text-sm transition-colors"
+                        style={{
+                          backgroundColor: isActive
+                            ? "var(--crimson-spark)"
+                            : "transparent",
+                          color: isActive
+                            ? "white"
+                            : "var(--lavender-mist)",
+                        }}
                       >
                         Question {idx + 1}
                       </Link>
@@ -185,46 +223,87 @@ function QuizContent() {
         <div className="flex-1 p-4 lg:p-8">
           {submitted && results ? (
             <div className="mx-auto max-w-lg">
-              <h1 className="mb-6 text-2xl font-bold text-slate-900">
+              <h1
+                className="mb-6 text-2xl font-bold"
+                style={{ color: "var(--ghost-white)" }}
+              >
                 Quiz results
               </h1>
               <div
-                className={`mb-6 rounded-lg border-2 p-6 text-center ${
-                  results.passed
-                    ? "border-green-600 bg-green-50"
-                    : "border-amber-600 bg-amber-50"
-                }`}
+                className="mb-6 rounded-xl border-2 p-6 text-center"
+                style={{
+                  backgroundColor: "var(--midnight-indigo)",
+                  borderColor: results.passed
+                    ? "var(--neon-mint)"
+                    : "var(--crimson-spark)",
+                }}
               >
                 <p
-                  className={`text-2xl font-bold ${
-                    results.passed ? "text-green-800" : "text-amber-800"
-                  }`}
+                  className="text-2xl font-bold"
+                  style={{
+                    color: results.passed
+                      ? "var(--neon-mint)"
+                      : "var(--crimson-spark)",
+                  }}
                 >
                   {results.passed ? "Passed" : "Not passed"}
                 </p>
-                <p className="mt-2 text-4xl font-bold text-slate-900">
+                <p
+                  className="mt-2 text-4xl font-bold"
+                  style={{ color: "var(--ghost-white)" }}
+                >
                   {results.percent}%
                 </p>
-                <p className="mt-1 text-sm text-slate-600">
+                <p
+                  className="mt-1 text-sm"
+                  style={{ color: "var(--lavender-mist)" }}
+                >
                   Need {PASS_PERCENT}% to pass
                 </p>
               </div>
-              <ul className="space-y-3 rounded-lg border border-slate-200 bg-white p-4">
-                <li className="flex items-center justify-between gap-4 border-b border-slate-100 pb-3">
-                  <span className="flex items-center gap-2 text-slate-700">
-                    <IconCheck className="shrink-0 text-green-600" />
+              <ul
+                className="space-y-3 rounded-xl border-2 p-4"
+                style={{
+                  backgroundColor: "var(--midnight-indigo)",
+                  borderColor: "var(--lavender-mist)",
+                }}
+              >
+                <li
+                  className="flex items-center justify-between gap-4 border-b pb-3"
+                  style={{ borderColor: "var(--lavender-mist)" }}
+                >
+                  <span
+                    className="flex items-center gap-2"
+                    style={{ color: "var(--lavender-mist)" }}
+                  >
+                    <IconCheck
+                      className="shrink-0"
+                      style={{ color: "var(--neon-mint)" }}
+                    />
                     Correct
                   </span>
-                  <span className="font-semibold text-slate-900">
+                  <span
+                    className="font-semibold"
+                    style={{ color: "var(--ghost-white)" }}
+                  >
                     {results.correct} of {results.total}
                   </span>
                 </li>
                 <li className="flex items-center justify-between gap-4">
-                  <span className="flex items-center gap-2 text-slate-700">
-                    <IconX className="shrink-0 text-red-600" />
+                  <span
+                    className="flex items-center gap-2"
+                    style={{ color: "var(--lavender-mist)" }}
+                  >
+                    <IconX
+                      className="shrink-0"
+                      style={{ color: "var(--crimson-spark)" }}
+                    />
                     Wrong
                   </span>
-                  <span className="font-semibold text-slate-900">
+                  <span
+                    className="font-semibold"
+                    style={{ color: "var(--ghost-white)" }}
+                  >
                     {results.wrong} of {results.total}
                   </span>
                 </li>
@@ -232,13 +311,18 @@ function QuizContent() {
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   href="/quizzes"
-                  className="inline-flex items-center justify-center rounded bg-ontario-blue px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ontario-blue-light focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2"
+                  className="inline-flex items-center justify-center rounded-lg px-4 py-3 text-sm font-medium text-white transition-all hover:opacity-95"
+                  style={{ backgroundColor: "var(--crimson-spark)" }}
                 >
                   Back to Quizzes
                 </Link>
                 <Link
                   href={`/quizzes/${quizId}`}
-                  className="inline-flex items-center justify-center rounded border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2"
+                  className="inline-flex items-center justify-center rounded-lg border-2 px-4 py-3 text-sm font-medium transition-all hover:opacity-95"
+                  style={{
+                    borderColor: "var(--lavender-mist)",
+                    color: "var(--ghost-white)",
+                  }}
                   onClick={() => {
                     setSubmitted(false);
                     setAnswers({});
@@ -250,18 +334,31 @@ function QuizContent() {
             </div>
           ) : currentQuestion ? (
             <>
-              <h1 className="mb-6 text-xl font-bold text-slate-900 sm:text-2xl">
+              <h1
+                className="mb-6 text-xl font-bold sm:text-2xl"
+                style={{ color: "var(--ghost-white)" }}
+              >
                 {currentQuestion.prompt}
               </h1>
-              <div className="space-y-3" role="radiogroup" aria-label="Answer options">
+              <div
+                className="space-y-3"
+                role="radiogroup"
+                aria-label="Answer options"
+              >
                 {currentQuestion.options.map((option, idx) => (
                   <label
                     key={idx}
-                    className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-sm transition-colors ${
-                      selectedOption === idx
-                        ? "border-ontario-blue bg-ontario-blue/5"
-                        : "border-slate-200 bg-white hover:border-slate-300"
-                    }`}
+                    className="flex cursor-pointer items-center gap-3 rounded-xl border-2 px-4 py-3 text-sm transition-colors"
+                    style={{
+                      backgroundColor:
+                        selectedOption === idx
+                          ? "var(--midnight-indigo)"
+                          : "var(--void-purple)",
+                      borderColor:
+                        selectedOption === idx
+                          ? "var(--electric-cyan)"
+                          : "var(--lavender-mist)",
+                    }}
                   >
                     <input
                       type="radio"
@@ -269,9 +366,14 @@ function QuizContent() {
                       value={idx}
                       checked={selectedOption === idx}
                       onChange={() => setSelectedOption(idx)}
-                      className="h-4 w-4 border-slate-300 text-ontario-blue focus:ring-ontario-blue"
+                      className="h-4 w-4 focus:ring-2 focus:ring-offset-0"
+                      style={{
+                        accentColor: "var(--crimson-spark)",
+                      }}
                     />
-                    <span className="text-slate-800">{option}</span>
+                    <span style={{ color: "var(--ghost-white)" }}>
+                      {option}
+                    </span>
                   </label>
                 ))}
               </div>
@@ -280,18 +382,25 @@ function QuizContent() {
                   <button
                     type="button"
                     onClick={() => setSubmitted(true)}
-                    className="inline-flex items-center justify-center rounded bg-ontario-blue px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ontario-blue-light focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2"
+                    className="inline-flex items-center justify-center rounded-lg px-4 py-3 text-sm font-medium text-white transition-all hover:opacity-95"
+                    style={{ backgroundColor: "var(--crimson-spark)" }}
                   >
                     Submit quiz
                   </button>
                 ) : (
                   <Link
                     href={`/quizzes/${quizId}?q=${quiz.questions[questionIndex + 1].id}`}
-                    className={`inline-flex items-center justify-center rounded px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ontario-blue focus:ring-offset-2 ${
+                    className={`inline-flex items-center justify-center rounded-lg px-4 py-3 text-sm font-medium transition-all ${
                       selectedOption === null
-                        ? "pointer-events-none bg-slate-200 text-slate-500"
-                        : "bg-ontario-blue text-white hover:bg-ontario-blue-light"
+                        ? "pointer-events-none opacity-50"
+                        : "text-white hover:opacity-95"
                     }`}
+                    style={{
+                      backgroundColor:
+                        selectedOption === null
+                          ? "var(--lavender-mist)"
+                          : "var(--crimson-spark)",
+                    }}
                   >
                     Next question →
                   </Link>
@@ -299,7 +408,9 @@ function QuizContent() {
               </div>
             </>
           ) : (
-            <p className="text-slate-600">No question selected.</p>
+            <p style={{ color: "var(--lavender-mist)" }}>
+              No question selected.
+            </p>
           )}
         </div>
       </div>
@@ -311,7 +422,13 @@ export default function QuizTakePage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center text-slate-500">
+        <div
+          className="flex min-h-screen items-center justify-center"
+          style={{
+            backgroundColor: "var(--void-purple)",
+            color: "var(--lavender-mist)",
+          }}
+        >
           Loading…
         </div>
       }

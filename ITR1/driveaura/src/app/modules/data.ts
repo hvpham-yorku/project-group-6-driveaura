@@ -1,6 +1,6 @@
 /**
- * Learning Hub module data — edit here to add real content.
- * licenseLevel drives the tab filter on /modules.
+ * Learning Hub module data — G1 Phase 1 (Theory) only for now.
+ * licenseLevel drives the pathway and module list on /modules.
  */
 export type LicenseLevel = "G1" | "G2" | "G";
 
@@ -19,77 +19,120 @@ export interface ModuleItem {
   lessons: Lesson[];
 }
 
+/** G1 Phase 1: The G1 Knowledge Path (Theory) — 5 modules only. Content to be added later. */
 export const MODULES: ModuleItem[] = [
   {
-    id: "g1-rules",
+    id: "g1-signs-signals-markings",
     licenseLevel: "G1",
-    title: "Rules of the Road",
-    category: "Rules of the Road",
+    title: "Signs, Signals, and Markings",
+    category: "G1 Knowledge Path",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Regulatory, warning, and pavement line markings you need to know for the G1 written test.",
+    lessons: [
+      { id: "1", title: "Regulatory signs", content: "" },
+      { id: "2", title: "Warning signs and pavement lines", content: "" },
+    ],
+  },
+  {
+    id: "g1-right-of-way",
+    licenseLevel: "G1",
+    title: "Right-of-Way Rules",
+    category: "G1 Knowledge Path",
+    description:
+      "4-way stops, yielding, and emergency vehicles — when to go and when to wait.",
+    lessons: [
+      { id: "1", title: "4-way stops and yielding", content: "" },
+      { id: "2", title: "Emergency vehicles", content: "" },
+    ],
+  },
+  {
+    id: "g1-demerit-points",
+    licenseLevel: "G1",
+    title: "The Demerit Point System",
+    category: "G1 Knowledge Path",
+    description:
+      "The consequences of traffic violations in Ontario and how demerit points affect your licence.",
+    lessons: [
+      { id: "1", title: "How demerit points work", content: "" },
+      { id: "2", title: "Consequences and suspension", content: "" },
+    ],
+  },
+  {
+    id: "g1-sharing-the-road",
+    licenseLevel: "G1",
+    title: "Sharing the Road",
+    category: "G1 Knowledge Path",
+    description:
+      "Rules for streetcars, school buses, and cyclists so everyone stays safe.",
     lessons: [
       {
         id: "1",
-        title: "Lesson 1: Signs and Signals",
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
+        title: "Streetcars and school buses",
+        content: `
+### G1: Sharing the Road – Overview
+
+Sharing the road means driving in a way that keeps pedestrians, cyclists, and other drivers safe. You need to know who you share the road with and how to give them space.
+
+- **Learning objective 1**: Recognize the main road users you will drive around (pedestrians, cyclists, large vehicles, school buses, emergency vehicles).
+- **Learning objective 2**: Understand why giving others space and respecting right-of-way reduces crashes and tickets in Ontario.
+
+**Quick knowledge check**
+
+Q1: Why is it important for a G1 driver to learn how to share the road with other road users?
+
+### G1.2: School Buses and Streetcars – Key Rules
+
+- **School buses (no median)**: Stop in both directions when red lights flash and the stop arm is out. Stay at least 20 metres back until the lights stop.
+- **School buses (divided road with median)**: Only vehicles behind the bus must stop; oncoming traffic can continue with caution.
+- **Streetcars without a safety island**: Stop at least 2 metres behind the rear door and wait until passengers are safely off the road.
+
+**Quick knowledge check**
+
+Q2: On a two-lane road with no median, what must you do when a school bus has its red lights flashing and stop arm extended?
+        `,
       },
       {
         id: "2",
-        title: "Lesson 2: Right-of-Way",
-        content:
-          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
-      },
-      {
-        id: "3",
-        title: "Lesson 3: Speed and Following Distance",
-        content:
-          "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati.",
+        title: "Cyclists and other road users",
+        content: `
+### G1: Sharing the Road – Cyclists and Vulnerable Users
+
+Cyclists, pedestrians, and people using mobility devices do not have a steel frame to protect them. As the driver, you are responsible for giving them extra space and time.
+
+- **Minimum 1-metre space**: When passing a cyclist, leave at least 1 metre of space when safe to do so.
+- **Check blind spots**: Always shoulder check for cyclists before turning right or opening your door.
+- **No squeezing**: If the lane is too narrow to pass safely, slow down and wait instead of trying to “squeeze by”.
+- **School zones and crosswalks**: Reduce speed and be ready to stop for pedestrians at crossings and at signed school zones.
+
+**Quick knowledge check**
+
+Q3: When you want to pass a cyclist, what is the safest way to do it on a narrow city street?
+        `,
       },
     ],
   },
   {
-    id: "g2-highway",
+    id: "g1-impaired-driving",
+    licenseLevel: "G1",
+    title: "Impaired Driving & Legal Limits",
+    category: "G1 Knowledge Path",
+    description:
+      "BAC rules and cannabis laws for novice drivers in Ontario.",
+    lessons: [
+      { id: "1", title: "BAC and legal limits", content: "" },
+      { id: "2", title: "Cannabis and novice drivers", content: "" },
+    ],
+  },
+  {
+    id: "g2-defensive-driving-observation",
     licenseLevel: "G2",
-    title: "Highway Driving",
-    category: "Highway",
+    title: "Defensive Driving and Observation",
+    category: "G2 Road Prep",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Highway driving requires higher speeds and merging skills. Practice in low-traffic conditions first.",
+      "Scanning, following distance, and hazard recognition so you stay safe on your G2 road test.",
     lessons: [
-      {
-        id: "1",
-        title: "Entering the Highway",
-        content:
-          "Lorem ipsum dolor sit amet. Use the acceleration lane to match highway speed before merging. Signal and check blind spots.",
-      },
-      {
-        id: "2",
-        title: "Lane Discipline",
-        content:
-          "Keep right except to pass. Use the left lane only for passing. Return to the right lane when safe.",
-      },
-    ],
-  },
-  {
-    id: "g-exit",
-    licenseLevel: "G",
-    title: "G Exit Test Prep",
-    category: "Test Prep",
-    description:
-      "Final preparation for the full G license. Covers advanced scenarios, highway exit test expectations, and defensive driving review.",
-    lessons: [
-      {
-        id: "1",
-        title: "What to Expect on the G Test",
-        content:
-          "Lorem ipsum dolor sit amet. The G exit test includes highway driving, complex intersections, and independent driving. Be prepared for examiner directions.",
-      },
-      {
-        id: "2",
-        title: "Defensive Driving Review",
-        content:
-          "Scan ahead, manage space, and communicate with other road users. Examiners look for consistent safe habits.",
-      },
+      { id: "1", title: "Defensive driving basics and observation", content: "" },
+      { id: "2", title: "Space cushion and mirror use", content: "" },
     ],
   },
 ];
@@ -99,3 +142,35 @@ export const LICENSE_LABELS: Record<LicenseLevel, string> = {
   G2: "G2 Road Prep",
   G: "G Exit",
 };
+
+/** Pathway Selector: G1, G2, G license level cards for the learning modules landing page. */
+export interface PathwayLevel {
+  licenseLevel: LicenseLevel;
+  title: string;
+  description: string;
+  moduleCount: number;
+}
+
+export const PATHWAY_LEVELS: PathwayLevel[] = [
+  {
+    licenseLevel: "G1",
+    title: "Written Knowledge Test",
+    description:
+      "Master road signs, rules of the road, and safe driving practices to pass your written G1 test.",
+    moduleCount: 5,
+  },
+  {
+    licenseLevel: "G2",
+    title: "Road Test Level 1",
+    description:
+      "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
+    moduleCount: 5,
+  },
+  {
+    licenseLevel: "G",
+    title: "Full License Test",
+    description:
+      "Advanced highway driving, complex intersections, and emergency maneuvers for your G test.",
+    moduleCount: 4,
+  },
+];
