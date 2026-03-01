@@ -1,7 +1,7 @@
 "use client";
 
 import type { ChecklistCategoryId, ChecklistCategoryResponse } from "../types";
-import { CHECKLIST_CATEGORY_LABELS } from "../types";
+import { CHECKLIST_CATEGORY_LABELS, CHECKLIST_SUBITEMS } from "../types";
 
 interface CategoryRowProps {
   categoryId: ChecklistCategoryId;
@@ -14,6 +14,9 @@ interface CategoryRowProps {
 
 export function CategoryRow({ categoryId, value, onChange }: CategoryRowProps) {
   const label = CHECKLIST_CATEGORY_LABELS[categoryId];
+  const subItems = CHECKLIST_SUBITEMS[categoryId];
+  const hasSubItems = subItems.length > 0;
+  const subChecks = value.subChecks ?? [];
 
   function setPass(pass: boolean) {
     onChange(categoryId, { ...value, pass });
@@ -21,6 +24,12 @@ export function CategoryRow({ categoryId, value, onChange }: CategoryRowProps) {
 
   function setNotes(notes: string) {
     onChange(categoryId, { ...value, notes });
+  }
+
+  function setSubCheck(index: number, checked: boolean) {
+    const next = [...(value.subChecks ?? [])];
+    next[index] = checked;
+    onChange(categoryId, { ...value, subChecks: next });
   }
 
   return (
@@ -93,6 +102,34 @@ export function CategoryRow({ categoryId, value, onChange }: CategoryRowProps) {
           style={{ backgroundColor: "#00F5FF", width: value.pass ? "100%" : "0%" }}
         />
       </div>
+      {hasSubItems && (
+        <div className="mb-3 space-y-2 pl-1">
+          <span className="block text-xs font-medium" style={{ color: "#B8B0D3" }}>
+            Sub-checkpoints
+          </span>
+          <ul className="space-y-2">
+            {subItems.map((text, i) => (
+              <li key={i} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id={`${categoryId}-sub-${i}`}
+                  checked={subChecks[i] === true}
+                  onChange={(e) => setSubCheck(i, e.target.checked)}
+                  className="h-4 w-4 cursor-pointer"
+                  style={{ accentColor: "#00F5FF" }}
+                />
+                <label
+                  htmlFor={`${categoryId}-sub-${i}`}
+                  className="cursor-pointer text-sm"
+                  style={{ color: "#F5F5F7" }}
+                >
+                  {text}
+                </label>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <label className="block">
         <span className="mb-1 block text-xs" style={{ color: "#B8B0D3" }}>
           Optional notes

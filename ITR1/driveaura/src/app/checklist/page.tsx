@@ -6,15 +6,7 @@ import { CategoryRow } from "./components/CategoryRow";
 import { ReportSection } from "./components/ReportSection";
 import type { ChecklistCategoryId, ChecklistState } from "./types";
 import { CHECKLIST_CATEGORY_IDS, type ChecklistReport } from "./types";
-import { buildReport } from "./utils";
-
-function getInitialState(): ChecklistState {
-  const state = {} as ChecklistState;
-  for (const id of CHECKLIST_CATEGORY_IDS) {
-    state[id] = { pass: false, notes: "" };
-  }
-  return state;
-}
+import { buildReport, getInitialState } from "./utils";
 
 export default function ChecklistPage() {
   const [state, setState] = useState<ChecklistState>(getInitialState);
@@ -66,8 +58,6 @@ export default function ChecklistPage() {
           style={{
             backgroundColor: "#FF3B3F",
             color: "#F5F5F7",
-            focusRingColor: "#FF3B3F",
-            focusRingOffsetColor: "#0F051D",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = "#FF5A5E";

@@ -38,6 +38,24 @@ export function ReportSection({ report }: ReportSectionProps) {
         </span>
       </div>
 
+      {report.categoryCompletion.length > 0 && (
+        <div className="mb-4">
+          <h3 className="mb-2 text-sm font-medium" style={{ color: "#F5F5F7" }}>
+            Per-category completion
+          </h3>
+          <ul className="space-y-1 text-sm" style={{ color: "#B8B0D3" }}>
+            {report.categoryCompletion.map((c) => (
+              <li key={c.categoryId}>
+                <span className="font-medium" style={{ color: "#F5F5F7" }}>
+                  {c.label}:
+                </span>{" "}
+                {c.completed}/{c.total}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {report.strengths.length > 0 && (
         <div className="mb-4">
           <h3 className="mb-1 text-sm font-medium" style={{ color: "#F5F5F7" }}>

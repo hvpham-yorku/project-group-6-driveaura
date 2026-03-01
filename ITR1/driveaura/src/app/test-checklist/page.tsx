@@ -9,15 +9,7 @@ import {
   CHECKLIST_CATEGORY_IDS,
   type ChecklistReport,
 } from "@/app/checklist/types";
-import { buildReport } from "@/app/checklist/utils";
-
-function getInitialState(): ChecklistState {
-  const state = {} as ChecklistState;
-  for (const id of CHECKLIST_CATEGORY_IDS) {
-    state[id] = { pass: false, notes: "" };
-  }
-  return state;
-}
+import { buildReport, getInitialState } from "@/app/checklist/utils";
 
 export default function TestChecklistPage() {
   const [state, setState] = useState<ChecklistState>(getInitialState);
