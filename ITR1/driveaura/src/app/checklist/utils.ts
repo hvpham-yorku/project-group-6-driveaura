@@ -8,27 +8,65 @@ import type {
   ChecklistReport,
   ChecklistState,
 } from "./types";
-import { CHECKLIST_CATEGORY_LABELS } from "./types";
+import type { ChecklistCategoryResponse } from "./types";
+import {
+  CHECKLIST_CATEGORY_IDS,
+  CHECKLIST_CATEGORY_LABELS,
+  CHECKLIST_SUBITEMS,
+} from "./types";
 
-/** Pass/fail rule: ready only if every category is Yes (pass). */
-export function getReadiness(state: ChecklistState): boolean {
-  const ids = Object.keys(state) as ChecklistCategoryId[];
-  return ids.every((id) => state[id]?.pass === true);
+const COMPLETION_THRESHOLD = 0.75;
+
+/** Initial state: pass false, notes "", subChecks all false when category has sub-items. */
+export function getInitialState(): ChecklistState {
+  const state = {} as ChecklistState;
+  for (const id of CHECKLIST_CATEGORY_IDS) {
+    const items = CHECKLIST_SUBITEMS[id];
+    const entry: ChecklistCategoryResponse = {
+      pass: false,
+      notes: "",
+    };
+    if (items.length > 0) {
+      entry.subChecks = items.map(() => false);
+    }
+    state[id] = entry;
+  }
+  return state;
 }
 
-/** Categories marked Yes → strengths. */
+/** Completion for one category: 0–1. With sub-items uses subChecks; else uses pass (1 or 0). */
+function getCategoryCompletionRatio(
+  state: ChecklistState,
+  id: ChecklistCategoryId
+): number {
+  const items = CHECKLIST_SUBITEMS[id];
+  if (items.length === 0) {
+    return state[id]?.pass === true ? 1 : 0;
+  }
+  const sub = state[id]?.subChecks ?? [];
+  const completed = sub.filter(Boolean).length;
+  return items.length === 0 ? 0 : completed / items.length;
+}
+
+/** Pass if all categories >= 75% (sub-check completion or pass). */
+export function getReadiness(state: ChecklistState): boolean {
+  const ids = Object.keys(state) as ChecklistCategoryId[];
+  return ids.every((id) => getCategoryCompletionRatio(state, id) >= COMPLETION_THRESHOLD);
+}
+
+/** Strength if completion >= 75%. */
 export function getStrengths(state: ChecklistState): string[] {
   const ids = Object.keys(state) as ChecklistCategoryId[];
   return ids
-    .filter((id) => state[id]?.pass === true)
+    .filter((id) => getCategoryCompletionRatio(state, id) >= COMPLETION_THRESHOLD)
     .map((id) => CHECKLIST_CATEGORY_LABELS[id]);
 }
 
-/** Categories marked No → weaknesses. */
+/** Weakness if completion < 75%. */
 export function getWeaknesses(state: ChecklistState): string[] {
   const ids = Object.keys(state) as ChecklistCategoryId[];
   return ids
-    .filter((id) => state[id]?.pass === false)
+    .filter((id) => getCategoryCompletionRatio(state, id) < COMPLETION_THRESHOLD)
     .map((id) => CHECKLIST_CATEGORY_LABELS[id]);
 }
 
@@ -45,6 +83,27 @@ export function getNotesSummary(
     }));
 }
 
+/** Per-category completed/total for report. With sub-items uses subChecks; else 1/1 if pass, 0/1 if not. */
+export function getCategoryCompletion(
+  state: ChecklistState
+): { categoryId: ChecklistCategoryId; label: string; completed: number; total: number }[] {
+  return (CHECKLIST_CATEGORY_IDS as readonly ChecklistCategoryId[]).map((id) => {
+    const items = CHECKLIST_SUBITEMS[id];
+    const label = CHECKLIST_CATEGORY_LABELS[id];
+    if (items.length === 0) {
+      return {
+        categoryId: id,
+        label,
+        completed: state[id]?.pass === true ? 1 : 0,
+        total: 1,
+      };
+    }
+    const sub = state[id]?.subChecks ?? [];
+    const completed = sub.filter(Boolean).length;
+    return { categoryId: id, label, completed, total: items.length };
+  });
+}
+
 /** Build full report from current state. */
 export function buildReport(state: ChecklistState): ChecklistReport {
   return {
@@ -52,5 +111,6 @@ export function buildReport(state: ChecklistState): ChecklistReport {
     strengths: getStrengths(state),
     weaknesses: getWeaknesses(state),
     notesSummary: getNotesSummary(state),
+    categoryCompletion: getCategoryCompletion(state),
   };
 }

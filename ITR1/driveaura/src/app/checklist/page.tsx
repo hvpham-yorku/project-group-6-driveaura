@@ -6,15 +6,7 @@ import { CategoryRow } from "./components/CategoryRow";
 import { ReportSection } from "./components/ReportSection";
 import type { ChecklistCategoryId, ChecklistState } from "./types";
 import { CHECKLIST_CATEGORY_IDS, type ChecklistReport } from "./types";
-import { buildReport } from "./utils";
-
-function getInitialState(): ChecklistState {
-  const state = {} as ChecklistState;
-  for (const id of CHECKLIST_CATEGORY_IDS) {
-    state[id] = { pass: false, notes: "" };
-  }
-  return state;
-}
+import { buildReport, getInitialState } from "./utils";
 
 export default function ChecklistPage() {
   const [state, setState] = useState<ChecklistState>(getInitialState);
@@ -40,8 +32,9 @@ export default function ChecklistPage() {
         Checklist for Passenger – G2 and G
       </h1>
       <p className="mb-6 text-sm" style={{ color: "#B8B0D3" }}>
-        Yes/No per category. Optional notes. Generate a report to see pass/fail
-        readiness, strengths, and weaknesses.
+        Yes/No per category plus sub-checkpoints to tick off. Optional notes.
+        Generate a report for per-category completion, pass/fail (75%+ in all
+        categories), and strengths/weaknesses.
       </p>
 
       <form
@@ -66,8 +59,6 @@ export default function ChecklistPage() {
           style={{
             backgroundColor: "#FF3B3F",
             color: "#F5F5F7",
-            focusRingColor: "#FF3B3F",
-            focusRingOffsetColor: "#0F051D",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = "#FF5A5E";
