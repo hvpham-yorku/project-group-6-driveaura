@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { MODULES } from "@/app/modules/data";
 import { QUIZZES, type QuizQuestion } from "../data";
 import { addPassedQuiz } from "../passedQuizzes";
 
@@ -109,37 +108,16 @@ function QuizContent() {
     if (!quiz || !submitted) return null;
     let correct = 0;
     let wrong = 0;
-    const lessonAgg = new Map<
-      string,
-      { lessonId: string; wrong: number; total: number }
-    >();
-
     for (const q of quiz.questions) {
       const chosen = answers[q.id];
-      const isWrong = chosen === undefined || chosen !== q.correctIndex;
-
-      if (isWrong) wrong += 1;
-      else correct += 1;
-
-      if (q.lessonId) {
-        const existing =
-          lessonAgg.get(q.lessonId) ?? {
-            lessonId: q.lessonId,
-            wrong: 0,
-            total: 0,
-          };
-        existing.total += 1;
-        if (isWrong) existing.wrong += 1;
-        lessonAgg.set(q.lessonId, existing);
-      }
+      if (chosen === undefined) wrong += 1;
+      else if (chosen === q.correctIndex) correct += 1;
+      else wrong += 1;
     }
     const total = quiz.questions.length;
     const percent = total ? Math.round((correct / total) * 100) : 0;
     const passed = percent >= PASS_PERCENT;
-    const lessonWeaknesses = Array.from(lessonAgg.values()).filter(
-      (entry) => entry.wrong > 0
-    );
-    return { correct, wrong, total, percent, passed, lessonWeaknesses };
+    return { correct, wrong, total, percent, passed };
   }, [quiz, submitted, answers]);
 
   // Persist passed quiz so progress bar updates (only when user passes)
@@ -167,11 +145,6 @@ function QuizContent() {
       </main>
     );
   }
-
-  const moduleItem = useMemo(
-    () => MODULES.find((m) => m.id === quizId),
-    [quizId]
-  );
 
   return (
     <main
@@ -337,60 +310,6 @@ function QuizContent() {
                   </span>
                 </li>
               </ul>
-              {moduleItem && results.lessonWeaknesses.length > 0 && (
-                <section
-                  className="mt-6 rounded-xl border-2 p-4"
-                  style={{
-                    backgroundColor: "var(--midnight-indigo)",
-                    borderColor: "var(--electric-cyan)",
-                  }}
-                  aria-label="Personalized study recommendations"
-                >
-                  <h2
-                    className="mb-2 text-base font-semibold"
-                    style={{ color: "var(--ghost-white)" }}
-                  >
-                    Where to improve next
-                  </h2>
-                  <p
-                    className="mb-3 text-sm"
-                    style={{ color: "var(--lavender-mist)" }}
-                  >
-                    Based on your answers, you may want to review these lessons
-                    from{" "}
-                    <span className="font-semibold">{moduleItem.title}</span>:
-                  </p>
-                  <ul className="space-y-2 text-sm">
-                    {results.lessonWeaknesses.map((entry) => {
-                      const lesson = moduleItem.lessons.find(
-                        (l) => l.id === entry.lessonId
-                      );
-                      const href = `/modules/${moduleItem.id}?lesson=${entry.lessonId}`;
-                      return (
-                        <li key={entry.lessonId} className="flex flex-col">
-                          <Link
-                            href={href}
-                            className="inline-flex w-fit items-center gap-2 font-medium hover:underline"
-                            style={{ color: "var(--electric-cyan)" }}
-                          >
-                            <span>
-                              {lesson?.title ?? `Lesson ${entry.lessonId}`}
-                            </span>
-                          </Link>
-                          <span
-                            className="text-xs"
-                            style={{ color: "var(--lavender-mist)" }}
-                          >
-                            You answered {entry.wrong} of {entry.total} question
-                            {entry.total === 1 ? "" : "s"} in this area
-                            incorrectly.
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </section>
-              )}
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   href="/quizzes"
