@@ -27,7 +27,7 @@ function IconChevronLeft() {
   );
 }
 
-function IconCheck({ className }: { className?: string }) {
+function IconCheck({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -41,13 +41,14 @@ function IconCheck({ className }: { className?: string }) {
       strokeLinejoin="round"
       aria-hidden
       className={className}
+      style={style}
     >
       <path d="M20 6L9 17l-5-5" />
     </svg>
   );
 }
 
-function IconX({ className }: { className?: string }) {
+function IconX({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -61,6 +62,7 @@ function IconX({ className }: { className?: string }) {
       strokeLinejoin="round"
       aria-hidden
       className={className}
+      style={style}
     >
       <path d="M18 6 6 18" />
       <path d="m6 6 12 12" />

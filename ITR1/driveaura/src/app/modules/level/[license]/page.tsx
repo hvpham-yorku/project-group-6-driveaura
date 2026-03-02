@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { Suspense, useMemo } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import {
   LICENSE_LABELS,
   MODULES,
@@ -10,6 +10,7 @@ import {
   type LicenseLevel,
   type ModuleItem,
 } from "../../data";
+import { getCompletedLessonKeys } from "../../progress";
 
 function IconArrowRight() {
   return (
@@ -130,6 +131,26 @@ function LevelPageContent() {
     [license]
   );
 
+  const levelLessonKeys = useMemo(
+    () =>
+      new Set(
+        modulesForLicense.flatMap((m) =>
+          m.lessons.map((l) => `${m.id}-${l.id}`)
+        )
+      ),
+    [license]
+  );
+  const levelTotal = levelLessonKeys.size;
+
+  const [completedCount, setCompletedCount] = useState(0);
+  useEffect(() => {
+    const keys = getCompletedLessonKeys().filter((k) => levelLessonKeys.has(k));
+    setCompletedCount(keys.length);
+  }, [license, levelLessonKeys]);
+
+  const levelPercent =
+    levelTotal > 0 ? Math.round((completedCount / levelTotal) * 100) : 0;
+
   return (
     <main
       className="min-h-screen"
@@ -144,6 +165,48 @@ function LevelPageContent() {
           <IconChevronLeft />
           Back to pathway
         </Link>
+
+        {levelTotal > 0 && (
+          <div
+            className="mb-8 rounded-xl border-2 p-4"
+            style={{
+              borderColor: "var(--midnight-indigo)",
+              backgroundColor: "var(--midnight-indigo)",
+            }}
+            role="progressbar"
+            aria-valuenow={completedCount}
+            aria-valuemin={0}
+            aria-valuemax={levelTotal}
+            aria-label={`${license} modules progress`}
+          >
+            <div className="mb-2 flex items-baseline justify-between gap-2">
+              <span
+                className="text-sm font-semibold"
+                style={{ color: "var(--ghost-white)" }}
+              >
+                {license} progress
+              </span>
+              <span
+                className="text-sm"
+                style={{ color: "var(--lavender-mist)" }}
+              >
+                {completedCount} of {levelTotal} lessons
+              </span>
+            </div>
+            <div
+              className="h-2 w-full overflow-hidden rounded-full"
+              style={{ backgroundColor: "var(--void-purple)" }}
+            >
+              <div
+                className="h-full rounded-full transition-all duration-300"
+                style={{
+                  width: `${levelPercent}%`,
+                  backgroundColor: "var(--electric-cyan)",
+                }}
+              />
+            </div>
+          </div>
+        )}
 
         <header className="mb-10">
           <span
