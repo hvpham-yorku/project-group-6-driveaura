@@ -134,8 +134,31 @@ export const MODULES: ModuleItem[] = [
       { id: "3", title: "Dashboard Warning Lights", content: "" },
       { id: "4", title: "Tires and Brakes", content: "" },
       { id: "5", title: "Visibility and Lighting Checks", content: "" },
-      { id: "6", title: "Required Documents (License, Ownership, Insurance)", content: "" },
-      { id: "7", title: "Safe Vehicle Readiness and Hazard Awareness", content: "" },
+      {
+        id: "6",
+        title: "Required Documents (License, Ownership, Insurance)",
+        content: "",
+      },
+      {
+        id: "7",
+        title: "Safe Vehicle Readiness and Hazard Awareness",
+        content: "",
+      },
+    ],
+  },
+  {
+    id: "g2-essential-road-maneuvers",
+    licenseLevel: "G2",
+    title: "Essential Road Maneuvers",
+    category: "G2 Road Prep",
+    description:
+      "Master left and right turns, lane changes, reversing, three-point and U-turns, and parking for your G2 road test.",
+    lessons: [
+      { id: "1", title: "Left and Right Turns", content: "" },
+      { id: "2", title: "Lane Changes and Lane Positioning", content: "" },
+      { id: "3", title: "Reversing and Backing Up", content: "" },
+      { id: "4", title: "Three-Point Turns and U-Turns", content: "" },
+      { id: "5", title: "Parking (Parallel, Perpendicular, Hill)", content: "" },
     ],
   },
 ];
@@ -167,7 +190,7 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Road Test Level 1",
     description:
       "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
-    moduleCount: 2,
+    moduleCount: 3,
   },
   {
     licenseLevel: "G",

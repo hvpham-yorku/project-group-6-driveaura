@@ -66,8 +66,6 @@ export default function ChecklistPage() {
           style={{
             backgroundColor: "#FF3B3F",
             color: "#F5F5F7",
-            focusRingColor: "#FF3B3F",
-            focusRingOffsetColor: "#0F051D",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = "#FF5A5E";
