@@ -266,6 +266,61 @@ export default function ModulesPage() {
             return connector ? [card, connector] : [card];
           })}
         </section>
+
+        <section className="mt-16" aria-label="All modules">
+          <h2
+            className="mb-4 text-xl font-semibold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            All modules
+          </h2>
+          <p
+            className="mb-6 max-w-2xl text-sm"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            Every module in the Learning Hub. Click to open and see lessons.
+          </p>
+          <div className="space-y-4">
+            {MODULES.map((m) => (
+              <Link
+                key={m.id}
+                href={`/modules/${m.id}`}
+                className="flex flex-wrap items-center gap-3 rounded-xl border-2 border-transparent p-4 transition-all hover:border-[var(--electric-cyan)]"
+                style={{ backgroundColor: "var(--midnight-indigo)" }}
+              >
+                <span
+                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-bold"
+                  style={{
+                    backgroundColor: "var(--void-purple)",
+                    color: "var(--lavender-mist)",
+                  }}
+                >
+                  {m.licenseLevel}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <h3
+                    className="font-semibold"
+                    style={{ color: "var(--ghost-white)" }}
+                  >
+                    {m.title}
+                  </h3>
+                  <p
+                    className="mt-0.5 line-clamp-2 text-sm"
+                    style={{ color: "var(--lavender-mist)" }}
+                  >
+                    {m.description}
+                  </p>
+                </div>
+                <span
+                  className="shrink-0 text-sm font-medium"
+                  style={{ color: "var(--electric-cyan)" }}
+                >
+                  Open →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
       </div>
     </main>
   );
