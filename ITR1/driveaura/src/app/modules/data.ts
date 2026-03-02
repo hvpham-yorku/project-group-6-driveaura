@@ -121,6 +121,23 @@ export const MODULES: ModuleItem[] = [
       },
     ],
   },
+  {
+    id: "g2-pre-drive-vehicle-safety",
+    licenseLevel: "G2",
+    title: "Pre-Drive and Vehicle Safety",
+    category: "G2 Road Prep",
+    description:
+      "Pre-drive inspections, seat and mirror adjustment, warning lights, tires and brakes, visibility, required documents, and hazard awareness — based on the Ontario MTO Driver's Handbook.",
+    lessons: [
+      { id: "1", title: "Pre-Drive Vehicle Inspection", content: "" },
+      { id: "2", title: "Seat and Mirror Adjustment", content: "" },
+      { id: "3", title: "Dashboard Warning Lights", content: "" },
+      { id: "4", title: "Tires and Brakes", content: "" },
+      { id: "5", title: "Visibility and Lighting Checks", content: "" },
+      { id: "6", title: "Required Documents (License, Ownership, Insurance)", content: "" },
+      { id: "7", title: "Safe Vehicle Readiness and Hazard Awareness", content: "" },
+    ],
+  },
 ];
 
 export const LICENSE_LABELS: Record<LicenseLevel, string> = {
@@ -150,7 +167,7 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Road Test Level 1",
     description:
       "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
-    moduleCount: 1,
+    moduleCount: 2,
   },
   {
     licenseLevel: "G",

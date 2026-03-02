@@ -3546,6 +3546,656 @@ function ModuleReaderContent() {
                       </table>
                     </div>
                   </div>
+                ) : moduleId === "g2-pre-drive-vehicle-safety" &&
+                  currentLesson.id === "1" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Before you drive, ensure you are comfortable with your
+                      physical and mental state, your vehicle, and the
+                      conditions in which you will be driving. If you have
+                      doubts about any of them, do not drive. (MTO Driver&apos;s
+                      Handbook — Getting ready to drive.)
+                    </p>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Why Pre-Drive Inspection Matters
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        A quick check of your vehicle before you move can prevent
+                        breakdowns and collisions. The Ministry of Transportation
+                        recommends that you know your vehicle and its controls
+                        before you drive.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h3
+                        className="mb-3 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        What to Check Before You Start
+                      </h3>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Exterior: tires, lights, windows, mirrors, licence plate.</li>
+                        <li>Interior: seat position, mirrors, seatbelts, dashboard.</li>
+                        <li>Controls: wipers, washers, headlights, defroster — know where they are.</li>
+                        <li>No obstructions in windows or on the dashboard that block your view.</li>
+                      </ul>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Source
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Ontario Ministry of Transportation. &quot;Getting ready to
+                        drive.&quot; Official MTO Driver&apos;s Handbook.{" "}
+                        <a
+                          href="https://www.ontario.ca/document/official-mto-drivers-handbook/getting-ready-drive"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:no-underline"
+                          style={{ color: "var(--electric-cyan)" }}
+                        >
+                          ontario.ca
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-pre-drive-vehicle-safety" &&
+                  currentLesson.id === "2" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Proper seat and mirror adjustment keeps you in control and
+                      reduces blind spots. The MTO Driver&apos;s Handbook describes
+                      how to get into position and keep a clear view.
+                    </p>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Seat Position
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Sit high enough to see over the steering wheel and hood.
+                        You should be able to see the ground about four metres in
+                        front of the vehicle. Sit straight upright with your
+                        elbows slightly bent.
+                      </p>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Adjust the seat so your feet reach the pedals easily. To
+                        check: place your feet flat on the floor under the brake
+                        pedal without stretching. If your vehicle has an
+                        adjustable headrest, position it so the back of your head
+                        is directly in front of the middle of the headrest to
+                        protect you in a collision.
+                      </p>
+                    </div>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Mirror Adjustment and Blind Spots
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Blind spots are areas on each side of your vehicle where
+                        you cannot see. You may not see people or cyclists there.
+                        On some vehicles the blind spot is large enough that
+                        another vehicle could be there unseen.
+                      </p>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Interior mirror: centre of mirror shows the centre of the rear window; you should see directly behind the car.</li>
+                        <li>Left outside mirror: lean toward the window and move the mirror so you can just see the rear of your car.</li>
+                        <li>Right outside mirror: lean toward the centre of the vehicle and move the mirror so you can just see the rear of your car.</li>
+                      </ul>
+                      <p
+                        className="mt-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Mirrors alone do not show everything. Always do a
+                        shoulder check before changing lanes or turning.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Source
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Ontario Ministry of Transportation. &quot;Getting ready to
+                        drive&quot; — Get into position; Find your blind spots.{" "}
+                        <a
+                          href="https://www.ontario.ca/document/official-mto-drivers-handbook/getting-ready-drive"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:no-underline"
+                          style={{ color: "var(--electric-cyan)" }}
+                        >
+                          ontario.ca
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-pre-drive-vehicle-safety" &&
+                  currentLesson.id === "3" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Before you drive, know where all controls and instruments
+                      are and what they do. Check that all warning lights and
+                      gauges work. Watch for a warning light that stays on after
+                      you drive away — it could mean a serious problem. (MTO
+                      Driver&apos;s Handbook.)
+                    </p>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Know Your Vehicle
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Vehicles vary in fuel systems, anti-lock brakes,
+                        four-wheel drive, traction and stability control. Newer
+                        vehicles may have driver-assist technologies. Check the
+                        owner&apos;s manual to learn how these systems work and
+                        their limitations. You must always be ready to take over
+                        control and you remain responsible for all driving tasks.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Essential Controls to Know Without Looking
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Learn to use wipers, washers, headlights, high beams,
+                        heater and defroster without taking your eyes off the
+                        road.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--crimson-spark)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-sm font-bold uppercase tracking-wide"
+                        style={{ color: "var(--crimson-spark)" }}
+                      >
+                        Warning Lights
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        A warning light that stays on after you drive away may
+                        indicate a serious problem. Have your vehicle checked
+                        before driving further.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Source
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Ontario Ministry of Transportation. &quot;Getting ready to
+                        drive&quot; — Know your vehicle.{" "}
+                        <a
+                          href="https://www.ontario.ca/document/official-mto-drivers-handbook/getting-ready-drive"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:no-underline"
+                          style={{ color: "var(--electric-cyan)" }}
+                        >
+                          ontario.ca
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-pre-drive-vehicle-safety" &&
+                  currentLesson.id === "4" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Your vehicle must be in safe working order. The MTO
+                      Driver&apos;s Handbook and Ontario highway safety standards
+                      expect drivers to maintain their vehicle for safe operation.
+                    </p>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Tires
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Check tire condition and pressure regularly. Worn or
+                        under-inflated tires reduce grip and can cause loss of
+                        control. Ensure tread depth is sufficient and there are
+                        no visible cracks or bulges. In Ontario, winter tires
+                        are recommended in cold and snowy conditions.
+                      </p>
+                    </div>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Brakes
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Brakes must respond properly. If the brake pedal feels
+                        soft, sinks, or the vehicle pulls to one side when
+                        braking, have the brakes inspected before driving.
+                        Anti-lock brake systems (ABS) require proper
+                        maintenance; consult your owner&apos;s manual.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Source
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Ontario Ministry of Transportation. Vehicle safety and
+                        readiness.{" "}
+                        <a
+                          href="https://www.ontario.ca/page/government-ontario"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:no-underline"
+                          style={{ color: "var(--electric-cyan)" }}
+                        >
+                          ontario.ca
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-pre-drive-vehicle-safety" &&
+                  currentLesson.id === "5" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Keep a clear view and use your lighting system correctly.
+                      The MTO Driver&apos;s Handbook sets out legal requirements
+                      for visibility and headlights.
+                    </p>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Keep a Clear View
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Do not put anything in your windows that blocks your
+                        view. Windows must not be coated with any material that
+                        keeps you from seeing out. The windshield and front door
+                        windows must not be coated to prevent others from seeing
+                        inside.
+                      </p>
+                    </div>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Headlights and Lighting
+                      </h2>
+                      <p
+                        className="mb-3 leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Headlights must shine a white light visible at least 150
+                        metres ahead and light up objects 110 metres away. You
+                        must have red rear lights visible 150 metres away and a
+                        white light on the rear licence plate when headlights
+                        are on.
+                      </p>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Turn on headlights between one-half hour before sunset and one-half hour after sunrise, and whenever you cannot clearly see people or vehicles less than 150 metres away (e.g. fog, snow, rain).</li>
+                        <li>Switch to low beams within 150 metres of an oncoming vehicle; use low beams when less than 60 metres behind another vehicle unless passing.</li>
+                        <li>Parking lights are only for parking; in low light use headlights.</li>
+                        <li>Keep lights clean and replace burned-out bulbs promptly.</li>
+                      </ul>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Source
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Ontario Ministry of Transportation. &quot;Getting ready to
+                        drive&quot; — Keep a clear view; Turn on headlights.{" "}
+                        <a
+                          href="https://www.ontario.ca/document/official-mto-drivers-handbook/getting-ready-drive"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:no-underline"
+                          style={{ color: "var(--electric-cyan)" }}
+                        >
+                          ontario.ca
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-pre-drive-vehicle-safety" &&
+                  currentLesson.id === "6" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Before driving on Ontario roads, you must have the required
+                      documents. The Ministry of Transportation and provincial
+                      law set out what you must carry.
+                    </p>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h3
+                        className="mb-3 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Required Documents
+                      </h3>
+                      <ul
+                        className="list-inside list-disc space-y-2 pl-2"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li><strong style={{ color: "var(--ghost-white)" }}>Valid driver&apos;s licence</strong> — You must carry your licence when driving.</li>
+                        <li><strong style={{ color: "var(--ghost-white)" }}>Vehicle permit (ownership)</strong> — Proof you are the legal owner; contains VIN, make, model, owner&apos;s name and address, licence plate number. Update within 6 days of moving.</li>
+                        <li><strong style={{ color: "var(--ghost-white)" }}>Valid auto insurance</strong> — All motorists in Ontario must have auto insurance. Carry the liability insurance card (&quot;pink slip&quot;) for the vehicle you are driving. Minimum $200,000 third-party liability is required.</li>
+                        <li><strong style={{ color: "var(--ghost-white)" }}>Licence plates</strong> — With up-to-date validation stickers when applicable.</li>
+                      </ul>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--crimson-spark)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-sm font-bold uppercase tracking-wide"
+                        style={{ color: "var(--crimson-spark)" }}
+                      >
+                        Driving Without Insurance
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Fines of $5,000 to $50,000, licence suspension, and
+                        vehicle impoundment can apply. Do not drive without valid
+                        insurance.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Source
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Ontario. Vehicle insurance and registration; Register
+                        and insure a vehicle.{" "}
+                        <a
+                          href="https://www.ontario.ca/page/government-ontario"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:no-underline"
+                          style={{ color: "var(--electric-cyan)" }}
+                        >
+                          ontario.ca
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-pre-drive-vehicle-safety" &&
+                  currentLesson.id === "7" ? (
+                  <div className="space-y-6">
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Before you drive, make sure you are comfortable with your
+                      physical, mental and emotional state, your vehicle, and the
+                      conditions in which you will be driving. If you have doubts
+                      about any of them, do not drive. (MTO Driver&apos;s Handbook.)
+                    </p>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Be Physically and Mentally Alert
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Do not drive when you are sick, injured, tired, or when
+                        you have been drinking or taking any drug or medication
+                        that may reduce your ability to drive. Do not drive when
+                        you are upset or angry — strong emotions can reduce your
+                        ability to think and react quickly.
+                      </p>
+                    </div>
+                    <div>
+                      <h2
+                        className="mb-3 text-lg font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Hazard Awareness Before Moving
+                      </h2>
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Before you move the vehicle, check for people, cyclists,
+                        and obstacles around and behind the vehicle. Use your
+                        mirrors and shoulder check; know your blind spots. Ensure
+                        the path is clear and you have a safe space to enter
+                        traffic.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-sm font-bold uppercase tracking-wide"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Summary — Safe Vehicle Readiness
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        By the end of this module you should know: how to use your
+                        vehicle&apos;s lighting system; legal requirements for
+                        seatbelts and child restraints; how to set your seating
+                        position and mirrors; factors that affect your readiness
+                        to drive; and the importance of safe, responsible and
+                        defensive driving. (MTO Driver&apos;s Handbook — Getting ready
+                        to drive.)
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border-2 p-4"
+                      style={{
+                        borderColor: "var(--electric-cyan)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <div
+                        className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: "var(--electric-cyan)" }}
+                      >
+                        Source
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Ontario Ministry of Transportation. &quot;Getting ready to
+                        drive.&quot; Official MTO Driver&apos;s Handbook.{" "}
+                        <a
+                          href="https://www.ontario.ca/document/official-mto-drivers-handbook/getting-ready-drive"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:no-underline"
+                          style={{ color: "var(--electric-cyan)" }}
+                        >
+                          ontario.ca
+                        </a>
+                      </p>
+                    </div>
+                  </div>
                 ) : (
                   <p
                     className="leading-relaxed"
