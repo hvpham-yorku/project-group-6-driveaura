@@ -31,6 +31,14 @@ export function getCompletedLessonKeys(): string[] {
   return getStored();
 }
 
+/** Returns the completed lesson ids for a given module. */
+export function getCompletedLessonsForModule(moduleId: string): string[] {
+  const prefix = `${moduleId}-`;
+  return getCompletedLessonKeys()
+    .filter((key) => key.startsWith(prefix))
+    .map((key) => key.slice(prefix.length));
+}
+
 /** Mark a lesson as complete. Idempotent. */
 export function setLessonComplete(moduleId: string, lessonId: string): void {
   const key = `${moduleId}-${lessonId}`;

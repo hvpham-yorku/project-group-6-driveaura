@@ -4,8 +4,17 @@
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useMemo, useState } from "react";
+import { useAuth } from "@/components/auth/AuthProvider";
+import {
+  fetchUserModuleProgress,
+  saveUserModuleProgress,
+} from "@/lib/firebase/client";
 import { MODULES, type Lesson } from "../data";
-import { isLessonComplete, setLessonComplete } from "../progress";
+import {
+  getCompletedLessonsForModule,
+  isLessonComplete,
+  setLessonComplete,
+} from "../progress";
 import {
   ROAD_MANEUVERS_CONTENT,
   type ManeuverContent,
@@ -339,6 +348,7 @@ const OTHER_SIGN_TABLE_DATA: Array<{
 function ModuleReaderContent() {
   const params = useParams();
   const searchParams = useSearchParams();
+  const { user } = useAuth();
   const moduleId = typeof params.moduleId === "string" ? params.moduleId : "";
   const lessonParam = searchParams.get("lesson");
 
@@ -356,15 +366,58 @@ function ModuleReaderContent() {
   }, [moduleItem, lessonParam]);
 
   const [markedComplete, setMarkedComplete] = useState(false);
+  const [progressSyncError, setProgressSyncError] = useState<string | null>(null);
   const [g2PassengerTab, setG2PassengerTab] = useState<"first6" | "after6">("first6");
   const [g2PathsTab, setG2PathsTab] = useState<"demerits" | "escalating">("demerits");
   const currentLesson = moduleItem?.lessons[lessonIndex];
 
   useEffect(() => {
-    if (moduleId && currentLesson) {
-      setMarkedComplete(isLessonComplete(moduleId, currentLesson.id));
+    let cancelled = false;
+
+    async function syncProgress() {
+      if (!moduleId || !currentLesson) return;
+      setProgressSyncError(null);
+
+      const locallyComplete = isLessonComplete(moduleId, currentLesson.id);
+      setMarkedComplete(locallyComplete);
+
+      if (!user) return;
+
+      try {
+        const localCompleted = getCompletedLessonsForModule(moduleId);
+        const remoteCompleted = await fetchUserModuleProgress(user.uid, moduleId);
+        if (cancelled) return;
+
+        remoteCompleted.forEach((lessonId) => {
+          setLessonComplete(moduleId, lessonId);
+        });
+
+        const merged = Array.from(new Set([...localCompleted, ...remoteCompleted]));
+        if (merged.length > remoteCompleted.length) {
+          await saveUserModuleProgress({
+            userId: user.uid,
+            moduleId,
+            completedLessons: merged,
+          });
+        }
+
+        if (remoteCompleted.includes(currentLesson.id)) {
+          setMarkedComplete(true);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setProgressSyncError("Cloud sync failed. Check Firebase rules and try again.");
+        }
+        console.error("Failed to sync module progress", error);
+      }
     }
-  }, [moduleId, currentLesson?.id]);
+
+    void syncProgress();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [moduleId, currentLesson?.id, user?.uid]);
 
   if (!moduleItem) {
     return (
@@ -4350,10 +4403,25 @@ function ModuleReaderContent() {
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   type="button"
-                  onClick={() => {
-                  setLessonComplete(moduleId, currentLesson.id);
-                  setMarkedComplete(true);
-                }}
+                  onClick={async () => {
+                    setProgressSyncError(null);
+                    setLessonComplete(moduleId, currentLesson.id);
+                    setMarkedComplete(true);
+
+                    if (user) {
+                      const completedForModule = getCompletedLessonsForModule(moduleId);
+                      try {
+                        await saveUserModuleProgress({
+                          userId: user.uid,
+                          moduleId,
+                          completedLessons: completedForModule,
+                        });
+                      } catch (error) {
+                        setProgressSyncError("Cloud save failed. Check Firebase rules and try again.");
+                        console.error("Failed to save module progress", error);
+                      }
+                    }
+                  }}
                   disabled={markedComplete}
                   className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple"
                   style={
@@ -4373,6 +4441,11 @@ function ModuleReaderContent() {
                   <IconCheck />
                   {markedComplete ? "Marked complete" : "Mark as complete"}
                 </button>
+                {progressSyncError ? (
+                  <p className="text-sm" style={{ color: "var(--crimson-spark)" }}>
+                    {progressSyncError}
+                  </p>
+                ) : null}
                 {lessonIndex < moduleItem.lessons.length - 1 && (
                   <Link
                     href={`/modules/${moduleId}?lesson=${moduleItem.lessons[lessonIndex + 1].id}`}
