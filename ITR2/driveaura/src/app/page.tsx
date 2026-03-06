@@ -1,7 +1,11 @@
 import Link from "next/link";
-import { iteration1 } from "./config/features";
+import { iteration1, iteration2 } from "./config/features";
 
 export default function Home() {
+  const weatherTraining = iteration2.find(
+    ({ href }) => href === "/weather-training",
+  );
+
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
       <header className="mb-10 border-b border-zinc-200 pb-6 dark:border-zinc-800">
@@ -28,6 +32,26 @@ export default function Home() {
           ))}
         </ul>
       </section>
+
+      {weatherTraining ? (
+        <section className="mt-6 rounded border border-sky-200 bg-sky-50/40 p-4 dark:border-sky-900 dark:bg-sky-950/20">
+          <h2 className="mb-2 text-sm font-medium uppercase tracking-wide text-sky-700 dark:text-sky-300">
+            Iteration 2 (Safety)
+          </h2>
+          <Link
+            href={weatherTraining.href}
+            className="block rounded border border-sky-200 bg-white px-4 py-3 text-sm text-zinc-800 hover:border-sky-300 hover:bg-sky-50 dark:border-sky-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-sky-700 dark:hover:bg-zinc-800"
+          >
+            <p className="font-semibold">{weatherTraining.label}</p>
+            <p className="mt-1 text-zinc-600 dark:text-zinc-400">
+              Provides safety modules for harsh weather conditions like snow,
+              rain, fog, and black ice. Users make driving decisions in
+              simulated scenarios and receive immediate feedback on safe
+              practices and common mistakes.
+            </p>
+          </Link>
+        </section>
+      ) : null}
     </main>
   );
 }

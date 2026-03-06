@@ -16,7 +16,10 @@ export const iteration2 = [
   { href: "/accident-guide", label: "Accident Guide" },
   { href: "/mental-readiness", label: "Mental Readiness" },
   { href: "/hazard-perception", label: "Hazard Perception" },
-  { href: "/weather-training", label: "Weather Training" },
+  {
+    href: "/weather-training",
+    label: "Weather & Seasonal Hazard Training",
+  },
 ] as const;
 
 export const iteration3 = [
