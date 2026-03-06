@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -23,9 +24,19 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-[#F5F5F7]"
+          className="flex items-center gap-3 text-lg font-semibold tracking-tight text-[#F5F5F7]"
         >
-          Drive<span className="text-[#FF3B3F]">Aura</span>
+          <span>
+            Drive<span className="text-[#FF3B3F]">Aura</span>
+          </span>
+          <Image
+            src="/driveaura-logo.png"
+            alt="DriveAura logo"
+            width={250}
+            height={100}
+            priority
+            className="h-16 w-auto sm:h-[4.5rem]"
+          />
         </Link>
         <div className="flex items-center gap-3">
           <ul className="hidden items-center gap-4 md:flex">
