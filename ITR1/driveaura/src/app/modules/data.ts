@@ -30,7 +30,10 @@ export const MODULES: ModuleItem[] = [
       "Regulatory, warning, and pavement line markings you need to know for the G1 written test.",
     lessons: [
       { id: "1", title: "Regulatory signs", content: "" },
-      { id: "2", title: "Warning signs and pavement lines", content: "" },
+      { id: "2", title: "Warning signs and high occupancy vehicle (HOV) signs", content: "" },
+      { id: "3", title: "Temporary Condition Signs", content: "" },
+      { id: "4", title: "Information and Direction Signs", content: "" },
+      { id: "5", title: "Other Signs", content: "" },
     ],
   },
   {
@@ -54,7 +57,9 @@ export const MODULES: ModuleItem[] = [
       "The consequences of traffic violations in Ontario and how demerit points affect your licence.",
     lessons: [
       { id: "1", title: "How demerit points work", content: "" },
-      { id: "2", title: "Consequences and suspension", content: "" },
+      { id: "2", title: "How Demerit Points Are Applied", content: "" },
+      { id: "3", title: "Points by Offence", content: "" },
+      { id: "4", title: "Consequences & Penalties", content: "" },
     ],
   },
   {
@@ -65,50 +70,8 @@ export const MODULES: ModuleItem[] = [
     description:
       "Rules for streetcars, school buses, and cyclists so everyone stays safe.",
     lessons: [
-      {
-        id: "1",
-        title: "Streetcars and school buses",
-        content: `
-### G1: Sharing the Road – Overview
-
-Sharing the road means driving in a way that keeps pedestrians, cyclists, and other drivers safe. You need to know who you share the road with and how to give them space.
-
-- **Learning objective 1**: Recognize the main road users you will drive around (pedestrians, cyclists, large vehicles, school buses, emergency vehicles).
-- **Learning objective 2**: Understand why giving others space and respecting right-of-way reduces crashes and tickets in Ontario.
-
-**Quick knowledge check**
-
-Q1: Why is it important for a G1 driver to learn how to share the road with other road users?
-
-### G1.2: School Buses and Streetcars – Key Rules
-
-- **School buses (no median)**: Stop in both directions when red lights flash and the stop arm is out. Stay at least 20 metres back until the lights stop.
-- **School buses (divided road with median)**: Only vehicles behind the bus must stop; oncoming traffic can continue with caution.
-- **Streetcars without a safety island**: Stop at least 2 metres behind the rear door and wait until passengers are safely off the road.
-
-**Quick knowledge check**
-
-Q2: On a two-lane road with no median, what must you do when a school bus has its red lights flashing and stop arm extended?
-        `,
-      },
-      {
-        id: "2",
-        title: "Cyclists and other road users",
-        content: `
-### G1: Sharing the Road – Cyclists and Vulnerable Users
-
-Cyclists, pedestrians, and people using mobility devices do not have a steel frame to protect them. As the driver, you are responsible for giving them extra space and time.
-
-- **Minimum 1-metre space**: When passing a cyclist, leave at least 1 metre of space when safe to do so.
-- **Check blind spots**: Always shoulder check for cyclists before turning right or opening your door.
-- **No squeezing**: If the lane is too narrow to pass safely, slow down and wait instead of trying to “squeeze by”.
-- **School zones and crosswalks**: Reduce speed and be ready to stop for pedestrians at crossings and at signed school zones.
-
-**Quick knowledge check**
-
-Q3: When you want to pass a cyclist, what is the safest way to do it on a narrow city street?
-        `,
-      },
+      { id: "1", title: "Streetcars and school buses", content: "" },
+      { id: "2", title: "Cyclists and other road users", content: "" },
     ],
   },
   {
@@ -140,15 +103,78 @@ Q3: When you want to pass a cyclist, what is the safest way to do it on a narrow
     ],
   },
   {
-    id: "g2-defensive-driving-observation",
+    id: "g2-licensing-restrictions",
     licenseLevel: "G2",
-    title: "Defensive Driving and Observation",
+    title: "G2 Licensing Restrictions",
     category: "G2 Road Prep",
     description:
-      "Scanning, following distance, and hazard recognition so you stay safe on your G2 road test.",
+      "Rules and restrictions that apply to G2 licence holders in Ontario.",
     lessons: [
-      { id: "1", title: "Defensive driving basics and observation", content: "" },
-      { id: "2", title: "Space cushion and mirror use", content: "" },
+      {
+        id: "1",
+        title: "The \"Zero Tolerance\" Rule (Alcohol & Drugs)",
+        content: "",
+      },
+      {
+        id: "2",
+        title: "G2 Passenger Restrictions (Under 19)",
+        content: "",
+      },
+      {
+        id: "3",
+        title: "Seatbelt & Capacity Laws",
+        content: "",
+      },
+      {
+        id: "4",
+        title: "Escalating Sanctions & Demerits",
+        content: "",
+      },
+      {
+        id: "5",
+        title: "Progression to the Full G License",
+        content: "",
+      },
+    ],
+  },
+  {
+    id: "g2-pre-drive-vehicle-safety",
+    licenseLevel: "G2",
+    title: "Pre-Drive and Vehicle Safety",
+    category: "G2 Road Prep",
+    description:
+      "Pre-drive inspections, seat and mirror adjustment, warning lights, tires and brakes, visibility, required documents, and hazard awareness — based on the Ontario MTO Driver's Handbook.",
+    lessons: [
+      { id: "1", title: "Pre-Drive Vehicle Inspection", content: "" },
+      { id: "2", title: "Seat and Mirror Adjustment", content: "" },
+      { id: "3", title: "Dashboard Warning Lights", content: "" },
+      { id: "4", title: "Tires and Brakes", content: "" },
+      { id: "5", title: "Visibility and Lighting Checks", content: "" },
+      {
+        id: "6",
+        title: "Required Documents (License, Ownership, Insurance)",
+        content: "",
+      },
+      {
+        id: "7",
+        title: "Safe Vehicle Readiness and Hazard Awareness",
+        content: "",
+      },
+    ],
+  },
+  {
+    id: "g2-essential-road-maneuvers",
+    licenseLevel: "G2",
+    title: "Essential Road Maneuvers",
+    category: "G2 Road Prep",
+    description:
+      "Master left and right turns, lane changes, reversing, three-point and U-turns, and parking for your G2 road test.",
+    lessons: [
+      { id: "1", title: "Left and Right Turns", content: "" },
+      { id: "2", title: "Lane Changes and Lane Positioning", content: "" },
+      { id: "3", title: "Reversing and Backing Up", content: "" },
+      { id: "4", title: "Three-Point Turns and U-Turns", content: "" },
+      { id: "5", title: "Parking (Parallel, Perpendicular, Hill)", content: "" },
     ],
   },
 ];
@@ -180,7 +206,7 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Road Test Level 1",
     description:
       "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
-    moduleCount: 5,
+    moduleCount: 3,
   },
   {
     licenseLevel: "G",
