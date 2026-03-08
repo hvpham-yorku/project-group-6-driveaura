@@ -856,6 +856,7 @@ export const QUIZZES: QuizItem[] = [
     questions: [
       {
         id: "1",
+        type: "mcq",
         prompt: "What should you do first after an accident?",
         options: [
           "Leave the area",
@@ -867,6 +868,7 @@ export const QUIZZES: QuizItem[] = [
       },
       {
         id: "2",
+        type: "mcq",
         prompt: "When should you call 911?",
         options: [
           "Only if your car is scratched",
@@ -878,6 +880,7 @@ export const QUIZZES: QuizItem[] = [
       },
       {
         id: "3",
+        type: "mcq",
         prompt: "What information should you exchange?",
         options: [
           "Social media account",

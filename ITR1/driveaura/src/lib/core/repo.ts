@@ -21,6 +21,10 @@ export class InMemoryRepo {
     return this.usersById.get(userId);
   }
 
+  saveUser(user: User): void {
+    this.usersById.set(user.id, user);
+  }
+
   getModule(moduleId: string): Module | undefined {
     return this.modulesById.get(moduleId);
   }
