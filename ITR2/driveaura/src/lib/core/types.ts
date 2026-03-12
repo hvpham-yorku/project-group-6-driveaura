@@ -1,5 +1,7 @@
 export type ModuleCategory = "EV" | "Safety" | "RoadRules" | "General";
 
+export type UserModuleStatus = "not_started" | "in_progress" | "completed";
+
 export interface User {
   id: string;
   name: string;

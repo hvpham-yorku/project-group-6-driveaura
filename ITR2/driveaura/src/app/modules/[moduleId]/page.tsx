@@ -8,6 +8,7 @@ import { useAuth } from "@/components/auth/AuthProvider";
 import {
   fetchUserModuleProgress,
   saveUserModuleProgress,
+  saveUserModuleStatus,
 } from "@/lib/firebase/client";
 import { MODULES, type Lesson } from "../data";
 import {
@@ -400,6 +401,19 @@ function ModuleReaderContent() {
             completedLessons: merged,
           });
         }
+
+        // Sync module-level status whenever we load progress.
+        const totalLessons = moduleItem?.lessons.length ?? 0;
+        const progressPercent =
+          totalLessons > 0 ? Math.round((merged.length / totalLessons) * 100) : 0;
+        const isCompleted = totalLessons > 0 && merged.length >= totalLessons;
+        await saveUserModuleStatus({
+          userId: user.uid,
+          moduleId,
+          status: isCompleted ? "completed" : merged.length > 0 ? "in_progress" : "not_started",
+          progressPercent,
+          markCompleted: isCompleted,
+        });
 
         if (remoteCompleted.includes(currentLesson.id)) {
           setMarkedComplete(true);
@@ -4410,11 +4424,25 @@ function ModuleReaderContent() {
 
                     if (user) {
                       const completedForModule = getCompletedLessonsForModule(moduleId);
+                      const totalLessons = moduleItem?.lessons.length ?? 0;
+                      const progressPercent =
+                        totalLessons > 0
+                          ? Math.round((completedForModule.length / totalLessons) * 100)
+                          : 0;
+                      const isCompleted =
+                        totalLessons > 0 && completedForModule.length >= totalLessons;
                       try {
                         await saveUserModuleProgress({
                           userId: user.uid,
                           moduleId,
                           completedLessons: completedForModule,
+                        });
+                        await saveUserModuleStatus({
+                          userId: user.uid,
+                          moduleId,
+                          status: isCompleted ? "completed" : "in_progress",
+                          progressPercent,
+                          markCompleted: isCompleted,
                         });
                       } catch (error) {
                         setProgressSyncError("Cloud save failed. Check Firebase rules and try again.");

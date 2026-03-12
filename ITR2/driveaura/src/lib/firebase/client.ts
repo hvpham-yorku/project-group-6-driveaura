@@ -3,11 +3,16 @@ import { getAuth, GoogleAuthProvider, type Auth } from "firebase/auth";
 import {
   getFirestore,
   type Firestore,
+  collection,
   doc,
   getDoc,
+  getDocs,
   setDoc,
+  query,
+  where,
   serverTimestamp,
 } from "firebase/firestore";
+import type { UserModuleStatus } from "@/lib/core/types";
 
 let cachedApp: FirebaseApp | null = null;
 let cachedAuth: Auth | null = null;
@@ -107,6 +112,95 @@ export async function saveUserModuleProgress(payload: UserModuleProgressRecord):
     },
     { merge: true },
   );
+}
+
+// ---------------------------------------------------------------------------
+// userModules collection
+// Tracks each user's overall status for a module (not_started / in_progress /
+// completed), their progress percentage, and when they started / finished.
+// Doc ID pattern: `${userId}_${moduleId}` — mirrors userModuleProgress.
+// ---------------------------------------------------------------------------
+
+type UserModuleRecord = {
+  userId: string;
+  moduleId: string;
+  status: UserModuleStatus;
+  progressPercent: number;
+};
+
+export type UserModuleSummary = {
+  moduleId: string;
+  status: UserModuleStatus;
+  progressPercent: number;
+};
+
+export async function fetchUserModuleStatus(
+  userId: string,
+  moduleId: string,
+): Promise<UserModuleSummary | null> {
+  const db = getFirebaseDb();
+  if (!db) return null;
+
+  const ref = doc(db, "userModules", `${userId}_${moduleId}`);
+  const snap = await getDoc(ref);
+  if (!snap.exists()) return null;
+
+  const data = snap.data() as Partial<UserModuleRecord>;
+  return {
+    moduleId: data.moduleId ?? moduleId,
+    status: data.status ?? "not_started",
+    progressPercent: data.progressPercent ?? 0,
+  };
+}
+
+export async function saveUserModuleStatus(payload: {
+  userId: string;
+  moduleId: string;
+  status: UserModuleStatus;
+  progressPercent: number;
+  markCompleted?: boolean;
+}): Promise<void> {
+  const db = getFirebaseDb();
+  if (!db) return;
+
+  const { userId, moduleId, status, progressPercent, markCompleted = false } = payload;
+  const ref = doc(db, "userModules", `${userId}_${moduleId}`);
+
+  const existing = await getDoc(ref);
+  const existingData = existing.exists() ? existing.data() : null;
+
+  await setDoc(
+    ref,
+    {
+      userId,
+      moduleId,
+      status,
+      progressPercent,
+      // Preserve existing startedAt; set it on first write.
+      startedAt: existingData?.startedAt ?? serverTimestamp(),
+      // Only stamp completedAt when the module is actually finished.
+      completedAt: markCompleted ? serverTimestamp() : (existingData?.completedAt ?? null),
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true },
+  );
+}
+
+export async function fetchAllUserModules(userId: string): Promise<UserModuleSummary[]> {
+  const db = getFirebaseDb();
+  if (!db) return [];
+
+  const q = query(collection(db, "userModules"), where("userId", "==", userId));
+  const snap = await getDocs(q);
+
+  return snap.docs.map((d) => {
+    const data = d.data() as Partial<UserModuleRecord>;
+    return {
+      moduleId: data.moduleId ?? "",
+      status: data.status ?? "not_started",
+      progressPercent: data.progressPercent ?? 0,
+    };
+  });
 }
 
 export const googleProvider = new GoogleAuthProvider();
