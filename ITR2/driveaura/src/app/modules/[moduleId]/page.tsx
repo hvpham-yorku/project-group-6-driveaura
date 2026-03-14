@@ -553,21 +553,6 @@ function ModuleReaderContent() {
                 {currentLesson.title}
               </h1>
 
-              {/* Video placeholder (skip for accident module — uses step-specific photo placeholders) */}
-              {moduleId !== "g1-what-to-do-when-accident-occurs" && (
-                <div
-                  className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
-                  style={{
-                    borderColor: "var(--midnight-indigo)",
-                    backgroundColor: "var(--void-purple)",
-                    color: "var(--lavender-mist)",
-                  }}
-                  aria-hidden
-                >
-                  <span className="text-sm">Video placeholder</span>
-                </div>
-              )}
-
               {/* Lesson text */}
               <div className="mb-8 max-w-none">
                 {moduleId === "g1-signs-signals-markings" &&
@@ -2143,19 +2128,6 @@ function ModuleReaderContent() {
                 ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
                   currentLesson.id === "1" ? (
                   <>
-                    <div
-                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
-                      style={{
-                        borderColor: "var(--midnight-indigo)",
-                        backgroundColor: "var(--void-purple)",
-                        color: "var(--lavender-mist)",
-                      }}
-                      aria-hidden
-                    >
-                      <span className="text-sm">
-                        Photo: person checking passengers after crash
-                      </span>
-                    </div>
                     <div className="space-y-4">
                       <p
                         className="leading-relaxed"
@@ -2177,19 +2149,6 @@ function ModuleReaderContent() {
                 ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
                   currentLesson.id === "2" ? (
                   <>
-                    <div
-                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
-                      style={{
-                        borderColor: "var(--midnight-indigo)",
-                        backgroundColor: "var(--void-purple)",
-                        color: "var(--lavender-mist)",
-                      }}
-                      aria-hidden
-                    >
-                      <span className="text-sm">
-                        Photo: car pulled safely to roadside with hazards on
-                      </span>
-                    </div>
                     <div className="space-y-4">
                       <p
                         className="leading-relaxed"
@@ -2210,19 +2169,6 @@ function ModuleReaderContent() {
                 ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
                   currentLesson.id === "3" ? (
                   <>
-                    <div
-                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
-                      style={{
-                        borderColor: "var(--midnight-indigo)",
-                        backgroundColor: "var(--void-purple)",
-                        color: "var(--lavender-mist)",
-                      }}
-                      aria-hidden
-                    >
-                      <span className="text-sm">
-                        Photo: person calling emergency services
-                      </span>
-                    </div>
                     <div className="space-y-4">
                       <p
                         className="leading-relaxed"
@@ -2244,19 +2190,6 @@ function ModuleReaderContent() {
                 ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
                   currentLesson.id === "4" ? (
                   <>
-                    <div
-                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
-                      style={{
-                        borderColor: "var(--midnight-indigo)",
-                        backgroundColor: "var(--void-purple)",
-                        color: "var(--lavender-mist)",
-                      }}
-                      aria-hidden
-                    >
-                      <span className="text-sm">
-                        Photo: drivers exchanging insurance information
-                      </span>
-                    </div>
                     <div className="space-y-4">
                       <p
                         className="leading-relaxed"
@@ -2279,19 +2212,6 @@ function ModuleReaderContent() {
                 ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
                   currentLesson.id === "5" ? (
                   <>
-                    <div
-                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
-                      style={{
-                        borderColor: "var(--midnight-indigo)",
-                        backgroundColor: "var(--void-purple)",
-                        color: "var(--lavender-mist)",
-                      }}
-                      aria-hidden
-                    >
-                      <span className="text-sm">
-                        Photo: person taking pictures of accident scene
-                      </span>
-                    </div>
                     <div className="space-y-4">
                       <p
                         className="leading-relaxed"
@@ -2315,19 +2235,6 @@ function ModuleReaderContent() {
                 ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
                   currentLesson.id === "6" ? (
                   <>
-                    <div
-                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
-                      style={{
-                        borderColor: "var(--midnight-indigo)",
-                        backgroundColor: "var(--void-purple)",
-                        color: "var(--lavender-mist)",
-                      }}
-                      aria-hidden
-                    >
-                      <span className="text-sm">
-                        Photo: collision reporting centre sign
-                      </span>
-                    </div>
                     <div className="space-y-4">
                       <p
                         className="leading-relaxed"
