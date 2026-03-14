@@ -161,6 +161,22 @@ export const MODULES: ModuleItem[] = [
       { id: "5", title: "Parking (Parallel, Perpendicular, Hill)", content: "" },
     ],
   },
+  {
+    id: "g2-interior-essentials",
+    licenseLevel: "G2",
+    title: "Interior Essentials: Vehicle Explorer",
+    category: "G2 Road Prep",
+    description:
+      "Drill into key interior zones from a full-cabin view to practise how examiners may ask you to identify and use cockpit controls.",
+    lessons: [
+      {
+        id: "1",
+        title: "Vehicle Explorer Drill-Down",
+        content:
+          "Use the Vehicle Explorer to move from the full cabin to focused views of the speedometer and control panel.",
+      },
+    ],
+  },
 ];
 
 export const LICENSE_LABELS: Record<LicenseLevel, string> = {
@@ -190,7 +206,7 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Road Test Level 1",
     description:
       "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
-    moduleCount: 3,
+    moduleCount: 4,
   },
   {
     licenseLevel: "G",

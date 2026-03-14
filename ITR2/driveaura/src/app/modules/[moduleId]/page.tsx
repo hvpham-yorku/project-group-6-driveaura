@@ -19,6 +19,7 @@ import {
   ROAD_MANEUVERS_CONTENT,
   type ManeuverContent,
 } from "../road-maneuvers-content";
+import VehicleExplorer from "../VehicleExplorer";
 
 /* Inline SVG */
 function IconChevronLeft() {
@@ -4389,6 +4390,9 @@ function ModuleReaderContent() {
                   <ManeuverLessonContent
                     content={ROAD_MANEUVERS_CONTENT[currentLesson.id]}
                   />
+                ) : moduleId === "g2-interior-essentials" &&
+                  currentLesson.id === "1" ? (
+                  <VehicleExplorer />
                 ) : (
                   <p
                     className="leading-relaxed"
