@@ -845,6 +845,50 @@ export const QUIZZES: QuizItem[] = [
       },
     ],
   },
+  {
+    id: "g1-what-to-do-when-accident-occurs",
+    licenseLevel: "G1",
+    title: "What To Do When an Accident Occurs",
+    category: "G1 Knowledge Path",
+    description:
+      "Test your knowledge of the steps to take after a crash: staying calm, staying safe, exchanging information, and reporting.",
+    questionCount: 3,
+    questions: [
+      {
+        id: "1",
+        prompt: "What should you do first after an accident?",
+        options: [
+          "Leave the area",
+          "Stay calm and check for injuries",
+          "Argue with the other driver",
+          "Drive away",
+        ],
+        correctIndex: 1,
+      },
+      {
+        id: "2",
+        prompt: "When should you call 911?",
+        options: [
+          "Only if your car is scratched",
+          "If someone is injured or the road is blocked",
+          "Never",
+          "Only at night",
+        ],
+        correctIndex: 1,
+      },
+      {
+        id: "3",
+        prompt: "What information should you exchange?",
+        options: [
+          "Social media account",
+          "Driver license and insurance details",
+          "Favorite car brand",
+          "None",
+        ],
+        correctIndex: 1,
+      },
+    ],
+  },
 ];
 
 export const LICENSE_LABELS: Record<LicenseLevel, string> = {

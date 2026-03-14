@@ -87,6 +87,22 @@ export const MODULES: ModuleItem[] = [
     ],
   },
   {
+    id: "g1-what-to-do-when-accident-occurs",
+    licenseLevel: "G1",
+    title: "What To Do When an Accident Occurs",
+    category: "G1 Knowledge Path",
+    description:
+      "Step-by-step guide for what to do after a crash: stay calm, stay safe, exchange information, and report when required.",
+    lessons: [
+      { id: "1", title: "Stay Calm and Check for Injuries", content: "" },
+      { id: "2", title: "Move to a Safe Location", content: "" },
+      { id: "3", title: "Call Emergency Services if Needed", content: "" },
+      { id: "4", title: "Exchange Information", content: "" },
+      { id: "5", title: "Document the Scene", content: "" },
+      { id: "6", title: "Report the Accident", content: "" },
+    ],
+  },
+  {
     id: "g2-licensing-restrictions",
     licenseLevel: "G2",
     title: "G2 Licensing Restrictions",
@@ -183,7 +199,7 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Written Knowledge Test",
     description:
       "Master road signs, rules of the road, and safe driving practices to pass your written G1 test.",
-    moduleCount: 5,
+    moduleCount: 6,
   },
   {
     licenseLevel: "G2",

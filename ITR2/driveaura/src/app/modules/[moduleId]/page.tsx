@@ -537,18 +537,20 @@ function ModuleReaderContent() {
                 {currentLesson.title}
               </h1>
 
-              {/* Video placeholder */}
-              <div
-                className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
-                style={{
-                  borderColor: "var(--midnight-indigo)",
-                  backgroundColor: "var(--void-purple)",
-                  color: "var(--lavender-mist)",
-                }}
-                aria-hidden
-              >
-                <span className="text-sm">Video placeholder</span>
-              </div>
+              {/* Video placeholder (skip for accident module — uses step-specific photo placeholders) */}
+              {moduleId !== "g1-what-to-do-when-accident-occurs" && (
+                <div
+                  className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
+                  style={{
+                    borderColor: "var(--midnight-indigo)",
+                    backgroundColor: "var(--void-purple)",
+                    color: "var(--lavender-mist)",
+                  }}
+                  aria-hidden
+                >
+                  <span className="text-sm">Video placeholder</span>
+                </div>
+              )}
 
               {/* Lesson text */}
               <div className="mb-8 max-w-none">
@@ -2087,6 +2089,216 @@ function ModuleReaderContent() {
                       </p>
                     </div>
                   </div>
+                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
+                  currentLesson.id === "1" ? (
+                  <>
+                    <div
+                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                        color: "var(--lavender-mist)",
+                      }}
+                      aria-hidden
+                    >
+                      <span className="text-sm">
+                        Photo: person checking passengers after crash
+                      </span>
+                    </div>
+                    <div className="space-y-4">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        If an accident happens, the first thing is to stay calm
+                        and check if anyone is injured.
+                      </p>
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Check yourself and passengers</li>
+                        <li>Check people in the other vehicle</li>
+                        <li>Call 911 immediately if someone is injured</li>
+                      </ul>
+                    </div>
+                  </>
+                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
+                  currentLesson.id === "2" ? (
+                  <>
+                    <div
+                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                        color: "var(--lavender-mist)",
+                      }}
+                      aria-hidden
+                    >
+                      <span className="text-sm">
+                        Photo: car pulled safely to roadside with hazards on
+                      </span>
+                    </div>
+                    <div className="space-y-4">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        If the accident is minor and the vehicles can move:
+                      </p>
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Turn on hazard lights</li>
+                        <li>Move the vehicle to the side of the road</li>
+                        <li>Avoid blocking traffic</li>
+                      </ul>
+                    </div>
+                  </>
+                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
+                  currentLesson.id === "3" ? (
+                  <>
+                    <div
+                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                        color: "var(--lavender-mist)",
+                      }}
+                      aria-hidden
+                    >
+                      <span className="text-sm">
+                        Photo: person calling emergency services
+                      </span>
+                    </div>
+                    <div className="space-y-4">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Call 911 if:
+                      </p>
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Someone is injured</li>
+                        <li>Vehicles are heavily damaged</li>
+                        <li>The road is blocked</li>
+                        <li>There is a fire or danger</li>
+                      </ul>
+                    </div>
+                  </>
+                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
+                  currentLesson.id === "4" ? (
+                  <>
+                    <div
+                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                        color: "var(--lavender-mist)",
+                      }}
+                      aria-hidden
+                    >
+                      <span className="text-sm">
+                        Photo: drivers exchanging insurance information
+                      </span>
+                    </div>
+                    <div className="space-y-4">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Drivers must exchange important details. Collect:
+                      </p>
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Full name</li>
+                        <li>Phone number</li>
+                        <li>Driver&apos;s license number</li>
+                        <li>License plate number</li>
+                        <li>Insurance company and policy number</li>
+                      </ul>
+                    </div>
+                  </>
+                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
+                  currentLesson.id === "5" ? (
+                  <>
+                    <div
+                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                        color: "var(--lavender-mist)",
+                      }}
+                      aria-hidden
+                    >
+                      <span className="text-sm">
+                        Photo: person taking pictures of accident scene
+                      </span>
+                    </div>
+                    <div className="space-y-4">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Take photos and gather evidence. Important things to
+                        photograph:
+                      </p>
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Damage to vehicles</li>
+                        <li>License plates</li>
+                        <li>Road conditions</li>
+                        <li>Traffic signs or signals</li>
+                        <li>Position of vehicles</li>
+                      </ul>
+                    </div>
+                  </>
+                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
+                  currentLesson.id === "6" ? (
+                  <>
+                    <div
+                      className="mb-6 flex aspect-video w-full items-center justify-center rounded-xl border-2"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                        color: "var(--lavender-mist)",
+                      }}
+                      aria-hidden
+                    >
+                      <span className="text-sm">
+                        Photo: collision reporting centre sign
+                      </span>
+                    </div>
+                    <div className="space-y-4">
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        In Ontario, accidents must be reported if:
+                      </p>
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>Damage exceeds $2000</li>
+                        <li>Someone is injured</li>
+                      </ul>
+                      <p
+                        className="mt-4 text-sm font-semibold"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        You must report to a Collision Reporting Centre.
+                      </p>
+                    </div>
+                  </>
                 ) : moduleId === "g1-demerit-points" &&
                   currentLesson.id === "1" ? (
                   <div className="space-y-6">
