@@ -26,9 +26,9 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
   {
     id: "left-gauge",
     label: "Left gauge (RPM, oil pressure, check engine)",
-    centerX: 18,
-    centerY: 48,
-    size: 20,
+    centerX: 37,
+    centerY: 54,
+    size: 8,
     title: "Left Gauge – RPM, Oil Pressure & Check Engine",
     bullets: [
       "Tachometer shows engine speed (RPM); avoid redlining to protect the engine.",
@@ -40,8 +40,8 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
     id: "center-gauge",
     label: "Speedometer",
     centerX: 50,
-    centerY: 48,
-    size: 26,
+    centerY: 52,
+    size: 10,
     title: "Speedometer",
     bullets: [
       "Shows your current speed in km/h (and often mph); always stay within the posted limit.",
@@ -51,9 +51,9 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
   {
     id: "right-gauge",
     label: "Right gauge (fuel, temp, battery, parking brake)",
-    centerX: 82,
-    centerY: 48,
-    size: 20,
+    centerX: 63,
+    centerY: 54,
+    size: 8,
     title: "Right Gauge – Fuel, Temp, Battery & Parking Brake",
     bullets: [
       "Fuel gauge shows remaining fuel; temperature gauge should stay in the normal range.",
@@ -64,8 +64,8 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
     id: "left-stalk",
     label: "Left stalk (turn signals, lights)",
     centerX: 22,
-    centerY: 62,
-    size: 12,
+    centerY: 74,
+    size: 6,
     title: "Left Stalk – Turn Signals & Lights",
     bullets: [
       "Move the stalk up for right turn signal, down for left; cancel after the turn.",
@@ -76,8 +76,8 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
     id: "right-stalk",
     label: "Right stalk (wipers)",
     centerX: 78,
-    centerY: 62,
-    size: 12,
+    centerY: 74,
+    size: 6,
     title: "Right Stalk – Wipers",
     bullets: [
       "Use OFF, INT (intermittent), LO, and HI for front wipers in rain or snow.",
