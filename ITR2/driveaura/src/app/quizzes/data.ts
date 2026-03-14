@@ -41,18 +41,35 @@ export const QUIZZES: QuizItem[] = [
     category: "G1 Knowledge Path",
     description:
       "Regulatory, warning, and pavement line markings you need to know for the G1 written test.",
-    questionCount: 7,
+    questionCount: 10,
     questions: [
       {
         id: "1",
-        type: "mcq",
-        prompt: "What does a red octagonal sign mean?",
-        options: ["Yield", "Stop", "No entry", "Slow down"],
+        type: "image",
+        prompt: "What does this sign mean? You must:",
+        options: ["Yield to traffic", "Come to a complete stop", "Slow down only", "No entry"],
         correctIndex: 1,
+        imageSrc: "https://files.ontario.ca/3-1-1.jpg",
+        imageAlt: "Red octagonal stop sign",
         lessonId: "1",
       },
       {
         id: "2",
+        type: "image",
+        prompt: "You see this sign. How should you respond as you approach the intersection?",
+        options: [
+          "Come to a full stop every time",
+          "Yield to traffic and pedestrians; stop if necessary and go when clear",
+          "Proceed without slowing",
+          "Change lanes immediately",
+        ],
+        correctIndex: 1,
+        imageSrc: "https://files.ontario.ca/3-1-3.jpg",
+        imageAlt: "Yield sign — triangular with red border and white centre",
+        lessonId: "2",
+      },
+      {
+        id: "3",
         type: "mcq",
         prompt: "A yellow diamond-shaped sign typically indicates:",
         options: [
@@ -65,7 +82,7 @@ export const QUIZZES: QuizItem[] = [
         lessonId: "2",
       },
       {
-        id: "3",
+        id: "4",
         type: "mcq",
         prompt: "What does a solid yellow line on your side of the centre of the road mean?",
         options: [
@@ -78,7 +95,32 @@ export const QUIZZES: QuizItem[] = [
         lessonId: "1",
       },
       {
-        id: "4",
+        id: "5",
+        type: "image",
+        prompt: "This sign indicates:",
+        options: ["Police station", "Parking permitted", "Pedestrian crossing", "Passing zone"],
+        correctIndex: 1,
+        imageSrc: "https://files.ontario.ca/3-1-6.jpg",
+        imageAlt: "Blue square sign with white letter P — parking permitted",
+        lessonId: "4",
+      },
+      {
+        id: "6",
+        type: "image",
+        prompt: "What does this sign mean at an intersection?",
+        options: [
+          "Left turn only",
+          "No left turn permitted",
+          "Left turn allowed with caution",
+          "Merge left",
+        ],
+        correctIndex: 1,
+        imageSrc: "https://files.ontario.ca/3-1-12.jpg",
+        imageAlt: "No left turn — red circle with slash over left-turn arrow",
+        lessonId: "1",
+      },
+      {
+        id: "7",
         type: "scenario",
         prompt:
           "You are first in line at an intersection with a flashing green light. There are no pedestrians entering the crosswalk. What does this signal allow you to do?",
@@ -92,44 +134,36 @@ export const QUIZZES: QuizItem[] = [
         lessonId: "4",
       },
       {
-        id: "5",
+        id: "8",
         type: "image",
-        prompt: "This sign is a blue square with a white letter 'P' in the centre. What does it indicate?",
-        options: ["Police station", "Parking", "Pedestrian crossing", "Passing zone"],
-        correctIndex: 1,
-        imageSrc: "/file.svg",
-        imageAlt: "Blue square sign with a white letter P in the middle",
+        prompt:
+          "This overhead sign shows lane directions. You are in the right lane. What are you allowed to do?",
+        options: ["Turn right only", "Go straight only", "Turn right or go straight", "U-turn only"],
+        correctIndex: 0,
+        imageSrc: "https://files.ontario.ca/3-1-27.jpg",
+        imageAlt: "Lane directional arrows — straight in left lane, right turn in right lane",
         lessonId: "4",
       },
       {
-        id: "6",
-        type: "scenario",
-        prompt:
-          "You see a sign showing a red circle with a slash over a left-turn arrow posted at an intersection. What does this sign mean?",
+        id: "9",
+        type: "mcq",
+        prompt: "Regulatory signs are usually which shape and colour?",
         options: [
-          "Left turn is allowed with caution",
-          "No left turn is permitted at this location",
-          "You must turn left only",
-          "Left turns allowed for buses only",
+          "Yellow diamond",
+          "White rectangle or square with black/red symbols",
+          "Blue circle",
+          "Green triangle",
         ],
         correctIndex: 1,
         lessonId: "1",
       },
       {
-        id: "7",
-        type: "image",
-        prompt:
-          "You see this triangular sign with a red border and white centre. How should you respond as you approach the intersection?",
-        options: [
-          "Proceed without slowing down",
-          "Yield to traffic and pedestrians, stopping if necessary",
-          "Come to a full stop every time",
-          "Change lanes immediately",
-        ],
+        id: "10",
+        type: "mcq",
+        prompt: "True or false: A red octagonal sign always means you must come to a complete stop.",
+        options: ["False", "True"],
         correctIndex: 1,
-        imageSrc: "/window.svg",
-        imageAlt: "Triangular warning-style sign placeholder with red border and white centre",
-        lessonId: "2",
+        lessonId: "1",
       },
     ],
   },
@@ -140,7 +174,7 @@ export const QUIZZES: QuizItem[] = [
     category: "G1 Knowledge Path",
     description:
       "4-way stops, yielding, and emergency vehicles — when to go and when to wait.",
-    questionCount: 7,
+    questionCount: 10,
     questions: [
       {
         id: "1",
@@ -196,6 +230,38 @@ export const QUIZZES: QuizItem[] = [
       },
       {
         id: "5",
+        type: "image",
+        prompt:
+          "This sign shows lane directions. You are in the right lane approaching the intersection. What are you allowed to do?",
+        options: [
+          "Turn right only",
+          "Go straight only",
+          "Turn right or go straight",
+          "Make a U-turn",
+        ],
+        correctIndex: 0,
+        imageSrc: "https://files.ontario.ca/3-1-27.jpg",
+        imageAlt: "Lane directional arrows: straight in left lane, right turn in right lane",
+        lessonId: "1",
+      },
+      {
+        id: "6",
+        type: "image",
+        prompt:
+          "You see this sign. What must you do when pedestrians are crossing?",
+        options: [
+          "Proceed if no one is in your lane",
+          "Stop and yield right-of-way to pedestrians",
+          "Honk and proceed slowly",
+          "Only slow down",
+        ],
+        correctIndex: 1,
+        imageSrc: "https://files.ontario.ca/3-1-29.jpg",
+        imageAlt: "Pedestrian crossover sign — be prepared to stop and yield",
+        lessonId: "1",
+      },
+      {
+        id: "7",
         type: "scenario",
         prompt: "When a streetcar has stopped to pick up or let off passengers and there is no safety zone, you must:",
         options: [
@@ -208,23 +274,7 @@ export const QUIZZES: QuizItem[] = [
         lessonId: "1",
       },
       {
-        id: "6",
-        type: "image",
-        prompt:
-          "This overhead sign shows a straight-ahead arrow for the left lane and a right-turn arrow for the right lane. You are in the right lane approaching the intersection. What are you allowed to do?",
-        options: [
-          "Turn right only",
-          "Go straight only",
-          "Turn right or go straight",
-          "Make a U-turn",
-        ],
-        correctIndex: 0,
-        imageSrc: "/next.svg",
-        imageAlt: "Lane direction arrows: straight in left lane and right turn in right lane",
-        lessonId: "1",
-      },
-      {
-        id: "7",
+        id: "8",
         type: "mcq",
         prompt:
           "At a pedestrian crossover with activated flashing lights, you must remain stopped until:",
@@ -233,6 +283,27 @@ export const QUIZZES: QuizItem[] = [
           "All pedestrians have completely crossed and are off the roadway",
           "The flashing lights stop, regardless of where pedestrians are",
           "Another driver honks to proceed",
+        ],
+        correctIndex: 1,
+        lessonId: "1",
+      },
+      {
+        id: "9",
+        type: "mcq",
+        prompt: "True or false: At a 4-way stop, the vehicle that stopped first has the right to go first.",
+        options: ["False", "True"],
+        correctIndex: 1,
+        lessonId: "1",
+      },
+      {
+        id: "10",
+        type: "scenario",
+        prompt: "You and another vehicle arrive at a 4-way stop at the same time. The other vehicle is on your right. Who should go first?",
+        options: [
+          "You go first",
+          "The vehicle on the right goes first",
+          "The larger vehicle",
+          "Whoever signals first",
         ],
         correctIndex: 1,
         lessonId: "1",
@@ -246,7 +317,7 @@ export const QUIZZES: QuizItem[] = [
     category: "G1 Knowledge Path",
     description:
       "The consequences of traffic violations in Ontario and how demerit points affect your licence.",
-    questionCount: 7,
+    questionCount: 10,
     questions: [
       {
         id: "1",
@@ -320,8 +391,37 @@ export const QUIZZES: QuizItem[] = [
         ],
         correctIndex: 1,
         imageSrc: "/globe.svg",
-        imageAlt: "Placeholder chart icon representing demerit point ranges and consequences",
+        imageAlt: "Chart summarizing demerit point ranges and consequences",
         lessonId: "4",
+      },
+      {
+        id: "8",
+        type: "mcq",
+        prompt: "True or false: Demerit points are removed from your record as soon as you pay the fine.",
+        options: ["True", "False"],
+        correctIndex: 1,
+        lessonId: "1",
+      },
+      {
+        id: "9",
+        type: "scenario",
+        prompt: "A G1 driver accumulates 6 demerit points. What is a possible outcome?",
+        options: [
+          "They receive a congratulatory letter",
+          "Their licence may be suspended and they may need to attend an interview",
+          "Nothing; G1 drivers are exempt",
+          "Only a small fine",
+        ],
+        correctIndex: 1,
+        lessonId: "4",
+      },
+      {
+        id: "10",
+        type: "mcq",
+        prompt: "Running a red light typically carries how many demerit points?",
+        options: ["0", "2", "3", "6"],
+        correctIndex: 2,
+        lessonId: "3",
       },
     ],
   },
@@ -332,12 +432,12 @@ export const QUIZZES: QuizItem[] = [
     category: "G1 Knowledge Path",
     description:
       "Rules for streetcars, school buses, and cyclists so everyone stays safe.",
-    questionCount: 7,
+    questionCount: 10,
     questions: [
       {
         id: "1",
-        type: "scenario",
-        prompt: "When a school bus has its red lights flashing and stop arm extended, you must:",
+        type: "image",
+        prompt: "When you see this sign and the bus has its red lights flashing, you must:",
         options: [
           "Slow down and pass with caution",
           "Stop until the lights stop flashing and the arm is withdrawn",
@@ -345,10 +445,28 @@ export const QUIZZES: QuizItem[] = [
           "Honk and proceed slowly",
         ],
         correctIndex: 1,
+        imageSrc: "https://files.ontario.ca/3-1-25b.jpg",
+        imageAlt: "Stop for school bus when signals are flashing",
         lessonId: "1",
       },
       {
         id: "2",
+        type: "image",
+        prompt:
+          "This sign indicates that the lane is:",
+        options: [
+          "Closed to all vehicles",
+          "Reserved for buses, HOV, or bicycles (as posted) during certain hours or always",
+          "For pedestrians only",
+          "A passing lane only",
+        ],
+        correctIndex: 1,
+        imageSrc: "https://files.ontario.ca/3-1-32.jpg",
+        imageAlt: "Reserved lanes — HOV, bus, or bicycle",
+        lessonId: "2",
+      },
+      {
+        id: "3",
         type: "mcq",
         prompt: "How much space should you leave when passing a cyclist?",
         options: [
@@ -361,7 +479,7 @@ export const QUIZZES: QuizItem[] = [
         lessonId: "2",
       },
       {
-        id: "3",
+        id: "4",
         type: "scenario",
         prompt: "When a streetcar is stopped and there is a safety zone (island), you must:",
         options: [
@@ -374,7 +492,7 @@ export const QUIZZES: QuizItem[] = [
         lessonId: "1",
       },
       {
-        id: "4",
+        id: "5",
         type: "mcq",
         prompt: "Cyclists on the road have:",
         options: [
@@ -387,7 +505,7 @@ export const QUIZZES: QuizItem[] = [
         lessonId: "2",
       },
       {
-        id: "5",
+        id: "6",
         type: "scenario",
         prompt: "When driving near large trucks, you should avoid:",
         options: [
@@ -397,22 +515,6 @@ export const QUIZZES: QuizItem[] = [
           "Maintaining a steady speed",
         ],
         correctIndex: 1,
-        lessonId: "2",
-      },
-      {
-        id: "6",
-        type: "image",
-        prompt:
-          "This sign shows a bicycle symbol inside a diamond over a lane. What does it indicate about that lane?",
-        options: [
-          "Cyclists are prohibited from using this lane",
-          "The lane is reserved for bicycles (and possibly other high-occupancy vehicles) during certain hours",
-          "Only pedestrians may use this lane",
-          "The lane is closed ahead",
-        ],
-        correctIndex: 1,
-        imageSrc: "/vercel.svg",
-        imageAlt: "Placeholder lane icon representing reserved bicycle or HOV lane",
         lessonId: "2",
       },
       {
@@ -429,6 +531,40 @@ export const QUIZZES: QuizItem[] = [
         correctIndex: 1,
         lessonId: "2",
       },
+      {
+        id: "8",
+        type: "mcq",
+        prompt: "True or false: On a multi-lane road with no median, vehicles approaching a stopped school bus from both directions must stop when the bus has its red lights flashing.",
+        options: ["False", "True"],
+        correctIndex: 1,
+        lessonId: "1",
+      },
+      {
+        id: "9",
+        type: "scenario",
+        prompt: "A school bus has stopped with flashing amber lights. You should:",
+        options: [
+          "Speed up to pass before the red lights come on",
+          "Slow down and prepare to stop",
+          "Change lanes and continue",
+          "Honk to warn the bus driver",
+        ],
+        correctIndex: 1,
+        lessonId: "1",
+      },
+      {
+        id: "10",
+        type: "mcq",
+        prompt: "When a streetcar has stopped to pick up or let off passengers and there is no safety zone, you must:",
+        options: [
+          "Pass on the left only",
+          "Stop behind the rear door and wait until passengers are clear",
+          "Proceed at 20 km/h",
+          "Sound your horn and proceed",
+        ],
+        correctIndex: 1,
+        lessonId: "1",
+      },
     ],
   },
   {
@@ -438,7 +574,7 @@ export const QUIZZES: QuizItem[] = [
     category: "G1 Knowledge Path",
     description:
       "BAC rules and cannabis laws for novice drivers in Ontario.",
-    questionCount: 7,
+    questionCount: 10,
     questions: [
       {
         id: "1",
@@ -497,18 +633,9 @@ export const QUIZZES: QuizItem[] = [
       },
       {
         id: "6",
-        type: "mcq",
-        prompt:
-          "For novice drivers, a roadside licence suspension can occur at a BAC starting at approximately:",
-        options: ["0.00%", "0.02%", "0.05%", "0.10%"],
-        correctIndex: 2,
-        lessonId: "1",
-      },
-      {
-        id: "7",
         type: "image",
         prompt:
-          "The following image shows a car key beside a drink crossed out by a red circle. What is the main safety message?",
+          "The following image shows a car key beside a drink crossed out. What is the main safety message?",
         options: [
           "Only experienced drivers may drink and drive",
           "Plan a safe ride home instead of driving after drinking",
@@ -517,8 +644,51 @@ export const QUIZZES: QuizItem[] = [
         ],
         correctIndex: 1,
         imageSrc: "/driveaura-logo.png",
-        imageAlt: "Placeholder image showing a car key next to a drink symbol crossed out",
+        imageAlt: "Car key and drink symbol crossed out — do not drive after drinking",
         lessonId: "2",
+      },
+      {
+        id: "7",
+        type: "mcq",
+        prompt:
+          "For novice drivers, a roadside licence suspension can occur at a BAC starting at approximately:",
+        options: ["0.00%", "0.02%", "0.05%", "0.10%"],
+        correctIndex: 2,
+        lessonId: "1",
+      },
+      {
+        id: "8",
+        type: "mcq",
+        prompt: "True or false: G1 and G2 drivers must have zero alcohol in their blood when driving.",
+        options: ["False", "True"],
+        correctIndex: 1,
+        lessonId: "1",
+      },
+      {
+        id: "9",
+        type: "scenario",
+        prompt: "You are at a party and have had two drinks. You need to get home. The safest option is:",
+        options: [
+          "Drive slowly and take back roads",
+          "Arrange a designated driver, taxi, or ride-share",
+          "Wait 1 hour then drive",
+          "Drive with the windows down to stay alert",
+        ],
+        correctIndex: 1,
+        lessonId: "1",
+      },
+      {
+        id: "10",
+        type: "mcq",
+        prompt: "Warn-range BAC (0.05% to 0.08%) for fully licensed drivers can result in:",
+        options: [
+          "No consequences",
+          "A 3-day licence suspension and other sanctions for first occurrence",
+          "Automatic criminal charge",
+          "Only a verbal warning",
+        ],
+        correctIndex: 1,
+        lessonId: "1",
       },
     ],
   },
@@ -529,7 +699,7 @@ export const QUIZZES: QuizItem[] = [
     category: "G2 Road Prep",
     description:
       "Rules and restrictions that apply to G2 licence holders in Ontario.",
-    questionCount: 7,
+    questionCount: 10,
     questions: [
       {
         id: "1",
@@ -607,9 +777,9 @@ export const QUIZZES: QuizItem[] = [
       },
       {
         id: "7",
-        type: "image",
+        type: "mcq",
         prompt:
-          "This image shows the G1 → G2 → G licensing ladder. What is the final step for a G2 driver to obtain a full G licence?",
+          "What is the final step for a G2 driver to obtain a full G licence?",
         options: [
           "Wait a set amount of time without driving",
           "Pass the G road test that focuses on highway and advanced driving",
@@ -617,9 +787,41 @@ export const QUIZZES: QuizItem[] = [
           "Simply renew the G2 licence at expiry",
         ],
         correctIndex: 1,
-        imageSrc: "/next.svg",
-        imageAlt: "Placeholder ladder icon suggesting progression from G1 to G2 to G licence",
         lessonId: "5",
+      },
+      {
+        id: "8",
+        type: "mcq",
+        prompt: "True or false: G2 drivers under 19 must have zero alcohol in their system when driving.",
+        options: ["False", "True"],
+        correctIndex: 1,
+        lessonId: "1",
+      },
+      {
+        id: "9",
+        type: "mcq",
+        prompt: "Escalating sanctions for novice drivers may include:",
+        options: [
+          "Only increased fines",
+          "Licence suspension, interview, or re-test requirements",
+          "Automatic upgrade to G licence",
+          "No additional consequences",
+        ],
+        correctIndex: 1,
+        lessonId: "4",
+      },
+      {
+        id: "10",
+        type: "scenario",
+        prompt: "A G2 driver is pulled over and has one teen passenger in the car at 11 p.m. on a highway. They are in their first six months of G2 and under 20. Is this allowed?",
+        options: [
+          "Yes, one passenger is always allowed",
+          "It depends on the road type and time; restrictions may limit teen passengers at night",
+          "No; G2 drivers cannot drive at night",
+          "Only if the passenger is over 25",
+        ],
+        correctIndex: 1,
+        lessonId: "2",
       },
     ],
   },
@@ -630,7 +832,7 @@ export const QUIZZES: QuizItem[] = [
     category: "G2 Road Prep",
     description:
       "Pre-drive inspections, seat and mirror adjustment, warning lights, tires and brakes, visibility, required documents, and hazard awareness.",
-    questionCount: 7,
+    questionCount: 10,
     questions: [
       {
         id: "1",
@@ -664,7 +866,7 @@ export const QUIZZES: QuizItem[] = [
         id: "3",
         type: "image",
         prompt:
-          "The dashboard image shows a red oil can warning light. What should you do?",
+          "The dashboard shows a red oil can warning light. What should you do?",
         options: [
           "Ignore it; it is only for service reminders",
           "Continue driving and check it next week",
@@ -673,7 +875,7 @@ export const QUIZZES: QuizItem[] = [
         ],
         correctIndex: 2,
         imageSrc: "/file.svg",
-        imageAlt: "Placeholder warning light icon representing an engine or oil symbol",
+        imageAlt: "Dashboard warning light — oil/engine symbol",
         lessonId: "3",
       },
       {
@@ -732,6 +934,40 @@ export const QUIZZES: QuizItem[] = [
         correctIndex: 2,
         lessonId: "7",
       },
+      {
+        id: "8",
+        type: "mcq",
+        prompt: "True or false: You must have a valid driver's licence, vehicle ownership, and proof of insurance when driving in Ontario.",
+        options: ["False", "True"],
+        correctIndex: 1,
+        lessonId: "6",
+      },
+      {
+        id: "9",
+        type: "mcq",
+        prompt: "Blind spots can be reduced by:",
+        options: [
+          "Driving faster",
+          "Properly adjusting mirrors and doing shoulder checks",
+          "Using only the rear-view mirror",
+          "Keeping the radio off",
+        ],
+        correctIndex: 1,
+        lessonId: "2",
+      },
+      {
+        id: "10",
+        type: "scenario",
+        prompt: "Your check-engine or oil pressure warning light comes on while you are driving on a busy highway. The safest action is:",
+        options: [
+          "Continue to your destination and check later",
+          "Safely pull off the road when possible and check the issue or call for help",
+          "Speed up to exit the highway quickly",
+          "Turn off the engine immediately in your lane",
+        ],
+        correctIndex: 1,
+        lessonId: "3",
+      },
     ],
   },
   {
@@ -741,7 +977,7 @@ export const QUIZZES: QuizItem[] = [
     category: "G2 Road Prep",
     description:
       "Master left and right turns, lane changes, reversing, three-point and U-turns, and parking for your G2 road test.",
-    questionCount: 7,
+    questionCount: 10,
     questions: [
       {
         id: "1",
@@ -803,7 +1039,7 @@ export const QUIZZES: QuizItem[] = [
         id: "5",
         type: "image",
         prompt:
-          "The overhead view image shows a vehicle positioned parallel to the curb with equal space in front and behind. Which parking maneuver does this represent?",
+          "The diagram shows a vehicle positioned parallel to the curb with equal space in front and behind. Which parking maneuver does this represent?",
         options: [
           "Perpendicular parking",
           "Parallel parking",
@@ -812,7 +1048,7 @@ export const QUIZZES: QuizItem[] = [
         ],
         correctIndex: 1,
         imageSrc: "/window.svg",
-        imageAlt: "Placeholder top-down diagram of a car parallel to a curb",
+        imageAlt: "Top-down diagram of a car parallel to a curb",
         lessonId: "5",
       },
       {
@@ -843,6 +1079,40 @@ export const QUIZZES: QuizItem[] = [
         correctIndex: 0,
         lessonId: "5",
       },
+      {
+        id: "8",
+        type: "mcq",
+        prompt: "True or false: You should signal before changing lanes and maintain your signal until the maneuver is complete.",
+        options: ["False", "True"],
+        correctIndex: 1,
+        lessonId: "2",
+      },
+      {
+        id: "9",
+        type: "scenario",
+        prompt: "You are preparing to make a left turn at an intersection. The light is green. You should:",
+        options: [
+          "Accelerate through the turn",
+          "Yield to oncoming traffic and pedestrians, then turn when safe",
+          "Turn immediately; you have the right-of-way",
+          "Stop and wait for a green arrow only",
+        ],
+        correctIndex: 1,
+        lessonId: "1",
+      },
+      {
+        id: "10",
+        type: "mcq",
+        prompt: "When parking facing downhill with a curb, you should turn your front wheels:",
+        options: [
+          "Away from the curb",
+          "Toward the curb",
+          "Straight ahead",
+          "It does not matter",
+        ],
+        correctIndex: 1,
+        lessonId: "5",
+      },
     ],
   },
   {
@@ -852,10 +1122,11 @@ export const QUIZZES: QuizItem[] = [
     category: "G1 Knowledge Path",
     description:
       "Test your knowledge of the steps to take after a crash: staying calm, staying safe, exchanging information, and reporting.",
-    questionCount: 3,
+    questionCount: 10,
     questions: [
       {
         id: "1",
+        type: "mcq",
         prompt: "What should you do first after an accident?",
         options: [
           "Leave the area",
@@ -864,9 +1135,11 @@ export const QUIZZES: QuizItem[] = [
           "Drive away",
         ],
         correctIndex: 1,
+        lessonId: "1",
       },
       {
         id: "2",
+        type: "mcq",
         prompt: "When should you call 911?",
         options: [
           "Only if your car is scratched",
@@ -875,17 +1148,106 @@ export const QUIZZES: QuizItem[] = [
           "Only at night",
         ],
         correctIndex: 1,
+        lessonId: "3",
       },
       {
         id: "3",
-        prompt: "What information should you exchange?",
+        type: "mcq",
+        prompt: "What information should you exchange with the other driver(s)?",
         options: [
           "Social media account",
-          "Driver license and insurance details",
-          "Favorite car brand",
+          "Driver's licence and insurance details",
+          "Favourite car brand",
           "None",
         ],
         correctIndex: 1,
+        lessonId: "4",
+      },
+      {
+        id: "4",
+        type: "scenario",
+        prompt: "After a minor collision, the vehicles can still be driven. What should you do before moving them?",
+        options: [
+          "Move them immediately to avoid traffic",
+          "If safe, turn on hazards and move to the side of the road to avoid blocking traffic",
+          "Leave them in place until police arrive",
+          "Drive to the nearest parking lot",
+        ],
+        correctIndex: 1,
+        lessonId: "2",
+      },
+      {
+        id: "5",
+        type: "scenario",
+        prompt: "You have been in an accident. Someone in the other vehicle is holding their neck and seems hurt. What should you do?",
+        options: [
+          "Exchange insurance and leave",
+          "Call 911 and do not move the injured person unless necessary for their safety",
+          "Help them walk to the curb",
+          "Wait for the other driver to decide",
+        ],
+        correctIndex: 1,
+        lessonId: "1",
+      },
+      {
+        id: "6",
+        type: "mcq",
+        prompt: "When documenting the scene, what should you photograph if possible?",
+        options: [
+          "Only the other driver's face",
+          "Damage to vehicles, licence plates, road conditions, and position of vehicles",
+          "Only your own vehicle",
+          "Nothing; let the police do it",
+        ],
+        correctIndex: 1,
+        lessonId: "5",
+      },
+      {
+        id: "7",
+        type: "mcq",
+        prompt: "In Ontario, you must report an accident to a Collision Reporting Centre when:",
+        options: [
+          "Only if someone is killed",
+          "Damage exceeds $2000 and/or someone is injured",
+          "Only for highway accidents",
+          "Never; insurance handles it",
+        ],
+        correctIndex: 1,
+        lessonId: "6",
+      },
+      {
+        id: "8",
+        type: "mcq",
+        prompt: "True or false: After an accident, you should turn on your hazard lights if your vehicle is blocking or partly blocking the road.",
+        options: ["False", "True"],
+        correctIndex: 1,
+        lessonId: "2",
+      },
+      {
+        id: "9",
+        type: "scenario",
+        prompt: "You are in a minor fender-bender. No one is hurt. The other driver suggests you both leave without exchanging information. You should:",
+        options: [
+          "Agree and leave",
+          "Politely decline and exchange licence, insurance, and contact information",
+          "Only take a photo of their licence plate",
+          "Call the police to decide",
+        ],
+        correctIndex: 1,
+        lessonId: "4",
+      },
+      {
+        id: "10",
+        type: "mcq",
+        prompt: "At the scene of an accident, you should:",
+        options: [
+          "Admit fault immediately to speed things up",
+          "Stay calm, ensure safety, and cooperate with others and authorities",
+          "Only speak to your insurance company",
+          "Move injured people into your car",
+        ],
+        correctIndex: 1,
+        lessonId: "1",
       },
     ],
   },

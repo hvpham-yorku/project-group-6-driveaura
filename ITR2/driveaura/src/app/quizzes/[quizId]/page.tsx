@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useParams, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { MODULES } from "@/app/modules/data";
@@ -417,6 +418,20 @@ function QuizContent() {
             </div>
           ) : currentQuestion ? (
             <>
+              {currentQuestion.imageSrc && (
+                <div className="mb-6 flex justify-center">
+                  <div className="relative h-48 w-48 shrink-0 overflow-hidden rounded-xl border-2 bg-white"
+                    style={{ borderColor: "var(--midnight-indigo)" }}>
+                    <Image
+                      src={currentQuestion.imageSrc}
+                      alt={currentQuestion.imageAlt ?? "Question image"}
+                      fill
+                      className="object-contain p-2"
+                      sizes="192px"
+                    />
+                  </div>
+                </div>
+              )}
               <h1
                 className="mb-6 text-xl font-bold sm:text-2xl"
                 style={{ color: "var(--ghost-white)" }}
