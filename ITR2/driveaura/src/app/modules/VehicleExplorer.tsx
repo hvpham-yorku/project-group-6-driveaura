@@ -26,9 +26,9 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
   {
     id: "left-gauge",
     label: "Left gauge (RPM, oil pressure, check engine)",
-    centerX: 37,
-    centerY: 54,
-    size: 16, // r=8 → diameter 16%
+    centerX: 18,
+    centerY: 48,
+    size: 20,
     title: "Left Gauge – RPM, Oil Pressure & Check Engine",
     bullets: [
       "Tachometer shows engine speed (RPM); avoid redlining to protect the engine.",
@@ -40,8 +40,8 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
     id: "center-gauge",
     label: "Speedometer",
     centerX: 50,
-    centerY: 52,
-    size: 20, // r=10 → diameter 20%
+    centerY: 48,
+    size: 26,
     title: "Speedometer",
     bullets: [
       "Shows your current speed in km/h (and often mph); always stay within the posted limit.",
@@ -51,9 +51,9 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
   {
     id: "right-gauge",
     label: "Right gauge (fuel, temp, battery, parking brake)",
-    centerX: 63,
-    centerY: 54,
-    size: 16, // r=8 → diameter 16%
+    centerX: 82,
+    centerY: 48,
+    size: 20,
     title: "Right Gauge – Fuel, Temp, Battery & Parking Brake",
     bullets: [
       "Fuel gauge shows remaining fuel; temperature gauge should stay in the normal range.",
@@ -64,8 +64,8 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
     id: "left-stalk",
     label: "Left stalk (turn signals, lights)",
     centerX: 22,
-    centerY: 74,
-    size: 12, // r=6 → diameter 12%
+    centerY: 62,
+    size: 12,
     title: "Left Stalk – Turn Signals & Lights",
     bullets: [
       "Move the stalk up for right turn signal, down for left; cancel after the turn.",
@@ -76,8 +76,8 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
     id: "right-stalk",
     label: "Right stalk (wipers)",
     centerX: 78,
-    centerY: 74,
-    size: 12, // r=6 → diameter 12%
+    centerY: 62,
+    size: 12,
     title: "Right Stalk – Wipers",
     bullets: [
       "Use OFF, INT (intermittent), LO, and HI for front wipers in rain or snow.",
@@ -278,29 +278,26 @@ function InstrumentHotspotButton({
   const sizePct = hotspot.size;
   const left = hotspot.centerX - sizePct / 2;
   const top = hotspot.centerY - sizePct / 2;
-  const circleSizePx = 28;
+
   return (
     <button
       type="button"
       onClick={() => onActivate(hotspot)}
-      className="absolute cursor-pointer rounded-full !outline-none focus:!outline-none focus:!ring-0 focus-visible:!outline-none focus-visible:!ring-0 active:!outline-none active:!ring-0"
+      className="absolute rounded-full transition-all duration-200 hover:ring-4 focus:outline-none focus:ring-4 focus:ring-[var(--electric-cyan)] focus:ring-offset-2 focus:ring-offset-[var(--void-purple)]"
       style={{
         left: `${left}%`,
         top: `${top}%`,
         width: `${sizePct}%`,
         aspectRatio: "1/1",
-        outline: "none",
-        boxShadow: "none",
-        WebkitTapHighlightColor: "transparent",
       }}
       aria-label={hotspot.label}
     >
       <span
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[var(--electric-cyan)] bg-[rgba(0,245,255,0.12)] pointer-events-none"
-        style={{
-          width: circleSizePx,
-          height: circleSizePx,
-        }}
+        className="absolute inset-0 rounded-full border-2 border-[rgba(0,245,255,0.5)] bg-[rgba(0,245,255,0.12)] opacity-0 transition-opacity duration-200 hover:opacity-100 focus:opacity-100"
+        aria-hidden
+      />
+      <span
+        className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--electric-cyan)] opacity-80 ring-2 ring-[rgba(0,245,255,0.6)]"
         aria-hidden
       />
     </button>
