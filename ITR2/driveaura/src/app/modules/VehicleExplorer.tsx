@@ -3,10 +3,11 @@
 import Image from "next/image";
 import { useState, useCallback } from "react";
 
-type ViewMode = "CABIN" | "DASHBOARD" | "SPEEDOMETER";
+type ViewMode = "CABIN" | "DASHBOARD" | "SPEEDOMETER" | "CENTER_CONSOLE";
 
 const CABIN_IMAGE_SRC = "/images/vehicle-explorer-cabin.png";
 const INSTRUMENT_CLUSTER_SRC = "/images/car-instrument-cluster.png";
+const CENTER_CONSOLE_SRC = "/images/car-center-console.png";
 
 /** Hotspot content for instrument cluster detail view */
 interface InstrumentHotspot {
@@ -82,6 +83,82 @@ const INSTRUMENT_HOTSPOTS: InstrumentHotspot[] = [
     bullets: [
       "Use OFF, INT (intermittent), LO, and HI for front wipers in rain or snow.",
       "The end of the stalk often controls rear wiper and washer fluid.",
+    ],
+  },
+];
+
+/** Hotspot content for center console detail view */
+interface CenterConsoleHotspot {
+  id: string;
+  label: string;
+  /** Center X as percentage (0–100) */
+  centerX: number;
+  /** Center Y as percentage (0–100) */
+  centerY: number;
+  /** Size as percentage of image width (for circular hit area) */
+  size: number;
+  title: string;
+  bullets: string[];
+}
+
+const CENTER_CONSOLE_HOTSPOTS: CenterConsoleHotspot[] = [
+  {
+    id: "hazard-lights",
+    label: "Hazard Lights button",
+    centerX: 51,
+    centerY: 28,
+    size: 6,
+    title: "Hazard Lights (Emergency Flashers)",
+    bullets: [
+      "Press the red triangle button to activate all four turn signals simultaneously.",
+      "Use hazard lights when your vehicle is stopped on the roadside due to a breakdown or emergency.",
+      "Hazard lights warn other drivers that your vehicle is a temporary obstacle—use them in heavy fog, rain, or when being towed.",
+      "Do not use hazard lights while driving normally, as they disable your turn signals and can confuse other drivers.",
+    ],
+  },
+  {
+    id: "climate-control",
+    label: "Climate Control Panel",
+    centerX: 51,
+    centerY: 56,
+    size: 20,
+    title: "Climate Control Panel",
+    bullets: [
+      "The main dial controls temperature—turn clockwise for warmer air, counterclockwise for cooler air.",
+      "Fan speed buttons adjust airflow intensity; higher speeds clear fog faster but create more noise.",
+      "Mode buttons direct air to the windshield (defrost), dashboard vents, or footwells depending on your comfort needs.",
+      "The A/C button activates air conditioning, which dehumidifies air and is essential for clearing foggy windows in humid conditions.",
+      "Use recirculation mode in heavy traffic or polluted areas to prevent outside fumes from entering the cabin.",
+    ],
+  },
+  {
+    id: "defrost-controls",
+    label: "Defrost Controls",
+    centerX: 58,
+    centerY: 46,
+    size: 8,
+    title: "Defrost Controls",
+    bullets: [
+      "The front defrost button directs warm air to the windshield to melt ice and clear fog quickly.",
+      "The rear defrost button activates heating elements embedded in the rear window to clear frost and condensation.",
+      "Always clear all windows of ice and fog before driving—impaired visibility is a leading cause of winter accidents.",
+      "Front defrost typically engages the A/C automatically to remove moisture more effectively.",
+      "Rear defrost usually turns off automatically after 10–15 minutes to prevent overheating the elements.",
+    ],
+  },
+  {
+    id: "parking-brake",
+    label: "Electronic Parking Brake",
+    centerX: 54,
+    centerY: 90,
+    size: 8,
+    title: "Electronic Parking Brake (EPB)",
+    bullets: [
+      "Pull up or press the switch to engage the parking brake; the red indicator light confirms it is active.",
+      "The parking brake holds the vehicle stationary when parked, especially important on hills and slopes.",
+      "Always engage the parking brake when parking, even on flat surfaces—it prevents rolling if the transmission slips.",
+      "Some vehicles automatically engage the parking brake when you shift into Park and release it when you accelerate.",
+      "If the red light flashes while driving, the parking brake system may have a fault—have it inspected immediately.",
     ],
   },
 ];
@@ -191,6 +268,14 @@ function CabinView({
         label="Dashboard and Console"
         onClick={() => onSelectView("DASHBOARD")}
       />
+
+      {/* Center console hotspot */}
+      <Hotspot
+        top="60%"
+        left="50%"
+        label="Center Console"
+        onClick={() => onSelectView("CENTER_CONSOLE")}
+      />
     </div>
   );
 }
@@ -198,6 +283,9 @@ function CabinView({
 function DetailView({ view }: { view: ViewMode }) {
   if (view === "SPEEDOMETER") {
     return <SpeedometerDetailView />;
+  }
+  if (view === "CENTER_CONSOLE") {
+    return <CenterConsoleDetailView />;
   }
   const src =
     "https://placehold.co/800x400/1C1132/00F5FF?text=Control+Panel+Detail+View";
@@ -264,6 +352,166 @@ function SpeedometerDetailView() {
           onClose={closeModal}
         />
       )}
+    </div>
+  );
+}
+
+function CenterConsoleDetailView() {
+  const [activeHotspot, setActiveHotspot] = useState<CenterConsoleHotspot | null>(null);
+  const openModal = useCallback((hotspot: CenterConsoleHotspot) => setActiveHotspot(hotspot), []);
+  const closeModal = useCallback(() => setActiveHotspot(null), []);
+
+  return (
+    <div className="px-4 py-8 sm:px-6 sm:py-10">
+      <div
+        className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-2xl border shadow-[0_0_30px_rgba(0,245,255,0.2)] transition-all duration-300"
+        style={{
+          borderColor: "rgba(0,245,255,0.45)",
+          backgroundColor: "var(--midnight-indigo)",
+        }}
+      >
+        {/* Responsive container: aspect ratio keeps hotspot % aligned with image */}
+        <div className="relative w-full">
+          <img
+            src={CENTER_CONSOLE_SRC}
+            alt="Car center console showing hazard lights, climate control, defrost controls, and parking brake"
+            className="block h-auto w-full select-none"
+            draggable={false}
+          />
+          {CENTER_CONSOLE_HOTSPOTS.map((hotspot) => (
+            <CenterConsoleHotspotButton
+              key={hotspot.id}
+              hotspot={hotspot}
+              onActivate={openModal}
+            />
+          ))}
+        </div>
+      </div>
+
+      <p
+        className="mt-3 text-center text-sm"
+        style={{ color: "var(--lavender-mist)" }}
+      >
+        Click a highlighted area to learn about that control on the center console.
+      </p>
+
+      {activeHotspot && (
+        <CenterConsoleModal
+          hotspot={activeHotspot}
+          onClose={closeModal}
+        />
+      )}
+    </div>
+  );
+}
+
+function CenterConsoleHotspotButton({
+  hotspot,
+  onActivate,
+}: {
+  hotspot: CenterConsoleHotspot;
+  onActivate: (h: CenterConsoleHotspot) => void;
+}) {
+  const sizePct = hotspot.size;
+  const left = hotspot.centerX - sizePct / 2;
+  const top = hotspot.centerY - sizePct / 2;
+
+  return (
+    <button
+      type="button"
+      onClick={() => onActivate(hotspot)}
+      className="absolute rounded-full transition-all duration-200 hover:ring-4 focus:outline-none focus:ring-4 focus:ring-[var(--electric-cyan)] focus:ring-offset-2 focus:ring-offset-[var(--void-purple)]"
+      style={{
+        left: `${left}%`,
+        top: `${top}%`,
+        width: `${sizePct}%`,
+        aspectRatio: "1/1",
+      }}
+      aria-label={hotspot.label}
+    >
+      <span
+        className="absolute inset-0 rounded-full border-2 border-[rgba(0,245,255,0.5)] bg-[rgba(0,245,255,0.12)] opacity-0 transition-opacity duration-200 hover:opacity-100 focus:opacity-100"
+        aria-hidden
+      />
+      <span
+        className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--electric-cyan)] opacity-80 ring-2 ring-[rgba(0,245,255,0.6)]"
+        aria-hidden
+      />
+    </button>
+  );
+}
+
+function CenterConsoleModal({
+  hotspot,
+  onClose,
+}: {
+  hotspot: CenterConsoleHotspot;
+  onClose: () => void;
+}) {
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    },
+    [onClose]
+  );
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={`modal-title-${hotspot.id}`}
+      aria-describedby={`modal-desc-${hotspot.id}`}
+      onKeyDown={handleKeyDown}
+      className="fixed inset-0 z-30 flex items-center justify-center p-4"
+    >
+      <div
+        className="absolute inset-0 bg-[var(--void-purple)]/80 backdrop-blur-sm"
+        onClick={onClose}
+        onKeyDown={handleKeyDown}
+        aria-hidden="true"
+      />
+      <div
+        className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border shadow-[0_0_30px_rgba(0,245,255,0.2)]"
+        style={{
+          borderColor: "var(--electric-cyan)",
+          backgroundColor: "var(--midnight-indigo)",
+        }}
+      >
+        <div className="border-b px-4 py-3 sm:px-5 sm:py-4" style={{ borderColor: "var(--midnight-indigo)" }}>
+          <h3
+            id={`modal-title-${hotspot.id}`}
+            className="text-lg font-bold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            {hotspot.title}
+          </h3>
+        </div>
+        <div
+          id={`modal-desc-${hotspot.id}`}
+          className="px-4 py-3 sm:px-5 sm:py-4"
+          style={{ color: "var(--lavender-mist)" }}
+        >
+          <ul className="list-inside list-disc space-y-1.5 text-sm leading-relaxed">
+            {hotspot.bullets.map((bullet, i) => (
+              <li key={i}>{bullet}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="flex justify-end border-t px-4 py-3 sm:px-5" style={{ borderColor: "var(--midnight-indigo)" }}>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg border px-4 py-2 text-sm font-semibold transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--electric-cyan)]"
+            style={{
+              borderColor: "var(--electric-cyan)",
+              color: "var(--electric-cyan)",
+              backgroundColor: "transparent",
+            }}
+          >
+            Close
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
