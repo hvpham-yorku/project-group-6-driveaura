@@ -1,6 +1,7 @@
 "use client";
 
 /// <reference types="react" />
+import Image from "next/image";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useMemo, useState } from "react";
@@ -211,33 +212,44 @@ function ManeuverLessonContent({ content }: { content: ManeuverContent }) {
 const REGULATORY_SIGN_TABLE_DATA: Array<{
   signName: string;
   instruction: string;
+  imageUrl: string;
 }> = [
-  { signName: "Stop Sign", instruction: "Complete stop at line, crosswalk, sidewalk, or edge of intersection. Wait for clear path." },
-  { signName: "Yield Sign", instruction: "Let traffic in/near intersection go first. Stop only if necessary." },
-  { signName: "Railway Crossing", instruction: "X-shaped. Slow down, look both ways, and prepare to stop." },
-  { signName: "Bicycle Route", instruction: "Official route. Watch for and share the road with cyclists." },
-  { signName: "Parking Permitted", instruction: "Parking allowed between signs during posted times." },
-  { signName: "Snowmobiles", instruction: "Snowmobiles are permitted to use this road." },
-  { signName: "Do Not Enter", instruction: "Do not enter this road." },
-  { signName: "No Stopping", instruction: "Do not stop even for a moment between these signs." },
-  { signName: "No Standing", instruction: "No stopping except to load/unload passengers." },
-  { signName: "No Parking", instruction: "No stopping except to load/unload passengers or merchandise." },
-  { signName: "No Left / Right / U-Turn", instruction: "Forbidden maneuvers at the intersection or light." },
-  { signName: "No Bicycles / Pedestrians", instruction: "Bicycles or pedestrians are not allowed on this road." },
-  { signName: "Keep Right", instruction: "Keep to the right of the traffic island." },
-  { signName: "Do Not Pass", instruction: "Passing other vehicles is forbidden on this road." },
-  { signName: "Slow Traffic Keep Right", instruction: "Slower traffic on multi-lane roads must stay in the right lane." },
-  { signName: "One Way", instruction: "Traffic may only travel in the direction of the arrow." },
-  { signName: "Community Safety Zone", instruction: "Special risk area; traffic offences subject to increased fines." },
-  { signName: "School Zone Speed", instruction: "Lower speed limit applies when yellow lights are flashing." },
-  { signName: "Stop for School Bus", instruction: "Must stop for bus with flashing signals (even on multi-lane roads without medians)." },
-  { signName: "Lane Directional Arrows", instruction: "Above road or on pavement; dictates mandatory travel direction for that lane." },
-  { signName: "Two-Way Left Turn", instruction: "Center lane reserved exclusively for two-way left turns." },
-  { signName: "Reserved (HOV) Lanes", instruction: "Lanes for specific vehicles (buses, taxis, 3+ people) during set hours." },
-  { signName: "Climbing / Passing Lane", instruction: "Keep right except when passing on two-lane sections." },
-  { signName: "Yield to Bus", instruction: "Reminder to yield to buses signaling intent to return to a lane." },
-  { signName: "Road Forks Right", instruction: "Indicates the road splits to the right ahead." },
-  { signName: "Pedestrian Crossover", instruction: "Be prepared to stop and yield to pedestrians." },
+  { signName: "Stop Sign", instruction: "Come to a complete stop at the stop line, crosswalk, or edge of intersection. Wait until the way is clear before entering the intersection.", imageUrl: "https://files.ontario.ca/3-1-1.jpg" },
+  { signName: "Yield Sign", instruction: "Let traffic in the intersection or close to it go first. Stop if necessary and go only when the way is clear.", imageUrl: "https://files.ontario.ca/3-1-3.jpg" },
+  { signName: "Railway Crossing", instruction: "X-shaped sign. Slow down, look both ways for trains, and be prepared to stop.", imageUrl: "https://files.ontario.ca/3-1-4.jpg" },
+  { signName: "Bicycle Route", instruction: "This road is an official bicycle route. Watch for cyclists and be prepared to share the road with them.", imageUrl: "https://files.ontario.ca/3-1-5.jpg" },
+  { signName: "Parking Permitted", instruction: "You may park in the area between the signs during the times posted. (Used in pairs or groups.)", imageUrl: "https://files.ontario.ca/3-1-6.jpg" },
+  { signName: "Snowmobiles Permitted", instruction: "Snowmobiles may use this road.", imageUrl: "https://files.ontario.ca/3-1-7.jpg" },
+  { signName: "Do Not Enter", instruction: "Do not enter this road.", imageUrl: "https://files.ontario.ca/3-1-8.jpg" },
+  { signName: "No Stopping", instruction: "Do not stop in the area between the signs — you may not stop your vehicle here, even for a moment. (Used in pairs or groups.)", imageUrl: "https://files.ontario.ca/3-1-9.jpg" },
+  { signName: "No Standing", instruction: "Do not stand in the area between the signs — you may not stop your vehicle here except while loading or unloading passengers. (Used in pairs or groups.)", imageUrl: "https://files.ontario.ca/3-1-10.jpg" },
+  { signName: "No Parking", instruction: "Do not park in the area between the signs — you may not stop your vehicle except to load or unload passengers or merchandise. (Used in pairs or groups.)", imageUrl: "https://files.ontario.ca/3-1-11.jpg" },
+  { signName: "No Left Turn", instruction: "Do not turn left at the intersection.", imageUrl: "https://files.ontario.ca/3-1-12.jpg" },
+  { signName: "Do Not Drive Through Intersection", instruction: "Do not drive through the intersection.", imageUrl: "https://files.ontario.ca/3-1-13.jpg" },
+  { signName: "No U-Turn", instruction: "Do not turn to go in the opposite direction (U-turn).", imageUrl: "https://files.ontario.ca/3-1-14.jpg" },
+  { signName: "No Right Turn on Red", instruction: "Do not turn right when facing a red light at the intersection.", imageUrl: "https://files.ontario.ca/3-1-15.jpg" },
+  { signName: "No Left Turn (Restricted Hours)", instruction: "Do not turn left during the times shown on the sign.", imageUrl: "https://files.ontario.ca/3-1-16.jpg" },
+  { signName: "Accessible Parking Permit Only", instruction: "This parking space is only for vehicles displaying a valid Accessible Parking Permit.", imageUrl: "https://files.ontario.ca/3-1-17.jpg" },
+  { signName: "No Bicycles", instruction: "No bicycles are allowed on this road.", imageUrl: "https://files.ontario.ca/3-1-18.jpg" },
+  { signName: "No Pedestrians", instruction: "No pedestrians are allowed on this road.", imageUrl: "https://files.ontario.ca/3-1-19.jpg" },
+  { signName: "Keep Right (Traffic Island)", instruction: "Keep to the right of the traffic island.", imageUrl: "https://files.ontario.ca/3-1-20.jpg" },
+  { signName: "Speed Limit Change Ahead", instruction: "The speed limit changes ahead.", imageUrl: "https://files.ontario.ca/3-1-21.jpg" },
+  { signName: "Do Not Pass", instruction: "Do not pass on this road.", imageUrl: "https://files.ontario.ca/3-1-22.jpg" },
+  { signName: "Slow Traffic Keep Right", instruction: "Slow traffic on multi-lane roads must keep right.", imageUrl: "https://files.ontario.ca/3-1-23.jpg" },
+  { signName: "Community Safety Zone", instruction: "Areas where the community has identified a special risk to pedestrians. Traffic offences committed within the zone are subject to increased fines.", imageUrl: "https://files.ontario.ca/3-1-24.jpg" },
+  { signName: "School Zone Speed", instruction: "The speed limit in this zone is lower during school hours. Observe the speed limit shown when the yellow lights are flashing.", imageUrl: "https://files.ontario.ca/3-1-25.jpg" },
+  { signName: "Stop for School Bus", instruction: "Stop for the school bus when its signals are flashing.", imageUrl: "https://files.ontario.ca/3-1-25b.jpg" },
+  { signName: "Stop for School Bus (Multi-lane)", instruction: "Installed on multi-lane highways with no centre median divider. Drivers approaching from both directions must stop for a school bus when its signal lights are flashing.", imageUrl: "https://files.ontario.ca/3-1-26.jpg" },
+  { signName: "Lane Directional Arrows", instruction: "Above the road or on the pavement before an intersection — tells drivers the mandatory direction they must travel in that lane.", imageUrl: "https://files.ontario.ca/3-1-27.jpg" },
+  { signName: "One Way", instruction: "Traffic may travel in one direction only.", imageUrl: "https://files.ontario.ca/3-1-28.jpg" },
+  { signName: "Pedestrian Crossover", instruction: "Be prepared to stop and yield right-of-way to pedestrians.", imageUrl: "https://files.ontario.ca/3-1-29.jpg" },
+  { signName: "Two-Way Left Turn Lane", instruction: "The lane is only for two-way left turns (above the road or on the ground).", imageUrl: "https://files.ontario.ca/3-1-30.jpg" },
+  { signName: "Accessible Person Parking Drop-off", instruction: "Reserves curb area for vehicles displaying a valid Accessible Person Parking Permit picking up and dropping off passengers with disabilities.", imageUrl: "https://files.ontario.ca/3-1-31.jpg" },
+  { signName: "Reserved Lanes (HOV/Bus/Bicycle)", instruction: "Lanes are only for specific types of vehicles (buses, taxis, vehicles with 3+ people, or bicycles), either all the time or during certain hours.", imageUrl: "https://files.ontario.ca/3-1-32.jpg" },
+  { signName: "Keep Right (Climbing/Passing Lane)", instruction: "Keep to the right lane except when passing on two-lane sections where climbing or passing lanes are provided.", imageUrl: "https://files.ontario.ca/3-1-33.jpg" },
+  { signName: "Yield to Bus", instruction: "On the back of transit buses — reminds motorists that vehicles approaching a bus stopped at a dedicated Bus Stop must yield to the bus once it has signalled its intent to return to the lane.", imageUrl: "https://files.ontario.ca/3-1-33a.jpg" },
+  { signName: "Road Forks Right", instruction: "The road forks to the right ahead.", imageUrl: "https://files.ontario.ca/3-1-33b.jpg" },
+  { signName: "School Bus Loading Zone", instruction: "Marks a zone within which school buses load or unload passengers without using the red alternating lights and stop arm.", imageUrl: "https://files.ontario.ca/3-1-33c.jpg" },
 ];
 
 /** Warning signs and HOV lanes reference table — G1 Module 1. */
@@ -245,47 +257,49 @@ const WARNING_SIGN_TABLE_DATA: Array<{
   category: string;
   signName: string;
   instruction: string;
+  imageUrl: string;
 }> = [
-  { category: "HOV", signName: "HOV Lane (Diamond)", instruction: "Only public vehicles (buses) or vehicles with a minimum number of passengers (2+ or 3+) may use this lane." },
-  { category: "HOV", signName: "HOV Do Not Cross", instruction: "Vehicles cannot change lanes into or out of an HOV lane in this area (marked by solid lines)." },
-  { category: "Warning", signName: "General Warning", instruction: "Usually diamond-shaped with a yellow background; warns of dangerous or unusual conditions ahead." },
-  { category: "Warning", signName: "Narrow Bridge", instruction: "The bridge ahead is narrower than the road; slow down and use caution." },
-  { category: "Warning", signName: "Road Branching Off", instruction: "Indicates a road branches off ahead." },
-  { category: "Warning", signName: "Intersection Ahead", instruction: "An intersection is ahead; the arrow shows which direction of traffic has the right-of-way." },
-  { category: "Warning", signName: "Roundabout Ahead", instruction: "Reduce speed; counter-clockwise arrows show the direction of traffic within the roundabout." },
-  { category: "Warning", signName: "Hidden Side Road", instruction: "Drivers on the side road at the intersection ahead do not have a clear view of traffic." },
-  { category: "Warning", signName: "Pavement Narrows", instruction: "The road surface becomes narrower ahead." },
-  { category: "Warning", signName: "Slight Curve", instruction: "There is a slight bend or curve in the road ahead." },
-  { category: "Warning", signName: "Safe Curve Speed", instruction: "Posted under a curve warning; shows the maximum safe speed for that curve." },
-  { category: "Warning", signName: "Sharp Bend/Turn", instruction: "A sharp bend or turn is in the road ahead." },
-  { category: "Warning", signName: "Chevron (Arrowhead)", instruction: "Posted in groups to guide drivers around sharp curves." },
-  { category: "Warning", signName: "Winding Road", instruction: "There is a winding road ahead." },
-  { category: "Warning", signName: "Opening Bridge", instruction: "The bridge ahead lifts or swings to let boats pass." },
-  { category: "Warning", signName: "Paved Surface Ends", instruction: "The paved portion of the road ends ahead." },
-  { category: "Warning", signName: "Bicycle Crossing", instruction: "A bicycle crossing is ahead." },
-  { category: "Warning", signName: "Stop Sign Ahead", instruction: "Slow down and prepare for a stop sign you cannot see yet." },
-  { category: "Warning", signName: "Share the Road", instruction: "Warns motorists to provide safe space for cyclists and other vehicles." },
-  { category: "Warning", signName: "Slippery When Wet", instruction: "Pavement is slick when wet; slow down and drive with caution." },
-  { category: "Warning", signName: "Hazard Marker", instruction: "Downward lines show the side on which you may safely pass a hazard near the road edge." },
-  { category: "Warning", signName: "Divided Highway Begins", instruction: "Traffic travels on separated roads ahead; keep to the right-hand road." },
-  { category: "Warning", signName: "Right Lane Ends", instruction: "Merge safely with traffic in the lane to the left." },
-  { category: "Warning", signName: "Traffic Lights Ahead", instruction: "Slow down for an upcoming signalized intersection." },
-  { category: "Warning", signName: "Steep Hill", instruction: "A steep hill is ahead; you may need to use a lower gear." },
-  { category: "Warning", signName: "Merging Traffic", instruction: "Two roads joining into one; both drivers are equally responsible for merging safely." },
-  { category: "Warning", signName: "Snowmobile Crossing", instruction: "Snowmobiles cross this road." },
-  { category: "Warning", signName: "Divided Highway Ends", instruction: "Traffic travels in both directions on the same road ahead; keep right." },
-  { category: "Warning", signName: "Underpass Clearance", instruction: "Shows the height clearance for tall vehicles." },
-  { category: "Warning", signName: "Bump / Uneven Road", instruction: "Slow down and keep control of your vehicle." },
-  { category: "Warning", signName: "Railway Crossing Ahead", instruction: "Be alert for trains; sign shows the angle the tracks cross the road." },
-  { category: "Warning", signName: "Sharp Turn (Checkerboard)", instruction: "Sharp turn in the arrow's direction; checkerboard border warns of danger." },
-  { category: "Warning", signName: "Animal Crossing (Deer)", instruction: "Deer regularly cross here; be alert for animals." },
-  { category: "Warning", signName: "Truck Entrance", instruction: "Watch for trucks entering the road from the side indicated on the sign." },
-  { category: "Warning", signName: "Ramp Speed", instruction: "Shows the maximum safe speed on the ramp." },
-  { category: "Warning", signName: "Fallen Rock", instruction: "Watch for rocks on the road and be prepared to avoid them." },
-  { category: "Warning", signName: "Water Over Road", instruction: "There may be water flowing over the road surface." },
-  { category: "Warning", signName: "Hidden Bus Stop", instruction: "Slow down and watch for children and school buses with flashing red lights." },
-  { category: "Warning", signName: "Emergency Entrance", instruction: "Upcoming bus or fire truck entrance; be prepared to yield." },
-  { category: "Warning", signName: "School Crossing", instruction: "Watch for children and follow directions of crossing guards." },
+  { category: "HOV", signName: "HOV Lane (Diamond)", instruction: "Only public vehicles (buses) or vehicles with a minimum number of passengers (2+ or 3+) may use this lane.", imageUrl: "https://files.ontario.ca/3-1-34.jpg" },
+  { category: "HOV", signName: "HOV Do Not Cross", instruction: "Vehicles cannot change lanes into or out of an HOV lane in this area (marked by solid lines).", imageUrl: "https://files.ontario.ca/3-1-35.jpg" },
+  { category: "Warning", signName: "Narrow Bridge", instruction: "The bridge ahead is narrower than the road; slow down and use caution.", imageUrl: "https://files.ontario.ca/3-1-36a.jpg" },
+  { category: "Warning", signName: "Road Branching Off", instruction: "Indicates a road branches off ahead.", imageUrl: "https://files.ontario.ca/3-1-37a.jpg" },
+  { category: "Warning", signName: "Intersection Ahead", instruction: "An intersection is ahead; the arrow shows which direction of traffic has the right-of-way.", imageUrl: "https://files.ontario.ca/3-1-38a.jpg" },
+  { category: "Warning", signName: "Roundabout Ahead", instruction: "Reduce speed; counter-clockwise arrows show the direction of traffic within the roundabout.", imageUrl: "https://files.ontario.ca/3-1-39a.jpg" },
+  { category: "Warning", signName: "Hidden Side Road", instruction: "Drivers on the side road at the intersection ahead do not have a clear view of traffic.", imageUrl: "https://files.ontario.ca/3-1-40a.jpg" },
+  { category: "Warning", signName: "Pavement Narrows", instruction: "The road surface becomes narrower ahead.", imageUrl: "https://files.ontario.ca/3-1-41a.jpg" },
+  { category: "Warning", signName: "Slight Curve", instruction: "There is a slight bend or curve in the road ahead.", imageUrl: "https://files.ontario.ca/3-1-42a.jpg" },
+  { category: "Warning", signName: "Safe Curve Speed", instruction: "Posted under a curve warning; shows the maximum safe speed for that curve.", imageUrl: "https://files.ontario.ca/3-1-43a.jpg" },
+  { category: "Warning", signName: "Sharp Bend/Turn", instruction: "A sharp bend or turn is in the road ahead.", imageUrl: "https://files.ontario.ca/3-1-44a.jpg" },
+  { category: "Warning", signName: "Chevron (Arrowhead)", instruction: "Posted in groups to guide drivers around sharp curves.", imageUrl: "https://files.ontario.ca/3-1-45a.jpg" },
+  { category: "Warning", signName: "Winding Road", instruction: "There is a winding road ahead.", imageUrl: "https://files.ontario.ca/3-1-46a.jpg" },
+  { category: "Warning", signName: "Opening Bridge", instruction: "The bridge ahead lifts or swings to let boats pass.", imageUrl: "https://files.ontario.ca/3-1-47a.jpg" },
+  { category: "Warning", signName: "Paved Surface Ends", instruction: "The paved portion of the road ends ahead.", imageUrl: "https://files.ontario.ca/3-1-48a.jpg" },
+  { category: "Warning", signName: "Bicycle Crossing", instruction: "A bicycle crossing is ahead.", imageUrl: "https://files.ontario.ca/3-1-49a.jpg" },
+  { category: "Warning", signName: "Stop Sign Ahead", instruction: "Slow down and prepare for a stop sign you cannot see yet.", imageUrl: "https://files.ontario.ca/3-1-50a.jpg" },
+  { category: "Warning", signName: "Share the Road", instruction: "Warns motorists to provide safe space for cyclists and other vehicles.", imageUrl: "https://files.ontario.ca/3-1-51a.jpg" },
+  { category: "Warning", signName: "Slippery When Wet", instruction: "Pavement is slick when wet; slow down and drive with caution.", imageUrl: "https://files.ontario.ca/3-1-52a.jpg" },
+  { category: "Warning", signName: "Hazard Marker", instruction: "Downward lines show the side on which you may safely pass a hazard near the road edge.", imageUrl: "https://files.ontario.ca/3-1-53a.jpg" },
+  { category: "Warning", signName: "Divided Highway Begins", instruction: "Traffic travels on separated roads ahead; keep to the right-hand road.", imageUrl: "https://files.ontario.ca/3-1-54a.jpg" },
+  { category: "Warning", signName: "Right Lane Ends", instruction: "Merge safely with traffic in the lane to the left.", imageUrl: "https://files.ontario.ca/3-1-55a.jpg" },
+  { category: "Warning", signName: "Traffic Lights Ahead", instruction: "Slow down for an upcoming signalized intersection.", imageUrl: "https://files.ontario.ca/3-1-56a.jpg" },
+  { category: "Warning", signName: "Steep Hill", instruction: "A steep hill is ahead; you may need to use a lower gear.", imageUrl: "https://files.ontario.ca/3-1-57a.jpg" },
+  { category: "Warning", signName: "Merging Traffic", instruction: "Two roads joining into one; both drivers are equally responsible for merging safely.", imageUrl: "https://files.ontario.ca/3-1-58a.jpg" },
+  { category: "Warning", signName: "Snowmobile Crossing", instruction: "Snowmobiles cross this road.", imageUrl: "https://files.ontario.ca/3-1-59a.jpg" },
+  { category: "Warning", signName: "Divided Highway Ends", instruction: "Traffic travels in both directions on the same road ahead; keep right.", imageUrl: "https://files.ontario.ca/3-1-60a.jpg" },
+  { category: "Warning", signName: "Underpass Clearance", instruction: "Shows the height clearance for tall vehicles.", imageUrl: "https://files.ontario.ca/3-1-61a.jpg" },
+  { category: "Warning", signName: "Bump / Uneven Road", instruction: "Slow down and keep control of your vehicle.", imageUrl: "https://files.ontario.ca/3-1-62a.jpg" },
+  { category: "Warning", signName: "Railway Crossing Ahead", instruction: "Be alert for trains; sign shows the angle the tracks cross the road.", imageUrl: "https://files.ontario.ca/3-1-63a.jpg" },
+  { category: "Warning", signName: "Sharp Turn (Checkerboard)", instruction: "Sharp turn in the arrow's direction; checkerboard border warns of danger.", imageUrl: "https://files.ontario.ca/3-1-64a.jpg" },
+  { category: "Warning", signName: "Animal Crossing (Deer)", instruction: "Deer regularly cross here; be alert for animals.", imageUrl: "https://files.ontario.ca/3-1-65a.jpg" },
+  { category: "Warning", signName: "Truck Entrance", instruction: "Watch for trucks entering the road from the side indicated on the sign.", imageUrl: "https://files.ontario.ca/3-1-66a.jpg" },
+  { category: "Warning", signName: "Ramp Speed", instruction: "Shows the maximum safe speed on the ramp.", imageUrl: "https://files.ontario.ca/3-1-67a.jpg" },
+  { category: "Warning", signName: "Watch for Pedestrians", instruction: "Watch for pedestrians and be prepared to share the road with them.", imageUrl: "https://files.ontario.ca/3-1-68a.jpg" },
+  { category: "Warning", signName: "Fallen Rock", instruction: "Watch for rocks on the road and be prepared to avoid them.", imageUrl: "https://files.ontario.ca/3-1-69a.jpg" },
+  { category: "Warning", signName: "Water Over Road", instruction: "There may be water flowing over the road surface.", imageUrl: "https://files.ontario.ca/3-1-70a.jpg" },
+  { category: "Warning", signName: "Hidden Bus Stop", instruction: "Slow down and watch for children and school buses with flashing red lights.", imageUrl: "https://files.ontario.ca/3-1-71a2.jpg" },
+  { category: "Warning", signName: "Bus Entrance Ahead", instruction: "Upcoming bus entrance on the right; be prepared to yield to buses entering the roadway.", imageUrl: "https://files.ontario.ca/3-1-71a.jpg" },
+  { category: "Warning", signName: "Fire Truck Entrance Ahead", instruction: "Upcoming fire truck entrance on the right; be prepared to yield to fire trucks entering the roadway.", imageUrl: "https://files.ontario.ca/3-1-71b2.jpg" },
+  { category: "Warning", signName: "School Crossing", instruction: "Watch for children and follow directions of crossing guards.", imageUrl: "https://files.ontario.ca/3-1-72.jpg" },
 ];
 
 /** Temporary condition signs reference table — G1 Module 1. */
@@ -293,21 +307,22 @@ const TEMPORARY_SIGN_TABLE_DATA: Array<{
   category: string;
   signName: string;
   instruction: string;
+  imageUrl: string;
 }> = [
-  { category: "Temporary", signName: "General Temporary Signs", instruction: "Usually diamond-shaped with an orange background and black symbols. Warn of unusual conditions like road work or detours." },
-  { category: "Temporary", signName: "Construction Ahead", instruction: "Indicates that construction work is one kilometre ahead." },
-  { category: "Temporary", signName: "Road Work Ahead", instruction: "Workers are currently on or near the road ahead." },
-  { category: "Temporary", signName: "Survey Crew", instruction: "A survey crew is working on the road ahead." },
-  { category: "Temporary", signName: "Traffic Control Person", instruction: "A person is ahead directing traffic. Drive slowly and watch for instructions." },
-  { category: "Temporary", signName: "Construction Zone Entry", instruction: "You are entering a zone; drive with extra caution and expect a lower speed limit." },
-  { category: "Temporary", signName: "Temporary Detour", instruction: "Normal route is diverted. Follow flashing lights on arrows for direction." },
-  { category: "Temporary", signName: "Grooved Pavement", instruction: "Surface has been milled; stopping ability is affected. Motorcyclists may have reduced traction." },
-  { category: "Temporary", signName: "Lane Closed", instruction: "Lane ahead is closed for roadwork. Obey the speed limit and merge into the open lane." },
-  { category: "Temporary", signName: "Closed Lane (Arrow)", instruction: "Follow the direction of the arrow and adjust speed to merge safely." },
-  { category: "Temporary", signName: "Pilot / Pace Vehicle", instruction: "Do not pass the vehicle bearing this sign. Reduce speed and be prepared to stop." },
-  { category: "Temporary", signName: "Detour Marker", instruction: "Follow this marker until you return to your regular route." },
-  { category: "Temporary", signName: "Bridge Staging", instruction: "Used to control traffic over a one-lane bridge (often using traffic lights or signs)." },
-  { category: "Temporary", signName: "Increased Fines Sign", instruction: "Enforces doubling of HTA fines for speeding in a construction zone when workers are present." },
+  { category: "Temporary", signName: "Construction Ahead (1 km)", instruction: "Construction work is one kilometre ahead.", imageUrl: "https://files.ontario.ca/3-1-73.jpg" },
+  { category: "Temporary", signName: "Road Work Ahead", instruction: "Workers are currently on or near the road ahead.", imageUrl: "https://files.ontario.ca/3-1-74.jpg" },
+  { category: "Temporary", signName: "Survey Crew", instruction: "A survey crew is working on the road ahead.", imageUrl: "https://files.ontario.ca/3-1-75.jpg" },
+  { category: "Temporary", signName: "Traffic Control Person", instruction: "A person is ahead directing traffic. Drive slowly and watch for instructions.", imageUrl: "https://files.ontario.ca/3-1-76.jpg" },
+  { category: "Temporary", signName: "Construction Zone Entry", instruction: "You are entering a construction zone; drive with extra caution and expect a lower speed limit.", imageUrl: "https://files.ontario.ca/3-1-77.jpg" },
+  { category: "Temporary", signName: "Temporary Detour", instruction: "Normal route is diverted; follow the detour markers.", imageUrl: "https://files.ontario.ca/3-1-78.jpg" },
+  { category: "Temporary", signName: "Flashing Arrow Direction", instruction: "Flashing lights on the arrows show the direction to follow through the work zone.", imageUrl: "https://files.ontario.ca/3-1-79.jpg" },
+  { category: "Temporary", signName: "Grooved Pavement", instruction: "Pavement has been milled; stopping ability is affected. Motorcyclists may have reduced traction.", imageUrl: "https://files.ontario.ca/3-1-80.jpg" },
+  { category: "Temporary", signName: "Lane Closed", instruction: "Lane ahead is closed for roadwork. Obey the speed limit and merge into the open lane.", imageUrl: "https://files.ontario.ca/3-1-81.jpg" },
+  { category: "Temporary", signName: "Closed Lane (Arrow)", instruction: "Follow the direction of the arrow and adjust speed to merge safely.", imageUrl: "https://files.ontario.ca/3-1-82.jpg" },
+  { category: "Temporary", signName: "Pilot / Pace Vehicle", instruction: "Do not pass the vehicle bearing this sign.", imageUrl: "https://files.ontario.ca/3-1-83.jpg" },
+  { category: "Temporary", signName: "Reduce Speed / Prepare to Stop", instruction: "Reduce speed and be prepared to stop ahead.", imageUrl: "https://files.ontario.ca/3-1-84.jpg" },
+  { category: "Temporary", signName: "Detour Marker", instruction: "Follow this marker until you return to your regular route.", imageUrl: "https://files.ontario.ca/3-1-85.jpg" },
+  { category: "Temporary", signName: "Increased Fines Zone", instruction: "Doubles HTA fines for speeding in a designated construction zone when workers are present.", imageUrl: "https://files.ontario.ca/3-1-86.jpg" },
 ];
 
 /** Information and direction signs reference table — G1 Module 1. */
@@ -315,21 +330,21 @@ const INFORMATION_SIGN_TABLE_DATA: Array<{
   category: string;
   signName: string;
   instruction: string;
+  imageUrl: string;
 }> = [
-  { category: "Information", signName: "Town/City Directions", instruction: "Green signs providing directions to nearby towns and cities." },
-  { category: "Information", signName: "Distances", instruction: "Shows the distance in kilometres to towns and cities on the road." },
-  { category: "Information", signName: "Exit Guidance", instruction: "Helps drivers choose the correct lane to exit or stay on a freeway using arrows and destination names." },
-  { category: "Information", signName: "Interchange Numbers", instruction: "Numbers corresponding to the distance in km from the start of the freeway." },
-  { category: "Information", signName: "VIA (Road Route)", instruction: "Describes specific roads that must be followed to reach a particular destination." },
-  { category: "Information", signName: "Roundabout Exits", instruction: "Shows upcoming roundabout exits and their respective destinations." },
-  { category: "Information", signName: "Dynamic Info Signs", instruction: "Electronic signs providing real-time information on traffic delays and lane closures." },
-  { category: "Information", signName: "Off-Road Facilities", instruction: "Blue signs indicating services like hospitals, airports, universities, or carpool lots." },
-  { category: "Information", signName: "Railway Station", instruction: "Indicates the route to a passenger railway station." },
-  { category: "Information", signName: "Accessible Facilities", instruction: "Indicates buildings or rest areas that are wheelchair accessible." },
-  { category: "Information", signName: "D sign – Oversize load", instruction: "Indicates a vehicle is carrying an oversize load." },
-  { category: "Information", signName: "Slow-Moving Vehicle", instruction: "Orange triangle with red border; alerts that the vehicle ahead travels at 40 km/h or less." },
-  { category: "Information", signName: "EDR (Emergency Detour)", instruction: "Markers providing direction around an unscheduled highway closure back to the highway." },
-  { category: "Information", signName: "LCV (Long Commercial)", instruction: "Identifies double trailers up to 40m long; anticipate extended length and limited speed." },
+  { category: "Information", signName: "Town/City Directions", instruction: "Green signs showing directions to nearby towns and cities.", imageUrl: "https://files.ontario.ca/3-1-87.jpg" },
+  { category: "Information", signName: "Distances", instruction: "Shows the distances in kilometres to towns and cities on the road.", imageUrl: "https://files.ontario.ca/3-1-88.jpg" },
+  { category: "Information", signName: "Exit Guidance", instruction: "Helps drivers choose the correct lane to exit or stay on a freeway using arrows and destination names.", imageUrl: "https://files.ontario.ca/3-1-89.jpg" },
+  { category: "Information", signName: "Freeway Advance Signs", instruction: "Arrows show which lanes lead off the freeway. Signs are also posted at the exit.", imageUrl: "https://files.ontario.ca/3-1-90.jpg" },
+  { category: "Information", signName: "Interchange Numbers", instruction: "Numbers corresponding to the distance in km from the start of the freeway.", imageUrl: "https://files.ontario.ca/3-1-91.jpg" },
+  { category: "Information", signName: "VIA (Road Route)", instruction: "Describes specific roads that must be followed to reach a particular destination.", imageUrl: "https://files.ontario.ca/3-1-92.jpg" },
+  { category: "Information", signName: "Roundabout Exits", instruction: "Shows upcoming roundabout exits and where they will take you.", imageUrl: "https://files.ontario.ca/3-1-93.jpg" },
+  { category: "Information", signName: "Dynamic Info Signs", instruction: "Electronic signs providing real-time information on traffic delays and lane closures.", imageUrl: "https://files.ontario.ca/3-1-94.jpg" },
+  { category: "Information", signName: "Off-Road Facilities", instruction: "Blue signs indicating off-road services like hospitals, airports, universities, or carpool lots.", imageUrl: "https://files.ontario.ca/3-1-95.jpg" },
+  { category: "Information", signName: "Railway Station", instruction: "Shows the route to a passenger railway station.", imageUrl: "https://files.ontario.ca/3-1-96.jpg" },
+  { category: "Information", signName: "Airport", instruction: "Shows the route to the nearest airport.", imageUrl: "https://files.ontario.ca/3-1-97.jpg" },
+  { category: "Information", signName: "Accessible Facilities", instruction: "Indicates facilities or rest areas that are wheelchair accessible.", imageUrl: "https://files.ontario.ca/3-1-99.jpg" },
+  { category: "Information", signName: "D Sign – Oversize Load", instruction: "Identifies a vehicle carrying an oversize load.", imageUrl: "https://files.ontario.ca/3-1-98.jpg" },
 ];
 
 /** Other signs reference table — G1 Module 1. */
@@ -337,12 +352,13 @@ const OTHER_SIGN_TABLE_DATA: Array<{
   category: string;
   signName: string;
   instruction: string;
+  imageUrl: string;
 }> = [
-  { category: "Other", signName: "Slow-Moving Vehicle", instruction: "An orange triangle with a red border. Alerts that the vehicle (e.g., farm tractor) travels at 40 km/h or less. Drivers must reduce speed and use caution." },
-  { category: "Other", signName: "EDR (Emergency Detour)", instruction: "Used during unscheduled provincial highway closures. Follow these markers along alternative routes to be directed around the closure and back onto the highway." },
-  { category: "Other", signName: "LCV (Long Commercial Vehicle)", instruction: "A placard identifying a double trailer up to 40m in length. Drivers should anticipate extended length and limited speed when preparing to pass." },
-  { category: "Other", signName: "Emergency Response Signs", instruction: "Information signs that include a numbering system along the bottom to assist emergency vehicles and drivers in determining an appropriate route." },
-  { category: "Other", signName: "Bilingual Signs", instruction: "Signs in designated bilingual areas featuring messages in both English and French. Read the message in the language you understand best." },
+  { category: "Other", signName: "Slow-Moving Vehicle", instruction: "An orange triangle with a red border. Alerts that the vehicle (e.g., farm tractor) travels at 40 km/h or less. Drivers must reduce speed and use caution.", imageUrl: "https://files.ontario.ca/3-1-100.jpg" },
+  { category: "Other", signName: "EDR (Emergency Detour)", instruction: "Used during unscheduled provincial highway closures. Follow these markers along alternative routes to be directed around the closure and back onto the highway.", imageUrl: "https://files.ontario.ca/3-1-101.jpg" },
+  { category: "Other", signName: "LCV (Long Commercial Vehicle)", instruction: "A placard identifying a double trailer up to 40m in length. Drivers should anticipate extended length and limited speed when preparing to pass.", imageUrl: "https://files.ontario.ca/3-1-101-2a.jpg" },
+  { category: "Other", signName: "Emergency Response Signs", instruction: "Information signs with a numbering system along the bottom to assist emergency vehicles and drivers in determining an appropriate route.", imageUrl: "https://files.ontario.ca/3-1-102.jpg" },
+  { category: "Other", signName: "Bilingual Signs", instruction: "Signs in designated bilingual areas featuring messages in both English and French. Read the message in the language you understand best.", imageUrl: "https://files.ontario.ca/3-1-103a.jpg" },
 ];
 
 function ModuleReaderContent() {
@@ -572,7 +588,7 @@ function ModuleReaderContent() {
                         borderColor: "var(--midnight-indigo)",
                       }}
                     >
-                      <table className="w-full min-w-[640px] border-collapse text-left">
+                      <table className="w-full min-w-[800px] border-collapse text-left">
                         <thead>
                           <tr
                             style={{
@@ -581,8 +597,8 @@ function ModuleReaderContent() {
                             }}
                           >
                             <th
-                              className="w-16 px-4 py-3 text-sm font-semibold"
-                              style={{ color: "var(--ghost-white)" }}
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)", width: "240px" }}
                             >
                               Signs
                             </th>
@@ -627,9 +643,16 @@ function ModuleReaderContent() {
                             >
                               <td
                                 className="px-4 py-3"
-                                style={{ color: "inherit" }}
+                                style={{ color: "inherit", width: "240px" }}
                               >
-                                <SignIconPlaceholder />
+                                <Image
+                                  src={row.imageUrl}
+                                  alt={row.signName}
+                                  width={210}
+                                  height={210}
+                                  className="rounded object-contain"
+                                  style={{ width: "210px", height: "auto" }}
+                                />
                               </td>
                               <td
                                 className="px-4 py-3 text-sm font-medium"
@@ -668,7 +691,7 @@ function ModuleReaderContent() {
                         borderColor: "var(--midnight-indigo)",
                       }}
                     >
-                      <table className="w-full min-w-[640px] border-collapse text-left">
+                      <table className="w-full min-w-[800px] border-collapse text-left">
                         <thead>
                           <tr
                             style={{
@@ -677,8 +700,8 @@ function ModuleReaderContent() {
                             }}
                           >
                             <th
-                              className="w-16 px-4 py-3 text-sm font-semibold"
-                              style={{ color: "var(--ghost-white)" }}
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)", width: "240px" }}
                             >
                               Signs
                             </th>
@@ -756,9 +779,16 @@ function ModuleReaderContent() {
                                 >
                                   <td
                                     className="px-4 py-3"
-                                    style={{ color: "inherit" }}
+                                    style={{ color: "inherit", width: "240px" }}
                                   >
-                                    <SignIconPlaceholder />
+                                    <Image
+                                      src={row.imageUrl}
+                                      alt={row.signName}
+                                      width={210}
+                                      height={210}
+                                      className="rounded object-contain"
+                                      style={{ width: "210px", height: "auto" }}
+                                    />
                                   </td>
                                   <td
                                     className="px-4 py-3 text-sm font-medium"
@@ -799,7 +829,7 @@ function ModuleReaderContent() {
                         borderColor: "var(--midnight-indigo)",
                       }}
                     >
-                      <table className="w-full min-w-[640px] border-collapse text-left">
+                      <table className="w-full min-w-[800px] border-collapse text-left">
                         <thead>
                           <tr
                             style={{
@@ -808,8 +838,8 @@ function ModuleReaderContent() {
                             }}
                           >
                             <th
-                              className="w-16 px-4 py-3 text-sm font-semibold"
-                              style={{ color: "var(--ghost-white)" }}
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)", width: "240px" }}
                             >
                               Signs
                             </th>
@@ -887,9 +917,16 @@ function ModuleReaderContent() {
                                 >
                                   <td
                                     className="px-4 py-3"
-                                    style={{ color: "inherit" }}
+                                    style={{ color: "inherit", width: "240px" }}
                                   >
-                                    <SignIconPlaceholder />
+                                    <Image
+                                      src={row.imageUrl}
+                                      alt={row.signName}
+                                      width={210}
+                                      height={210}
+                                      className="rounded object-contain"
+                                      style={{ width: "210px", height: "auto" }}
+                                    />
                                   </td>
                                   <td
                                     className="px-4 py-3 text-sm font-medium"
@@ -930,7 +967,7 @@ function ModuleReaderContent() {
                         borderColor: "var(--midnight-indigo)",
                       }}
                     >
-                      <table className="w-full min-w-[640px] border-collapse text-left">
+                      <table className="w-full min-w-[800px] border-collapse text-left">
                         <thead>
                           <tr
                             style={{
@@ -939,8 +976,8 @@ function ModuleReaderContent() {
                             }}
                           >
                             <th
-                              className="w-16 px-4 py-3 text-sm font-semibold"
-                              style={{ color: "var(--ghost-white)" }}
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)", width: "240px" }}
                             >
                               Signs
                             </th>
@@ -1018,9 +1055,16 @@ function ModuleReaderContent() {
                                 >
                                   <td
                                     className="px-4 py-3"
-                                    style={{ color: "inherit" }}
+                                    style={{ color: "inherit", width: "240px" }}
                                   >
-                                    <SignIconPlaceholder />
+                                    <Image
+                                      src={row.imageUrl}
+                                      alt={row.signName}
+                                      width={210}
+                                      height={210}
+                                      className="rounded object-contain"
+                                      style={{ width: "210px", height: "auto" }}
+                                    />
                                   </td>
                                   <td
                                     className="px-4 py-3 text-sm font-medium"
@@ -1061,7 +1105,7 @@ function ModuleReaderContent() {
                         borderColor: "var(--midnight-indigo)",
                       }}
                     >
-                      <table className="w-full min-w-[640px] border-collapse text-left">
+                      <table className="w-full min-w-[800px] border-collapse text-left">
                         <thead>
                           <tr
                             style={{
@@ -1070,8 +1114,8 @@ function ModuleReaderContent() {
                             }}
                           >
                             <th
-                              className="w-16 px-4 py-3 text-sm font-semibold"
-                              style={{ color: "var(--ghost-white)" }}
+                              className="px-4 py-3 text-sm font-semibold"
+                              style={{ color: "var(--ghost-white)", width: "240px" }}
                             >
                               Signs
                             </th>
@@ -1149,9 +1193,16 @@ function ModuleReaderContent() {
                                 >
                                   <td
                                     className="px-4 py-3"
-                                    style={{ color: "inherit" }}
+                                    style={{ color: "inherit", width: "240px" }}
                                   >
-                                    <SignIconPlaceholder />
+                                    <Image
+                                      src={row.imageUrl}
+                                      alt={row.signName}
+                                      width={210}
+                                      height={210}
+                                      className="rounded object-contain"
+                                      style={{ width: "210px", height: "auto" }}
+                                    />
                                   </td>
                                   <td
                                     className="px-4 py-3 text-sm font-medium"

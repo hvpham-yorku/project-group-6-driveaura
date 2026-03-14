@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
     // (important in monorepos / multiple lockfiles, and for .env.local loading)
     root: __dirname,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "files.ontario.ca",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
