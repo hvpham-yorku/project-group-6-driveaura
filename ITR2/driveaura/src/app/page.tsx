@@ -14,6 +14,7 @@ const heroQuickLinks: readonly NavFeature[] = [
   { href: "/routes", label: "Centres" },
   { href: "/test-checklist", label: "Checklist" },
   { href: "/quizzes", label: "Quizzes" },
+  { href: "/readiness-check", label: "Readiness" },
 ];
 
 function toFeatureHref(href: string, isLoggedIn: boolean) {

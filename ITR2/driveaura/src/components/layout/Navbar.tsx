@@ -15,6 +15,7 @@ export default function Navbar() {
     { href: "/modules", label: "Modules" },
     { href: "/routes", label: "Centres" },
     { href: "/test-checklist", label: "Checklist" },
+    { href: "/readiness-check", label: "Readiness" },
     { href: "/#features", label: "Features" },
     { href: "/#how-it-works", label: "How it works" },
   ];

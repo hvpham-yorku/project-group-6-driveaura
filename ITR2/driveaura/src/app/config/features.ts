@@ -33,6 +33,12 @@ export const practiceFeatures: readonly FeatureItem[] = [
     description: "Run complete pre-test checks and generate readiness reports.",
   },
   {
+    href: "/readiness-check",
+    label: "Drive Readiness Check",
+    description:
+      "Assess your mental + physical state, get a readiness score, and follow step-by-step reset strategies.",
+  },
+  {
     href: "/routes",
     label: "Test Centres & Routes",
     description: "Explore Ontario centres, route context, and map-based planning.",
@@ -68,6 +74,7 @@ export const protectedRoutePrefixes = [
   "/quizzes",
   "/data-visualization",
   "/test-checklist",
+  "/readiness-check",
   "/checklist",
   "/routes",
   "/user-as-examiner",
