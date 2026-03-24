@@ -3987,6 +3987,14 @@ function ModuleReaderContent() {
                         <li>No obstructions in windows or on the dashboard that block your view.</li>
                       </ul>
                     </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      The next lesson in this module goes deeper on seat position,
+                      mirrors, and seatbelts—part of the same pre-drive readiness
+                      after your outside check.
+                    </p>
                     <div
                       className="rounded-lg border p-4"
                       style={{
