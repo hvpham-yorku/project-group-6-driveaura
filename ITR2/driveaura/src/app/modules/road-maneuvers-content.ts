@@ -20,7 +20,7 @@ export interface ManeuverContent {
 export const ROAD_MANEUVERS_CONTENT: Record<string, ManeuverContent> = {
   "1": {
     goldenRule:
-      "Always signal in advance, check mirrors and blind spots, and only turn when the way is clear—never turn the steering wheel while waiting to turn left in case you are hit from behind.",
+      "Always signal in advance, check mirrors and blind spots, and only turn when the way is clear. When waiting to turn left, keep your wheels straight until you actually turn—never turn the wheel left while waiting, in case you are hit from behind and pushed into oncoming traffic.",
     steps: [
       "Signal well before the turn and move into the correct lane (far right for a right turn, far left in your direction for a left turn).",
       "Look ahead, left, right, and left again. Check your blind spots for cyclists and pedestrians.",
