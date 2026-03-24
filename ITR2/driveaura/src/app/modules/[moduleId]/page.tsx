@@ -3938,7 +3938,7 @@ function ModuleReaderContent() {
                       className="rounded-lg border-2 p-4"
                       style={{
                         borderColor: "var(--midnight-indigo)",
-                        backgroundColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
                       }}
                     >
                       <h3
