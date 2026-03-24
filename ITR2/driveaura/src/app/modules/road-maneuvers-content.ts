@@ -107,7 +107,7 @@ export const ROAD_MANEUVERS_CONTENT: Record<string, ManeuverContent> = {
   },
   "3": {
     goldenRule:
-      "Move slowly, look over your shoulder in the direction you are reversing, and always check that the way is clear behind you—including for children and cyclists—before you start.",
+      "Before you move in reverse, make sure the path is clear behind you—watch especially for children and cyclists. Move slowly, and look over your shoulder in the direction you are backing.",
     steps: [
       "Before you begin, check that the way is clear behind you. Look for children and cyclists.",
       "Put the vehicle in reverse. Hold the steering wheel firmly.",
