@@ -289,7 +289,8 @@ function G2Lesson2MirrorCoverageDiagram() {
         style={{ color: "var(--lavender-mist)" }}
       >
         Simplified top view: rearview covers directly behind, while side mirrors
-        cover left and right rear angles. Shoulder checks still cover blind spots.
+        cover left and right rear angles. Mirrors reduce blind spots but do not
+        eliminate them—shoulder checks still matter.
       </p>
       <div
         className="rounded-lg border p-3"
@@ -4689,8 +4690,8 @@ function ModuleReaderContent() {
                         className="mt-3 leading-relaxed"
                         style={{ color: "var(--lavender-mist)" }}
                       >
-                        Mirrors alone do not show everything. Always do a
-                        shoulder check before changing lanes or turning.
+                        Mirrors reduce blind spots—but do not eliminate them.
+                        Always shoulder check before changing lanes or turning.
                       </p>
                       <div
                         className="mt-4 rounded-lg border p-4"
