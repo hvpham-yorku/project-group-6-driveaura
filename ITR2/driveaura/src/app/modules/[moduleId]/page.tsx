@@ -4480,6 +4480,85 @@ function ModuleReaderContent() {
                       you drive away — it could mean a serious problem. (MTO
                       Driver&apos;s Handbook.)
                     </p>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Examiner tip
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        On your G2 road test, you may need to use headlights, wipers,
+                        defroster, or hazards with little hunting on the dash. If a
+                        warning light stays on after the engine is running, say so
+                        calmly before you roll—pretending you did not notice does not
+                        show safe vehicle readiness.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Practice once
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        In a parked car with the parking brake on, run through
+                        headlights (low and high beam if the vehicle has them), wipers
+                        and washer, hazards, heater/defroster, and horn—until each
+                        control needs only a quick glance, not a treasure hunt. On
+                        start-up, look once at the dash: which symbols light, then which
+                        stay on after a few seconds.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Realistic timing
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Mapping key controls in park might take a few focused minutes
+                        the first time. On test day you are not studying the manual—you
+                        are showing habits you already built in practice.
+                      </p>
+                    </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      This follows the last lesson: with your seat and mirrors set, you
+                      can reach the controls and see the instruments clearly without
+                      fighting your position.
+                    </p>
                     <div>
                       <h2
                         className="mb-3 text-lg font-semibold"
@@ -4522,6 +4601,30 @@ function ModuleReaderContent() {
                       </p>
                     </div>
                     <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Common mistake
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Staring down at the dash for several seconds while the car is
+                        moving because you still do not know where a control is. Learn
+                        positions in park first; on the road, use brief glances and
+                        muscle memory—long looks away from the road are risky and show
+                        up on a G2 test.
+                      </p>
+                    </div>
+                    <div
                       className="rounded-lg border-2 p-4"
                       style={{
                         borderColor: "var(--crimson-spark)",
@@ -4543,6 +4646,38 @@ function ModuleReaderContent() {
                         before driving further.
                       </p>
                     </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Test day
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        The examiner vehicle may place knobs and stalks a little
+                        differently from what you are used to. Take a calm moment in
+                        park: lights, wipers, defroster, hazards—then a quick dash scan
+                        for anything that stays lit. If something worries you, say so
+                        before you move; guessing under pressure is harder than naming
+                        it early.
+                      </p>
+                    </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Next in this module: tires and brakes—making sure the machine
+                      underneath you matches what the dash and controls are telling you.
+                    </p>
                     <div
                       className="rounded-lg border-2 p-4"
                       style={{
