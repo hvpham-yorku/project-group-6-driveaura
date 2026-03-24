@@ -268,6 +268,108 @@ function G2Lesson3DashboardWarningLightsGrid() {
   );
 }
 
+/** Minimal top-down mirror coverage diagram for Lesson 2. */
+function G2Lesson2MirrorCoverageDiagram() {
+  return (
+    <div
+      className="rounded-lg border p-4"
+      style={{
+        borderColor: "var(--midnight-indigo)",
+        backgroundColor: "var(--void-purple)",
+      }}
+    >
+      <h3
+        className="mb-2 text-base font-semibold"
+        style={{ color: "var(--ghost-white)" }}
+      >
+        Mirror coverage diagram
+      </h3>
+      <p
+        className="mb-3 text-xs leading-relaxed sm:text-sm"
+        style={{ color: "var(--lavender-mist)" }}
+      >
+        Simplified top view: rearview covers directly behind, while side mirrors
+        cover left and right rear angles. Shoulder checks still cover blind spots.
+      </p>
+      <div
+        className="rounded-lg border p-3"
+        style={{
+          borderColor: "var(--midnight-indigo)",
+          backgroundColor: "var(--midnight-indigo)",
+        }}
+      >
+        <svg
+          viewBox="0 0 520 220"
+          className="h-auto w-full"
+          fill="none"
+          aria-label="Top-down mirror coverage zones around a car"
+        >
+          {/* Coverage zones */}
+          <polygon
+            points="200,20 320,20 290,108 230,108"
+            fill="rgba(0,245,255,0.20)"
+            stroke="var(--electric-cyan)"
+            strokeWidth="1.5"
+          />
+          <polygon
+            points="110,126 216,112 216,172 90,188"
+            fill="rgba(57,255,20,0.14)"
+            stroke="var(--neon-mint)"
+            strokeWidth="1.5"
+          />
+          <polygon
+            points="304,112 410,126 430,188 304,172"
+            fill="rgba(255,59,63,0.16)"
+            stroke="var(--crimson-spark)"
+            strokeWidth="1.5"
+          />
+
+          {/* Car body */}
+          <rect
+            x="216"
+            y="88"
+            width="88"
+            height="96"
+            rx="16"
+            fill="var(--void-purple)"
+            stroke="var(--ghost-white)"
+            strokeWidth="2"
+          />
+          <rect
+            x="230"
+            y="102"
+            width="60"
+            height="68"
+            rx="10"
+            fill="none"
+            stroke="var(--lavender-mist)"
+            strokeWidth="1.5"
+          />
+
+          {/* Mirror markers */}
+          <rect x="205" y="118" width="10" height="14" rx="3" fill="var(--neon-mint)" />
+          <rect x="305" y="118" width="10" height="14" rx="3" fill="var(--crimson-spark)" />
+          <rect x="250" y="82" width="20" height="6" rx="2" fill="var(--electric-cyan)" />
+
+          {/* Labels */}
+          <text x="260" y="36" textAnchor="middle" fill="var(--electric-cyan)" fontSize="12" fontWeight="600">
+            Rearview mirror zone
+          </text>
+          <text x="98" y="204" fill="var(--neon-mint)" fontSize="12" fontWeight="600">
+            Left mirror zone
+          </text>
+          <text x="318" y="204" fill="var(--crimson-spark)" fontSize="12" fontWeight="600">
+            Right mirror zone
+          </text>
+          <text x="260" y="142" textAnchor="middle" fill="var(--ghost-white)" fontSize="12" fontWeight="600">
+            Car (top view)
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
 /** Placeholder for sign icon in the Regulatory Signs table. */
 function SignIconPlaceholder() {
   return (
@@ -4559,6 +4661,7 @@ function ModuleReaderContent() {
                         <li>Left outside mirror: lean toward the window and move the mirror so you can just see the rear of your car.</li>
                         <li>Right outside mirror: lean toward the centre of the vehicle and move the mirror so you can just see the rear of your car.</li>
                       </ul>
+                      <G2Lesson2MirrorCoverageDiagram />
                       <div
                         className="my-4 rounded-lg border p-4"
                         style={{
