@@ -143,7 +143,7 @@ export const MODULES: ModuleItem[] = [
     title: "Pre-Drive and Vehicle Safety",
     category: "G2 Road Prep",
     description:
-      "Pre-drive inspections, seat and mirror adjustment, warning lights, tires and brakes, visibility, required documents, and hazard awareness — based on the Ontario MTO Driver's Handbook.",
+      "Before you drive: walk-around checks, seat and mirrors, dash lights, tires and brakes, visibility, and your papers—plus hazard awareness (Ontario MTO handbook).",
     lessons: [
       { id: "1", title: "Pre-Drive Vehicle Inspection", content: "" },
       { id: "2", title: "Seat and Mirror Adjustment", content: "" },
