@@ -148,7 +148,7 @@ export const ROAD_MANEUVERS_CONTENT: Record<string, ManeuverContent> = {
   },
   "4": {
     goldenRule:
-      "Only turn around where you can see at least 150 metres in both directions—never on a curve, near a railway crossing, on a hilltop, or near a bridge or tunnel that blocks your view.",
+      "For a U-turn or three-point turn, you must see at least 150 metres in both directions before you start. Never turn around on a curve, near a railway crossing, on a hilltop, or next to a bridge or tunnel that blocks your view.",
     steps: [
       "U-turn: Check that no sign prohibits it. You must be able to see at least 150 m in both directions. Never on a curve, near a railway, on a hilltop, or near a bridge or tunnel.",
       "U-turn: Signal right, check mirror and shoulder, pull over to the right and stop. Signal left, and when traffic is clear both ways, move forward and turn sharply into the opposite lane.",
