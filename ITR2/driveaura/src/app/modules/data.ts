@@ -168,7 +168,7 @@ export const MODULES: ModuleItem[] = [
     title: "Essential Road Maneuvers",
     category: "G2 Road Prep",
     description:
-      "Master left and right turns, lane changes, reversing, three-point and U-turns, and parking for your G2 road test.",
+      "On the road: turns, lane changes, backing up, three-point and U-turns, and parking—core skills for your G2 road test.",
     lessons: [
       { id: "1", title: "Left and Right Turns", content: "" },
       { id: "2", title: "Lane Changes and Lane Positioning", content: "" },
