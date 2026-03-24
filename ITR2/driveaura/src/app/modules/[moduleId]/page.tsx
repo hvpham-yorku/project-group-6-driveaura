@@ -4187,6 +4187,14 @@ function ModuleReaderContent() {
                       reduces blind spots. The MTO Driver&apos;s Handbook describes
                       how to get into position and keep a clear view.
                     </p>
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      On your G2 road test, examiners can tell quickly if you truly fit
+                      yourself to the car—or if you are fighting the wheel and guessing
+                      in your mirrors.
+                    </p>
                     <div
                       className="rounded-lg border p-4"
                       style={{
@@ -4209,6 +4217,53 @@ function ModuleReaderContent() {
                         mirrors, then fasten your seatbelt. If you set mirrors before your
                         seat is final, you will usually have to adjust again—extra
                         fumbling when you want a calm, repeatable start.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Practice once
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Before your next lesson, run the full setup once in a parked
+                        car: lock in seat distance to the pedals and wheel, set all
+                        three mirrors using the lean method, then fasten your seatbelt.
+                        Finish with slow left-and-right head turns, like shoulder checks
+                        with the car still stopped. You do not need to narrate every
+                        move on test day—your body remembers what you rehearse.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Realistic timing
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        A careful seat-and-mirror setup usually takes about a minute.
+                        Rushing looks nervous; endless fiddling looks unsure—aim for
+                        steady and done before you release the brake.
                       </p>
                     </div>
                     <div>
@@ -4239,6 +4294,14 @@ function ModuleReaderContent() {
                         protect you in a collision.
                       </p>
                     </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      This lesson pairs with the previous one: after your outside check,
+                      you fit your seat and mirrors so you can control the same vehicle
+                      you just looked over.
+                    </p>
                     <div
                       className="rounded-lg border p-4"
                       style={{
@@ -4318,6 +4381,29 @@ function ModuleReaderContent() {
                         Mirrors alone do not show everything. Always do a
                         shoulder check before changing lanes or turning.
                       </p>
+                      <div
+                        className="mt-4 rounded-lg border p-4"
+                        style={{
+                          borderColor: "var(--midnight-indigo)",
+                          backgroundColor: "var(--void-purple)",
+                        }}
+                      >
+                        <h3
+                          className="mb-2 text-base font-semibold"
+                          style={{ color: "var(--ghost-white)" }}
+                        >
+                          Common mistake
+                        </h3>
+                        <p
+                          className="text-sm leading-relaxed"
+                          style={{ color: "var(--lavender-mist)" }}
+                        >
+                          Dipping your eyes toward the mirror or making a tiny head
+                          twitch and calling it a shoulder check. For lane changes and
+                          many turns, the examiner needs to see a real turn of the head
+                          that clears your blind spot—not a mirror-only glance.
+                        </p>
+                      </div>
                     </div>
                     <div
                       className="rounded-lg border p-4"
@@ -4343,6 +4429,13 @@ function ModuleReaderContent() {
                         are already moving.
                       </p>
                     </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Next in this module: know your dash warning lights before you
+                      drive—so a lit symbol is not a surprise on test day.
+                    </p>
                     <div
                       className="rounded-lg border-2 p-4"
                       style={{
