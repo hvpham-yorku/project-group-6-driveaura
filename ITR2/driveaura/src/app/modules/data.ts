@@ -205,7 +205,7 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     licenseLevel: "G2",
     title: "Road Test Level 1",
     description:
-      "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
+      "Prepare for your G2 road test: Ontario licence rules, pre-drive vehicle checks, and core maneuvers like turns, lane changes, and parking.",
     moduleCount: 3,
   },
   {
