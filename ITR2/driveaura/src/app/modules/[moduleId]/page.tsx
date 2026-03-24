@@ -5154,6 +5154,82 @@ function ModuleReaderContent() {
                       law set out what you must carry.
                     </p>
                     <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Examiner tip
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        On a G2 road test, document checks are basic but strict: you are
+                        expected to drive legally, not only drive smoothly. If the
+                        required document for the vehicle is missing or invalid, the
+                        issue can end your test day before route skills are evaluated.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Practice once
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Build a quick pre-drive document routine: licence on you,
+                        insurance card for the exact vehicle, and vehicle permit in the
+                        car. Say each item out loud once before you leave the driveway so
+                        test-day nerves do not turn into &quot;I thought it was in the glove box.&quot;
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Realistic timing
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        This check should take seconds, not minutes. Keep documents in a
+                        consistent place so you do not waste test time searching while
+                        under pressure.
+                      </p>
+                    </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      After visibility and lighting in the previous lesson, this is the
+                      legal-readiness layer: the vehicle and driver must both be valid
+                      before you move.
+                    </p>
+                    <div
                       className="rounded-lg border-2 p-4"
                       style={{
                         borderColor: "var(--midnight-indigo)",
@@ -5177,6 +5253,29 @@ function ModuleReaderContent() {
                       </ul>
                     </div>
                     <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Common mistake
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Bringing your own valid licence but forgetting that the
+                        insurance and permit must also match the specific vehicle you are
+                        driving that day. Check the exact car documents, not just any
+                        card in the glove box.
+                      </p>
+                    </div>
+                    <div
                       className="rounded-lg border-2 p-4"
                       style={{
                         borderColor: "var(--crimson-spark)",
@@ -5198,6 +5297,36 @@ function ModuleReaderContent() {
                         insurance.
                       </p>
                     </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Test day
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Bring documents in one organized wallet or folder so you can
+                        produce them calmly if asked. Rushing through pockets or bags
+                        creates avoidable stress before you even begin driving.
+                      </p>
+                    </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Next in this module: safe vehicle readiness and hazard awareness—
+                      using these legal checks together with mental and physical readiness
+                      before you enter traffic.
+                    </p>
                     <div
                       className="rounded-lg border-2 p-4"
                       style={{
