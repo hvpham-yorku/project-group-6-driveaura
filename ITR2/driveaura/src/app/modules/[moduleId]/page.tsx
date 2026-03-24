@@ -3958,6 +3958,30 @@ function ModuleReaderContent() {
                       </ul>
                     </div>
                     <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Examiner tip
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        On your G2 road test, the examiner may ask you to locate
+                        basic controls—such as headlights, wipers, hazards, or the
+                        defroster—or to confirm the vehicle looks roadworthy before you
+                        move. Be ready to say what you checked outside and inside, not
+                        only to recognize items on a list.
+                      </p>
+                    </div>
+                    <div
                       className="rounded-lg border-2 p-4"
                       style={{
                         borderColor: "var(--electric-cyan)",
