@@ -188,7 +188,7 @@ export const ROAD_MANEUVERS_CONTENT: Record<string, ManeuverContent> = {
   },
   "5": {
     goldenRule:
-      "Park only where it is legal and safe—never on a curve or hill without 125 m visibility, and always set the parking brake and turn wheels toward or away from the curb on hills so the vehicle cannot roll into traffic.",
+      "Park only where it is legal and safe. On a curve or hill, you need at least 125 m of clear view in both directions—otherwise choose another spot. On hills, always set the parking brake and turn the wheels toward or away from the curb so the vehicle cannot roll into traffic.",
     steps: [
       "Parallel parking: Find a space about 1.5 times your vehicle length. Signal, check traffic, and pull alongside the vehicle in front of the space, about 1 m apart. Stop when your rear bumper lines up with theirs.",
       "Parallel: Reverse slowly, turning the wheel fully toward the curb. When you see the outside rear corner of the vehicle in front, straighten the wheels as you continue reversing. Turn the wheel fully toward the road to align with the curb. Move forward to straighten if needed.",
