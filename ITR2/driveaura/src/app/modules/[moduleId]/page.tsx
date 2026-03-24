@@ -4720,6 +4720,86 @@ function ModuleReaderContent() {
                       Driver&apos;s Handbook and Ontario highway safety standards
                       expect drivers to maintain their vehicle for safe operation.
                     </p>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Examiner tip
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        On your G2 road test, you show responsibility when you notice
+                        obvious tire or brake problems before you rely on the car.
+                        You are not expected to be a mechanic—but visibly unsafe tires
+                        or a brake pedal that feels wrong should be mentioned calmly
+                        before you treat the vehicle as road-ready.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Practice once
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        With the vehicle parked, walk once around it and glance at
+                        each tire: obvious under-inflation, a flat-looking sidewall,
+                        cuts, or bulges. During a lesson, notice your first few gentle
+                        stops in a quiet area—does the pedal feel firm and even, or
+                        soft, sinking, or pulling the car sideways? Name what you feel
+                        while it is still a lesson, not a surprise on test day.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Realistic timing
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        A simple tire walk-around is often well under a minute once you
+                        know what you are looking for. Brake feel becomes obvious in a
+                        few careful stops—you do not need a long diagnosis session in
+                        the parking lot.
+                      </p>
+                    </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      After dashboard checks in the previous lesson, tires and brakes
+                      are where grip and stopping power meet the road—they deserve the
+                      same calm habit.
+                    </p>
                     <div>
                       <h2
                         className="mb-3 text-lg font-semibold"
@@ -4736,6 +4816,29 @@ function ModuleReaderContent() {
                         control. Ensure tread depth is sufficient and there are
                         no visible cracks or bulges. In Ontario, winter tires
                         are recommended in cold and snowy conditions.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Common mistake
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Skipping a quick look at the tires because it is a lesson or
+                        examiner vehicle and you assume it is always maintained. Cuts,
+                        bulges, and obvious low pressure can still show up—briefly say
+                        what you looked at, the same habit you want for your G2.
                       </p>
                     </div>
                     <div>
@@ -4756,6 +4859,37 @@ function ModuleReaderContent() {
                         maintenance; consult your owner&apos;s manual.
                       </p>
                     </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Test day
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        The car may not be the one you practice in every week. A calm
+                        walk-around for tires, then a few gentle stops in the lot,
+                        tells you if anything feels off before the route starts. If
+                        braking feels wrong or a tire looks unsafe to you, say so
+                        early—waiting until you are in traffic makes everything harder.
+                      </p>
+                    </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Next in this module: visibility and lighting—clear windows and
+                      correct use of lights so you see and are seen.
+                    </p>
                     <div
                       className="rounded-lg border-2 p-4"
                       style={{
