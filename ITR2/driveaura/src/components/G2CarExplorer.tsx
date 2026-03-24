@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useId, useState } from "react";
 
@@ -11,6 +11,15 @@ type HotspotKey =
   | "windshield"
   | "rearLights";
 
+/** Short label for hover/focus chip above each marker. */
+const HOTSPOT_HOVER_LABEL: Record<HotspotKey, string> = {
+  mirrors: "Mirror",
+  headlights: "Headlight",
+  tires: "Tire",
+  windshield: "Glass",
+  rearLights: "Rear light",
+};
+
 const HOTSPOT_COPY: Record<HotspotKey, { title: string; hint: string }> = {
   mirrors: {
     title: "Mirrors",
@@ -18,7 +27,7 @@ const HOTSPOT_COPY: Record<HotspotKey, { title: string; hint: string }> = {
   },
   headlights: {
     title: "Headlights",
-    hint: "Confirm they work and lenses are cleanâ€”you need to see and be seen in low light.",
+    hint: "Confirm they work and lenses are clean—you need to see and be seen in low light.",
   },
   tires: {
     title: "Tires",
@@ -30,7 +39,7 @@ const HOTSPOT_COPY: Record<HotspotKey, { title: string; hint: string }> = {
   },
   rearLights: {
     title: "Rear lights",
-    hint: "Tail and brake lamps help others judge your positionâ€”burnt bulbs are easy to miss.",
+    hint: "Tail and brake lamps help others judge your position—burnt bulbs are easy to miss.",
   },
 };
 
@@ -41,74 +50,126 @@ const VIEWS: { id: CarView; label: string }[] = [
   { id: "top", label: "Top" },
 ];
 
-type HotspotShape =
-  | { kind: "rect"; x: number; y: number; w: number; h: number; rx?: number }
-  | { kind: "circle"; cx: number; cy: number; r: number };
+/**
+ * Percent of the visible (cropped) quadrant — 0–100.
+ * Keep markers small; `round: true` = circle; false = soft rounded box (e.g. glass).
+ */
+type Region = {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+  round?: boolean;
+};
 
-const HOTSPOTS: Record<
-  CarView,
-  Partial<Record<HotspotKey, HotspotShape[]>>
-> = {
+type ViewConfig = {
+  /** 2×2 sprite: one quadrant fills the frame; no stretching. */
+  crop: {
+    backgroundSize: string;
+    backgroundPosition: string;
+  };
+  alt: string;
+  hotspots: Partial<Record<HotspotKey, Region[]>>;
+};
+
+const SPRITE_SRC = "/g2-car-explorer/car-views-sprite.png";
+
+const VIEW_CONFIG: Record<CarView, ViewConfig> = {
   front: {
-    windshield: [{ kind: "rect", x: 118, y: 52, w: 164, h: 72, rx: 8 }],
-    headlights: [
-      { kind: "rect", x: 52, y: 128, w: 56, h: 40, rx: 12 },
-      { kind: "rect", x: 292, y: 128, w: 56, h: 40, rx: 12 },
-    ],
-    tires: [
-      { kind: "rect", x: 68, y: 178, w: 48, h: 52, rx: 8 },
-      { kind: "rect", x: 284, y: 178, w: 48, h: 52, rx: 8 },
-    ],
-    mirrors: [
-      { kind: "rect", x: 38, y: 78, w: 36, h: 28, rx: 6 },
-      { kind: "rect", x: 326, y: 78, w: 36, h: 28, rx: 6 },
-    ],
+    crop: {
+      backgroundSize: "200% 200%",
+      backgroundPosition: "0% 0%",
+    },
+    alt: "Front view of the same car for a walk-around check",
+    hotspots: {
+      windshield: [{ left: 40, top: 21, width: 20, height: 7, round: false }],
+      headlights: [
+        { left: 17, top: 37, width: 6, height: 6, round: true },
+        { left: 77, top: 37, width: 6, height: 6, round: true },
+      ],
+      mirrors: [
+        { left: 4, top: 29, width: 5, height: 5, round: true },
+        { left: 91, top: 29, width: 5, height: 5, round: true },
+      ],
+      tires: [
+        { left: 18, top: 73, width: 7, height: 7, round: true },
+        { left: 75, top: 73, width: 7, height: 7, round: true },
+      ],
+    },
   },
   left: {
-    windshield: [{ kind: "rect", x: 208, y: 58, w: 72, h: 56, rx: 6 }],
-    headlights: [{ kind: "circle", cx: 272, cy: 132, r: 22 }],
-    tires: [
-      { kind: "circle", cx: 130, cy: 168, r: 32 },
-      { kind: "circle", cx: 268, cy: 168, r: 32 },
-    ],
-    mirrors: [{ kind: "rect", x: 188, y: 72, w: 44, h: 32, rx: 6 }],
-    rearLights: [{ kind: "rect", x: 64, y: 118, w: 28, h: 36, rx: 6 }],
+    crop: {
+      backgroundSize: "200% 200%",
+      backgroundPosition: "100% 0%",
+    },
+    alt: "Left side view of the same car for a walk-around check",
+    hotspots: {
+      windshield: [{ left: 33, top: 24, width: 13, height: 9, round: false }],
+      headlights: [{ left: 5, top: 39, width: 5, height: 5, round: true }],
+      mirrors: [{ left: 27, top: 29, width: 5, height: 5, round: true }],
+      rearLights: [{ left: 91, top: 37, width: 5, height: 5, round: true }],
+      tires: [
+        { left: 23, top: 66, width: 7, height: 7, round: true },
+        { left: 70, top: 66, width: 7, height: 7, round: true },
+      ],
+    },
   },
   rear: {
-    windshield: [{ kind: "rect", x: 118, y: 56, w: 164, h: 68, rx: 8 }],
-    rearLights: [
-      { kind: "rect", x: 54, y: 132, w: 62, h: 42, rx: 10 },
-      { kind: "rect", x: 284, y: 132, w: 62, h: 42, rx: 10 },
-    ],
-    tires: [
-      { kind: "rect", x: 68, y: 176, w: 48, h: 52, rx: 8 },
-      { kind: "rect", x: 284, y: 176, w: 48, h: 52, rx: 8 },
-    ],
-    mirrors: [
-      { kind: "rect", x: 38, y: 88, w: 36, h: 26, rx: 6 },
-      { kind: "rect", x: 326, y: 88, w: 36, h: 26, rx: 6 },
-    ],
+    crop: {
+      backgroundSize: "200% 200%",
+      backgroundPosition: "0% 100%",
+    },
+    alt: "Rear view of the same car for a walk-around check",
+    hotspots: {
+      windshield: [{ left: 40, top: 21, width: 20, height: 7, round: false }],
+      rearLights: [
+        { left: 17, top: 44, width: 6, height: 6, round: true },
+        { left: 77, top: 44, width: 6, height: 6, round: true },
+      ],
+      mirrors: [
+        { left: 4, top: 27, width: 5, height: 5, round: true },
+        { left: 91, top: 27, width: 5, height: 5, round: true },
+      ],
+      tires: [
+        { left: 18, top: 79, width: 7, height: 7, round: true },
+        { left: 75, top: 79, width: 7, height: 7, round: true },
+      ],
+    },
   },
   top: {
-    windshield: [{ kind: "rect", x: 196, y: 72, w: 88, h: 52, rx: 10 }],
-    headlights: [{ kind: "rect", x: 182, y: 40, w: 116, h: 28, rx: 8 }],
-    rearLights: [{ kind: "rect", x: 182, y: 194, w: 116, h: 28, rx: 8 }],
-    tires: [
-      { kind: "circle", cx: 108, cy: 96, r: 26 },
-      { kind: "circle", cx: 372, cy: 96, r: 26 },
-      { kind: "circle", cx: 108, cy: 172, r: 26 },
-      { kind: "circle", cx: 372, cy: 172, r: 26 },
-    ],
-    mirrors: [
-      { kind: "rect", x: 62, y: 110, w: 44, h: 28, rx: 6 },
-      { kind: "rect", x: 374, y: 110, w: 44, h: 28, rx: 6 },
-    ],
+    crop: {
+      backgroundSize: "200% 200%",
+      backgroundPosition: "100% 100%",
+    },
+    alt: "Top-down view of the same car for a walk-around check",
+    hotspots: {
+      windshield: [
+        { left: 31, top: 46, width: 10, height: 7, round: false },
+        { left: 63, top: 46, width: 10, height: 7, round: false },
+      ],
+      headlights: [
+        { left: 5, top: 23, width: 5, height: 5, round: true },
+        { left: 5, top: 72, width: 5, height: 5, round: true },
+      ],
+      rearLights: [
+        { left: 91, top: 24, width: 5, height: 5, round: true },
+        { left: 91, top: 71, width: 5, height: 5, round: true },
+      ],
+      mirrors: [
+        { left: 42, top: 8, width: 5, height: 5, round: true },
+        { left: 42, top: 87, width: 5, height: 5, round: true },
+      ],
+      tires: [
+        { left: 11, top: 28, width: 6, height: 6, round: true },
+        { left: 11, top: 66, width: 6, height: 6, round: true },
+        { left: 83, top: 28, width: 6, height: 6, round: true },
+        { left: 83, top: 66, width: 6, height: 6, round: true },
+      ],
+    },
   },
 };
 
-const SVG_VIEW = "0 0 400 240";
-
-function HotspotLayer({
+function HotspotButtons({
   view,
   activeKey,
   onSelect,
@@ -117,393 +178,86 @@ function HotspotLayer({
   activeKey: HotspotKey | null;
   onSelect: (key: HotspotKey) => void;
 }) {
-  const defs = HOTSPOTS[view];
+  const defs = VIEW_CONFIG[view].hotspots;
   const nodes: React.ReactNode[] = [];
 
   (Object.keys(HOTSPOT_COPY) as HotspotKey[]).forEach((key) => {
-    const shapes = defs[key];
-    if (!shapes) return;
-    const isActive = activeKey === key;
-    shapes.forEach((s, i) => {
-      const common = {
-        className: "cursor-pointer transition-[stroke,fill-opacity] duration-150 outline-none focus-visible:stroke-[var(--crimson-spark)]",
-        stroke: "var(--electric-cyan)",
-        strokeWidth: isActive ? 2.5 : 1.5,
-        fill: "rgba(0,245,255,0.12)",
-        fillOpacity: isActive ? 0.45 : 0.2,
-        onClick: () => onSelect(key),
-        onKeyDown: (e: React.KeyboardEvent) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
+    const regions = defs[key];
+    if (!regions) return;
+    regions.forEach((r, i) => {
+      const isActive = activeKey === key;
+      const isCircle = r.round !== false;
+      const hoverLabel = HOTSPOT_HOVER_LABEL[key];
+      nodes.push(
+        <button
+          key={`${key}-${i}`}
+          type="button"
+          className="group absolute z-[3] box-border border-0 bg-transparent p-0 outline-none transition-[filter] duration-150 hover:brightness-110 focus-visible:brightness-110 focus-visible:ring-2 focus-visible:ring-[var(--crimson-spark)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--midnight-indigo)]"
+          style={{
+            left: `${r.left}%`,
+            top: `${r.top}%`,
+            width: `${r.width}%`,
+            height: `${r.height}%`,
+            pointerEvents: "auto",
+          }}
+          aria-label={HOTSPOT_COPY[key].title}
+          aria-pressed={isActive}
+          onClick={(e) => {
+            e.stopPropagation();
             onSelect(key);
-          }
-        },
-        tabIndex: 0,
-        role: "button" as const,
-        "aria-label": HOTSPOT_COPY[key].title,
-      };
-      if (s.kind === "rect") {
-        nodes.push(
-          <rect
-            key={`${key}-${i}`}
-            {...common}
-            x={s.x}
-            y={s.y}
-            width={s.w}
-            height={s.h}
-            rx={s.rx ?? 0}
-          />,
-        );
-      } else {
-        nodes.push(
-          <circle key={`${key}-${i}`} {...common} cx={s.cx} cy={s.cy} r={s.r} />,
-        );
-      }
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onSelect(key);
+            }
+          }}
+        >
+          <span
+            className={`relative flex h-full w-full items-center justify-center border shadow-sm transition-[box-shadow,background-color] duration-150 group-hover:shadow-[0_0_10px_rgba(0,245,255,0.55)] group-focus-visible:shadow-[0_0_10px_rgba(0,245,255,0.55)] ${
+              isCircle ? "rounded-full" : "rounded-md"
+            }`}
+            style={{
+              borderColor: "var(--electric-cyan)",
+              borderWidth: isActive ? 2 : 1,
+              backgroundColor: isActive
+                ? "rgba(0,245,255,0.22)"
+                : "rgba(0,245,255,0.08)",
+              boxShadow: isActive
+                ? "0 0 12px rgba(0,245,255,0.5)"
+                : undefined,
+            }}
+          >
+            <span
+              className="pointer-events-none rounded-full bg-[var(--electric-cyan)] shadow-[0_0_4px_rgba(0,245,255,0.9)]"
+              style={{
+                width: "min(32%, 10px)",
+                height: "min(32%, 10px)",
+                minWidth: 3,
+                minHeight: 3,
+              }}
+              aria-hidden
+            />
+          </span>
+          <span
+            className="pointer-events-none absolute bottom-full left-1/2 z-[5] mb-1 -translate-x-1/2 whitespace-nowrap rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 sm:text-[11px]"
+            style={{
+              backgroundColor: "var(--void-purple)",
+              color: "var(--electric-cyan)",
+              border: "1px solid var(--midnight-indigo)",
+            }}
+          >
+            {hoverLabel}
+          </span>
+        </button>,
+      );
     });
   });
 
-  return <g>{nodes}</g>;
+  return <>{nodes}</>;
 }
 
-function CarArtFront() {
-  return (
-    <g aria-hidden>
-      <rect
-        x={72}
-        y={124}
-        width={256}
-        height={88}
-        rx={20}
-        fill="var(--midnight-indigo)"
-        stroke="var(--ghost-white)"
-        strokeWidth={2}
-      />
-      <path
-        d="M 112 124 L 140 56 L 260 56 L 288 124 Z"
-        fill="var(--void-purple)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <ellipse
-        cx={80}
-        cy={148}
-        rx={24}
-        ry={16}
-        fill="var(--ghost-white)"
-        opacity={0.12}
-      />
-      <ellipse
-        cx={320}
-        cy={148}
-        rx={24}
-        ry={16}
-        fill="var(--ghost-white)"
-        opacity={0.12}
-      />
-      <rect
-        x={168}
-        y={138}
-        width={64}
-        height={8}
-        rx={2}
-        fill="var(--lavender-mist)"
-        opacity={0.5}
-      />
-      <rect
-        x={48}
-        y={82}
-        width={16}
-        height={24}
-        rx={4}
-        fill="var(--midnight-indigo)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={336}
-        y={82}
-        width={16}
-        height={24}
-        rx={4}
-        fill="var(--midnight-indigo)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <ellipse
-        cx={88}
-        cy={196}
-        rx={22}
-        ry={36}
-        fill="#1a1330"
-        stroke="var(--ghost-white)"
-        strokeWidth={1.5}
-      />
-      <ellipse
-        cx={312}
-        cy={196}
-        rx={22}
-        ry={36}
-        fill="#1a1330"
-        stroke="var(--ghost-white)"
-        strokeWidth={1.5}
-      />
-    </g>
-  );
-}
-
-function CarArtLeft() {
-  return (
-    <g aria-hidden>
-      <path
-        d="M 88 168 L 100 92 L 120 68 L 248 68 L 280 92 L 312 168 Z"
-        fill="var(--midnight-indigo)"
-        stroke="var(--ghost-white)"
-        strokeWidth={2}
-      />
-      <path
-        d="M 208 72 L 258 72 L 268 100 L 268 120 L 210 120 Z"
-        fill="var(--void-purple)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={186}
-        y={78}
-        width={22}
-        height={20}
-        rx={4}
-        fill="var(--midnight-indigo)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <circle
-        cx={130}
-        cy={168}
-        r={34}
-        fill="#1a1330"
-        stroke="var(--ghost-white)"
-        strokeWidth={2}
-      />
-      <circle
-        cx={268}
-        cy={168}
-        r={34}
-        fill="#1a1330"
-        stroke="var(--ghost-white)"
-        strokeWidth={2}
-      />
-      <circle
-        cx={268}
-        cy={132}
-        r={14}
-        fill="rgba(245,245,247,0.35)"
-        stroke="var(--ghost-white)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={76}
-        y={114}
-        width={20}
-        height={28}
-        rx={4}
-        fill="rgba(255,59,63,0.35)"
-        stroke="var(--crimson-spark)"
-        strokeWidth={1.5}
-      />
-    </g>
-  );
-}
-
-function CarArtRear() {
-  return (
-    <g aria-hidden>
-      <rect
-        x={72}
-        y={120}
-        width={256}
-        height={92}
-        rx={22}
-        fill="var(--midnight-indigo)"
-        stroke="var(--ghost-white)"
-        strokeWidth={2}
-      />
-      <path
-        d="M 112 120 L 140 52 L 260 52 L 288 120 Z"
-        fill="var(--void-purple)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={152}
-        y={134}
-        width={96}
-        height={6}
-        rx={2}
-        fill="var(--lavender-mist)"
-        opacity={0.45}
-      />
-      <rect
-        x={52}
-        y={132}
-        width={56}
-        height={38}
-        rx={10}
-        fill="rgba(255,59,63,0.25)"
-        stroke="var(--crimson-spark)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={292}
-        y={132}
-        width={56}
-        height={38}
-        rx={10}
-        fill="rgba(255,59,63,0.25)"
-        stroke="var(--crimson-spark)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={56}
-        y={88}
-        width={18}
-        height={26}
-        rx={4}
-        fill="var(--midnight-indigo)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={326}
-        y={88}
-        width={18}
-        height={26}
-        rx={4}
-        fill="var(--midnight-indigo)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <ellipse
-        cx={88}
-        cy={198}
-        rx={22}
-        ry={34}
-        fill="#1a1330"
-        stroke="var(--ghost-white)"
-        strokeWidth={1.5}
-      />
-      <ellipse
-        cx={312}
-        cy={198}
-        rx={22}
-        ry={34}
-        fill="#1a1330"
-        stroke="var(--ghost-white)"
-        strokeWidth={1.5}
-      />
-    </g>
-  );
-}
-
-function CarArtTop() {
-  return (
-    <g aria-hidden>
-      <rect
-        x={118}
-        y={88}
-        width={164}
-        height={84}
-        rx={20}
-        fill="var(--midnight-indigo)"
-        stroke="var(--ghost-white)"
-        strokeWidth={2}
-      />
-      <rect
-        x={196}
-        y={72}
-        width={88}
-        height={52}
-        rx={10}
-        fill="var(--void-purple)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={182}
-        y={40}
-        width={116}
-        height={28}
-        rx={8}
-        fill="rgba(245,245,247,0.15)"
-        stroke="var(--ghost-white)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={182}
-        y={194}
-        width={116}
-        height={28}
-        rx={8}
-        fill="rgba(255,59,63,0.2)"
-        stroke="var(--crimson-spark)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={62}
-        y={110}
-        width={44}
-        height={28}
-        rx={6}
-        fill="var(--midnight-indigo)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <rect
-        x={374}
-        y={110}
-        width={44}
-        height={28}
-        rx={6}
-        fill="var(--midnight-indigo)"
-        stroke="var(--lavender-mist)"
-        strokeWidth={1.5}
-      />
-      <circle
-        cx={108}
-        cy={96}
-        r={26}
-        fill="#1a1330"
-        stroke="var(--ghost-white)"
-        strokeWidth={2}
-      />
-      <circle
-        cx={372}
-        cy={96}
-        r={26}
-        fill="#1a1330"
-        stroke="var(--ghost-white)"
-        strokeWidth={2}
-      />
-      <circle
-        cx={108}
-        cy={172}
-        r={26}
-        fill="#1a1330"
-        stroke="var(--ghost-white)"
-        strokeWidth={2}
-      />
-      <circle
-        cx={372}
-        cy={172}
-        r={26}
-        fill="#1a1330"
-        stroke="var(--ghost-white)"
-        strokeWidth={2}
-      />
-    </g>
-  );
-}
-
-function CarScene({
+function CarSpriteScene({
   view,
   activeKey,
   onSelect,
@@ -512,28 +266,53 @@ function CarScene({
   activeKey: HotspotKey | null;
   onSelect: (key: HotspotKey) => void;
 }) {
-  const titleId = useId();
+  const cfg = VIEW_CONFIG[view];
+  const descId = useId();
+
   return (
-    <svg
-      viewBox={SVG_VIEW}
-      className="h-auto w-full max-h-[280px]"
-      fill="none"
-      role="img"
-      aria-labelledby={titleId}
-    >
-      <title id={titleId}>
-        Generic car â€” {VIEWS.find((v) => v.id === view)?.label} view with tappable areas
-      </title>
-      {view === "front" && <CarArtFront />}
-      {view === "left" && <CarArtLeft />}
-      {view === "rear" && <CarArtRear />}
-      {view === "top" && <CarArtTop />}
-      <HotspotLayer view={view} activeKey={activeKey} onSelect={onSelect} />
-    </svg>
+    <figure className="relative m-0 w-full" aria-labelledby={descId}>
+      <p
+        id={descId}
+        className="absolute -m-px h-px w-px overflow-hidden border-0 p-0 [clip:rect(0,0,0,0)] whitespace-nowrap"
+      >
+        {cfg.alt}
+      </p>
+      <div className="relative aspect-square w-full max-w-full rounded-md">
+        <div className="absolute inset-0 z-0 overflow-hidden rounded-md">
+          <div
+            className="absolute inset-0 bg-no-repeat"
+            style={{
+              backgroundImage: `url(${SPRITE_SRC})`,
+              backgroundSize: cfg.crop.backgroundSize,
+              backgroundPosition: cfg.crop.backgroundPosition,
+              filter: "brightness(0.82) contrast(1.02)",
+            }}
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-0 bg-[rgba(15,5,29,0.28)]"
+            aria-hidden
+          />
+        </div>
+        <div className="absolute inset-0 z-[2] overflow-visible">
+          <HotspotButtons
+            view={view}
+            activeKey={activeKey}
+            onSelect={onSelect}
+          />
+        </div>
+      </div>
+      <figcaption
+        className="mt-2 text-center text-[10px] leading-snug sm:text-xs"
+        style={{ color: "var(--lavender-mist)" }}
+      >
+        One vehicle, four angles. Composite image for learning only.
+      </figcaption>
+    </figure>
   );
 }
 
-/** Lightweight multi-view car diagram with hotspot labels for G2 pre-drive. */
+/** Multi-view car explorer — single sprite sheet, CSS crop per tab. */
 export function G2CarExplorer() {
   const [view, setView] = useState<CarView>("front");
   const [active, setActive] = useState<HotspotKey | null>(null);
@@ -558,7 +337,7 @@ export function G2CarExplorer() {
         className="mb-3 text-xs leading-relaxed sm:text-sm"
         style={{ color: "var(--lavender-mist)" }}
       >
-        Switch views, then tap highlighted zonesâ€”same items you walk through on a real
+        Switch views, then tap highlighted zones—same items you walk through on a real
         pre-drive, from different angles.
       </p>
 
@@ -604,7 +383,7 @@ export function G2CarExplorer() {
           backgroundColor: "var(--midnight-indigo)",
         }}
       >
-        <CarScene view={view} activeKey={active} onSelect={setActive} />
+        <CarSpriteScene view={view} activeKey={active} onSelect={setActive} />
       </div>
 
       <div
