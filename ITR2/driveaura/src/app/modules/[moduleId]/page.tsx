@@ -60,6 +60,265 @@ function IconCheck() {
   );
 }
 
+const DASH_WARN_ICON_PROPS = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 44,
+  height: 44,
+  viewBox: "0 0 48 48",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+  "aria-hidden": true,
+};
+
+/** Simplified dashboard-style symbols for Lesson 3 (vector icons only; meanings align with common North American owner-manual conventions). */
+function G2Lesson3DashboardWarningLightsGrid() {
+  return (
+    <div
+      className="rounded-lg border p-4"
+      style={{
+        borderColor: "var(--midnight-indigo)",
+        backgroundColor: "var(--void-purple)",
+      }}
+    >
+      <h3
+        className="mb-2 text-base font-semibold"
+        style={{ color: "var(--ghost-white)" }}
+      >
+        Common warning lights (quick reference)
+      </h3>
+      <p
+        className="mb-4 text-xs leading-relaxed sm:text-sm"
+        style={{ color: "var(--lavender-mist)" }}
+      >
+        Exact symbols vary by vehicle; check your owner&apos;s manual. If any warning
+        stays on after start-up, treat it seriously—the MTO Driver&apos;s Handbook
+        says a light that stays on after you drive away may indicate a serious
+        problem.
+      </p>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <div
+          className="rounded-lg border p-3"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--midnight-indigo)",
+          }}
+        >
+          <div
+            className="mb-2 flex h-12 w-12 items-center justify-center"
+            style={{ color: "var(--electric-cyan)" }}
+          >
+            <svg {...DASH_WARN_ICON_PROPS}>
+              <path d="M14 32V22h4l2-6h8l2 6h4v10" />
+              <path d="M18 16h-2v-4M32 16h2v-4" />
+              <circle cx="19" cy="28" r="1.5" fill="currentColor" stroke="none" />
+              <circle cx="29" cy="28" r="1.5" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
+          <h4
+            className="text-sm font-semibold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            Engine (malfunction)
+          </h4>
+          <p
+            className="mt-1 text-xs leading-relaxed"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            Engine or emissions-related fault—needs service; do not ignore if it stays
+            on.
+          </p>
+        </div>
+        <div
+          className="rounded-lg border p-3"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--midnight-indigo)",
+          }}
+        >
+          <div
+            className="mb-2 flex h-12 w-12 items-center justify-center"
+            style={{ color: "var(--electric-cyan)" }}
+          >
+            <svg {...DASH_WARN_ICON_PROPS}>
+              <rect x="14" y="14" width="20" height="22" rx="2" />
+              <path d="M19 14V11h2.5M28.5 14V11H31" />
+              <path d="M20 22h2M26 22h2M20 26h8" />
+            </svg>
+          </div>
+          <h4
+            className="text-sm font-semibold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            Battery / charging
+          </h4>
+          <p
+            className="mt-1 text-xs leading-relaxed"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            Charging system problem—electrical power may fail; have it checked.
+          </p>
+        </div>
+        <div
+          className="rounded-lg border p-3"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--midnight-indigo)",
+          }}
+        >
+          <div
+            className="mb-2 flex h-12 w-12 items-center justify-center"
+            style={{ color: "var(--electric-cyan)" }}
+          >
+            <svg {...DASH_WARN_ICON_PROPS}>
+              <path d="M24 10v6" />
+              <path d="M18 18c0-4 3-8 6-8s6 4 6 8v14H18V18z" />
+              <path d="M20 34h8" />
+            </svg>
+          </div>
+          <h4
+            className="text-sm font-semibold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            Oil pressure
+          </h4>
+          <p
+            className="mt-1 text-xs leading-relaxed"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            Low oil pressure risk—stop safely and check oil; serious damage possible.
+          </p>
+        </div>
+        <div
+          className="rounded-lg border p-3"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--midnight-indigo)",
+          }}
+        >
+          <div
+            className="mb-2 flex h-12 w-12 items-center justify-center"
+            style={{ color: "var(--electric-cyan)" }}
+          >
+            <svg {...DASH_WARN_ICON_PROPS}>
+              <path d="M14 30c0-8 4.5-14 10-14s10 6 10 14" />
+              <path d="M12 30h24" />
+              <path d="M24 18v8" />
+              <circle cx="24" cy="22" r="1" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
+          <h4
+            className="text-sm font-semibold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            Tire pressure (TPMS)
+          </h4>
+          <p
+            className="mt-1 text-xs leading-relaxed"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            Low tire pressure or sensor fault—check tire pressures when safe.
+          </p>
+        </div>
+        <div
+          className="rounded-lg border p-3"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--midnight-indigo)",
+          }}
+        >
+          <div
+            className="mb-2 flex h-12 w-12 items-center justify-center"
+            style={{ color: "var(--electric-cyan)" }}
+          >
+            <svg {...DASH_WARN_ICON_PROPS}>
+              <circle cx="24" cy="24" r="14" />
+              <path d="M24 16v10" />
+              <circle cx="24" cy="31" r="1.5" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
+          <h4
+            className="text-sm font-semibold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            Brake system
+          </h4>
+          <p
+            className="mt-1 text-xs leading-relaxed"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            Brake or parking-brake issue possible—confirm parking brake off; if it
+            stays on, do not assume brakes are OK.
+          </p>
+        </div>
+        <div
+          className="rounded-lg border p-3"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--midnight-indigo)",
+          }}
+        >
+          <div
+            className="mb-2 flex h-12 w-12 items-center justify-center"
+            style={{ color: "var(--electric-cyan)" }}
+          >
+            <svg {...DASH_WARN_ICON_PROPS}>
+              <path d="M24 10v18" />
+              <path d="M20 10h8" />
+              <circle cx="24" cy="34" r="5" />
+            </svg>
+          </div>
+          <h4
+            className="text-sm font-semibold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            Engine temperature
+          </h4>
+          <p
+            className="mt-1 text-xs leading-relaxed"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            Overheating risk—pull over safely, cool down; overheating can cause major
+            damage.
+          </p>
+        </div>
+        <div
+          className="rounded-lg border p-3"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--midnight-indigo)",
+          }}
+        >
+          <div
+            className="mb-2 flex h-12 w-12 items-center justify-center"
+            style={{ color: "var(--electric-cyan)" }}
+          >
+            <svg {...DASH_WARN_ICON_PROPS}>
+              <circle cx="24" cy="15" r="4" />
+              <path d="M17 38v-8l7-4 7 4v8" />
+              <path d="M18 23 30 33" />
+            </svg>
+          </div>
+          <h4
+            className="text-sm font-semibold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            Seatbelt reminder
+          </h4>
+          <p
+            className="mt-1 text-xs leading-relaxed"
+            style={{ color: "var(--lavender-mist)" }}
+          >
+            Belt not buckled for an occupied seat—fasten before you move.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /** Placeholder for sign icon in the Regulatory Signs table. */
 function SignIconPlaceholder() {
   return (
@@ -4646,6 +4905,7 @@ function ModuleReaderContent() {
                         before driving further.
                       </p>
                     </div>
+                    <G2Lesson3DashboardWarningLightsGrid />
                     <div
                       className="rounded-lg border p-4"
                       style={{
