@@ -5370,6 +5370,80 @@ function ModuleReaderContent() {
                       conditions in which you will be driving. If you have doubts
                       about any of them, do not drive. (MTO Driver&apos;s Handbook.)
                     </p>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Examiner tip
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        On your G2 road test, the first minute sets the tone. A calm
+                        start—clear head, clear path, and a deliberate scan—often reads
+                        as safer than rushing to get moving.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Practice once
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Before your next practice drive, pause for ten seconds in the
+                        driver&apos;s seat and run a simple script: &quot;Am I alert? Is my
+                        seat and view set? Is the path clear?&quot; Then do a slow 360°
+                        scan (mirrors and shoulder checks) before you release the brake.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Realistic timing
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        This is a short habit, not a long routine. Done well, your
+                        readiness check and scan can take under 20 seconds.
+                      </p>
+                    </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      After required documents in the previous lesson, this final step
+                      pulls everything together: you, the vehicle, and the space around
+                      you must all be ready before you enter traffic.
+                    </p>
                     <div>
                       <h2
                         className="mb-3 text-lg font-semibold"
@@ -5388,6 +5462,29 @@ function ModuleReaderContent() {
                         ability to think and react quickly.
                       </p>
                     </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Common mistake
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Trying to &quot;push through&quot; tiredness, stress, or anger
+                        because you want to finish the lesson or get the test over with.
+                        If your head is not calm, your reactions slow down and small
+                        driving decisions get sloppy.
+                      </p>
+                    </div>
                     <div>
                       <h2
                         className="mb-3 text-lg font-semibold"
@@ -5404,6 +5501,30 @@ function ModuleReaderContent() {
                         mirrors and shoulder check; know your blind spots. Ensure
                         the path is clear and you have a safe space to enter
                         traffic.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Test day
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Before you move, take a full look for pedestrians and cyclists
+                        who can appear suddenly near a parking lot or test centre. Make
+                        your head movement obvious and unhurried—especially when backing
+                        or pulling out—so the examiner can see you are checking, not
+                        guessing.
                       </p>
                     </div>
                     <div
@@ -5432,6 +5553,13 @@ function ModuleReaderContent() {
                         to drive.)
                       </p>
                     </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Next up, you&apos;ll apply these habits while driving: turns, lane
+                      changes, parking, and other core G2 maneuvers.
+                    </p>
                     <div
                       className="rounded-lg border-2 p-4"
                       style={{
