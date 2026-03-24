@@ -3965,7 +3965,7 @@ function ModuleReaderContent() {
                       </ol>
                     </div>
                     <div
-                      className="rounded-lg border-2 p-4"
+                      className="rounded-lg border p-4"
                       style={{
                         borderColor: "var(--midnight-indigo)",
                         backgroundColor: "var(--void-purple)",
