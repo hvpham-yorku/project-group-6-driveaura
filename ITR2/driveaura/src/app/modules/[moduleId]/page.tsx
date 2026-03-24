@@ -3968,6 +3968,31 @@ function ModuleReaderContent() {
                         className="mb-2 text-base font-semibold"
                         style={{ color: "var(--ghost-white)" }}
                       >
+                        Common mistake
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Skipping a quick walk-around because it is the driving
+                        school or examiner vehicle and you assume it is fine. Tires,
+                        lights, or visibility issues can still be there—briefly say
+                        what you looked at outside (for example tires, lights, and
+                        windows) so you show you take the vehicle seriously before
+                        you move.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
                         Examiner tip
                       </h3>
                       <p
