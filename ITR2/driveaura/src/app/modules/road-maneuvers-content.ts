@@ -65,7 +65,7 @@ export const ROAD_MANEUVERS_CONTENT: Record<string, ManeuverContent> = {
   },
   "2": {
     goldenRule:
-      "Never change lanes without signalling and checking that the move can be done safely—check mirrors first, then your blind spot over your shoulder, and only then steer gradually into the new lane.",
+      "Never change lanes without signalling and checking that the move can be done safely. Use mirrors first, then your blind spot over your shoulder, and only then steer gradually into the new lane when the space is clear.",
     steps: [
       "Check your mirrors for a space in traffic where you can enter safely.",
       "Check your blind spot by looking over your shoulder in the direction of the lane change. Watch for bicycles and small vehicles.",
