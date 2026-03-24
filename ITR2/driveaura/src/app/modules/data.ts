@@ -108,7 +108,7 @@ export const MODULES: ModuleItem[] = [
     title: "G2 Licensing Restrictions",
     category: "G2 Road Prep",
     description:
-      "Rules and restrictions that apply to G2 licence holders in Ontario.",
+      "Ontario G2 rules: zero alcohol/drugs, passenger limits for under 19, seatbelts, demerits, and how you progress to a full G.",
     lessons: [
       {
         id: "1",
