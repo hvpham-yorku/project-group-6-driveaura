@@ -3917,6 +3917,14 @@ function ModuleReaderContent() {
                       doubts about any of them, do not drive. (MTO Driver&apos;s
                       Handbook — Getting ready to drive.)
                     </p>
+                    <p
+                      className="leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      For your G2 road test, your first minutes with the vehicle are a
+                      natural place to show that habit: you look, you think, then you
+                      move—not the other way around.
+                    </p>
                     <div>
                       <h2
                         className="mb-3 text-lg font-semibold"
@@ -3932,6 +3940,28 @@ function ModuleReaderContent() {
                         breakdowns and collisions. The Ministry of Transportation
                         recommends that you know your vehicle and its controls
                         before you drive.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Realistic timing
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        A focused outside-and-inside check often takes about a minute.
+                        On test day, steady and complete beats racing—or freezing because
+                        you are chasing perfection.
                       </p>
                     </div>
                     <div
@@ -3963,6 +3993,29 @@ function ModuleReaderContent() {
                           and defroster are.
                         </li>
                       </ol>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Practice once
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Before your next lesson or practice drive, run through Try this
+                        order on a parked car out loud. You do not need to fix every
+                        issue you notice—you need a calm routine you can repeat on test
+                        day.
+                      </p>
                     </div>
                     <div
                       className="rounded-lg border p-4"
@@ -4018,6 +4071,30 @@ function ModuleReaderContent() {
                         what you looked at outside (for example tires, lights, and
                         windows) so you show you take the vehicle seriously before
                         you move.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        If you see a problem
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        If you notice something that looks unsafe—like a very low tire,
+                        a fluid leak, a broken light, or heavy frost blocking the
+                        glass—say so calmly before you move. On a lesson or test, the
+                        responsible move is to speak up, not to ignore it and hope it
+                        does not matter.
                       </p>
                     </div>
                     <div
@@ -4110,6 +4187,30 @@ function ModuleReaderContent() {
                       reduces blind spots. The MTO Driver&apos;s Handbook describes
                       how to get into position and keep a clear view.
                     </p>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Examiner tip
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        On your G2 road test, your setup order matters. Set your seat
+                        and distance to the pedals and steering wheel first, then your
+                        mirrors, then fasten your seatbelt. If you set mirrors before your
+                        seat is final, you will usually have to adjust again—extra
+                        fumbling when you want a calm, repeatable start.
+                      </p>
+                    </div>
                     <div>
                       <h2
                         className="mb-3 text-lg font-semibold"
@@ -4138,6 +4239,31 @@ function ModuleReaderContent() {
                         protect you in a collision.
                       </p>
                     </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Common mistake
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Sitting too close to the steering wheel with nearly straight
+                        arms. You need a slight bend in your elbows for steering
+                        control and so you are not pressed up against the wheel if the
+                        airbag deploys. If your chest feels tight to the wheel, slide
+                        the seat back and check again that your feet still reach the
+                        pedals without stretching.
+                      </p>
+                    </div>
                     <div>
                       <h2
                         className="mb-3 text-lg font-semibold"
@@ -4162,12 +4288,59 @@ function ModuleReaderContent() {
                         <li>Left outside mirror: lean toward the window and move the mirror so you can just see the rear of your car.</li>
                         <li>Right outside mirror: lean toward the centre of the vehicle and move the mirror so you can just see the rear of your car.</li>
                       </ul>
+                      <div
+                        className="my-4 rounded-lg border p-4"
+                        style={{
+                          borderColor: "var(--midnight-indigo)",
+                          backgroundColor: "var(--void-purple)",
+                        }}
+                      >
+                        <h3
+                          className="mb-2 text-base font-semibold"
+                          style={{ color: "var(--ghost-white)" }}
+                        >
+                          If the seat moves
+                        </h3>
+                        <p
+                          className="text-sm leading-relaxed"
+                          style={{ color: "var(--lavender-mist)" }}
+                        >
+                          If you nudge the seat forward, back, or up after you set your
+                          mirrors, your angles are no longer true. Skim all three
+                          mirrors again—but still aim to finish before you roll, not
+                          while you are moving through traffic.
+                        </p>
+                      </div>
                       <p
                         className="mt-3 leading-relaxed"
                         style={{ color: "var(--lavender-mist)" }}
                       >
                         Mirrors alone do not show everything. Always do a
                         shoulder check before changing lanes or turning.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Test day
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Nerves can make you rush seat and mirror setup. With your foot
+                        on the brake, finish seat distance and mirror angles before you
+                        roll—even if the car is not the one you usually drive. A short,
+                        steady setup looks more confident than half-adjusting while you
+                        are already moving.
                       </p>
                     </div>
                     <div
