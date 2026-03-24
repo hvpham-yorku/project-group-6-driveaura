@@ -3935,6 +3935,36 @@ function ModuleReaderContent() {
                       </p>
                     </div>
                     <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-3 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Try this order
+                      </h3>
+                      <ol
+                        className="list-inside list-decimal space-y-2 pl-2 text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        <li>
+                          Outside once: tires, lights, glass, mirrors, licence plate.
+                        </li>
+                        <li>
+                          Inside: a full clear view; nothing on the dash or windows
+                          that blocks sight lines.
+                        </li>
+                        <li>
+                          Before you move, know where wipers, headlights, hazards,
+                          and defroster are.
+                        </li>
+                      </ol>
+                    </div>
+                    <div
                       className="rounded-lg border-2 p-4"
                       style={{
                         borderColor: "var(--midnight-indigo)",
