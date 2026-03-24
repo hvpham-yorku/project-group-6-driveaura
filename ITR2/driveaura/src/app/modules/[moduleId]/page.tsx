@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
+import { G2CarExplorer } from "@/components/G2CarExplorer";
 import {
   fetchUserModuleProgress,
   saveUserModuleProgress,
@@ -4305,6 +4306,7 @@ function ModuleReaderContent() {
                         </li>
                       </ol>
                     </div>
+                    <G2CarExplorer />
                     <div
                       className="rounded-lg border p-4"
                       style={{
