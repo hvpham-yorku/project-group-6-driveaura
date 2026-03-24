@@ -4007,6 +4007,30 @@ function ModuleReaderContent() {
                       </p>
                     </div>
                     <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Test day
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Nerves can make you rush past the pre-drive check. It is
+                        normal to briefly say what you are looking at (tires, lights,
+                        obstructions, a clear view). If something looks wrong or you
+                        cannot find a control, say so before you move—calm and clear
+                        is better than guessing once you are rolling.
+                      </p>
+                    </div>
+                    <div
                       className="rounded-lg border-2 p-4"
                       style={{
                         borderColor: "var(--electric-cyan)",
