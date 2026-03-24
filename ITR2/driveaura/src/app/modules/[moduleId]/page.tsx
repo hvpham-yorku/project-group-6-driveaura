@@ -4932,6 +4932,85 @@ function ModuleReaderContent() {
                       The MTO Driver&apos;s Handbook sets out legal requirements
                       for visibility and headlights.
                     </p>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Examiner tip
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        On your G2 road test, examiners notice if you roll with
+                        fogged or partly cleared glass, clutter blocking your view, or
+                        lighting that does not match conditions. Using defroster and
+                        wipers before you move—and having proper lights on when
+                        visibility drops—shows preparation, not guessing in traffic.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Practice once
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        In cold or wet weather, clear every window you need to see
+                        through before you leave park. In a parked car at dusk—or with a
+                        garage door closed to simulate dark—run headlights on low beam,
+                        then high beam if equipped, then back to low; practice switching
+                        to low when you imagine oncoming traffic within range. Match each
+                        setting to the icon on the dash in the vehicle you use most.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Realistic timing
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Full defrost on a frosted car can take longer than a rushed
+                        lesson warm-up—start early enough that you are never tempted to
+                        drive through a small clear patch in the glass.
+                      </p>
+                    </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      After tires and brakes in the last lesson, a clear view and
+                      correct lighting are how you see and are seen—especially in Ontario
+                      weather.
+                    </p>
                     <div>
                       <h2
                         className="mb-3 text-lg font-semibold"
@@ -4948,6 +5027,30 @@ function ModuleReaderContent() {
                         keeps you from seeing out. The windshield and front door
                         windows must not be coated to prevent others from seeing
                         inside.
+                      </p>
+                    </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Common mistake
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Moving the car before you have a clear view through every window
+                        you need—especially a frosted or fogged windshield—because you
+                        feel late. If you cannot see properly through the glass, you are
+                        not ready to move; fix the view first, even when test-day nerves
+                        push you to rush.
                       </p>
                     </div>
                     <div>
@@ -4977,6 +5080,37 @@ function ModuleReaderContent() {
                         <li>Keep lights clean and replace burned-out bulbs promptly.</li>
                       </ul>
                     </div>
+                    <div
+                      className="rounded-lg border p-4"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--void-purple)",
+                      }}
+                    >
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        Test day
+                      </h3>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        Light and weather can change during your route. If the glass
+                        fogs, use defrost and airflow until you have a steady view before
+                        you lean on memory of the lane. In gray light or heavy rain,
+                        when you are unsure whether headlights should be on, choosing on
+                        is usually the safer habit than staying dark.
+                      </p>
+                    </div>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Next in this module: required documents—licence, vehicle permit,
+                      insurance, and valid plates.
+                    </p>
                     <div
                       className="rounded-lg border-2 p-4"
                       style={{
