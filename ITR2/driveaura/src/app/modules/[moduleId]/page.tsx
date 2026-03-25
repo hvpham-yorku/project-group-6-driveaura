@@ -9,14 +9,21 @@ import {
   AlertTriangle,
   ArrowRightLeft,
   BadgeInfo,
+  CloudRain,
   CheckCircle2,
+  Eye,
+  Footprints,
   Gauge,
   GitMerge,
   Layers,
+  Leaf,
   MoveRight,
+  Radar,
   ShieldAlert,
   Siren,
+  Snowflake,
   Sparkles,
+  Timer,
   Truck,
   Users,
 } from "lucide-react";
@@ -1317,6 +1324,425 @@ function GAdvancedLaneLesson({ lessonId }: { lessonId: string }) {
           </SourceCard>
         </div>
       </div>
+    </div>
+  );
+}
+
+function DashboardReferenceBadge({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      className="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium"
+      style={{
+        borderColor: "rgba(0,245,255,0.4)",
+        backgroundColor: "rgba(0,245,255,0.10)",
+        color: "var(--electric-cyan)",
+      }}
+    >
+      <BadgeInfo size={14} />
+      {children}
+    </span>
+  );
+}
+
+function GComplexIntersectionsLesson({ lessonId }: { lessonId: string }) {
+  const scanCards = [
+    { key: "left-1", title: "Left", icon: <MoveRight size={18} />, text: "Check left first for fast cross traffic and late yellow runners." },
+    { key: "center", title: "Center", icon: <Eye size={18} />, text: "Scan ahead through the intersection for turning conflicts and blocked lanes." },
+    { key: "right", title: "Right", icon: <MoveRight size={18} className="rotate-180" />, text: "Check right for pedestrians, bikes, and right-turning vehicles entering your path." },
+    { key: "left-2", title: "Left Again", icon: <Radar size={18} />, text: "Re-check left before moving because traffic conditions change in seconds." },
+  ];
+
+  if (lessonId === "3.2") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center gap-2">
+          <DashboardReferenceBadge>
+            Dashboard Reference: mirror + speed check hotspots [x:46, y:39]
+          </DashboardReferenceBadge>
+        </div>
+        <div className="grid gap-3 md:grid-cols-2">
+          <InfoTile title="Protected Left Turn" icon={<CheckCircle2 size={18} />} accent="mint">
+            On a green arrow, scan crosswalk and intersection path, then complete the turn smoothly into the correct lane.
+          </InfoTile>
+          <InfoTile title="Unprotected Left Turn" icon={<AlertTriangle size={18} />} accent="warning">
+            Yield to oncoming traffic and pedestrians; only turn when the gap is legal, visible, and stable.
+          </InfoTile>
+          <InfoTile title="Decision Timing" icon={<Timer size={18} />} accent="cyan">
+            If your window is uncertain, wait. A delayed safe turn is better than forcing cross-traffic to brake.
+          </InfoTile>
+          <InfoTile title="Common Error" icon={<ShieldAlert size={18} />} accent="crimson">
+            Entering the turn while focused on one hazard only (for example, oncoming cars) and missing pedestrians.
+          </InfoTile>
+        </div>
+        <SourceCard>
+          Ontario Ministry of Transportation. Official MTO Driver&apos;s Handbook (Chapter 2): intersection right-of-way and left-turn decision safety.
+        </SourceCard>
+      </div>
+    );
+  }
+
+  if (lessonId === "3.3") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center gap-2">
+          <DashboardReferenceBadge>
+            Dashboard Reference: instrument cluster alert scan [x:52, y:22]
+          </DashboardReferenceBadge>
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          <InfoTile title="Rail Crossings" icon={<AlertTriangle size={18} />} accent="warning">
+            Slow early, scan both directions, and never drive onto tracks unless you can fully clear them.
+          </InfoTile>
+          <InfoTile title="School Buses" icon={<Users size={18} />} accent="crimson">
+            Stop when red lights are flashing and remain stopped until lights stop and children are clear.
+          </InfoTile>
+          <InfoTile title="School Zones" icon={<Footprints size={18} />} accent="mint">
+            Reduce speed, expect sudden pedestrian movement, and scan every crosswalk and curb opening.
+          </InfoTile>
+        </div>
+        <SourceCard>
+          Ontario Ministry of Transportation. Official MTO Driver&apos;s Handbook: rail crossing safety, school bus stop requirements, and school-zone caution.
+        </SourceCard>
+      </div>
+    );
+  }
+
+  // 3.1
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center gap-2">
+        <DashboardReferenceBadge>
+          Dashboard Reference: instrument cluster hotspots [x:52, y:22]
+        </DashboardReferenceBadge>
+      </div>
+
+      <div>
+        <h3 className="mb-3 text-lg font-semibold" style={{ color: "var(--ghost-white)" }}>
+          The 360° Scan (MTO sequence)
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {scanCards.map((card) => (
+            <InfoTile key={card.key} title={card.title} icon={card.icon} accent="cyan">
+              {card.text}
+            </InfoTile>
+          ))}
+        </div>
+      </div>
+
+      <div
+        className="rounded-lg border p-4"
+        style={{ borderColor: "var(--midnight-indigo)", backgroundColor: "var(--void-purple)" }}
+      >
+        <h3 className="mb-3 text-lg font-semibold" style={{ color: "var(--ghost-white)" }}>
+          Large Vehicle No‑Zones
+        </h3>
+        <div className="grid gap-3 md:grid-cols-2">
+          <InfoTile title="Unsafe Positioning" icon={<Truck size={18} />} accent="warning">
+            Avoid staying beside the trailer, directly behind where visibility is blocked, or too close in front after passing.
+          </InfoTile>
+          <InfoTile title="Safe Positioning" icon={<CheckCircle2 size={18} />} accent="mint">
+            Either follow with extra distance so you can see around the truck, or pass decisively and re-enter with a large cushion.
+          </InfoTile>
+        </div>
+      </div>
+
+      <div
+        className="rounded-lg border-2 p-4"
+        style={{ borderColor: "var(--crimson-spark)", backgroundColor: "rgba(255,59,63,0.10)" }}
+      >
+        <div className="mb-2 flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--crimson-spark)" }}>
+          <AlertTriangle size={16} />
+          Pedestrian Hazard: Crossover Right-of-Way
+        </div>
+        <p className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+          At crossovers, pedestrians have right-of-way once they indicate or start crossing; stop fully and remain stopped until they have safely cleared your side of the roadway.
+        </p>
+      </div>
+
+      <SourceCard>
+        Ontario Ministry of Transportation. Official MTO Driver&apos;s Handbook (Chapter 2): intersection scanning, pedestrian right-of-way, and sharing space with large vehicles.
+      </SourceCard>
+    </div>
+  );
+}
+
+function GSystemOfDrivingLesson({ lessonId }: { lessonId: string }) {
+  if (lessonId === "4.2") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center gap-2">
+          <DashboardReferenceBadge>
+            Dashboard Reference: mirror scan cadence [x:46, y:39]
+          </DashboardReferenceBadge>
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          <InfoTile title="Escape Route Left" icon={<MoveRight size={18} />} accent="cyan">
+            Keep a visible lateral space option when possible; avoid being boxed in next to large vehicles.
+          </InfoTile>
+          <InfoTile title="Escape Route Ahead" icon={<Radar size={18} />} accent="mint">
+            Preserve following distance so you can brake progressively and steer around sudden hazards.
+          </InfoTile>
+          <InfoTile title="Early Decision Rule" icon={<Timer size={18} />} accent="warning">
+            Choose low-risk actions early (slow/hold lane) instead of last-second aggressive moves.
+          </InfoTile>
+        </div>
+        <SourceCard>
+          Ontario Ministry of Transportation. Official MTO Driver&apos;s Handbook: defensive planning and maintaining options in traffic.
+        </SourceCard>
+      </div>
+    );
+  }
+
+  if (lessonId === "4.3") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center gap-2">
+          <DashboardReferenceBadge>
+            Dashboard Reference: cluster speed + warning scan [x:52, y:22]
+          </DashboardReferenceBadge>
+        </div>
+        <div className="grid gap-3 md:grid-cols-2">
+          <InfoTile title="Observe at Highway Speed" icon={<Eye size={18} />} accent="cyan">
+            Scan 12+ seconds ahead, mirrors frequently, and shoulder-check before every lane commitment.
+          </InfoTile>
+          <InfoTile title="Evaluate Closures/Merges" icon={<AlertTriangle size={18} />} accent="warning">
+            Identify lane drops, stopped traffic, and merging streams early so you can reduce speed gradually.
+          </InfoTile>
+          <InfoTile title="Act Smoothly" icon={<MoveRight size={18} />} accent="mint">
+            Make one clear action at a time: adjust speed, change lane with SMOG, then stabilize.
+          </InfoTile>
+          <InfoTile title="G Test Priority" icon={<ShieldAlert size={18} />} accent="crimson">
+            Examiners reward early, calm choices over fast reactions that create new conflicts.
+          </InfoTile>
+        </div>
+        <SourceCard>
+          Ontario Ministry of Transportation. Official MTO Driver&apos;s Handbook (Chapters 2 &amp; 4): highway risk management and hazard response.
+        </SourceCard>
+      </div>
+    );
+  }
+
+  // 4.1
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center gap-2">
+        <DashboardReferenceBadge>
+          Dashboard Reference: center console + instrument scan [x:50, y:52]
+        </DashboardReferenceBadge>
+      </div>
+
+      <div>
+        <h3 className="mb-3 text-lg font-semibold" style={{ color: "var(--ghost-white)" }}>
+          OEA Framework (Observe → Evaluate → Act)
+        </h3>
+        <div className="grid gap-3 md:grid-cols-3">
+          <InfoTile title="Observe" icon={<Eye size={18} />} accent="cyan">
+            Scan mirrors, road users, lane controls, and speed trends before committing to any maneuver.
+          </InfoTile>
+          <InfoTile title="Evaluate" icon={<Radar size={18} />} accent="warning">
+            Judge risk: closing speeds, escape routes, right-of-way, and traction conditions.
+          </InfoTile>
+          <InfoTile title="Act" icon={<MoveRight size={18} />} accent="mint">
+            Choose one smooth action (hold, slow, lane change, or stop) and execute it decisively.
+          </InfoTile>
+        </div>
+      </div>
+
+      <div
+        className="rounded-lg border p-4"
+        style={{ borderColor: "var(--midnight-indigo)", backgroundColor: "var(--void-purple)" }}
+      >
+        <h3 className="mb-3 text-lg font-semibold" style={{ color: "var(--ghost-white)" }}>
+          Space Cushion Comparison
+        </h3>
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="rounded-lg border p-3" style={{ borderColor: "var(--midnight-indigo)" }}>
+            <div className="mb-2 flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--ghost-white)" }}>
+              <Timer size={16} />
+              2-Second Lead (Baseline)
+            </div>
+            <div className="h-2 rounded-full" style={{ backgroundColor: "rgba(184,176,211,0.25)" }} />
+            <p className="mt-2 text-xs" style={{ color: "var(--lavender-mist)" }}>
+              Typical minimum in ideal city conditions with good visibility and traction.
+            </p>
+          </div>
+          <div className="rounded-lg border p-3" style={{ borderColor: "var(--electric-cyan)" }}>
+            <div className="mb-2 flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--electric-cyan)" }}>
+              <Timer size={16} />
+              3-Second Lead (G Highway Standard)
+            </div>
+            <div className="h-2 rounded-full" style={{ backgroundColor: "rgba(0,245,255,0.35)" }} />
+            <p className="mt-2 text-xs" style={{ color: "var(--lavender-mist)" }}>
+              Preferred for G-level highway driving to protect reaction time and escape space.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <SourceCard>
+        Ontario Ministry of Transportation. Official MTO Driver&apos;s Handbook: defensive driving routines, following distance, and hazard-response timing.
+      </SourceCard>
+    </div>
+  );
+}
+
+function GEnvironmentalAwarenessLesson({ lessonId }: { lessonId: string }) {
+  const [condition, setCondition] = useState<"rain" | "snow">("rain");
+  const conditionData =
+    condition === "rain"
+      ? {
+          label: "Rain",
+          speed: "Reduce below posted limit as needed for visibility and spray.",
+          distance: "Minimum 4-second follow distance in steady rain.",
+          icon: <CloudRain size={18} />,
+        }
+      : {
+          label: "Snow",
+          speed: "Significantly reduce speed; prioritize traction over schedule.",
+          distance: "Minimum 6+ second follow distance in active snowfall/slush.",
+          icon: <Snowflake size={18} />,
+        };
+
+  const ecoChecklist = [
+    "Accelerate smoothly and avoid hard throttle inputs.",
+    "Maintain steady speed and anticipate stops early.",
+    "Limit unnecessary idling; shut off when safely parked for longer waits.",
+    "Keep tires properly inflated to reduce drag and improve braking control.",
+    "Remove excess cargo and roof drag when not needed.",
+  ];
+
+  if (lessonId === "5.2") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center gap-2">
+          <DashboardReferenceBadge>
+            Dashboard Reference: lighting controls + cluster [x:58, y:27]
+          </DashboardReferenceBadge>
+        </div>
+        <div className="grid gap-3 md:grid-cols-2">
+          <InfoTile title="Headlight Discipline" icon={<Gauge size={18} />} accent="cyan">
+            Use low beams in traffic/fog/rain; switch to high beams only when the road is clear and legal.
+          </InfoTile>
+          <InfoTile title="Glare Management" icon={<Eye size={18} />} accent="warning">
+            Look toward the right lane edge when facing bright oncoming lights; avoid staring into glare.
+          </InfoTile>
+          <InfoTile title="Night Following Distance" icon={<Timer size={18} />} accent="mint">
+            Extend your gap at night because hazard detection time is longer than in daylight.
+          </InfoTile>
+          <InfoTile title="Pedestrian Priority" icon={<Footprints size={18} />} accent="crimson">
+            In low-light areas, assume pedestrians may be hard to detect and reduce speed near crosswalks.
+          </InfoTile>
+        </div>
+        <SourceCard>
+          Ontario Ministry of Transportation. Official MTO Driver&apos;s Handbook (Chapter 4): nighttime visibility, glare control, and speed adjustment.
+        </SourceCard>
+      </div>
+    );
+  }
+
+  if (lessonId === "5.3") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center gap-2">
+          <DashboardReferenceBadge>
+            Dashboard Reference: traction/warning awareness [x:52, y:22]
+          </DashboardReferenceBadge>
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          <InfoTile title="Prevent Skids" icon={<Snowflake size={18} />} accent="mint">
+            Brake, steer, and accelerate smoothly; abrupt inputs are the most common skid trigger.
+          </InfoTile>
+          <InfoTile title="If a Skid Starts" icon={<AlertTriangle size={18} />} accent="warning">
+            Ease off acceleration and steer where you want to go; avoid panic braking.
+          </InfoTile>
+          <InfoTile title="Recover and Reassess" icon={<CheckCircle2 size={18} />} accent="cyan">
+            After regaining traction, reduce speed further and increase following distance.
+          </InfoTile>
+        </div>
+        <SourceCard>
+          Ontario Ministry of Transportation. Official MTO Driver&apos;s Handbook (Chapter 4): traction limits and skid-response basics.
+        </SourceCard>
+      </div>
+    );
+  }
+
+  // 5.1
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center gap-2">
+        <DashboardReferenceBadge>
+          Dashboard Reference: center console climate + efficiency hotspots [x:60, y:58]
+        </DashboardReferenceBadge>
+      </div>
+
+      <div
+        className="rounded-lg border p-4"
+        style={{ borderColor: "var(--midnight-indigo)", backgroundColor: "var(--void-purple)" }}
+      >
+        <h3 className="mb-3 text-lg font-semibold" style={{ color: "var(--ghost-white)" }}>
+          Adverse Conditions Toggle
+        </h3>
+        <div className="mb-3 inline-flex rounded-lg border p-1" style={{ borderColor: "var(--midnight-indigo)" }}>
+          <button
+            type="button"
+            onClick={() => setCondition("rain")}
+            className="rounded-md px-3 py-1.5 text-sm font-medium"
+            style={{
+              backgroundColor: condition === "rain" ? "var(--electric-cyan)" : "transparent",
+              color: condition === "rain" ? "var(--void-purple)" : "var(--lavender-mist)",
+            }}
+          >
+            Rain
+          </button>
+          <button
+            type="button"
+            onClick={() => setCondition("snow")}
+            className="rounded-md px-3 py-1.5 text-sm font-medium"
+            style={{
+              backgroundColor: condition === "snow" ? "var(--electric-cyan)" : "transparent",
+              color: condition === "snow" ? "var(--void-purple)" : "var(--lavender-mist)",
+            }}
+          >
+            Snow
+          </button>
+        </div>
+        <div className="grid gap-3 md:grid-cols-2">
+          <InfoTile title={`${conditionData.label}: Safe Speed`} icon={conditionData.icon} accent="warning">
+            {conditionData.speed}
+          </InfoTile>
+          <InfoTile title={`${conditionData.label}: Follow Distance`} icon={<Timer size={18} />} accent="mint">
+            {conditionData.distance}
+          </InfoTile>
+        </div>
+      </div>
+
+      <div
+        className="rounded-lg border p-4"
+        style={{ borderColor: "var(--midnight-indigo)", backgroundColor: "var(--void-purple)" }}
+      >
+        <h3 className="mb-3 flex items-center gap-2 text-lg font-semibold" style={{ color: "var(--ghost-white)" }}>
+          <Leaf size={18} />
+          Eco-Driving Checklist
+        </h3>
+        <div className="space-y-2">
+          {ecoChecklist.map((item) => (
+            <label
+              key={item}
+              className="flex items-start gap-2 rounded-lg border px-3 py-2"
+              style={{ borderColor: "var(--midnight-indigo)", backgroundColor: "rgba(0,0,0,0.10)" }}
+            >
+              <input type="checkbox" className="mt-1 h-4 w-4 accent-[var(--electric-cyan)]" />
+              <span className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+                {item}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <SourceCard>
+        Ontario Ministry of Transportation. Official MTO Driver&apos;s Handbook (Chapter 4): adverse weather driving adjustments and fuel-efficient driving habits.
+      </SourceCard>
     </div>
   );
 }
@@ -6563,6 +6989,12 @@ function ModuleReaderContent() {
                   <GHighSpeedLesson lessonId={currentLesson.id} />
                 ) : moduleId === "g-advanced-lane-management" ? (
                   <GAdvancedLaneLesson lessonId={currentLesson.id} />
+                ) : moduleId === "g-complex-intersections-hazard-perception" ? (
+                  <GComplexIntersectionsLesson lessonId={currentLesson.id} />
+                ) : moduleId === "g-system-of-driving-oea" ? (
+                  <GSystemOfDrivingLesson lessonId={currentLesson.id} />
+                ) : moduleId === "g-environmental-awareness-eco-driving" ? (
+                  <GEnvironmentalAwarenessLesson lessonId={currentLesson.id} />
                 ) : (
                   <p
                     className="leading-relaxed"
