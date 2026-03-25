@@ -185,11 +185,36 @@ export const MODULES: ModuleItem[] = [
     description:
       "Identifying risks, scanning, blind spots, and reacting safely in real traffic.",
     lessons: [
-      { id: "1", title: "Scanning & space cushions", content: "" },
-      { id: "2", title: "Blind spots & mirror checks", content: "" },
-      { id: "3", title: "Intersections & pedestrian hazards", content: "" },
-      { id: "4", title: "Following distance & speed choice", content: "" },
-      { id: "5", title: "Defensive responses (brake, steer, escape routes)", content: "" },
+      {
+        id: "1",
+        title: "Scanning & space cushions",
+        content:
+          "Main explanation:\nA good driver is “reading the road” all the time—not staring at the bumper in front. Use an active scan: far ahead (what’s changing), near ahead (your lane), then mirrors (what’s behind), then back to the road. The goal is to keep a space cushion: room in front, space to your sides when possible, and awareness of what’s behind you. If the road tightens (parked cars, cyclists, merges), slow early and create space before you’re forced to react.\n\nCommon mistake:\nOnly scanning straight ahead. Drivers miss side-street vehicles, pedestrians stepping out, or a car closing quickly from behind.\n\nExaminer tip:\nExaminers look for visible scanning habits. Small, regular mirror checks and early speed adjustments show you are planning, not guessing.\n\nTest day note:\nIf you feel rushed, slow your scan down—not your reactions. Calm scanning prevents sudden braking.\n\nvisualSuggestion: Simple photo showing a driver’s perspective with cars ahead and side streets (use as a prompt to practice “far–near–mirrors” scanning)\nimageSource: Unsplash\nsearchQuery: \"driver view through windshield city traffic\"\n",
+      },
+      {
+        id: "2",
+        title: "Blind spots & mirror checks",
+        content:
+          "Main explanation:\nMirrors help, but they don’t show everything. Before changing lanes, moving around a parked car, or merging, do a quick mirror check first, then a shoulder check into the blind spot, then move smoothly if it’s clear. Keep your head checks quick—your eyes should be off the road for the shortest time possible. If you’re passing cyclists or parked cars, leave extra space and be ready for doors opening.\n\nCommon mistake:\nTurning your whole upper body for too long (losing forward control) or skipping the shoulder check because you “already looked in the mirror.”\n\nExaminer tip:\nA lane change often fails because the check sequence is incomplete. Examiners want mirror → signal → shoulder check → move (smoothly), with space kept.\n\nTest day note:\nIf you’re unsure, don’t force it. Cancel the signal, keep your lane, and try again when you have a safe gap.\n\nvisualSuggestion: Simple diagram-style photo of a car with mirror + blind spot zones (use to explain where shoulder checks matter)\nimageSource: Pexels\nsearchQuery: \"car side mirror blind spot\"\n",
+      },
+      {
+        id: "3",
+        title: "Intersections & pedestrian hazards",
+        content:
+          "Main explanation:\nMost serious surprises happen at intersections: left turns, pedestrians stepping off the curb, and vehicles running late yellow/red. Approach intersections with a plan: scan left–center–right as you near the crosswalk, check mirrors before braking, and be ready to stop if anything is uncertain. When turning, watch for pedestrians and cyclists in the crosswalk and near corners, and complete your turn into the correct lane. If your view is blocked, creep forward slowly only when safe.\n\nCommon mistake:\nRushing a turn because the light is changing, or only checking for cars and forgetting pedestrians/cyclists.\n\nExaminer tip:\nThey want “decision time.” Slowing early, checking crosswalks twice, and turning into the correct lane shows control.\n\nTest day note:\nIf you miss a turn, it’s fine—continue safely. A wrong route is better than a risky move.\n\nvisualSuggestion: Photo of a marked crosswalk at an intersection with turning lanes (use to practice where to look)\nimageSource: Unsplash\nsearchQuery: \"crosswalk intersection turning lane\"\n",
+      },
+      {
+        id: "4",
+        title: "Following distance & speed choice",
+        content:
+          "Main explanation:\nFollowing distance is your reaction time. In normal conditions, keep at least a few seconds behind the vehicle ahead; increase it in rain, snow, darkness, or heavy traffic. Pick a speed that matches what you can see and what you can stop for—not the maximum posted speed. If someone tailgates you, don’t speed up. Create more space in front so you can brake gently if needed.\n\nCommon mistake:\nMatching the speed of traffic even when visibility is limited, or “closing the gap” so others don’t merge.\n\nExaminer tip:\nSmooth driving scores well: steady speed, gentle braking, and space kept. Sudden braking often means you were too close or not scanning.\n\nTest day note:\nNerves make people drive too fast. A calm, controlled speed looks confident to an examiner.\n\nvisualSuggestion: Simple photo showing two cars on a road with visible space between them (use to talk through seconds of distance)\nimageSource: Ontario\nsearchQuery: \"Ontario Driver's Handbook following distance\"\n",
+      },
+      {
+        id: "5",
+        title: "Defensive responses (brake, steer, escape routes)",
+        content:
+          "Main explanation:\nDefensive driving is choosing the safest option early. When a hazard appears, your order is usually: ease off the accelerator, cover the brake, then brake smoothly. Steer only if you have space and you’ve checked it. Always keep an “escape route” in mind: an open lane, a shoulder, or space behind. Avoid last-second swerves; they cause loss of control.\n\nCommon mistake:\nPanic steering without checking mirrors or side space, or braking too late and too hard.\n\nExaminer tip:\nThey’re watching how you manage risk: early speed changes, controlled braking, and clear decisions beat dramatic reactions.\n\nTest day note:\nIf something unexpected happens, prioritize safety over perfection. Slow down, stabilize the car, then continue when safe.\n\nvisualSuggestion: Photo of a road with a clear shoulder or open lane (use to discuss “escape routes”)\nimageSource: Pexels\nsearchQuery: \"two lane road shoulder\"\n",
+      },
     ],
   },
   {
@@ -200,11 +225,36 @@ export const MODULES: ModuleItem[] = [
     description:
       "Parallel parking, reverse parking, hill parking, and slow-speed control.",
     lessons: [
-      { id: "1", title: "Slow-speed control (creep, clutch/brake balance)", content: "" },
-      { id: "2", title: "Parallel parking", content: "" },
-      { id: "3", title: "Reverse parking", content: "" },
-      { id: "4", title: "Perpendicular parking", content: "" },
-      { id: "5", title: "Hill parking (uphill/downhill)", content: "" },
+      {
+        id: "1",
+        title: "Slow-speed control (creep, clutch/brake balance)",
+        content:
+          "Main explanation:\nMost parking errors happen because the car is moving too fast. Use slow, controlled movement: gentle brake control in an automatic, or smooth clutch/brake coordination in a manual. Keep your head moving—mirrors and shoulder checks—especially when reversing. If you’re not sure, stop. You can always pause, re-check, and then continue.\n\nCommon mistake:\nRolling while looking, instead of stopping to check. That’s how people clip curbs, lines, or other cars.\n\nExaminer tip:\nThey want to see control: very low speed, full stops when needed, and clear observation (360° checks before backing).\n\nTest day note:\nTake your time. Parking is not graded on speed—it’s graded on safety and control.\n\nvisualSuggestion: Photo showing a car moving slowly in a parking lot with clear lane lines (use to emphasize “slow is safe”)\nimageSource: Unsplash\nsearchQuery: \"car parking lot slow maneuver\"\n",
+      },
+      {
+        id: "2",
+        title: "Parallel parking",
+        content:
+          "Main explanation:\nParallel parking is a positioning task: set up beside the parked car, reverse slowly, and use reference points (your mirrors and the other car’s rear corner) to guide your angle. Keep checking for traffic, cyclists, and pedestrians before and during the maneuver. If you’re too far from the curb or you touch it, stop and correct—small adjustments are normal.\n\nCommon mistake:\nStarting the turn too early or too late, then trying to “save it” by turning quickly at higher speed.\n\nExaminer tip:\nExaminers care most about safety checks and control. A clean setup and slow reverse with repeated checks looks strong.\n\nTest day note:\nIf you need a second attempt, stay calm. A safe correction is better than forcing a bad angle.\n\nvisualSuggestion: Simple top-down diagram/photo of a parallel parking space between two cars\nimageSource: Pexels\nsearchQuery: \"parallel parked cars curb\"\n",
+      },
+      {
+        id: "3",
+        title: "Reverse parking",
+        content:
+          "Main explanation:\nReverse parking is often easier because you can see out when you drive forward to leave. Approach slowly, signal, and position the car so you have space to swing into the stall. Before reversing, do a full 360° check (mirrors + shoulder checks), then back in slowly. Use your mirrors to keep equal spacing from the lines.\n\nCommon mistake:\nRelying only on the backup camera or only on one mirror. Cameras help, but they don’t replace checking for people.\n\nExaminer tip:\nThey want to see observation before and during reversing. A clear stop, scan, then smooth reverse shows control.\n\nTest day note:\nIf someone walks behind you, stop and wait. That’s not a failure—it’s good judgment.\n\nvisualSuggestion: Photo of a car backing into a parking stall (lines clearly visible)\nimageSource: Unsplash\nsearchQuery: \"car reversing into parking spot\"\n",
+      },
+      {
+        id: "4",
+        title: "Perpendicular parking",
+        content:
+          "Main explanation:\nPerpendicular parking is about setting up your approach and turning at the right time. Go slow, signal, and choose a spot that gives you room. Check for pedestrians (especially between parked cars), then turn smoothly into the stall. If you’re off-center, stop and adjust rather than “cutting across” lines at speed.\n\nCommon mistake:\nTurning too sharply because you approached too close or too fast, then ending up crooked.\n\nExaminer tip:\nThey’re watching for observation and lane discipline in the lot: driving on the correct side, yielding, and controlling speed.\n\nTest day note:\nParking lots are busy. Treat them like roads: scan, yield, and be patient.\n\nvisualSuggestion: Photo of a parking lot with clear perpendicular stalls and a car centered in one spot\nimageSource: Pexels\nsearchQuery: \"parking lot perpendicular parking\"\n",
+      },
+      {
+        id: "5",
+        title: "Hill parking (uphill/downhill)",
+        content:
+          "Main explanation:\nHill parking is a safety routine. Always set the parking brake. Turn your wheels so the car would roll into the curb (or away from traffic) if it moved. Use the curb as a backup: after turning the wheel, let the car roll gently until the tire touches the curb, then stop. On a downhill, your wheel direction changes compared to uphill. If there’s no curb, turn the wheels so the car rolls off the road surface if it moved.\n\nCommon mistake:\nForgetting the parking brake or turning wheels the wrong direction.\n\nExaminer tip:\nThis is a “show you know” item. Examiners often watch wheel direction and whether you secure the vehicle properly.\n\nTest day note:\nTake a second to think before you set the wheels—rushing causes wrong-direction errors.\n\nvisualSuggestion: Simple photo of a car parked on a hill near a curb (use to discuss wheel direction)\nimageSource: Ontario\nsearchQuery: \"Ontario Driver's Handbook hill parking wheels\" \n",
+      },
     ],
   },
 ];
