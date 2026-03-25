@@ -177,6 +177,74 @@ export const MODULES: ModuleItem[] = [
       { id: "5", title: "Parking (Parallel, Perpendicular, Hill)", content: "" },
     ],
   },
+  {
+    id: "g-high-speed-expressway-driving",
+    licenseLevel: "G",
+    title: "High-Speed Expressway Driving",
+    category: "G License: Highway Skills",
+    description:
+      "Confident merging, lane etiquette, safe space cushions at 100 km/h, and proper exits—key skills from the MTO Driver’s Handbook (Chapter 2).",
+    lessons: [
+      {
+        id: "1.1",
+        title: "The Entrance Ramp & Acceleration Lane",
+        content:
+          "Interactive lesson: ramp → acceleration lane → merge (MTO handbook based).",
+      },
+      {
+        id: "1.2",
+        title: "Highway Lane Etiquette",
+        content:
+          "Interactive lesson: keep right except to pass + HOV basics (MTO handbook based).",
+      },
+      {
+        id: "1.3",
+        title: "Space Cushions at 100km/h",
+        content:
+          "Interactive lesson: 3‑second rule, weather adjustments, and avoiding “wolf packs.”",
+      },
+      {
+        id: "1.4",
+        title: "Exiting the Expressway",
+        content:
+          "Interactive lesson: signal early, deceleration lane, and safe “missed exit” decisions.",
+      },
+    ],
+  },
+  {
+    id: "g-advanced-lane-management",
+    licenseLevel: "G",
+    title: "Advanced Lane Management",
+    category: "G License: Decision-Making",
+    description:
+      "Lane changes, passing, blind spots, and Ontario-specific laws—advanced habits drawn from the MTO Driver’s Handbook (Chapters 2 & 4).",
+    lessons: [
+      {
+        id: "2.1",
+        title: "The SMOG Technique",
+        content:
+          "Interactive lesson: SMOG (Signal, Mirror, Over‑shoulder, Go) with pro‑tips.",
+      },
+      {
+        id: "2.2",
+        title: "The Move Over Law (Ontario Highway Traffic Act)",
+        content:
+          "Interactive lesson: Move Over law—slow down and move over when safe.",
+      },
+      {
+        id: "2.3",
+        title: "Safe Passing Procedures",
+        content:
+          "Interactive lesson: safe passing checks, rules, and no‑pass zones (MTO handbook).",
+      },
+      {
+        id: "2.4",
+        title: "Blind Spots & Truck Safety",
+        content:
+          "Interactive lesson: truck no‑zones and safe passing space cushions.",
+      },
+    ],
+  },
 ];
 
 export const LICENSE_LABELS: Record<LicenseLevel, string> = {
@@ -213,6 +281,6 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Full License Test",
     description:
       "Advanced highway driving, complex intersections, and emergency maneuvers for your G test.",
-    moduleCount: 4,
+    moduleCount: 2,
   },
 ];

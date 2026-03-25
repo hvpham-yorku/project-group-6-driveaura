@@ -5,6 +5,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useMemo, useState } from "react";
+import {
+  AlertTriangle,
+  ArrowRightLeft,
+  BadgeInfo,
+  CheckCircle2,
+  Gauge,
+  GitMerge,
+  Layers,
+  MoveRight,
+  ShieldAlert,
+  Siren,
+  Sparkles,
+  Truck,
+  Users,
+} from "lucide-react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { G2CarExplorer } from "@/components/G2CarExplorer";
 import {
@@ -672,6 +687,639 @@ const OTHER_SIGN_TABLE_DATA: Array<{
   { category: "Other", signName: "Emergency Response Signs", instruction: "Information signs with a numbering system along the bottom to assist emergency vehicles and drivers in determining an appropriate route.", imageUrl: "https://files.ontario.ca/3-1-102.jpg" },
   { category: "Other", signName: "Bilingual Signs", instruction: "Signs in designated bilingual areas featuring messages in both English and French. Read the message in the language you understand best.", imageUrl: "https://files.ontario.ca/3-1-103a.jpg" },
 ];
+
+function MiniHudBadge({
+  label,
+  value,
+  icon,
+}: {
+  label: string;
+  value: string;
+  icon?: React.ReactNode;
+}) {
+  return (
+    <div
+      className="inline-flex items-center gap-2 rounded-xl border px-3 py-2"
+      style={{
+        borderColor: "rgba(0,245,255,0.25)",
+        backgroundColor: "rgba(0,245,255,0.08)",
+      }}
+    >
+      <span className="shrink-0" style={{ color: "var(--electric-cyan)" }}>
+        {icon}
+      </span>
+      <div className="min-w-0">
+        <div
+          className="text-[11px] font-semibold uppercase tracking-wide"
+          style={{ color: "var(--lavender-mist)" }}
+        >
+          {label}
+        </div>
+        <div className="text-sm font-bold" style={{ color: "var(--ghost-white)" }}>
+          {value}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProTipBubble({
+  title = "Pro‑tip",
+  children,
+}: {
+  title?: string;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="inline-flex flex-col items-start">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-left text-xs font-semibold transition-colors"
+        style={{
+          borderColor: open ? "rgba(233,196,82,0.9)" : "rgba(233,196,82,0.35)",
+          backgroundColor: open ? "rgba(233,196,82,0.12)" : "rgba(233,196,82,0.06)",
+          color: "var(--ghost-white)",
+        }}
+        aria-expanded={open}
+      >
+        <BadgeInfo size={16} />
+        <span className="truncate">{title}</span>
+        <span
+          className="ml-2 rounded-full px-2 py-0.5 text-[11px]"
+          style={{ backgroundColor: "rgba(0,0,0,0.25)", color: "var(--lavender-mist)" }}
+        >
+          {open ? "hide" : "view"}
+        </span>
+      </button>
+      {open ? (
+        <div
+          className="mt-2 max-w-xl rounded-xl border p-3 text-xs leading-relaxed"
+          style={{
+            borderColor: "rgba(233,196,82,0.35)",
+            backgroundColor: "rgba(0,0,0,0.18)",
+            color: "var(--lavender-mist)",
+          }}
+        >
+          {children}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function InfoTile({
+  title,
+  icon,
+  accent = "cyan",
+  children,
+}: {
+  title: string;
+  icon?: React.ReactNode;
+  accent?: "cyan" | "crimson" | "warning" | "mint";
+  children: React.ReactNode;
+}) {
+  const accentColor =
+    accent === "crimson"
+      ? "var(--crimson-spark)"
+      : accent === "warning"
+        ? "#E9C452"
+        : accent === "mint"
+          ? "var(--neon-mint)"
+          : "var(--electric-cyan)";
+
+  return (
+    <div
+      className="rounded-lg border p-4"
+      style={{
+        borderColor: "var(--midnight-indigo)",
+        backgroundColor: "var(--void-purple)",
+      }}
+    >
+      <div className="mb-2 flex items-start gap-2">
+        <span className="mt-0.5 shrink-0" style={{ color: accentColor }}>
+          {icon}
+        </span>
+        <div className="min-w-0">
+          <div className="text-base font-semibold" style={{ color: "var(--ghost-white)" }}>
+            {title}
+          </div>
+        </div>
+      </div>
+      <div className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function SourceCard({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="rounded-lg border-2 p-4"
+      style={{
+        borderColor: "var(--electric-cyan)",
+        backgroundColor: "var(--midnight-indigo)",
+      }}
+    >
+      <div
+        className="mb-2 text-xs font-semibold uppercase tracking-wider"
+        style={{ color: "var(--electric-cyan)" }}
+      >
+        Source
+      </div>
+      <div className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function StepTracker({
+  steps,
+  defaultActive = 0,
+}: {
+  steps: Array<{
+    title: string;
+    icon: React.ReactNode;
+    body: React.ReactNode;
+    hud?: React.ReactNode;
+  }>;
+  defaultActive?: number;
+}) {
+  const [active, setActive] = useState(defaultActive);
+  return (
+    <div className="grid gap-4 lg:grid-cols-[260px_1fr]">
+      <div
+        className="rounded-lg border p-3"
+        style={{
+          borderColor: "var(--midnight-indigo)",
+          backgroundColor: "var(--void-purple)",
+        }}
+      >
+        <div
+          className="mb-3 text-xs font-semibold uppercase tracking-wide"
+          style={{ color: "var(--lavender-mist)" }}
+        >
+          Step‑by‑step
+        </div>
+        <div className="space-y-2">
+          {steps.map((s, idx) => {
+            const isActive = idx === active;
+            return (
+              <button
+                key={s.title}
+                type="button"
+                onClick={() => setActive(idx)}
+                className="flex w-full items-center gap-2 rounded-lg border px-3 py-2 text-left transition-colors"
+                style={{
+                  borderColor: isActive ? "rgba(0,245,255,0.55)" : "rgba(184,176,211,0.18)",
+                  backgroundColor: isActive ? "rgba(0,245,255,0.08)" : "rgba(0,0,0,0.08)",
+                  color: "var(--ghost-white)",
+                }}
+                aria-current={isActive ? "step" : undefined}
+              >
+                <span
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg"
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.22)",
+                    color: isActive ? "var(--electric-cyan)" : "var(--lavender-mist)",
+                  }}
+                >
+                  {s.icon}
+                </span>
+                <div className="min-w-0">
+                  <div className="text-sm font-semibold">{s.title}</div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="text-lg font-semibold" style={{ color: "var(--ghost-white)" }}>
+            {steps[active]?.title}
+          </div>
+          {steps[active]?.hud ? <div className="shrink-0">{steps[active].hud}</div> : null}
+        </div>
+        <div
+          className="rounded-lg border p-4"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--void-purple)",
+          }}
+        >
+          {steps[active]?.body}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LaneDiagram() {
+  return (
+    <div
+      className="relative overflow-hidden rounded-lg border p-4"
+      style={{
+        borderColor: "var(--midnight-indigo)",
+        backgroundColor: "var(--void-purple)",
+      }}
+      aria-label="Merge diagram: setup zone vs acceleration lane"
+    >
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <div className="text-sm font-semibold" style={{ color: "var(--ghost-white)" }}>
+          Merge diagram (CSS)
+        </div>
+        <span className="text-xs" style={{ color: "var(--lavender-mist)" }}>
+          Setup Zone → Acceleration Lane → Merge
+        </span>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2">
+        <div
+          className="relative rounded-lg border p-3"
+          style={{ borderColor: "var(--midnight-indigo)", backgroundColor: "rgba(0,0,0,0.10)" }}
+        >
+          <div className="mb-2 text-base font-semibold" style={{ color: "var(--ghost-white)" }}>
+            Setup Zone
+          </div>
+          <div className="space-y-2">
+            <div className="h-3 rounded-full" style={{ backgroundColor: "rgba(184,176,211,0.14)" }} />
+            <div className="h-3 rounded-full" style={{ backgroundColor: "rgba(184,176,211,0.10)" }} />
+            <div className="h-3 rounded-full" style={{ backgroundColor: "rgba(184,176,211,0.08)" }} />
+          </div>
+          <div className="mt-3 text-xs" style={{ color: "var(--lavender-mist)" }}>
+            Scan far ahead, pick a gap, and prepare your speed.
+          </div>
+        </div>
+
+        <div
+          className="relative rounded-lg border p-3"
+          style={{ borderColor: "var(--midnight-indigo)", backgroundColor: "rgba(0,0,0,0.10)" }}
+        >
+          <div className="mb-2 text-base font-semibold" style={{ color: "var(--ghost-white)" }}>
+            Acceleration Lane
+          </div>
+          <div
+            className="relative h-20 overflow-hidden rounded-lg"
+            style={{ backgroundColor: "rgba(0,0,0,0.18)", border: "1px solid rgba(184,176,211,0.16)" }}
+          >
+            <div
+              className="absolute inset-y-0 left-4 w-1"
+              style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+            />
+            <div
+              className="absolute inset-y-0 right-4 w-1"
+              style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+            />
+            <div
+              className="absolute left-3 top-6 h-6 w-10 rounded-md"
+              style={{
+                backgroundColor: "rgba(0,245,255,0.22)",
+                border: "1px solid rgba(0,245,255,0.45)",
+              }}
+            />
+            <div
+              className="absolute left-14 top-10 h-2 w-16 rounded-full"
+              style={{ backgroundColor: "rgba(0,245,255,0.35)" }}
+            />
+            <div
+              className="absolute left-28 top-8 h-2 w-20 rounded-full"
+              style={{ backgroundColor: "rgba(0,245,255,0.22)" }}
+            />
+            <div
+              className="absolute right-6 top-2 h-16 w-2 rounded-full"
+              style={{ backgroundColor: "rgba(233,196,82,0.25)" }}
+            />
+            <div
+              className="absolute right-2 top-3 text-[10px] font-semibold uppercase tracking-wide"
+              style={{ color: "#E9C452" }}
+            >
+              Merge point
+            </div>
+          </div>
+          <div className="mt-3 text-xs" style={{ color: "var(--lavender-mist)" }}>
+            Match flow speed, then merge smoothly into a chosen gap.
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GHighSpeedLesson({ lessonId }: { lessonId: string }) {
+  if (lessonId === "1.1") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <MiniHudBadge label="Mini‑HUD" value="Target: 100 km/h flow" icon={<Gauge size={18} />} />
+          <ProTipBubble title="Check the Dash">
+            When checking your blind spot, remember to glance at the side‑mirror hotspots [x:46, y:39] before merging.
+          </ProTipBubble>
+        </div>
+
+        <StepTracker
+          steps={[
+            {
+              title: "Acceleration",
+              icon: <Gauge size={18} />,
+              hud: (
+                <MiniHudBadge
+                  label="Target speed"
+                  value="Match traffic flow"
+                  icon={<MoveRight size={18} />}
+                />
+              ),
+              body: (
+                <div className="space-y-3">
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+                    Use the entrance ramp to build speed. The MTO Driver’s Handbook emphasizes matching the speed of highway traffic so you merge without forcing others to brake.
+                  </p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <InfoTile title="Do" icon={<CheckCircle2 size={18} />} accent="mint">
+                      Build speed early, keep eyes up, and aim for a specific gap.
+                    </InfoTile>
+                    <InfoTile title="Avoid" icon={<AlertTriangle size={18} />} accent="warning">
+                      Braking hard at the end of the ramp or merging far below traffic speed.
+                    </InfoTile>
+                  </div>
+                </div>
+              ),
+            },
+            {
+              title: "Signaling",
+              icon: <Sparkles size={18} />,
+              body: (
+                <div className="space-y-3">
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+                    Signal early to communicate intent. Then scan far ahead, check mirrors, and hold steady lane position while you time your gap.
+                  </p>
+                  <InfoTile title="Examiner tip" icon={<ShieldAlert size={18} />} accent="crimson">
+                    Signal first, then confirm with mirrors. Signaling “as you drift” reads like a late decision.
+                  </InfoTile>
+                </div>
+              ),
+            },
+            {
+              title: "Merging",
+              icon: <GitMerge size={18} />,
+              body: (
+                <div className="space-y-3">
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+                    Shoulder‑check just before moving, then merge smoothly into a real space cushion (room ahead and behind). Keep steering steady—no drifting.
+                  </p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <InfoTile title="Common mistake" icon={<AlertTriangle size={18} />} accent="warning">
+                      Merging into a gap that only exists “for a moment,” causing other drivers to brake.
+                    </InfoTile>
+                    <SourceCard>
+                      Ontario Ministry of Transportation. Official MTO Driver’s Handbook (Chapter 2): expressway driving, merging, and lane changes.
+                    </SourceCard>
+                  </div>
+                </div>
+              ),
+            },
+          ]}
+        />
+
+        <LaneDiagram />
+      </div>
+    );
+  }
+
+  if (lessonId === "1.2") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <MiniHudBadge label="Mini‑HUD" value="Lane goal: predictable" icon={<ArrowRightLeft size={18} />} />
+          <ProTipBubble title="Check the Dash">
+            Mirror checks before lane changes reduce sudden “surprise moves.”
+          </ProTipBubble>
+        </div>
+        <div className="grid gap-4 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <InfoTile title="Core rule" icon={<CheckCircle2 size={18} />} accent="mint">
+              Keep right except to pass. Use the left lane mainly to pass, then return to the right when safe.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-5">
+            <InfoTile title="HOV lanes" icon={<Users size={18} />} accent="cyan">
+              Follow posted occupancy rules and don’t cross solid lines. Plan entry/exit early where allowed.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-6">
+            <InfoTile title="Common mistake" icon={<AlertTriangle size={18} />} accent="warning">
+              Camping in the left lane at the same speed as traffic.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-6">
+            <SourceCard>
+              Ontario Ministry of Transportation. Official MTO Driver’s Handbook (Chapter 2): lane use and passing on expressways.
+            </SourceCard>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (lessonId === "1.3") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <MiniHudBadge label="Mini‑HUD" value="Baseline: 3 seconds" icon={<Gauge size={18} />} />
+          <ProTipBubble title="Check the Dash">
+            If your speed creeps up, your following time shrinks fast—protect your gap with quick speed checks.
+          </ProTipBubble>
+        </div>
+        <div className="grid gap-4 md:grid-cols-12">
+          <div className="md:col-span-6">
+            <InfoTile title="3‑second rule" icon={<CheckCircle2 size={18} />} accent="mint">
+              Pick a fixed point, count 3 seconds after the vehicle ahead passes it, and increase space if you arrive too soon.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-6">
+            <InfoTile title="Increase time when…" icon={<AlertTriangle size={18} />} accent="warning">
+              Rain/snow, spray, darkness, glare, fatigue, or when following large vehicles.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-7">
+            <InfoTile title="Avoid “wolf packs”" icon={<Sparkles size={18} />} accent="cyan">
+              Don’t stay boxed in—use small legal speed changes and planned lane changes to create space.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-5">
+            <SourceCard>
+              Ontario Ministry of Transportation. Official MTO Driver’s Handbook (Chapter 2): following distance and space cushions.
+            </SourceCard>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 1.4
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <MiniHudBadge label="Mini‑HUD" value="Exit plan: early" icon={<MoveRight size={18} />} />
+        <ProTipBubble title="Check the Dash">
+          Don’t brake hard in the travel lane—get into the deceleration lane first.
+        </ProTipBubble>
+      </div>
+      <div className="grid gap-4 md:grid-cols-12">
+        <div className="md:col-span-7">
+          <InfoTile title="Exit sequence" icon={<CheckCircle2 size={18} />} accent="mint">
+            Plan early → signal → mirror + shoulder check → enter exit lane → slow down in the deceleration lane.
+          </InfoTile>
+        </div>
+        <div className="md:col-span-5">
+          <InfoTile title="Missed exit?" icon={<AlertTriangle size={18} />} accent="warning">
+            Go to the next exit and reroute. Never stop, reverse, or back up on the expressway or ramp.
+          </InfoTile>
+        </div>
+        <div className="md:col-span-12">
+          <SourceCard>
+            Ontario Ministry of Transportation. Official MTO Driver’s Handbook (Chapter 2): expressway exits and deceleration lanes.
+          </SourceCard>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GAdvancedLaneLesson({ lessonId }: { lessonId: string }) {
+  if (lessonId === "2.1") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <MiniHudBadge label="Mini‑HUD" value="SMOG: repeatable" icon={<GitMerge size={18} />} />
+          <ProTipBubble title="Check the Dash">
+            Blind‑spot check combo: mirror → shoulder. Remember the side‑mirror hotspots [x:46, y:39] right before you “Go.”
+          </ProTipBubble>
+        </div>
+        <div className="grid gap-4 md:grid-cols-12">
+          <div className="md:col-span-6">
+            <InfoTile title="S — Signal" icon={<Sparkles size={18} />} accent="cyan">
+              Signal first to communicate intent. Don’t signal as you drift.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-6">
+            <InfoTile title="M — Mirror" icon={<BadgeInfo size={18} />} accent="cyan">
+              Check mirrors to understand speed/position behind and beside you.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-6">
+            <InfoTile title="O — Over‑shoulder" icon={<CheckCircle2 size={18} />} accent="mint">
+              Quick blind‑spot check immediately before moving.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-6">
+            <InfoTile title="G — Go" icon={<MoveRight size={18} />} accent="mint">
+              Move smoothly into a real space cushion (room ahead and behind).
+            </InfoTile>
+          </div>
+          <div className="md:col-span-12">
+            <SourceCard>
+              Ontario Ministry of Transportation. Official MTO Driver’s Handbook (Chapters 2 &amp; 4): lane changes and blind‑spot checks.
+            </SourceCard>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (lessonId === "2.2") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <MiniHudBadge label="Mini‑HUD" value="Move over + slow down" icon={<Siren size={18} />} />
+          <ProTipBubble title="Check the Dash">
+            Early mirror checks prevent last‑second swerves when you spot flashing lights.
+          </ProTipBubble>
+        </div>
+        <div className="grid gap-4 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <InfoTile title="Legal requirement" icon={<ShieldAlert size={18} />} accent="crimson">
+              Slow down and move over one lane away when safe. If you can’t move over safely, slow down significantly and pass with extra caution.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-5">
+            <InfoTile title="Scan for" icon={<AlertTriangle size={18} />} accent="warning">
+              People near the shoulder, cones, open doors, and sudden braking ahead.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-12">
+            <SourceCard>
+              Ontario Highway Traffic Act “Move Over” requirements + Official MTO Driver’s Handbook defensive driving guidance.
+            </SourceCard>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (lessonId === "2.3") {
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <MiniHudBadge label="Mini‑HUD" value="Pass: plan to finish" icon={<MoveRight size={18} />} />
+          <ProTipBubble title="Check the Dash">
+            If someone is closing fast behind, your safe passing window can disappear—mirror checks first.
+          </ProTipBubble>
+        </div>
+        <div className="grid gap-4 md:grid-cols-12">
+          <div className="md:col-span-6">
+            <InfoTile title="Before you pass" icon={<CheckCircle2 size={18} />} accent="mint">
+              Check ahead (distance/sightlines) and behind (faster traffic), then SMOG into the passing lane.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-6">
+            <InfoTile title="Passing is prohibited" icon={<AlertTriangle size={18} />} accent="warning">
+              When sightlines are limited: hills, curves, bridges, intersections, and where signs/markings forbid.
+            </InfoTile>
+          </div>
+          <div className="md:col-span-12">
+            <SourceCard>
+              Ontario Ministry of Transportation. Official MTO Driver’s Handbook (Chapters 2 &amp; 4): passing rules and hazards.
+            </SourceCard>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 2.4
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <MiniHudBadge label="Mini‑HUD" value="No‑zones: avoid" icon={<Truck size={18} />} />
+        <ProTipBubble title="Check the Dash">
+          Don’t linger beside the trailer. Either fall back with space or pass decisively with space.
+        </ProTipBubble>
+      </div>
+      <div className="grid gap-4 md:grid-cols-12">
+        <div className="md:col-span-7">
+          <InfoTile title="Truck no‑zones" icon={<Truck size={18} />} accent="cyan">
+            Biggest blind spots are along the right side and directly behind. Increase following distance so you can see around the truck.
+          </InfoTile>
+        </div>
+        <div className="md:col-span-5">
+          <InfoTile title="Passing safely" icon={<GitMerge size={18} />} accent="mint">
+            Pass decisively, then leave extra room before moving back in front—trucks need more stopping distance.
+          </InfoTile>
+        </div>
+        <div className="md:col-span-12">
+          <SourceCard>
+            Ontario Ministry of Transportation. Official MTO Driver’s Handbook: sharing the road with large commercial vehicles and blind‑spot risks.
+          </SourceCard>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function ModuleReaderContent() {
   const params = useParams();
@@ -5911,6 +6559,10 @@ function ModuleReaderContent() {
                   <ManeuverLessonContent
                     content={ROAD_MANEUVERS_CONTENT[currentLesson.id]}
                   />
+                ) : moduleId === "g-high-speed-expressway-driving" ? (
+                  <GHighSpeedLesson lessonId={currentLesson.id} />
+                ) : moduleId === "g-advanced-lane-management" ? (
+                  <GAdvancedLaneLesson lessonId={currentLesson.id} />
                 ) : (
                   <p
                     className="leading-relaxed"
