@@ -177,6 +177,36 @@ export const MODULES: ModuleItem[] = [
       { id: "5", title: "Parking (Parallel, Perpendicular, Hill)", content: "" },
     ],
   },
+  {
+    id: "g2-hazard-awareness-defensive-driving",
+    licenseLevel: "G2",
+    title: "Hazard Awareness & Defensive Driving",
+    category: "G2 Road Prep",
+    description:
+      "Identifying risks, scanning, blind spots, and reacting safely in real traffic.",
+    lessons: [
+      { id: "1", title: "Scanning & space cushions", content: "" },
+      { id: "2", title: "Blind spots & mirror checks", content: "" },
+      { id: "3", title: "Intersections & pedestrian hazards", content: "" },
+      { id: "4", title: "Following distance & speed choice", content: "" },
+      { id: "5", title: "Defensive responses (brake, steer, escape routes)", content: "" },
+    ],
+  },
+  {
+    id: "g2-parking-low-speed-control",
+    licenseLevel: "G2",
+    title: "Parking & Low-Speed Control",
+    category: "G2 Road Prep",
+    description:
+      "Parallel parking, reverse parking, hill parking, and slow-speed control.",
+    lessons: [
+      { id: "1", title: "Slow-speed control (creep, clutch/brake balance)", content: "" },
+      { id: "2", title: "Parallel parking", content: "" },
+      { id: "3", title: "Reverse parking", content: "" },
+      { id: "4", title: "Perpendicular parking", content: "" },
+      { id: "5", title: "Hill parking (uphill/downhill)", content: "" },
+    ],
+  },
 ];
 
 export const LICENSE_LABELS: Record<LicenseLevel, string> = {
@@ -206,7 +236,7 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Road Test Level 1",
     description:
       "Prepare for your G2 road test: Ontario licence rules, pre-drive vehicle checks, and core maneuvers like turns, lane changes, and parking.",
-    moduleCount: 3,
+    moduleCount: 5,
   },
   {
     licenseLevel: "G",
