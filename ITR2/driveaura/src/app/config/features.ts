@@ -53,6 +53,12 @@ export const practiceFeatures: readonly FeatureItem[] = [
     label: "Weather Training",
     description: "Prepare for low visibility, rain, snow, and shifting road conditions.",
   },
+  {
+    href: "/hazard-perception-training",
+    label: "Hazard Perception Training",
+    description:
+      "Train reaction timing and hazard choices with dashcam-based crash scenarios.",
+  },
 ] as const;
 
 export const accountFeatures: readonly FeatureItem[] = [
@@ -79,5 +85,6 @@ export const protectedRoutePrefixes = [
   "/routes",
   "/user-as-examiner",
   "/weather-training",
+  "/hazard-perception-training",
   "/account",
 ] as const;
