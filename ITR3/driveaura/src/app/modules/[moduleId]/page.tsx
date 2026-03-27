@@ -39,6 +39,7 @@ import {
   isLessonComplete,
   setLessonComplete,
 } from "../progress";
+import { awardLessonPoints } from "@/lib/auraPoints";
 import {
   ROAD_MANEUVERS_CONTENT,
   type ManeuverContent,
@@ -7012,6 +7013,7 @@ function ModuleReaderContent() {
                   onClick={async () => {
                     setProgressSyncError(null);
                     setLessonComplete(moduleId, currentLesson.id);
+                    awardLessonPoints(moduleId, currentLesson.id);
                     setMarkedComplete(true);
 
                     if (user) {
