@@ -4625,6 +4625,18 @@ function ModuleReaderContent() {
                     Next lesson →
                   </Link>
                 )}
+                {lessonIndex === moduleItem.lessons.length - 1 && (
+                  <Link
+                    href={`/quizzes/${moduleId}`}
+                    className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:opacity-95"
+                    style={{
+                      backgroundColor: "var(--electric-cyan)",
+                      color: "var(--void-purple)",
+                    }}
+                  >
+                    Start quiz
+                  </Link>
+                )}
               </div>
             </>
           ) : (
