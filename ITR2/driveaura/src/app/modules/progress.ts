@@ -39,12 +39,16 @@ export function getCompletedLessonsForModule(moduleId: string): string[] {
     .map((key) => key.slice(prefix.length));
 }
 
-/** Mark a lesson as complete. Idempotent. */
-export function setLessonComplete(moduleId: string, lessonId: string): void {
+/**
+ * Mark a lesson as complete.
+ * Returns true if the lesson was newly marked (first time), false if it was already complete.
+ */
+export function setLessonComplete(moduleId: string, lessonId: string): boolean {
   const key = `${moduleId}-${lessonId}`;
   const current = getStored();
-  if (current.includes(key)) return;
+  if (current.includes(key)) return false;
   setStored([...current, key]);
+  return true;
 }
 
 /** Check if a lesson is marked complete. */

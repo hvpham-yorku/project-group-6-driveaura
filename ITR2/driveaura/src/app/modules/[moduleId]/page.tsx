@@ -39,6 +39,8 @@ import {
   isLessonComplete,
   setLessonComplete,
 } from "../progress";
+import { awardLessonPoints } from "@/lib/auraPoints";
+import { saveUserAuraPoints, fetchUserAuraPoints } from "@/lib/firebase/auraPoints";
 import {
   ROAD_MANEUVERS_CONTENT,
   type ManeuverContent,
@@ -1769,6 +1771,7 @@ function ModuleReaderContent() {
 
   const [markedComplete, setMarkedComplete] = useState(false);
   const [progressSyncError, setProgressSyncError] = useState<string | null>(null);
+  const [auraToast, setAuraToast] = useState<number | null>(null);
   const [g2PassengerTab, setG2PassengerTab] = useState<"first6" | "after6">("first6");
   const [g2PathsTab, setG2PathsTab] = useState<"demerits" | "escalating">("demerits");
   const currentLesson = moduleItem?.lessons[lessonIndex];
@@ -7011,8 +7014,26 @@ function ModuleReaderContent() {
                   type="button"
                   onClick={async () => {
                     setProgressSyncError(null);
-                    setLessonComplete(moduleId, currentLesson.id);
+                    const isNew = setLessonComplete(moduleId, currentLesson.id);
                     setMarkedComplete(true);
+
+                    if (isNew) {
+                      const pts = awardLessonPoints(moduleId, currentLesson.id);
+                      if (pts > 0) {
+                        setAuraToast(pts);
+                        setTimeout(() => setAuraToast(null), 3000);
+
+                        if (user) {
+                          try {
+                            const remote = await fetchUserAuraPoints(user.uid);
+                            const base = remote ?? 0;
+                            await saveUserAuraPoints(user.uid, base + pts);
+                          } catch {
+                            // non-critical — local points already saved
+                          }
+                        }
+                      }
+                    }
 
                     if (user) {
                       const completedForModule = getCompletedLessonsForModule(moduleId);
@@ -7047,6 +7068,18 @@ function ModuleReaderContent() {
                   <IconCheck />
                   {markedComplete ? "Marked complete" : "Mark as complete"}
                 </button>
+                {auraToast !== null && (
+                  <span
+                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-semibold animate-pulse"
+                    style={{
+                      backgroundColor: "rgba(0,245,255,0.12)",
+                      color: "var(--electric-cyan)",
+                      border: "1px solid rgba(0,245,255,0.35)",
+                    }}
+                  >
+                    ✦ +{auraToast} Aura Points
+                  </span>
+                )}
                 {progressSyncError ? (
                   <p className="text-sm" style={{ color: "var(--crimson-spark)" }}>
                     {progressSyncError}
