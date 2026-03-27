@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Routes Page — Driving test centres on the left; one large map on the right.
+ * Test Centres Page — Driving test centres on the left; one large map on the right.
  * Clicking a centre updates the map to that centre’s location. Stacks vertically on mobile.
  */
 
@@ -9,10 +9,10 @@ import { useState, useMemo } from "react";
 import { MapPin, Search } from "lucide-react";
 import { drivingCentres } from "@/data/drivingCentres";
 import type { DrivingCentre } from "@/data/drivingCentres";
-import CentreCard from "@/components/routes/CentreCard";
-import RouteDetails from "@/components/routes/RouteDetails";
+import CentreCard from "@/components/test-centres/CentreCard";
+import TestCentreDetails from "@/components/test-centres/TestCentreDetails";
 
-export default function RoutesPage() {
+export default function TestCentresPage() {
   const [selectedCentre, setSelectedCentre] = useState<DrivingCentre | null>(
     null
   );
@@ -80,7 +80,7 @@ export default function RoutesPage() {
               </p>
             </div>
           ) : (
-            <RouteDetails centre={selectedCentre} />
+            <TestCentreDetails centre={selectedCentre} />
           )}
         </main>
       </div>

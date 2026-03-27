@@ -39,9 +39,9 @@ export const practiceFeatures: readonly FeatureItem[] = [
       "Assess your mental + physical state, get a readiness score, and follow step-by-step reset strategies.",
   },
   {
-    href: "/routes",
-    label: "Test Centres & Routes",
-    description: "Explore Ontario centres, route context, and map-based planning.",
+    href: "/test-centres",
+    label: "Test Centres",
+    description: "Explore Ontario DriveTest centres, view embedded maps, and find key watch-outs.",
   },
   {
     href: "/user-as-examiner",
@@ -76,7 +76,7 @@ export const protectedRoutePrefixes = [
   "/test-checklist",
   "/readiness-check",
   "/checklist",
-  "/routes",
+  "/test-centres",
   "/user-as-examiner",
   "/weather-training",
   "/account",
