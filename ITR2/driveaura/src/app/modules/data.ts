@@ -327,6 +327,158 @@ export const MODULES: ModuleItem[] = [
       },
     ],
   },
+  {
+    id: "g-high-speed-expressway-driving",
+    licenseLevel: "G",
+    title: "High-Speed Expressway Driving",
+    category: "G License: Highway Skills",
+    description:
+      "Confident merging, lane etiquette, safe space cushions at 100 km/h, and proper exits—key skills from the MTO Driver’s Handbook (Chapter 2).",
+    lessons: [
+      {
+        id: "1.1",
+        title: "The Entrance Ramp & Acceleration Lane",
+        content:
+          "Interactive lesson: ramp → acceleration lane → merge (MTO handbook based).",
+      },
+      {
+        id: "1.2",
+        title: "Highway Lane Etiquette",
+        content:
+          "Interactive lesson: keep right except to pass + HOV basics (MTO handbook based).",
+      },
+      {
+        id: "1.3",
+        title: "Space Cushions at 100km/h",
+        content:
+          "Interactive lesson: 3‑second rule, weather adjustments, and avoiding “wolf packs.”",
+      },
+      {
+        id: "1.4",
+        title: "Exiting the Expressway",
+        content:
+          "Interactive lesson: signal early, deceleration lane, and safe “missed exit” decisions.",
+      },
+    ],
+  },
+  {
+    id: "g-advanced-lane-management",
+    licenseLevel: "G",
+    title: "Advanced Lane Management",
+    category: "G License: Decision-Making",
+    description:
+      "Lane changes, passing, blind spots, and Ontario-specific laws—advanced habits drawn from the MTO Driver’s Handbook (Chapters 2 & 4).",
+    lessons: [
+      {
+        id: "2.1",
+        title: "The SMOG Technique",
+        content:
+          "Interactive lesson: SMOG (Signal, Mirror, Over‑shoulder, Go) with pro‑tips.",
+      },
+      {
+        id: "2.2",
+        title: "The Move Over Law (Ontario Highway Traffic Act)",
+        content:
+          "Interactive lesson: Move Over law—slow down and move over when safe.",
+      },
+      {
+        id: "2.3",
+        title: "Safe Passing Procedures",
+        content:
+          "Interactive lesson: safe passing checks, rules, and no‑pass zones (MTO handbook).",
+      },
+      {
+        id: "2.4",
+        title: "Blind Spots & Truck Safety",
+        content:
+          "Interactive lesson: truck no‑zones and safe passing space cushions.",
+      },
+    ],
+  },
+  {
+    id: "g-complex-intersections-hazard-perception",
+    licenseLevel: "G",
+    title: "Complex Intersections & Hazard Perception",
+    category: "G License: Module 3",
+    description:
+      "Master 360-degree scanning, truck no-zones, and pedestrian crossover right-of-way using MTO Chapter 2 principles.",
+    lessons: [
+      {
+        id: "3.1",
+        title: "Intersection Scan and Conflict Management",
+        content:
+          "Interactive lesson: 360 scan, large-vehicle no-zones, and crossover hazard priorities.",
+      },
+      {
+        id: "3.2",
+        title: "Protected vs. Unprotected Left Turns",
+        content:
+          "Interactive lesson: risk checks for left turns across traffic (MTO Chapter 2).",
+      },
+      {
+        id: "3.3",
+        title: "Rail Crossings, Buses, and School Zones",
+        content:
+          "Interactive lesson: legal stopping priorities and hazard anticipation at controlled conflict points.",
+      },
+    ],
+  },
+  {
+    id: "g-system-of-driving-oea",
+    licenseLevel: "G",
+    title: "The System of Driving (Observe, Evaluate, Act)",
+    category: "G License: Module 4",
+    description:
+      "Apply the OEA method and space-cushion strategy for better decision-making at city and highway speeds.",
+    lessons: [
+      {
+        id: "4.1",
+        title: "Observe, Evaluate, Act in Real Traffic",
+        content:
+          "Interactive lesson: OEA flow and 2-second vs 3-second space-cushion comparison.",
+      },
+      {
+        id: "4.2",
+        title: "Escape Routes and Decision Timing",
+        content:
+          "Interactive lesson: building escape options and choosing early low-risk actions.",
+      },
+      {
+        id: "4.3",
+        title: "Highway OEA Under Pressure",
+        content:
+          "Interactive lesson: applying OEA during merges, lane closures, and fast-changing traffic.",
+      },
+    ],
+  },
+  {
+    id: "g-environmental-awareness-eco-driving",
+    licenseLevel: "G",
+    title: "Environmental Awareness & Eco-Driving",
+    category: "G License: Module 5",
+    description:
+      "Adjust safely to rain/snow and reduce fuel and wear with practical eco-driving habits from MTO Chapter 4.",
+    lessons: [
+      {
+        id: "5.1",
+        title: "Adverse Conditions and Efficient Driving",
+        content:
+          "Interactive lesson: weather toggle for follow-distance targets and eco-driving checklist.",
+      },
+      {
+        id: "5.2",
+        title: "Night Driving and Visibility Strategy",
+        content:
+          "Interactive lesson: headlight discipline, glare control, and nighttime hazard scanning.",
+      },
+      {
+        id: "5.3",
+        title: "Skid Prevention and Recovery Basics",
+        content:
+          "Interactive lesson: traction limits, smooth inputs, and skid-response priorities.",
+      },
+    ],
+  },
 ];
 
 export const LICENSE_LABELS: Record<LicenseLevel, string> = {
@@ -363,6 +515,6 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Full License Test",
     description:
       "Advanced highway driving, complex intersections, and emergency maneuvers for your G test.",
-    moduleCount: 4,
+    moduleCount: 5,
   },
 ];

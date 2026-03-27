@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  /* Ontario Government–inspired palette */
+  --ontario-blue: #003366;
+  --ontario-blue-light: #00478f;
+  --ontario-slate: #4a5568;
+  --ontario-slate-light: #718096;
+  --ontario-gray: #e2e8f0;
+  /* DriveAura Midnight / Examiner dark theme palette */
+  --void-purple: #0F051D;
+  --midnight-indigo: #1C1132;
+  --crimson-spark: #FF3B3F;
+  --crimson-spark-hover: #ff5a5e;
+  --electric-cyan: #00F5FF;
+  --ghost-white: #F5F5F7;
+  --lavender-mist: #B8B0D3;
+  --neon-mint: #39FF14;
+}
+
+/* DriveAura Night-Drive design tokens — hex in @theme so utilities are generated */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ontario-blue: var(--ontario-blue);
+  --color-ontario-blue-light: var(--ontario-blue-light);
+  --color-ontario-slate: var(--ontario-slate);
+  --color-ontario-slate-light: var(--ontario-slate-light);
+  --color-ontario-gray: var(--ontario-gray);
+  /* Examiner theme colors */
+  --color-void-purple: var(--void-purple);
+  --color-midnight-indigo: var(--midnight-indigo);
+  --color-crimson-spark: var(--crimson-spark);
+  --color-electric-cyan: var(--electric-cyan);
+  --color-ghost-white: var(--ghost-white);
+  --color-lavender-mist: var(--lavender-mist);
+  --color-neon-mint: var(--neon-mint);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Module card aura glow — active and hover */
+.module-card {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.module-card.module-card--active {
+  border-color: var(--electric-cyan);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.4), 0 0 40px rgba(0, 245, 255, 0.2);
+}
+.module-card:hover {
+  border-color: var(--electric-cyan);
+  box-shadow: 0 0 24px rgba(0, 245, 255, 0.5), 0 0 48px rgba(0, 245, 255, 0.25);
+}
+
+/* Pathway Selector card — Electric Cyan "Aura" glow (active + hover) */
+.pathway-card {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.pathway-card.pathway-card--active {
+  border-color: var(--electric-cyan);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.4), 0 0 40px rgba(0, 245, 255, 0.2);
+}
+.pathway-card:not(.pathway-card--locked):hover {
+  border-color: var(--electric-cyan);
+  box-shadow: 0 0 24px rgba(0, 245, 255, 0.5), 0 0 48px rgba(0, 245, 255, 0.25);
+}
