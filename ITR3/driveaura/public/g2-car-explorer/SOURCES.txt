@@ -1,0 +1,7 @@
+G2 Car Explorer — single 2×2 sprite
+
+car-views-sprite.png — composite (front, left side, rear, top) of one vehicle.
+Replace this file to change artwork; if layout changes, update hotspot percentages in
+src/components/G2CarExplorer.tsx (VIEW_CONFIG).
+
+Previous separate JPGs in this folder are unused by the app and may be deleted.
