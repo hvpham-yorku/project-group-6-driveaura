@@ -177,6 +177,107 @@ export const MODULES: ModuleItem[] = [
       { id: "5", title: "Parking (Parallel, Perpendicular, Hill)", content: "" },
     ],
   },
+  {
+    id: "g2-hazard-awareness-defensive-driving",
+    licenseLevel: "G2",
+    title: "Hazard Awareness & Defensive Driving",
+    category: "G2 Road Prep",
+    description:
+      "Identifying risks, scanning, blind spots, and reacting safely in real traffic.",
+    lessons: [
+      { id: "1", title: "Scanning & space cushions", content: "" },
+      { id: "2", title: "Blind spots & mirror checks", content: "" },
+      { id: "3", title: "Intersections & pedestrian hazards", content: "" },
+      { id: "4", title: "Following distance & speed choice", content: "" },
+      {
+        id: "5",
+        title: "Defensive responses (brake, steer, escape routes)",
+        content: "",
+      },
+    ],
+  },
+  {
+    id: "g2-parking-low-speed-control",
+    licenseLevel: "G2",
+    title: "Parking & Low-Speed Control",
+    category: "G2 Road Prep",
+    description:
+      "Parallel parking, reverse parking, hill parking, and slow-speed control.",
+    lessons: [
+      { id: "1", title: "Slow-speed control (creep, clutch/brake balance)", content: "" },
+      { id: "2", title: "Parallel parking", content: "" },
+      { id: "3", title: "Reverse parking", content: "" },
+      { id: "4", title: "Perpendicular parking", content: "" },
+      { id: "5", title: "Hill parking (uphill/downhill)", content: "" },
+    ],
+  },
+  {
+    id: "g-high-speed-expressway-driving",
+    licenseLevel: "G",
+    title: "High-Speed Expressway Driving",
+    category: "G License: Highway Skills",
+    description:
+      "Confident merging, lane etiquette, safe space cushions at 100 km/h, and proper exits.",
+    lessons: [
+      { id: "1", title: "The Entrance Ramp & Acceleration Lane", content: "" },
+      { id: "2", title: "Highway Lane Etiquette", content: "" },
+      { id: "3", title: "Space Cushions at 100km/h", content: "" },
+      { id: "4", title: "Exiting the Expressway", content: "" },
+    ],
+  },
+  {
+    id: "g-advanced-lane-management",
+    licenseLevel: "G",
+    title: "Advanced Lane Management",
+    category: "G License: Decision-Making",
+    description:
+      "Lane changes, passing, blind spots, and Ontario-specific high-speed lane discipline.",
+    lessons: [
+      { id: "1", title: "The SMOG Technique", content: "" },
+      { id: "2", title: "Move Over Rules", content: "" },
+      { id: "3", title: "Safe Passing Procedures", content: "" },
+      { id: "4", title: "Blind Spots & Truck Safety", content: "" },
+    ],
+  },
+  {
+    id: "g-complex-intersections-hazard-perception",
+    licenseLevel: "G",
+    title: "Complex Intersections & Hazard Perception",
+    category: "G License: Module 3",
+    description:
+      "Master intersection scanning, conflict management, and hazard prioritization.",
+    lessons: [
+      { id: "1", title: "Intersection Scan and Conflict Management", content: "" },
+      { id: "2", title: "Protected vs. Unprotected Left Turns", content: "" },
+      { id: "3", title: "Rail Crossings, Buses, and School Zones", content: "" },
+    ],
+  },
+  {
+    id: "g-system-of-driving-oea",
+    licenseLevel: "G",
+    title: "The System of Driving (Observe, Evaluate, Act)",
+    category: "G License: Module 4",
+    description:
+      "Apply OEA and space-cushion strategy for better real-time decisions.",
+    lessons: [
+      { id: "1", title: "Observe, Evaluate, Act in Real Traffic", content: "" },
+      { id: "2", title: "Escape Routes and Decision Timing", content: "" },
+      { id: "3", title: "Highway OEA Under Pressure", content: "" },
+    ],
+  },
+  {
+    id: "g-environmental-awareness-eco-driving",
+    licenseLevel: "G",
+    title: "Environmental Awareness & Eco-Driving",
+    category: "G License: Module 5",
+    description:
+      "Weather adaptation, visibility strategy, and eco-driving habits.",
+    lessons: [
+      { id: "1", title: "Adverse Conditions and Efficient Driving", content: "" },
+      { id: "2", title: "Night Driving and Visibility Strategy", content: "" },
+      { id: "3", title: "Skid Prevention and Recovery Basics", content: "" },
+    ],
+  },
 ];
 
 export const LICENSE_LABELS: Record<LicenseLevel, string> = {
@@ -206,13 +307,13 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Road Test Level 1",
     description:
       "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
-    moduleCount: 3,
+    moduleCount: 5,
   },
   {
     licenseLevel: "G",
     title: "Full License Test",
     description:
       "Advanced highway driving, complex intersections, and emergency maneuvers for your G test.",
-    moduleCount: 4,
+    moduleCount: 5,
   },
 ];
