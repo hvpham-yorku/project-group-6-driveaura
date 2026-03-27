@@ -108,7 +108,7 @@ export const MODULES: ModuleItem[] = [
     title: "G2 Licensing Restrictions",
     category: "G2 Road Prep",
     description:
-      "Rules and restrictions that apply to G2 licence holders in Ontario.",
+      "Ontario G2 rules: zero alcohol/drugs, passenger limits for under 19, seatbelts, demerits, and how you progress to a full G.",
     lessons: [
       {
         id: "1",
@@ -143,7 +143,7 @@ export const MODULES: ModuleItem[] = [
     title: "Pre-Drive and Vehicle Safety",
     category: "G2 Road Prep",
     description:
-      "Pre-drive inspections, seat and mirror adjustment, warning lights, tires and brakes, visibility, required documents, and hazard awareness — based on the Ontario MTO Driver's Handbook.",
+      "Before you drive: walk-around checks, seat and mirrors, dash lights, tires and brakes, visibility, and your papers—plus hazard awareness (Ontario MTO handbook).",
     lessons: [
       { id: "1", title: "Pre-Drive Vehicle Inspection", content: "" },
       { id: "2", title: "Seat and Mirror Adjustment", content: "" },
@@ -168,7 +168,7 @@ export const MODULES: ModuleItem[] = [
     title: "Essential Road Maneuvers",
     category: "G2 Road Prep",
     description:
-      "Master left and right turns, lane changes, reversing, three-point and U-turns, and parking for your G2 road test.",
+      "On the road: turns, lane changes, backing up, three-point and U-turns, and parking—core skills for your G2 road test.",
     lessons: [
       { id: "1", title: "Left and Right Turns", content: "" },
       { id: "2", title: "Lane Changes and Lane Positioning", content: "" },
@@ -189,11 +189,15 @@ export const MODULES: ModuleItem[] = [
       { id: "2", title: "Blind spots & mirror checks", content: "" },
       { id: "3", title: "Intersections & pedestrian hazards", content: "" },
       { id: "4", title: "Following distance & speed choice", content: "" },
+<<<<<<< HEAD
       {
         id: "5",
         title: "Defensive responses (brake, steer, escape routes)",
         content: "",
       },
+=======
+      { id: "5", title: "Defensive responses (brake, steer, escape routes)", content: "" },
+>>>>>>> 84b4f3bde9afd22514239d1e73e4a99b1c1c04b1
     ],
   },
   {
@@ -217,12 +221,41 @@ export const MODULES: ModuleItem[] = [
     title: "High-Speed Expressway Driving",
     category: "G License: Highway Skills",
     description:
+<<<<<<< HEAD
       "Confident merging, lane etiquette, safe space cushions at 100 km/h, and proper exits.",
     lessons: [
       { id: "1", title: "The Entrance Ramp & Acceleration Lane", content: "" },
       { id: "2", title: "Highway Lane Etiquette", content: "" },
       { id: "3", title: "Space Cushions at 100km/h", content: "" },
       { id: "4", title: "Exiting the Expressway", content: "" },
+=======
+      "Confident merging, lane etiquette, safe space cushions at 100 km/h, and proper exits—key skills from the MTO Driver’s Handbook (Chapter 2).",
+    lessons: [
+      {
+        id: "1.1",
+        title: "The Entrance Ramp & Acceleration Lane",
+        content:
+          "Interactive lesson: ramp → acceleration lane → merge (MTO handbook based).",
+      },
+      {
+        id: "1.2",
+        title: "Highway Lane Etiquette",
+        content:
+          "Interactive lesson: keep right except to pass + HOV basics (MTO handbook based).",
+      },
+      {
+        id: "1.3",
+        title: "Space Cushions at 100km/h",
+        content:
+          "Interactive lesson: 3‑second rule, weather adjustments, and avoiding “wolf packs.”",
+      },
+      {
+        id: "1.4",
+        title: "Exiting the Expressway",
+        content:
+          "Interactive lesson: signal early, deceleration lane, and safe “missed exit” decisions.",
+      },
+>>>>>>> 84b4f3bde9afd22514239d1e73e4a99b1c1c04b1
     ],
   },
   {
@@ -231,12 +264,41 @@ export const MODULES: ModuleItem[] = [
     title: "Advanced Lane Management",
     category: "G License: Decision-Making",
     description:
+<<<<<<< HEAD
       "Lane changes, passing, blind spots, and Ontario-specific high-speed lane discipline.",
     lessons: [
       { id: "1", title: "The SMOG Technique", content: "" },
       { id: "2", title: "Move Over Rules", content: "" },
       { id: "3", title: "Safe Passing Procedures", content: "" },
       { id: "4", title: "Blind Spots & Truck Safety", content: "" },
+=======
+      "Lane changes, passing, blind spots, and Ontario-specific laws—advanced habits drawn from the MTO Driver’s Handbook (Chapters 2 & 4).",
+    lessons: [
+      {
+        id: "2.1",
+        title: "The SMOG Technique",
+        content:
+          "Interactive lesson: SMOG (Signal, Mirror, Over‑shoulder, Go) with pro‑tips.",
+      },
+      {
+        id: "2.2",
+        title: "The Move Over Law (Ontario Highway Traffic Act)",
+        content:
+          "Interactive lesson: Move Over law—slow down and move over when safe.",
+      },
+      {
+        id: "2.3",
+        title: "Safe Passing Procedures",
+        content:
+          "Interactive lesson: safe passing checks, rules, and no‑pass zones (MTO handbook).",
+      },
+      {
+        id: "2.4",
+        title: "Blind Spots & Truck Safety",
+        content:
+          "Interactive lesson: truck no‑zones and safe passing space cushions.",
+      },
+>>>>>>> 84b4f3bde9afd22514239d1e73e4a99b1c1c04b1
     ],
   },
   {
@@ -245,11 +307,34 @@ export const MODULES: ModuleItem[] = [
     title: "Complex Intersections & Hazard Perception",
     category: "G License: Module 3",
     description:
+<<<<<<< HEAD
       "Master intersection scanning, conflict management, and hazard prioritization.",
     lessons: [
       { id: "1", title: "Intersection Scan and Conflict Management", content: "" },
       { id: "2", title: "Protected vs. Unprotected Left Turns", content: "" },
       { id: "3", title: "Rail Crossings, Buses, and School Zones", content: "" },
+=======
+      "Master 360-degree scanning, truck no-zones, and pedestrian crossover right-of-way using MTO Chapter 2 principles.",
+    lessons: [
+      {
+        id: "3.1",
+        title: "Intersection Scan and Conflict Management",
+        content:
+          "Interactive lesson: 360 scan, large-vehicle no-zones, and crossover hazard priorities.",
+      },
+      {
+        id: "3.2",
+        title: "Protected vs. Unprotected Left Turns",
+        content:
+          "Interactive lesson: risk checks for left turns across traffic (MTO Chapter 2).",
+      },
+      {
+        id: "3.3",
+        title: "Rail Crossings, Buses, and School Zones",
+        content:
+          "Interactive lesson: legal stopping priorities and hazard anticipation at controlled conflict points.",
+      },
+>>>>>>> 84b4f3bde9afd22514239d1e73e4a99b1c1c04b1
     ],
   },
   {
@@ -258,11 +343,34 @@ export const MODULES: ModuleItem[] = [
     title: "The System of Driving (Observe, Evaluate, Act)",
     category: "G License: Module 4",
     description:
+<<<<<<< HEAD
       "Apply OEA and space-cushion strategy for better real-time decisions.",
     lessons: [
       { id: "1", title: "Observe, Evaluate, Act in Real Traffic", content: "" },
       { id: "2", title: "Escape Routes and Decision Timing", content: "" },
       { id: "3", title: "Highway OEA Under Pressure", content: "" },
+=======
+      "Apply the OEA method and space-cushion strategy for better decision-making at city and highway speeds.",
+    lessons: [
+      {
+        id: "4.1",
+        title: "Observe, Evaluate, Act in Real Traffic",
+        content:
+          "Interactive lesson: OEA flow and 2-second vs 3-second space-cushion comparison.",
+      },
+      {
+        id: "4.2",
+        title: "Escape Routes and Decision Timing",
+        content:
+          "Interactive lesson: building escape options and choosing early low-risk actions.",
+      },
+      {
+        id: "4.3",
+        title: "Highway OEA Under Pressure",
+        content:
+          "Interactive lesson: applying OEA during merges, lane closures, and fast-changing traffic.",
+      },
+>>>>>>> 84b4f3bde9afd22514239d1e73e4a99b1c1c04b1
     ],
   },
   {
@@ -271,11 +379,34 @@ export const MODULES: ModuleItem[] = [
     title: "Environmental Awareness & Eco-Driving",
     category: "G License: Module 5",
     description:
+<<<<<<< HEAD
       "Weather adaptation, visibility strategy, and eco-driving habits.",
     lessons: [
       { id: "1", title: "Adverse Conditions and Efficient Driving", content: "" },
       { id: "2", title: "Night Driving and Visibility Strategy", content: "" },
       { id: "3", title: "Skid Prevention and Recovery Basics", content: "" },
+=======
+      "Adjust safely to rain/snow and reduce fuel and wear with practical eco-driving habits from MTO Chapter 4.",
+    lessons: [
+      {
+        id: "5.1",
+        title: "Adverse Conditions and Efficient Driving",
+        content:
+          "Interactive lesson: weather toggle for follow-distance targets and eco-driving checklist.",
+      },
+      {
+        id: "5.2",
+        title: "Night Driving and Visibility Strategy",
+        content:
+          "Interactive lesson: headlight discipline, glare control, and nighttime hazard scanning.",
+      },
+      {
+        id: "5.3",
+        title: "Skid Prevention and Recovery Basics",
+        content:
+          "Interactive lesson: traction limits, smooth inputs, and skid-response priorities.",
+      },
+>>>>>>> 84b4f3bde9afd22514239d1e73e4a99b1c1c04b1
     ],
   },
 ];
@@ -306,7 +437,11 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     licenseLevel: "G2",
     title: "Road Test Level 1",
     description:
+<<<<<<< HEAD
       "Learn practical driving skills, highway entry, and three-point turns for your G2 road test.",
+=======
+      "Prepare for your G2 road test: Ontario licence rules, pre-drive vehicle checks, and core maneuvers like turns, lane changes, and parking.",
+>>>>>>> 84b4f3bde9afd22514239d1e73e4a99b1c1c04b1
     moduleCount: 5,
   },
   {

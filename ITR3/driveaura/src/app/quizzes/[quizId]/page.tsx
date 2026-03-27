@@ -7,6 +7,7 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { MODULES } from "@/app/modules/data";
 import { QUIZZES, type QuizQuestion } from "../data";
 import { addPassedQuiz } from "../passedQuizzes";
+import { awardQuizPoints } from "@/lib/auraPoints";
 
 const PASS_PERCENT = 70;
 
@@ -143,10 +144,11 @@ function QuizContent() {
     return { correct, wrong, total, percent, passed, lessonWeaknesses };
   }, [quiz, submitted, answers]);
 
-  // Persist passed quiz so progress bar updates (only when user passes)
+  // Persist passed quiz and award Aura Points (only when user passes, first time)
   useEffect(() => {
     if (results?.passed && quizId) {
       addPassedQuiz(quizId);
+      awardQuizPoints(quizId);
     }
   }, [results?.passed, quizId]);
 

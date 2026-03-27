@@ -45,9 +45,9 @@ export const practiceFeatures: readonly FeatureItem[] = [
       "Practice shifting a manual car at the right RPM using keyboard controls. Earn Aura for clean shifts.",
   },
   {
-    href: "/routes",
-    label: "Test Centres & Routes",
-    description: "Explore Ontario centres, route context, and map-based planning.",
+    href: "/test-centres",
+    label: "Test Centres",
+    description: "Explore Ontario DriveTest centres, view embedded maps, and find key watch-outs.",
   },
   {
     href: "/user-as-examiner",
@@ -58,6 +58,12 @@ export const practiceFeatures: readonly FeatureItem[] = [
     href: "/weather-training",
     label: "Weather Training",
     description: "Prepare for low visibility, rain, snow, and shifting road conditions.",
+  },
+  {
+    href: "/hazard-perception-training",
+    label: "Hazard Perception Training",
+    description:
+      "Train reaction timing and hazard choices with dashcam-based crash scenarios.",
   },
 ] as const;
 
@@ -83,8 +89,9 @@ export const protectedRoutePrefixes = [
   "/readiness-check",
   "/manual-shift",
   "/checklist",
-  "/routes",
+  "/test-centres",
   "/user-as-examiner",
   "/weather-training",
+  "/hazard-perception-training",
   "/account",
 ] as const;

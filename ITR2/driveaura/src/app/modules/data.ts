@@ -276,9 +276,9 @@ export const MODULES: ModuleItem[] = [
     ],
   },
   {
-    id: "g-complex-intersections-hazard-perception",
+    id: "g-complex-intersections",
     licenseLevel: "G",
-    title: "Complex Intersections & Hazard Perception",
+    title: "Complex Intersections",
     category: "G License: Module 3",
     description:
       "Master 360-degree scanning, truck no-zones, and pedestrian crossover right-of-way using MTO Chapter 2 principles.",

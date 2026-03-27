@@ -11,7 +11,7 @@ type NavFeature = {
 
 const heroQuickLinks: readonly NavFeature[] = [
   { href: "/modules", label: "Modules" },
-  { href: "/routes", label: "Centres" },
+  { href: "/test-centres", label: "Test Centres" },
   { href: "/test-checklist", label: "Checklist" },
   { href: "/quizzes", label: "Quizzes" },
   { href: "/readiness-check", label: "Readiness" },
@@ -56,7 +56,7 @@ export default function Home() {
               Start Learning
             </Link>
             <Link
-              href={toFeatureHref("/routes", isLoggedIn)}
+              href={toFeatureHref("/test-centres", isLoggedIn)}
               className="rounded-full border border-[#00F5FF]/25 bg-[#1C1132] px-6 py-3 text-sm font-semibold text-[#F5F5F7] transition hover:border-[#00F5FF]/60"
             >
               Explore test centres
@@ -94,11 +94,11 @@ export default function Home() {
           <article className="rounded-2xl border border-[#00F5FF]/10 bg-[#1C1132] p-5 text-center">
             <p className="text-sm font-semibold text-[#00F5FF]">02. Practice smarter</p>
             <p className="mt-3 text-sm text-[#B8B0D3]">
-              Use the Passenger Checklist, quizzes, and route tools like a mock exam.
+              Use the Passenger Checklist, quizzes, and test centre tools like a mock exam.
             </p>
           </article>
           <article className="rounded-2xl border border-[#00F5FF]/10 bg-[#1C1132] p-5 text-center">
-            <p className="text-sm font-semibold text-[#00F5FF]">03. Know the routes</p>
+            <p className="text-sm font-semibold text-[#00F5FF]">03. Know the test centres</p>
             <p className="mt-3 text-sm text-[#B8B0D3]">
               Explore centres, map previews, and scenario-based judgment training.
             </p>

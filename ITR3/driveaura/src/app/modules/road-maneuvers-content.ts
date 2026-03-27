@@ -20,7 +20,7 @@ export interface ManeuverContent {
 export const ROAD_MANEUVERS_CONTENT: Record<string, ManeuverContent> = {
   "1": {
     goldenRule:
-      "Always signal in advance, check mirrors and blind spots, and only turn when the way is clear—never turn the steering wheel while waiting to turn left in case you are hit from behind.",
+      "Always signal in advance, check mirrors and blind spots, and only turn when the way is clear. When waiting to turn left, keep your wheels straight until you actually turn—never turn the wheel left while waiting, in case you are hit from behind and pushed into oncoming traffic.",
     steps: [
       "Signal well before the turn and move into the correct lane (far right for a right turn, far left in your direction for a left turn).",
       "Look ahead, left, right, and left again. Check your blind spots for cyclists and pedestrians.",
@@ -65,7 +65,7 @@ export const ROAD_MANEUVERS_CONTENT: Record<string, ManeuverContent> = {
   },
   "2": {
     goldenRule:
-      "Never change lanes without signalling and checking that the move can be done safely—check mirrors first, then your blind spot over your shoulder, and only then steer gradually into the new lane.",
+      "Never change lanes without signalling and checking that the move can be done safely. Use mirrors first, then your blind spot over your shoulder, and only then steer gradually into the new lane when the space is clear.",
     steps: [
       "Check your mirrors for a space in traffic where you can enter safely.",
       "Check your blind spot by looking over your shoulder in the direction of the lane change. Watch for bicycles and small vehicles.",
@@ -107,7 +107,7 @@ export const ROAD_MANEUVERS_CONTENT: Record<string, ManeuverContent> = {
   },
   "3": {
     goldenRule:
-      "Move slowly, look over your shoulder in the direction you are reversing, and always check that the way is clear behind you—including for children and cyclists—before you start.",
+      "Before you move in reverse, make sure the path is clear behind you—watch especially for children and cyclists. Move slowly, and look over your shoulder in the direction you are backing.",
     steps: [
       "Before you begin, check that the way is clear behind you. Look for children and cyclists.",
       "Put the vehicle in reverse. Hold the steering wheel firmly.",
@@ -148,7 +148,7 @@ export const ROAD_MANEUVERS_CONTENT: Record<string, ManeuverContent> = {
   },
   "4": {
     goldenRule:
-      "Only turn around where you can see at least 150 metres in both directions—never on a curve, near a railway crossing, on a hilltop, or near a bridge or tunnel that blocks your view.",
+      "For a U-turn or three-point turn, you must see at least 150 metres in both directions before you start. Never turn around on a curve, near a railway crossing, on a hilltop, or next to a bridge or tunnel that blocks your view.",
     steps: [
       "U-turn: Check that no sign prohibits it. You must be able to see at least 150 m in both directions. Never on a curve, near a railway, on a hilltop, or near a bridge or tunnel.",
       "U-turn: Signal right, check mirror and shoulder, pull over to the right and stop. Signal left, and when traffic is clear both ways, move forward and turn sharply into the opposite lane.",
@@ -188,7 +188,7 @@ export const ROAD_MANEUVERS_CONTENT: Record<string, ManeuverContent> = {
   },
   "5": {
     goldenRule:
-      "Park only where it is legal and safe—never on a curve or hill without 125 m visibility, and always set the parking brake and turn wheels toward or away from the curb on hills so the vehicle cannot roll into traffic.",
+      "Park only where it is legal and safe. On a curve or hill, you need at least 125 m of clear view in both directions—otherwise choose another spot. On hills, always set the parking brake and turn the wheels toward or away from the curb so the vehicle cannot roll into traffic.",
     steps: [
       "Parallel parking: Find a space about 1.5 times your vehicle length. Signal, check traffic, and pull alongside the vehicle in front of the space, about 1 m apart. Stop when your rear bumper lines up with theirs.",
       "Parallel: Reverse slowly, turning the wheel fully toward the curb. When you see the outside rear corner of the vehicle in front, straighten the wheels as you continue reversing. Turn the wheel fully toward the road to align with the curb. Move forward to straighten if needed.",

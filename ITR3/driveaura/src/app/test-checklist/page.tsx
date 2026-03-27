@@ -25,7 +25,6 @@ export default function TestChecklistPage() {
   function handleGenerateReport() {
     setReport(buildReport(state));
   }
-
   return (
     <div
       className="mx-auto max-w-2xl px-4 py-12 min-h-screen"
@@ -58,7 +57,6 @@ export default function TestChecklistPage() {
             onChange={updateCategory}
           />
         ))}
-
         <button
           type="submit"
           className="w-full rounded-md px-4 py-3 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"

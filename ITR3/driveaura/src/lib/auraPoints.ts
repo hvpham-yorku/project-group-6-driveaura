@@ -17,6 +17,11 @@ const EARNED_QUIZZES_KEY = "driveaura-aura-earned-quizzes";
 /** Custom DOM event dispatched whenever points change. */
 export const AURA_POINTS_UPDATED_EVENT = "driveaura-aura-points-updated";
 
+export type AuraPointsEventDetail = {
+  earned: number;
+  total: number;
+};
+
 /** How many Aura Points each action is worth. */
 export const AURA_POINT_VALUES = {
   LESSON: 5,
@@ -59,9 +64,9 @@ function writeSet(key: string, set: Set<string>): void {
   }
 }
 
-function dispatchUpdate(): void {
+function dispatchUpdate(detail: AuraPointsEventDetail): void {
   if (typeof window === "undefined") return;
-  window.dispatchEvent(new CustomEvent(AURA_POINTS_UPDATED_EVENT));
+  window.dispatchEvent(new CustomEvent(AURA_POINTS_UPDATED_EVENT, { detail }));
 }
 
 // ─── Public API ───────────────────────────────────────────────────────────────
@@ -88,7 +93,7 @@ export function awardLessonPoints(moduleId: string, lessonId: string): number {
     window.localStorage.setItem(TOTAL_KEY, String(total));
   }
   writeSet(EARNED_LESSONS_KEY, earned);
-  dispatchUpdate();
+  dispatchUpdate({ earned: pts, total });
   return pts;
 }
 
@@ -108,7 +113,7 @@ export function awardQuizPoints(quizId: string): number {
     window.localStorage.setItem(TOTAL_KEY, String(total));
   }
   writeSet(EARNED_QUIZZES_KEY, earned);
-  dispatchUpdate();
+  dispatchUpdate({ earned: pts, total });
   return pts;
 }
 
