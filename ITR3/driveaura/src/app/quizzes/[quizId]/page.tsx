@@ -4,12 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useParams, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { useAuth } from "@/components/auth/AuthProvider";
 import { MODULES } from "@/app/modules/data";
 import { QUIZZES, type QuizQuestion } from "../data";
 import { addPassedQuiz } from "../passedQuizzes";
-import { awardQuizPoints, AURA_POINT_VALUES } from "@/lib/auraPoints";
-import { fetchUserAuraPoints, saveUserAuraPoints } from "@/lib/firebase/auraPoints";
 
 const PASS_PERCENT = 70;
 
@@ -94,10 +91,8 @@ function QuizContent() {
     return idx >= 0 ? idx : 0;
   }, [quiz, questionParam]);
 
-  const { user } = useAuth();
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [auraPointsEarned, setAuraPointsEarned] = useState<number>(0);
 
   const currentQuestion = quiz?.questions[questionIndex];
   const totalQuestions = quiz?.questions.length ?? 0;
@@ -148,26 +143,11 @@ function QuizContent() {
     return { correct, wrong, total, percent, passed, lessonWeaknesses };
   }, [quiz, submitted, answers]);
 
-  // Persist passed quiz + award Aura Points on first pass
+  // Persist passed quiz so progress bar updates (only when user passes)
   useEffect(() => {
-    if (!results?.passed || !quizId) return;
-
-    const isNew = addPassedQuiz(quizId);
-    if (isNew) {
-      const pts = awardQuizPoints(quizId);
-      if (pts > 0) {
-        setAuraPointsEarned(pts);
-        if (user) {
-          void fetchUserAuraPoints(user.uid).then((remote) => {
-            const base = remote ?? 0;
-            return saveUserAuraPoints(user.uid, base + pts);
-          }).catch(() => {
-            // non-critical — local points already saved
-          });
-        }
-      }
+    if (results?.passed && quizId) {
+      addPassedQuiz(quizId);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results?.passed, quizId]);
 
   if (!quiz) {
@@ -310,21 +290,6 @@ function QuizContent() {
                 >
                   Need {PASS_PERCENT}% to pass
                 </p>
-                {results.passed && (
-                  <div
-                    className="mt-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold"
-                    style={{
-                      backgroundColor: "rgba(0,245,255,0.10)",
-                      color: "var(--electric-cyan)",
-                      border: "1px solid rgba(0,245,255,0.30)",
-                    }}
-                  >
-                    ✦{" "}
-                    {auraPointsEarned > 0
-                      ? `+${auraPointsEarned} Aura Points earned!`
-                      : `+${AURA_POINT_VALUES.QUIZ} Aura Points (already earned)`}
-                  </div>
-                )}
               </div>
               <ul
                 className="space-y-3 rounded-xl border-2 p-4"

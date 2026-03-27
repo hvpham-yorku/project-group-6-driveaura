@@ -39,6 +39,12 @@ export const practiceFeatures: readonly FeatureItem[] = [
       "Assess your mental + physical state, get a readiness score, and follow step-by-step reset strategies.",
   },
   {
+    href: "/manual-shift",
+    label: "Manual Shift Trainer",
+    description:
+      "Practice shifting a manual car at the right RPM using keyboard controls. Earn Aura for clean shifts.",
+  },
+  {
     href: "/routes",
     label: "Test Centres & Routes",
     description: "Explore Ontario centres, route context, and map-based planning.",
@@ -75,6 +81,7 @@ export const protectedRoutePrefixes = [
   "/data-visualization",
   "/test-checklist",
   "/readiness-check",
+  "/manual-shift",
   "/checklist",
   "/routes",
   "/user-as-examiner",
