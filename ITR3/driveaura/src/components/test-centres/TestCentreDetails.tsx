@@ -3,7 +3,7 @@
 import { MapPin, AlertTriangle, ExternalLink } from "lucide-react";
 import type { DrivingCentre } from "@/data/drivingCentres";
 
-interface RouteDetailsProps {
+interface TestCentreDetailsProps {
   centre: DrivingCentre;
 }
 
@@ -12,9 +12,9 @@ function getDirectionsUrl(address: string): string {
 }
 
 /**
- * Right-hand view: compact header, one large map (updates with selected centre), key watch-outs and route links below.
+ * Right-hand view: compact header, one large map (updates with selected centre), key watch-outs below.
  */
-export default function RouteDetails({ centre }: RouteDetailsProps) {
+export default function TestCentreDetails({ centre }: TestCentreDetailsProps) {
   return (
     <div className="flex flex-col">
       {/* Compact header: name, address, Get Directions — Crimson Spark main button */}
@@ -68,31 +68,6 @@ export default function RouteDetails({ centre }: RouteDetailsProps) {
 
       {/* Route links + Key watch-outs below the map */}
       <div className="mt-4 flex-shrink-0 space-y-4">
-        {(centre.mapEmbedUrlG2 || centre.mapEmbedUrlG) && (
-          <div className="flex flex-wrap gap-3 text-sm">
-            {centre.mapEmbedUrlG2 && (
-              <a
-                href={centre.mapEmbedUrlG2.replace("?output=embed", "")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#00F5FF] underline hover:opacity-80"
-              >
-                View G2 route in Google Maps
-              </a>
-            )}
-            {centre.mapEmbedUrlG && (
-              <a
-                href={centre.mapEmbedUrlG.replace("?output=embed", "")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#00F5FF] underline hover:opacity-80"
-              >
-                View G route in Google Maps
-              </a>
-            )}
-          </div>
-        )}
-
         <section aria-label="Key watch-outs">
           <h2 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-[#B8B0D3]">
             <AlertTriangle className="h-3.5 w-3.5" aria-hidden />
