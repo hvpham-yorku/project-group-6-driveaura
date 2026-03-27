@@ -5,6 +5,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { fetchReadinessHistory, type ReadinessCheckRecord } from "@/lib/firebase/readiness";
 import { logAnalyticsEvent } from "@/lib/firebase/analytics";
+import {
+  getAuraPointsBreakdown,
+  AURA_POINTS_UPDATED_EVENT,
+  AURA_POINT_VALUES,
+  type AuraPointsBreakdown,
+} from "@/lib/auraPoints";
 
 function formatWhen(date: Date) {
   return new Intl.DateTimeFormat("en-CA", {
@@ -26,9 +32,20 @@ export default function AccountClient() {
   const { user } = useAuth();
   const [history, setHistory] = useState<ReadinessCheckRecord[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [auraBreakdown, setAuraBreakdown] = useState<AuraPointsBreakdown>(() =>
+    getAuraPointsBreakdown(),
+  );
 
   useEffect(() => {
     void logAnalyticsEvent("account_viewed");
+  }, []);
+
+  useEffect(() => {
+    function refresh() {
+      setAuraBreakdown(getAuraPointsBreakdown());
+    }
+    window.addEventListener(AURA_POINTS_UPDATED_EVENT, refresh);
+    return () => window.removeEventListener(AURA_POINTS_UPDATED_EVENT, refresh);
   }, []);
 
   useEffect(() => {
@@ -148,6 +165,55 @@ export default function AccountClient() {
           </div>
 
           <div className="space-y-4">
+            {/* Aura Points widget */}
+            <div className="rounded-2xl border border-[#00F5FF]/25 bg-[#1C1132]/70 p-5">
+              <div className="flex items-center gap-2">
+                <span className="text-base" aria-hidden>✦</span>
+                <p className="text-sm font-semibold text-[#F5F5F7]">Aura Points</p>
+              </div>
+              <p className="mt-3 text-4xl font-bold" style={{ color: "var(--electric-cyan, #00F5FF)" }}>
+                {auraBreakdown.total}
+              </p>
+              <p className="mt-0.5 text-xs text-[#B8B0D3]">total points earned</p>
+
+              <ul className="mt-4 space-y-2 text-xs text-[#B8B0D3]">
+                <li className="flex items-center justify-between">
+                  <span>Lessons completed</span>
+                  <span className="font-semibold text-[#F5F5F7]">
+                    {auraBreakdown.earnedLessonCount} × {AURA_POINT_VALUES.LESSON} pts
+                  </span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span>Quizzes passed</span>
+                  <span className="font-semibold text-[#F5F5F7]">
+                    {auraBreakdown.earnedQuizCount} × {AURA_POINT_VALUES.QUIZ} pts
+                  </span>
+                </li>
+              </ul>
+
+              <div className="mt-4 text-[10px] text-[#B8B0D3]/70 leading-relaxed">
+                Earn points by completing modules, passing quizzes, finishing assessments, and
+                playing interactive games.
+              </div>
+
+              <div className="mt-4 flex gap-2">
+                <Link
+                  href="/modules"
+                  className="flex-1 rounded-lg py-1.5 text-center text-xs font-medium transition hover:opacity-90"
+                  style={{ backgroundColor: "rgba(0,245,255,0.12)", color: "#00F5FF" }}
+                >
+                  Modules
+                </Link>
+                <Link
+                  href="/quizzes"
+                  className="flex-1 rounded-lg py-1.5 text-center text-xs font-medium transition hover:opacity-90"
+                  style={{ backgroundColor: "rgba(0,245,255,0.12)", color: "#00F5FF" }}
+                >
+                  Quizzes
+                </Link>
+              </div>
+            </div>
+
             <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-4">
               <p className="text-sm font-semibold text-[#F5F5F7]">Tip</p>
               <p className="mt-1 text-xs text-[#B8B0D3]">

@@ -22,11 +22,16 @@ export function getPassedQuizIds(): Set<string> {
   return new Set(getStored());
 }
 
-/** Mark a quiz as passed (call only when the user passes the quiz). */
-export function addPassedQuiz(quizId: string): void {
-  if (typeof window === "undefined") return;
+/**
+ * Mark a quiz as passed.
+ * Returns true if newly passed (first time), false if already recorded.
+ */
+export function addPassedQuiz(quizId: string): boolean {
+  if (typeof window === "undefined") return false;
   const ids = new Set(getStored());
+  if (ids.has(quizId)) return false;
   ids.add(quizId);
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify([...ids]));
   window.dispatchEvent(new CustomEvent("driveaura-quizzes-passed-updated"));
+  return true;
 }
