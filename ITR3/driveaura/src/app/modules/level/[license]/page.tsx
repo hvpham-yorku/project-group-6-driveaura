@@ -3,6 +3,12 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
+import { useAuth } from "@/components/auth/AuthProvider";
+import {
+  fetchUserQuizProgressMap,
+  passedQuizIdsFromMap,
+} from "@/lib/firebase/userQuizProgress";
+import { isModuleUnlocked } from "@/lib/learning/moduleUnlock";
 import {
   LICENSE_LABELS,
   MODULES,
@@ -73,13 +79,9 @@ function IconBook() {
   );
 }
 
-function ModuleCard({ module: m }: { module: ModuleItem }) {
-  return (
-    <Link
-      href={`/modules/${m.id}`}
-      className="pathway-card block rounded-xl border-2 border-transparent p-5 transition-all duration-300 hover:border-[var(--electric-cyan)] hover:shadow-[0_0_24px_rgba(0,245,255,0.3)]"
-      style={{ backgroundColor: "var(--midnight-indigo)" }}
-    >
+function ModuleCard({ module: m, locked }: { module: ModuleItem; locked: boolean }) {
+  const inner = (
+    <>
       <span
         className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium"
         style={{
@@ -104,16 +106,39 @@ function ModuleCard({ module: m }: { module: ModuleItem }) {
       </p>
       <span
         className="inline-flex items-center gap-2 text-sm font-medium"
-        style={{ color: "var(--electric-cyan)" }}
+        style={{ color: locked ? "var(--lavender-mist)" : "var(--electric-cyan)" }}
       >
-        Open module
-        <IconArrowRight />
+        {locked ? "Locked — pass the previous module quiz" : "Open module"}
+        {!locked ? <IconArrowRight /> : null}
       </span>
+    </>
+  );
+
+  if (locked) {
+    return (
+      <div
+        className="pathway-card block cursor-not-allowed rounded-xl border-2 border-transparent p-5 opacity-75"
+        style={{ backgroundColor: "var(--midnight-indigo)" }}
+        aria-disabled
+      >
+        {inner}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={`/modules/${m.id}`}
+      className="pathway-card block rounded-xl border-2 border-transparent p-5 transition-all duration-300 hover:border-[var(--electric-cyan)] hover:shadow-[0_0_24px_rgba(0,245,255,0.3)]"
+      style={{ backgroundColor: "var(--midnight-indigo)" }}
+    >
+      {inner}
     </Link>
   );
 }
 
 function LevelPageContent() {
+  const { user } = useAuth();
   const params = useParams();
   const licenseParam = params.license;
   const license: LicenseLevel =
@@ -150,6 +175,30 @@ function LevelPageContent() {
 
   const levelPercent =
     levelTotal > 0 ? Math.round((completedCount / levelTotal) * 100) : 0;
+
+  const [passedQuizIds, setPassedQuizIds] = useState<Set<string>>(new Set());
+  const [quizMapLoading, setQuizMapLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user?.uid) {
+      setPassedQuizIds(new Set());
+      setQuizMapLoading(false);
+      return;
+    }
+    let cancelled = false;
+    setQuizMapLoading(true);
+    void fetchUserQuizProgressMap(user.uid)
+      .then((map) => {
+        if (cancelled) return;
+        setPassedQuizIds(passedQuizIdsFromMap(map));
+      })
+      .finally(() => {
+        if (!cancelled) setQuizMapLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [user?.uid]);
 
   return (
     <main
@@ -242,11 +291,21 @@ function LevelPageContent() {
             >
               Phase 1 modules
             </h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {modulesForLicense.map((m) => (
-                <ModuleCard key={m.id} module={m} />
-              ))}
-            </div>
+            {quizMapLoading ? (
+              <p className="text-sm" style={{ color: "var(--lavender-mist)" }}>
+                Loading module access…
+              </p>
+            ) : (
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {modulesForLicense.map((m) => (
+                  <ModuleCard
+                    key={m.id}
+                    module={m}
+                    locked={!isModuleUnlocked(m.id, passedQuizIds)}
+                  />
+                ))}
+              </div>
+            )}
           </section>
         ) : (
           <p

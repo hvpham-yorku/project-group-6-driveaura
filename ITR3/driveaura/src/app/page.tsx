@@ -13,7 +13,6 @@ const heroQuickLinks: readonly NavFeature[] = [
   { href: "/modules", label: "Modules" },
   { href: "/test-centres", label: "Test Centres" },
   { href: "/test-checklist", label: "Checklist" },
-  { href: "/quizzes", label: "Quizzes" },
   { href: "/readiness-check", label: "Readiness" },
 ];
 
