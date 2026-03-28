@@ -189,7 +189,11 @@ export const MODULES: ModuleItem[] = [
       { id: "2", title: "Blind spots & mirror checks", content: "" },
       { id: "3", title: "Intersections & pedestrian hazards", content: "" },
       { id: "4", title: "Following distance & speed choice", content: "" },
-      { id: "5", title: "Defensive responses (brake, steer, escape routes)", content: "" },
+      {
+        id: "5",
+        title: "Defensive responses (brake, steer, escape routes)",
+        content: "",
+      },
     ],
   },
   {
