@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useCallback } from "react";
+import { G2CarExplorer } from "./G2CarExplorer";
 
 type ViewMode = "CABIN" | "DASHBOARD" | "SPEEDOMETER" | "CENTER_CONSOLE";
 
@@ -163,7 +164,7 @@ const CENTER_CONSOLE_HOTSPOTS: CenterConsoleHotspot[] = [
   },
 ];
 
-export function VehicleExplorer() {
+function InteriorExplorer() {
   const [view, setView] = useState<ViewMode>("CABIN");
 
   const isDetailView = view !== "CABIN";
@@ -658,6 +659,16 @@ function Hotspot({
       />
     </button>
   );
+}
+
+/**
+ * VehicleExplorer — unified component replacing the separate G2CarExplorer.
+ * Use mode="interior" (default) for cabin/dashboard/instrument cluster/center console.
+ * Use mode="exterior" for the walk-around exterior hotspot view.
+ */
+export function VehicleExplorer({ mode = "interior" }: { mode?: "interior" | "exterior" }) {
+  if (mode === "exterior") return <G2CarExplorer />;
+  return <InteriorExplorer />;
 }
 
 export default VehicleExplorer;
