@@ -13,6 +13,7 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/modules", label: "Modules" },
+    { href: "/leaderboard", label: "Leaderboard" },
     { href: "/test-centres", label: "Test Centres" },
     { href: "/test-checklist", label: "Checklist" },
     { href: "/readiness-check", label: "Readiness" },

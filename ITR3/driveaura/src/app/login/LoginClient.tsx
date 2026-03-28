@@ -2,10 +2,12 @@
 
 import { useAuth } from "@/components/auth/AuthProvider";
 import { getFirebaseAuth, googleProvider } from "@/lib/firebase/client";
+import { createUserProfile } from "@/lib/firebase/users";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -31,6 +33,8 @@ export default function LoginClient() {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -38,9 +42,29 @@ export default function LoginClient() {
     if (!loading && user) router.replace(next);
   }, [user, loading, router, next]);
 
+  // Reset signup-only fields when switching modes
+  function switchMode(newMode: "login" | "signup") {
+    setMode(newMode);
+    setError(null);
+    setUsername("");
+    setConfirmPassword("");
+  }
+
   async function handleEmailAuth(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+
+    if (mode === "signup") {
+      if (username.trim().length < 3) {
+        setError("Username must be at least 3 characters.");
+        return;
+      }
+      if (password !== confirmPassword) {
+        setError("Passwords do not match.");
+        return;
+      }
+    }
+
     setSubmitting(true);
     try {
       const auth = getFirebaseAuth();
@@ -49,10 +73,15 @@ export default function LoginClient() {
         setSubmitting(false);
         return;
       }
+
       if (mode === "login") {
         await signInWithEmailAndPassword(auth, email, password);
       } else {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const credential = await createUserWithEmailAndPassword(auth, email, password);
+        // Set displayName on the Auth user
+        await updateProfile(credential.user, { displayName: username.trim() });
+        // Save profile to Firestore so leaderboard can read it
+        await createUserProfile(credential.user.uid, username.trim(), email);
       }
       router.replace(next);
     } catch (err) {
@@ -72,7 +101,10 @@ export default function LoginClient() {
         setSubmitting(false);
         return;
       }
-      await signInWithPopup(auth, googleProvider);
+      const credential = await signInWithPopup(auth, googleProvider);
+      // Create Firestore profile if first-time Google sign-in
+      const { uid, displayName, email: gEmail } = credential.user;
+      await createUserProfile(uid, displayName ?? gEmail ?? "Driver", gEmail ?? "");
       router.replace(next);
     } catch (err) {
       setError(getFriendlyAuthError(String(err)));
@@ -89,7 +121,9 @@ export default function LoginClient() {
             {mode === "login" ? "Log in" : "Create account"}
           </h1>
           <p className="mt-1 text-sm text-[#B8B0D3]">
-            Sign in to access DriveAura.
+            {mode === "login"
+              ? "Sign in to access DriveAura."
+              : "Join DriveAura and start earning Aura Points."}
           </p>
         </header>
 
@@ -115,6 +149,27 @@ export default function LoginClient() {
         </div>
 
         <form onSubmit={handleEmailAuth} className="space-y-3">
+          {/* Username — sign up only */}
+          {mode === "signup" && (
+            <label className="block">
+              <span className="mb-1 block text-sm text-[#B8B0D3]">Username</span>
+              <input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                type="text"
+                autoComplete="username"
+                required
+                minLength={3}
+                maxLength={30}
+                className="w-full rounded-lg border border-[#00F5FF]/20 bg-[#0F051D] px-3 py-2 text-sm text-[#F5F5F7] outline-none placeholder:text-[#B8B0D3]/60 focus:border-[#00F5FF] focus:ring-2 focus:ring-[#00F5FF]/15"
+                placeholder="e.g. speedracer99"
+              />
+              <span className="mt-1 block text-xs text-[#B8B0D3]/70">
+                This is the name shown on the Leaderboard.
+              </span>
+            </label>
+          )}
+
           <label className="block">
             <span className="mb-1 block text-sm text-[#B8B0D3]">Email</span>
             <input
@@ -129,7 +184,9 @@ export default function LoginClient() {
           </label>
 
           <label className="block">
-            <span className="mb-1 block text-sm text-[#B8B0D3]">Password</span>
+            <span className="mb-1 block text-sm text-[#B8B0D3]">
+              {mode === "signup" ? "New password" : "Password"}
+            </span>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -141,6 +198,30 @@ export default function LoginClient() {
               placeholder="••••••••"
             />
           </label>
+
+          {/* Confirm Password — sign up only */}
+          {mode === "signup" && (
+            <label className="block">
+              <span className="mb-1 block text-sm text-[#B8B0D3]">Confirm password</span>
+              <input
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                type="password"
+                autoComplete="new-password"
+                required
+                minLength={6}
+                className={`w-full rounded-lg border px-3 py-2 text-sm text-[#F5F5F7] outline-none placeholder:text-[#B8B0D3]/60 focus:ring-2 focus:ring-[#00F5FF]/15 bg-[#0F051D] ${
+                  confirmPassword && confirmPassword !== password
+                    ? "border-[#FF3B3F]/60 focus:border-[#FF3B3F]"
+                    : "border-[#00F5FF]/20 focus:border-[#00F5FF]"
+                }`}
+                placeholder="••••••••"
+              />
+              {confirmPassword && confirmPassword !== password && (
+                <span className="mt-1 block text-xs text-[#FF3B3F]">Passwords do not match.</span>
+              )}
+            </label>
+          )}
 
           <button
             disabled={submitting}
@@ -157,7 +238,7 @@ export default function LoginClient() {
               Don&apos;t have an account?{" "}
               <button
                 type="button"
-                onClick={() => setMode("signup")}
+                onClick={() => switchMode("signup")}
                 className="font-semibold text-[#00F5FF] hover:underline"
               >
                 Sign up
@@ -168,7 +249,7 @@ export default function LoginClient() {
               Already have an account?{" "}
               <button
                 type="button"
-                onClick={() => setMode("login")}
+                onClick={() => switchMode("login")}
                 className="font-semibold text-[#00F5FF] hover:underline"
               >
                 Log in
@@ -186,4 +267,3 @@ export default function LoginClient() {
     </main>
   );
 }
-
