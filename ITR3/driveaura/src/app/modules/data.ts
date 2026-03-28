@@ -103,6 +103,17 @@ export const MODULES: ModuleItem[] = [
     ],
   },
   {
+    id: "g2-vehicle-interior-essentials",
+    licenseLevel: "G2",
+    title: "Interior Essentials: Vehicle Explorer",
+    category: "G2 Road Prep",
+    description:
+      "Interactive interior explorer: cabin overview, instrument cluster, steering stalks, and center console — everything you need to know before your G2 road test.",
+    lessons: [
+      { id: "1", title: "Cabin & Instrument Cluster", content: "" },
+    ],
+  },
+  {
     id: "g2-licensing-restrictions",
     licenseLevel: "G2",
     title: "G2 Licensing Restrictions",
@@ -392,7 +403,7 @@ export const PATHWAY_LEVELS: PathwayLevel[] = [
     title: "Road Test Level 1",
     description:
       "Prepare for your G2 road test: Ontario licence rules, pre-drive vehicle checks, and core maneuvers like turns, lane changes, and parking.",
-    moduleCount: 5,
+    moduleCount: 6,
   },
   {
     licenseLevel: "G",
