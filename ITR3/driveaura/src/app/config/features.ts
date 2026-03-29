@@ -73,6 +73,11 @@ export const accountFeatures: readonly FeatureItem[] = [
     label: "Account",
     description: "Manage profile, sign-in state, and personal DriveAura settings.",
   },
+  {
+    href: "/leaderboard",
+    label: "Leaderboard",
+    description: "See how your Aura Points rank against other DriveAura drivers.",
+  },
 ] as const;
 
 export const allFeatureSections = [
@@ -94,4 +99,5 @@ export const protectedRoutePrefixes = [
   "/weather-training",
   "/hazard-perception-training",
   "/account",
+  "/leaderboard",
 ] as const;
