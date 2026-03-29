@@ -145,7 +145,16 @@ export function updateEngine(
     }
   }
 
-  speed -= 3.5 * dtC;
+  // Rolling resistance — skip at max speed with throttle so torque×dt doesn't lose to drag×dt
+  // (otherwise speed creeps down while "accelerate" is held at the cap).
+  const holdingAtMaxSpeed =
+    inputs.throttle &&
+    !inputs.brake &&
+    !clutchDepressed &&
+    speed >= MAX_SPEED;
+  if (!holdingAtMaxSpeed) {
+    speed -= 3.5 * dtC;
+  }
   if (inputs.brake) speed -= 26 * dtC;
   speed = Math.max(0, Math.min(MAX_SPEED, speed));
 

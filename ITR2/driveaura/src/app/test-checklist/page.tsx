@@ -28,11 +28,8 @@ export default function TestChecklistPage() {
       <p className="mb-1 text-sm font-medium" style={{ color: "#B8B0D3" }}>
         Checklist for Passenger – G2 and G driving tests
       </p>
-      <p className="mb-6 text-sm" style={{ color: "#B8B0D3" }}>
-        Yes/No per category plus sub-checkpoints to tick off. Optional notes.
-      </p>
 
-      <div className="space-y-4">
+      <div className="mb-6 space-y-4">
         {CHECKLIST_CATEGORY_IDS.map((id) => (
           <CategoryRow
             key={id}

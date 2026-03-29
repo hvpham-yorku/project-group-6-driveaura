@@ -3,14 +3,12 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { CategoryRow } from "./components/CategoryRow";
-import { ReportSection } from "./components/ReportSection";
 import type { ChecklistCategoryId, ChecklistState } from "./types";
-import { CHECKLIST_CATEGORY_IDS, type ChecklistReport } from "./types";
-import { buildReport, getInitialState } from "./utils";
+import { CHECKLIST_CATEGORY_IDS } from "./types";
+import { getInitialState } from "./utils";
 
 export default function ChecklistPage() {
   const [state, setState] = useState<ChecklistState>(getInitialState);
-  const [report, setReport] = useState<ChecklistReport | null>(null);
 
   const updateCategory = useMemo(
     () => (categoryId: ChecklistCategoryId, next: ChecklistState[ChecklistCategoryId]) => {
@@ -18,10 +16,6 @@ export default function ChecklistPage() {
     },
     []
   );
-
-  function handleGenerateReport() {
-    setReport(buildReport(state));
-  }
 
   return (
     <div
@@ -31,19 +25,8 @@ export default function ChecklistPage() {
       <h1 className="mb-2 text-2xl font-semibold" style={{ color: "#F5F5F7" }}>
         Checklist for Passenger – G2 and G
       </h1>
-      <p className="mb-6 text-sm" style={{ color: "#B8B0D3" }}>
-        Yes/No per category plus sub-checkpoints to tick off. Optional notes.
-        Generate a report for per-category completion, pass/fail (75%+ in all
-        categories), and strengths/weaknesses.
-      </p>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleGenerateReport();
-        }}
-        className="space-y-4"
-      >
+      <div className="mb-6 space-y-4">
         {CHECKLIST_CATEGORY_IDS.map((id) => (
           <CategoryRow
             key={id}
@@ -52,36 +35,7 @@ export default function ChecklistPage() {
             onChange={updateCategory}
           />
         ))}
-
-        <button
-          type="submit"
-          className="w-full rounded-md px-4 py-3 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
-          style={{
-            backgroundColor: "#FF3B3F",
-            color: "#F5F5F7",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "#FF5A5E";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "#FF3B3F";
-          }}
-          onFocus={(e) => {
-            e.currentTarget.style.boxShadow = "0 0 0 2px #FF3B3F";
-          }}
-          onBlur={(e) => {
-            e.currentTarget.style.boxShadow = "none";
-          }}
-        >
-          Generate Report
-        </button>
-      </form>
-
-      {report && (
-        <div className="mt-8">
-          <ReportSection report={report} />
-        </div>
-      )}
+      </div>
 
       <div className="mt-8">
         <Link

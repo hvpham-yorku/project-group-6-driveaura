@@ -4,6 +4,10 @@ import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { fetchReadinessHistory, type ReadinessCheckRecord } from "@/lib/firebase/readiness";
+import {
+  fetchManualShiftHistory,
+  type ManualShiftSessionRecord,
+} from "@/lib/firebase/manualShift";
 import { logAnalyticsEvent } from "@/lib/firebase/analytics";
 import { getFirebaseAuth } from "@/lib/firebase/client";
 import {
@@ -26,6 +30,12 @@ function formatWhen(date: Date) {
 }
 
 function safeDateFromRecord(record: ReadinessCheckRecord): Date | null {
+  const anyCreatedAt = record.createdAt as unknown as { toDate?: () => Date } | null;
+  if (anyCreatedAt && typeof anyCreatedAt.toDate === "function") return anyCreatedAt.toDate();
+  return null;
+}
+
+function safeDateFromManualShift(record: ManualShiftSessionRecord): Date | null {
   const anyCreatedAt = record.createdAt as unknown as { toDate?: () => Date } | null;
   if (anyCreatedAt && typeof anyCreatedAt.toDate === "function") return anyCreatedAt.toDate();
   return null;
@@ -222,6 +232,10 @@ export default function AccountClient() {
   const [history, setHistory] = useState<ReadinessCheckRecord[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"history" | "settings">("history");
+  const [manualShiftHistory, setManualShiftHistory] = useState<ManualShiftSessionRecord[] | null>(
+    null,
+  );
+  const [manualShiftError, setManualShiftError] = useState<string | null>(null);
 
   useEffect(() => {
     void logAnalyticsEvent("account_viewed");
@@ -249,6 +263,28 @@ export default function AccountClient() {
     };
   }, [user]);
 
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    setManualShiftHistory(null);
+    setManualShiftError(null);
+
+    fetchManualShiftHistory({ userId: user.uid, limit: 10 })
+      .then((items) => {
+        if (cancelled) return;
+        setManualShiftHistory(items);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setManualShiftError("Could not load Manual Shift Trainer history.");
+        setManualShiftHistory([]);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
   const readinessRows = useMemo(() => {
     if (!history) return null;
     return history.map((r) => {
@@ -261,6 +297,20 @@ export default function AccountClient() {
       };
     });
   }, [history]);
+
+  const manualShiftRows = useMemo(() => {
+    if (!manualShiftHistory) return null;
+    return manualShiftHistory.map((r) => {
+      const when = safeDateFromManualShift(r);
+      return {
+        id: r.id,
+        whenLabel: when ? formatWhen(when) : "—",
+        scoreLabel: String(r.score),
+        auraLabel: `+${r.auraEarned} ✦`,
+        modeLabel: r.mode || "—",
+      };
+    });
+  }, [manualShiftHistory]);
 
   return (
     <main className="min-h-screen bg-[#0F051D] text-[#F5F5F7]">
@@ -356,6 +406,49 @@ export default function AccountClient() {
                     <div className="mt-6 rounded-2xl border border-[#00F5FF]/10 bg-[#0F051D]/35 p-5">
                       <p className="text-sm text-[#B8B0D3]">
                         No saved readiness checks yet. Run one and save it to start a history.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-6 rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-6">
+                  <h2 className="text-xl font-semibold">Manual Shift Trainer history</h2>
+                  <p className="mt-2 text-sm text-[#B8B0D3]">
+                    Saved sessions from the trainer (score, Aura earned, and mode).
+                  </p>
+
+                  {manualShiftError ? (
+                    <p className="mt-6 text-sm text-[#FF3B3F]">{manualShiftError}</p>
+                  ) : manualShiftHistory === null ? (
+                    <p className="mt-6 text-sm text-[#B8B0D3]">Loading…</p>
+                  ) : manualShiftRows && manualShiftRows.length > 0 ? (
+                    <div className="mt-6 overflow-hidden rounded-2xl border border-[#00F5FF]/10">
+                      <table className="w-full text-left text-sm">
+                        <thead className="bg-[#0F051D]/45 text-xs text-[#B8B0D3]">
+                          <tr>
+                            <th className="px-4 py-3 font-semibold">When</th>
+                            <th className="px-4 py-3 font-semibold">Score</th>
+                            <th className="px-4 py-3 font-semibold">Aura</th>
+                            <th className="px-4 py-3 font-semibold">Mode</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[#00F5FF]/10">
+                          {manualShiftRows.map((row) => (
+                            <tr key={row.id} className="bg-[#1C1132]/40">
+                              <td className="px-4 py-3 text-[#F5F5F7]">{row.whenLabel}</td>
+                              <td className="px-4 py-3 font-semibold text-[#00F5FF]">{row.scoreLabel}</td>
+                              <td className="px-4 py-3 text-[#39FF14]">{row.auraLabel}</td>
+                              <td className="px-4 py-3 text-[#B8B0D3]">{row.modeLabel}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div className="mt-6 rounded-2xl border border-[#00F5FF]/10 bg-[#0F051D]/35 p-5">
+                      <p className="text-sm text-[#B8B0D3]">
+                        No saved Manual Shift sessions yet. Complete a session and tap Save to account on
+                        the results screen.
                       </p>
                     </div>
                   )}

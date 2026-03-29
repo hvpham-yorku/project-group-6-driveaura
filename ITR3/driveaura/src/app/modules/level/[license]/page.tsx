@@ -179,18 +179,29 @@ function ModuleCard({ module: m, locked }: { module: ModuleItem; locked: boolean
 function LevelPageContent() {
   const params = useParams();
   const licenseParam = params.license;
-  const license: LicenseLevel =
-    licenseParam === "G1" || licenseParam === "G2" || licenseParam === "G"
+  const rawSegment =
+    typeof licenseParam === "string"
       ? licenseParam
-      : "G1";
+      : Array.isArray(licenseParam)
+        ? licenseParam[0]
+        : undefined;
+
+  const license: LicenseLevel | null =
+    rawSegment === "G1" || rawSegment === "G2" || rawSegment === "G"
+      ? rawSegment
+      : null;
 
   const modulesForLicense = useMemo(
-    () => MODULES.filter((m) => m.licenseLevel === license),
+    () =>
+      license ? MODULES.filter((m) => m.licenseLevel === license) : [],
     [license]
   );
 
   const levelInfo = useMemo(
-    () => PATHWAY_LEVELS.find((l) => l.licenseLevel === license),
+    () =>
+      license
+        ? PATHWAY_LEVELS.find((l) => l.licenseLevel === license)
+        : undefined,
     [license]
   );
 
@@ -201,7 +212,7 @@ function LevelPageContent() {
           m.lessons.map((l) => `${m.id}-${l.id}`)
         )
       ),
-    [license]
+    [modulesForLicense]
   );
   const levelTotal = levelLessonKeys.size;
 
@@ -228,6 +239,54 @@ function LevelPageContent() {
 
   const levelPercent =
     levelTotal > 0 ? Math.round((completedCount / levelTotal) * 100) : 0;
+
+  if (!license) {
+    return (
+      <main
+        className="min-h-screen"
+        style={{ backgroundColor: "var(--void-purple)" }}
+      >
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+          <Link
+            href="/modules"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-medium hover:underline"
+            style={{ color: "var(--electric-cyan)" }}
+          >
+            <IconChevronLeft />
+            Back to pathway
+          </Link>
+          <div
+            className="rounded-xl border-2 p-8 text-center"
+            style={{
+              backgroundColor: "var(--midnight-indigo)",
+              borderColor: "var(--midnight-indigo)",
+              color: "var(--lavender-mist)",
+            }}
+          >
+            <h1
+              className="mb-3 text-xl font-semibold"
+              style={{ color: "var(--ghost-white)" }}
+            >
+              Level not found
+            </h1>
+            <p className="mb-2">
+              {rawSegment
+                ? `“${rawSegment}” is not a valid license level. Use G1, G2, or G.`
+                : "This URL does not match a valid license level. Use G1, G2, or G."}
+            </p>
+            <Link
+              href="/modules"
+              className="inline-flex items-center gap-2 font-medium hover:underline"
+              style={{ color: "var(--electric-cyan)" }}
+            >
+              Go to modules
+              <IconArrowRight />
+            </Link>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main

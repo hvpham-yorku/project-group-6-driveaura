@@ -45,6 +45,10 @@ import {
   ROAD_MANEUVERS_CONTENT,
   type ManeuverContent,
 } from "../road-maneuvers-content";
+import {
+  G2_ROAD_PREP_STRUCTURED_CONTENT,
+  type StructuredLesson,
+} from "../g2-road-prep-structured-content";
 
 /* Inline SVG */
 function IconChevronLeft() {
@@ -540,6 +544,160 @@ function ManeuverLessonContent({ content }: { content: ManeuverContent }) {
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+function StructuredRoadPrepLesson({ content }: { content: StructuredLesson }) {
+  const calloutStyles: Record<
+    "tip" | "mistake" | "testDay" | "warning",
+    { border: string; background: string; title: string }
+  > = {
+    tip: {
+      border: "var(--electric-cyan)",
+      background: "var(--midnight-indigo)",
+      title: "var(--electric-cyan)",
+    },
+    mistake: {
+      border: "var(--midnight-indigo)",
+      background: "var(--void-purple)",
+      title: "var(--ghost-white)",
+    },
+    testDay: {
+      border: "var(--midnight-indigo)",
+      background: "var(--void-purple)",
+      title: "var(--ghost-white)",
+    },
+    warning: {
+      border: "var(--crimson-spark)",
+      background: "var(--midnight-indigo)",
+      title: "var(--crimson-spark)",
+    },
+  };
+
+  return (
+    <div className="space-y-6">
+      <p className="leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+        {content.intro}
+      </p>
+
+      {content.comparison ? (
+        <div
+          className="rounded-lg border p-4"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--void-purple)",
+          }}
+        >
+          <h3
+            className="mb-3 text-base font-semibold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            {content.comparison.title}
+          </h3>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div
+              className="rounded-lg border p-3"
+              style={{
+                borderColor: "var(--midnight-indigo)",
+                backgroundColor: "var(--midnight-indigo)",
+              }}
+            >
+              <h4
+                className="mb-1 text-sm font-semibold"
+                style={{ color: "var(--electric-cyan)" }}
+              >
+                {content.comparison.leftTitle}
+              </h4>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+                {content.comparison.leftBody}
+              </p>
+            </div>
+            <div
+              className="rounded-lg border p-3"
+              style={{
+                borderColor: "var(--electric-cyan)",
+                backgroundColor: "var(--midnight-indigo)",
+              }}
+            >
+              <h4
+                className="mb-1 text-sm font-semibold"
+                style={{ color: "var(--electric-cyan)" }}
+              >
+                {content.comparison.rightTitle}
+              </h4>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+                {content.comparison.rightBody}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {content.sections.map((section, idx) => (
+        <div
+          key={`${section.title}-${idx}`}
+          className="rounded-lg border p-4"
+          style={{
+            borderColor: "var(--midnight-indigo)",
+            backgroundColor: "var(--void-purple)",
+          }}
+        >
+          <h3
+            className="mb-2 text-base font-semibold"
+            style={{ color: "var(--ghost-white)" }}
+          >
+            {section.title}
+          </h3>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+            {section.body}
+          </p>
+          {section.bullets?.length ? (
+            <ul
+              className="mt-3 list-inside list-disc space-y-1.5 pl-1 text-sm"
+              style={{ color: "var(--lavender-mist)" }}
+            >
+              {section.bullets.map((bullet, bIdx) => (
+                <li key={`${section.title}-b-${bIdx}`}>{bullet}</li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      ))}
+
+      {content.callouts.map((callout, idx) => {
+        const style = calloutStyles[callout.kind];
+        return (
+          <div
+            key={`${callout.title}-${idx}`}
+            className="rounded-lg border p-4"
+            style={{
+              borderColor: style.border,
+              backgroundColor: style.background,
+            }}
+          >
+            <h3
+              className="mb-2 text-base font-semibold"
+              style={{ color: style.title }}
+            >
+              {callout.title}
+            </h3>
+            <p className="text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+              {callout.body}
+            </p>
+            {callout.bullets?.length ? (
+              <ul
+                className="mt-3 list-inside list-disc space-y-1.5 pl-1 text-sm"
+                style={{ color: "var(--lavender-mist)" }}
+              >
+                {callout.bullets.map((bullet, bIdx) => (
+                  <li key={`${callout.title}-b-${bIdx}`}>{bullet}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -6987,6 +7145,16 @@ function ModuleReaderContent() {
                   ROAD_MANEUVERS_CONTENT[currentLesson.id] ? (
                   <ManeuverLessonContent
                     content={ROAD_MANEUVERS_CONTENT[currentLesson.id]}
+                  />
+                ) : G2_ROAD_PREP_STRUCTURED_CONTENT[moduleId]?.[
+                    currentLesson.id
+                  ] ? (
+                  <StructuredRoadPrepLesson
+                    content={
+                      G2_ROAD_PREP_STRUCTURED_CONTENT[moduleId][
+                        currentLesson.id
+                      ]
+                    }
                   />
                 ) : moduleId === "g-high-speed-expressway-driving" ? (
                   <GHighSpeedLesson lessonId={currentLesson.id} />
