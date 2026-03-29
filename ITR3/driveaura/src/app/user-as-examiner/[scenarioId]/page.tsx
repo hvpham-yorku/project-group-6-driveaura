@@ -94,6 +94,12 @@ export default function UserAsExaminerScenarioPage() {
   const params = useParams();
   const scenarioId =
     typeof params.scenarioId === "string" ? params.scenarioId : "";
+  return (
+    <UserAsExaminerScenarioView key={scenarioId} scenarioId={scenarioId} />
+  );
+}
+
+function UserAsExaminerScenarioView({ scenarioId }: { scenarioId: string }) {
   const scenario = USER_AS_EXAMINER_SCENARIOS.find((s) => s.id === scenarioId);
 
   const [selectedSeverity, setSelectedSeverity] = useState<ErrorSeverity | null>(

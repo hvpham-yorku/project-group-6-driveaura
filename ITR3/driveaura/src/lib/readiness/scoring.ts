@@ -112,11 +112,17 @@ export const readinessQuestions: readonly ReadinessQuestion[] = [
   },
 ] as const;
 
-export function computeReadinessScore(answers: Record<string, number>): number {
+export function computeReadinessScore(answers: Record<string, number>): number | null {
+  const allAnswered = readinessQuestions.every((q) => {
+    const raw = answers[q.id];
+    return typeof raw === "number" && Number.isFinite(raw);
+  });
+  if (!allAnswered) return null;
+
   const maxRisk = readinessQuestions.reduce((sum, q) => sum + q.weight * 4, 0);
   const risk = readinessQuestions.reduce((sum, q) => {
     const raw = answers[q.id];
-    const normalized = typeof raw === "number" ? Math.max(0, Math.min(4, raw)) : 0;
+    const normalized = Math.max(0, Math.min(4, raw as number));
     return sum + normalized * q.weight;
   }, 0);
 

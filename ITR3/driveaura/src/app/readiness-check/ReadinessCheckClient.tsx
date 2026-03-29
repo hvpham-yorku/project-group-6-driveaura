@@ -65,17 +65,33 @@ const gateStops: readonly GateStop[] = [
   },
 ] as const;
 
-function formatScore(score: number) {
+function formatScore(score: number | null) {
+  if (score === null) return "—";
   return `${Math.max(0, Math.min(100, Math.round(score)))}/100`;
 }
 
-function recommendationFor(score: number, forcedNoDrive: boolean) {
+function scoreSubtitle(score: number | null, forcedNoDrive: boolean): string {
+  if (forcedNoDrive) return "Hard stop is active.";
+  if (score === null) return "Answer all questions for a score.";
+  return scoreLabel(score);
+}
+
+function recommendationFor(score: number | null, forcedNoDrive: boolean) {
   if (forcedNoDrive) {
     return {
       headline: "Not safe to drive right now",
       subhead:
         "Based on your check-in, the safest option is to pause and reset before driving.",
       tone: "danger" as const,
+    };
+  }
+
+  if (score === null) {
+    return {
+      headline: "Checklist incomplete",
+      subhead:
+        "Answer every readiness question so we can estimate your readiness; unanswered items are not treated as zero risk.",
+      tone: "caution" as const,
     };
   }
 
@@ -298,18 +314,34 @@ function CanadaEmergencyCard() {
   );
 }
 
+function serializeGateStopsForSave(
+  answers: Record<GateStopId, boolean | null>,
+): Record<GateStopId, boolean> {
+  return Object.fromEntries(
+    gateStops.map((g) => [g.id, answers[g.id] === true]),
+  ) as Record<GateStopId, boolean>;
+}
+
 export default function ReadinessCheckClient() {
   const { user, loading } = useAuth();
   const [step, setStep] = useState<StepId>("intro");
-  const [gateAnswers, setGateAnswers] = useState<Record<GateStopId, boolean>>(() =>
-    Object.fromEntries(gateStops.map((g) => [g.id, false])) as Record<GateStopId, boolean>,
+  const [gateAnswers, setGateAnswers] = useState<Record<GateStopId, boolean | null>>(() =>
+    Object.fromEntries(gateStops.map((g) => [g.id, null])) as Record<
+      GateStopId,
+      boolean | null
+    >,
   );
   const [questionAnswers, setQuestionAnswers] = useState<Record<string, number>>({});
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
+  const gatesAllAnswered = useMemo(
+    () => gateStops.every((g) => typeof gateAnswers[g.id] === "boolean"),
+    [gateAnswers],
+  );
+
   const forcedNoDrive = useMemo(
-    () => gateStops.some((g) => g.hardStop && gateAnswers[g.id]),
+    () => gateStops.some((g) => g.hardStop && gateAnswers[g.id] === true),
     [gateAnswers],
   );
 
@@ -322,6 +354,11 @@ export default function ReadinessCheckClient() {
     () => recommendationFor(readinessScore, forcedNoDrive),
     [forcedNoDrive, readinessScore],
   );
+
+  const canViewResults = forcedNoDrive || readinessScore !== null;
+
+  const scoreToPersist =
+    readinessScore !== null ? readinessScore : forcedNoDrive ? 0 : null;
 
   useEffect(() => {
     void logAnalyticsEvent("readiness_check_viewed");
@@ -529,7 +566,7 @@ export default function ReadinessCheckClient() {
                   })}
                 </div>
 
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                   <button
                     type="button"
                     onClick={() => setStep("intro")}
@@ -537,13 +574,26 @@ export default function ReadinessCheckClient() {
                   >
                     Back
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => setStep("questions")}
-                    className="rounded-full bg-[#FF3B3F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#e23337]"
-                  >
-                    Continue to score
-                  </button>
+                  <div className="flex flex-col items-stretch gap-2 sm:items-end">
+                    {!gatesAllAnswered ? (
+                      <p className="text-xs text-[#B8B0D3]">
+                        Answer Yes or No for each check before continuing.
+                      </p>
+                    ) : null}
+                    <button
+                      type="button"
+                      disabled={!gatesAllAnswered}
+                      onClick={() => setStep("questions")}
+                      className={[
+                        "rounded-full px-6 py-3 text-sm font-semibold text-white transition",
+                        gatesAllAnswered
+                          ? "bg-[#FF3B3F] hover:bg-[#e23337]"
+                          : "cursor-not-allowed bg-[#FF3B3F]/35 text-white/70",
+                      ].join(" ")}
+                    >
+                      Continue to score
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -617,7 +667,7 @@ export default function ReadinessCheckClient() {
                   })}
                 </div>
 
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                   <button
                     type="button"
                     onClick={() => setStep("gates")}
@@ -625,19 +675,32 @@ export default function ReadinessCheckClient() {
                   >
                     Back
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      void logAnalyticsEvent("readiness_check_completed", {
-                        readinessScore,
-                        hardStop: forcedNoDrive,
-                      });
-                      setStep("results");
-                    }}
-                    className="rounded-full bg-[#FF3B3F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#e23337]"
-                  >
-                    See results
-                  </button>
+                  <div className="flex flex-col items-stretch gap-2 sm:items-end">
+                    {!canViewResults ? (
+                      <p className="text-xs text-[#B8B0D3]">
+                        Answer every question above, or go back if a quick safety check applies.
+                      </p>
+                    ) : null}
+                    <button
+                      type="button"
+                      disabled={!canViewResults}
+                      onClick={() => {
+                        void logAnalyticsEvent("readiness_check_completed", {
+                          readinessScore: readinessScore ?? "incomplete",
+                          hardStop: forcedNoDrive,
+                        });
+                        setStep("results");
+                      }}
+                      className={[
+                        "rounded-full px-6 py-3 text-sm font-semibold text-white transition",
+                        canViewResults
+                          ? "bg-[#FF3B3F] hover:bg-[#e23337]"
+                          : "cursor-not-allowed bg-[#FF3B3F]/35 text-white/70",
+                      ].join(" ")}
+                    >
+                      See results
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -649,7 +712,7 @@ export default function ReadinessCheckClient() {
                   {formatScore(readinessScore)}
                 </p>
                 <p className="mt-1 text-xs text-[#B8B0D3]">
-                  {forcedNoDrive ? "Hard stop is active." : scoreLabel(readinessScore)}
+                  {scoreSubtitle(readinessScore, forcedNoDrive)}
                 </p>
               </div>
               <CanadaEmergencyCard />
@@ -672,7 +735,7 @@ export default function ReadinessCheckClient() {
                       {formatScore(readinessScore)}
                     </p>
                     <p className="mt-1 text-xs text-[#B8B0D3]">
-                      {forcedNoDrive ? "Hard stop active" : scoreLabel(readinessScore)}
+                      {scoreSubtitle(readinessScore, forcedNoDrive)}
                     </p>
                   </div>
                 </div>
@@ -682,9 +745,9 @@ export default function ReadinessCheckClient() {
                     type="button"
                     onClick={() => {
                       setGateAnswers(
-                        Object.fromEntries(gateStops.map((g) => [g.id, false])) as Record<
+                        Object.fromEntries(gateStops.map((g) => [g.id, null])) as Record<
                           GateStopId,
-                          boolean
+                          boolean | null
                         >,
                       );
                       setQuestionAnswers({});
@@ -701,19 +764,25 @@ export default function ReadinessCheckClient() {
                   ) : user ? (
                     <button
                       type="button"
-                      disabled={saving || saved}
+                      disabled={saving || saved || scoreToPersist === null}
+                      title={
+                        scoreToPersist === null
+                          ? "Complete all readiness questions to save a scored check-in."
+                          : undefined
+                      }
                       onClick={async () => {
+                        if (scoreToPersist === null) return;
                         setSaving(true);
                         try {
                           await saveReadinessCheck({
                             userId: user.uid,
-                            readinessScore,
-                            gateStops: gateAnswers,
+                            readinessScore: scoreToPersist,
+                            gateStops: serializeGateStopsForSave(gateAnswers),
                             answers: questionAnswers,
                           });
                           setSaved(true);
                           void logAnalyticsEvent("readiness_check_saved", {
-                            readinessScore,
+                            readinessScore: scoreToPersist,
                             hardStop: forcedNoDrive,
                           });
                         } finally {
