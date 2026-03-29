@@ -30,6 +30,7 @@ import {
 import { useAuth } from "@/components/auth/AuthProvider";
 import { G2CarExplorer } from "@/components/G2CarExplorer";
 import { VehicleExplorer } from "@/components/VehicleExplorer";
+import AccidentModuleUI from "./AccidentModuleUI";
 import {
   fetchUserModuleProgress,
   saveUserModuleProgress,
@@ -7015,6 +7016,11 @@ function ModuleReaderContent() {
                       </ul>
                     </div>
                   </div>
+                ) : moduleId && moduleId.includes("accident") ? (
+                  <AccidentModuleUI
+                    title={currentModule.title}
+                    description={currentModule.description}
+                  />
                 ) : moduleId === "g2-essential-road-maneuvers" &&
                   ROAD_MANEUVERS_CONTENT[currentLesson.id] ? (
                   <ManeuverLessonContent
