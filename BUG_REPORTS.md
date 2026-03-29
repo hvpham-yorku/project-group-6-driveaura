@@ -52,4 +52,53 @@ Low–Medium — affects realism and testing of “flat out” behaviour; gamepl
 
 ---
 
+## Bug 3: Vehicle Explorer module skips normal lesson flow and quiz path was missing
+
+**Summary**  
+The module `g2-vehicle-interior-essentials` used a dedicated full-page early return (Vehicle Explorer only). That skipped the normal lesson sidebar, mark-as-complete flow, and quiz flow. There was also no matching quiz in the app data, so `/quizzes/g2-vehicle-interior-essentials` showed “Quiz not found.”
+
+**Steps to reproduce**  
+1. Open **Learning Modules** and go to **G2 Vehicle Interior Essentials** (`/modules/g2-vehicle-interior-essentials`).  
+2. Notice the layout compared to other modules (sidebar / completion / quiz).  
+3. Visit `/quizzes/g2-vehicle-interior-essentials` directly.  
+
+**Expected result**  
+Same lesson experience as other modules (sidebar, completion, path to quiz), and the quiz page loads a quiz for that module.
+
+**Actual result**  
+The module jumped straight to a standalone Vehicle Explorer page without the usual module UI. The quiz URL returned “Quiz not found.”
+
+**Severity**  
+Medium — learners could not complete or quiz this module like the rest of Phase 1.
+
+**Status:** Fixed  
+
+*(Implementation: render `VehicleExplorer` inside the normal lesson body instead of an early return, and add a `QUIZZES` entry for `g2-vehicle-interior-essentials`.)*
+
+---
+
+## Bug 4: Invalid Learning Modules level URLs silently showed G1 modules
+
+**Summary**  
+URLs like `/modules/level/g2` or `/modules/level/G22` did not match a real level but the app fell back to **G1**, so users saw the wrong module list without knowing the URL was invalid.
+
+**Steps to reproduce**  
+1. In the browser, go to `/modules/level/g2` (lowercase) or `/modules/level/G22`.  
+2. Compare what you see to `/modules/level/G2` or `/modules/level/G1`.  
+
+**Expected result**  
+An explicit message that the level is invalid, plus a way to get back to the modules pathway (e.g. `/modules`).
+
+**Actual result**  
+The page showed **G1** modules as if the URL were valid.
+
+**Severity**  
+Low–Medium — confusing and misleading when sharing or mistyping level links.
+
+**Status:** Fixed  
+
+*(Implementation: only treat `G1`, `G2`, and `G` as valid path segments; otherwise show a “Level not found” message with links back to `/modules`.)*
+
+---
+
 *Documented for QA coursework. Fixes are in the repository; verify on a current build with Firebase configured where applicable.*

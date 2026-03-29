@@ -1842,76 +1842,6 @@ function ModuleReaderContent() {
     );
   }
 
-  // Dedicated full-page render for the Interior Essentials Vehicle Explorer module
-  if (moduleId === "g2-vehicle-interior-essentials") {
-    return (
-      <main className="min-h-screen" style={{ backgroundColor: "var(--void-purple)" }}>
-        <div
-          className="border-b px-4 py-3"
-          style={{ borderColor: "var(--midnight-indigo)", backgroundColor: "var(--midnight-indigo)" }}
-        >
-          <div className="mx-auto flex max-w-6xl items-center justify-between">
-            <Link
-              href="/modules/level/G2"
-              className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
-              style={{ color: "var(--electric-cyan)" }}
-            >
-              <IconChevronLeft />
-              Back to G2 modules
-            </Link>
-            <span className="text-sm" style={{ color: "var(--lavender-mist)" }}>
-              {moduleItem.title}
-            </span>
-          </div>
-        </div>
-        <div className="mx-auto max-w-5xl px-4 py-10">
-          <div
-            className="mb-2 inline-flex rounded-full border px-3 py-1 text-xs font-medium"
-            style={{ borderColor: "var(--midnight-indigo)", color: "var(--electric-cyan)" }}
-          >
-            G2 Road Prep
-          </div>
-          <h1
-            className="mt-3 text-2xl font-bold sm:text-3xl"
-            style={{ color: "var(--ghost-white)" }}
-          >
-            Interior Essentials: Vehicle Explorer
-          </h1>
-          <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
-            Explore the cabin, dashboard, instrument cluster, and center console. Click any hotspot
-            to learn what every control and indicator means before your G2 road test.
-          </p>
-          <div className="mt-8">
-            <VehicleExplorer />
-          </div>
-          <div
-            className="mt-8 rounded-xl border p-5"
-            style={{ borderColor: "var(--midnight-indigo)", backgroundColor: "var(--midnight-indigo)" }}
-          >
-            <h2 className="mb-2 text-base font-semibold" style={{ color: "var(--ghost-white)" }}>
-              What this covers
-            </h2>
-            <ul className="space-y-1.5 text-sm" style={{ color: "var(--lavender-mist)" }}>
-              <li>✦ Cabin — seating position, sightlines, and adjustments</li>
-              <li>✦ Instrument Cluster — RPM, speedometer, fuel, temp, and warning lights</li>
-              <li>✦ Steering Stalks — turn signals, headlights, and wipers</li>
-              <li>✦ Center Console — gear selector, parking brake, HVAC, and infotainment</li>
-            </ul>
-          </div>
-          <div className="mt-6 flex justify-end">
-            <Link
-              href="/modules/level/G2"
-              className="rounded-full px-5 py-2 text-sm font-semibold transition hover:opacity-80"
-              style={{ backgroundColor: "var(--electric-cyan)", color: "var(--void-purple)" }}
-            >
-              Back to G2 modules
-            </Link>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
   return (
     <main
       className="min-h-screen"
@@ -7050,6 +6980,39 @@ function ModuleReaderContent() {
                           ontario.ca
                         </a>
                       </p>
+                    </div>
+                  </div>
+                ) : moduleId === "g2-vehicle-interior-essentials" ? (
+                  <div className="space-y-8">
+                    <p
+                      className="mb-6 leading-relaxed"
+                      style={{ color: "var(--lavender-mist)" }}
+                    >
+                      Explore the cabin, dashboard, instrument cluster, and center console. Click any
+                      hotspot to learn what every control and indicator means before your G2 road test.
+                    </p>
+                    <VehicleExplorer />
+                    <div
+                      className="rounded-xl border p-5"
+                      style={{
+                        borderColor: "var(--midnight-indigo)",
+                        backgroundColor: "var(--midnight-indigo)",
+                      }}
+                    >
+                      <h2
+                        className="mb-2 text-base font-semibold"
+                        style={{ color: "var(--ghost-white)" }}
+                      >
+                        What this covers
+                      </h2>
+                      <ul className="space-y-1.5 text-sm" style={{ color: "var(--lavender-mist)" }}>
+                        <li>✦ Cabin — seating position, sightlines, and adjustments</li>
+                        <li>
+                          ✦ Instrument Cluster — RPM, speedometer, fuel, temp, and warning lights
+                        </li>
+                        <li>✦ Steering Stalks — turn signals, headlights, and wipers</li>
+                        <li>✦ Center Console — gear selector, parking brake, HVAC, and infotainment</li>
+                      </ul>
                     </div>
                   </div>
                 ) : moduleId === "g2-essential-road-maneuvers" &&
