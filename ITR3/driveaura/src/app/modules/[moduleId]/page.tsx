@@ -3584,138 +3584,6 @@ function ModuleReaderContent() {
                       </p>
                     </div>
                   </div>
-                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
-                  currentLesson.id === "1" ? (
-                  <>
-                    <div className="space-y-4">
-                      <p
-                        className="leading-relaxed"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        If an accident happens, the first thing is to stay calm
-                        and check if anyone is injured.
-                      </p>
-                      <ul
-                        className="list-disc space-y-2 pl-5 text-sm"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        <li>Check yourself and passengers</li>
-                        <li>Check people in the other vehicle</li>
-                        <li>Call 911 immediately if someone is injured</li>
-                      </ul>
-                    </div>
-                  </>
-                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
-                  currentLesson.id === "2" ? (
-                  <>
-                    <div className="space-y-4">
-                      <p
-                        className="leading-relaxed"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        If the accident is minor and the vehicles can move:
-                      </p>
-                      <ul
-                        className="list-disc space-y-2 pl-5 text-sm"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        <li>Turn on hazard lights</li>
-                        <li>Move the vehicle to the side of the road</li>
-                        <li>Avoid blocking traffic</li>
-                      </ul>
-                    </div>
-                  </>
-                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
-                  currentLesson.id === "3" ? (
-                  <>
-                    <div className="space-y-4">
-                      <p
-                        className="leading-relaxed"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        Call 911 if:
-                      </p>
-                      <ul
-                        className="list-disc space-y-2 pl-5 text-sm"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        <li>Someone is injured</li>
-                        <li>Vehicles are heavily damaged</li>
-                        <li>The road is blocked</li>
-                        <li>There is a fire or danger</li>
-                      </ul>
-                    </div>
-                  </>
-                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
-                  currentLesson.id === "4" ? (
-                  <>
-                    <div className="space-y-4">
-                      <p
-                        className="leading-relaxed"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        Drivers must exchange important details. Collect:
-                      </p>
-                      <ul
-                        className="list-disc space-y-2 pl-5 text-sm"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        <li>Full name</li>
-                        <li>Phone number</li>
-                        <li>Driver&apos;s license number</li>
-                        <li>License plate number</li>
-                        <li>Insurance company and policy number</li>
-                      </ul>
-                    </div>
-                  </>
-                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
-                  currentLesson.id === "5" ? (
-                  <>
-                    <div className="space-y-4">
-                      <p
-                        className="leading-relaxed"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        Take photos and gather evidence. Important things to
-                        photograph:
-                      </p>
-                      <ul
-                        className="list-disc space-y-2 pl-5 text-sm"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        <li>Damage to vehicles</li>
-                        <li>License plates</li>
-                        <li>Road conditions</li>
-                        <li>Traffic signs or signals</li>
-                        <li>Position of vehicles</li>
-                      </ul>
-                    </div>
-                  </>
-                ) : moduleId === "g1-what-to-do-when-accident-occurs" &&
-                  currentLesson.id === "6" ? (
-                  <>
-                    <div className="space-y-4">
-                      <p
-                        className="leading-relaxed"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        In Ontario, accidents must be reported if:
-                      </p>
-                      <ul
-                        className="list-disc space-y-2 pl-5 text-sm"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        <li>Damage exceeds $2000</li>
-                        <li>Someone is injured</li>
-                      </ul>
-                      <p
-                        className="mt-4 text-sm font-semibold"
-                        style={{ color: "var(--lavender-mist)" }}
-                      >
-                        You must report to a Collision Reporting Centre.
-                      </p>
-                    </div>
-                  </>
                 ) : moduleId === "g1-demerit-points" &&
                   currentLesson.id === "1" ? (
                   <div className="space-y-6">
@@ -7069,12 +6937,34 @@ function ModuleReaderContent() {
                 ) : moduleId === "g-environmental-awareness-eco-driving" ? (
                   <GEnvironmentalAwarenessLesson lessonId={currentLesson.id} />
                 ) : (
-                  <p
-                    className="leading-relaxed"
-                    style={{ color: "var(--lavender-mist)" }}
-                  >
-                    {currentLesson.content}
-                  </p>
+                  <div className="space-y-4">
+                    {currentLesson.content ? (
+                      <p
+                        className="leading-relaxed"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        {currentLesson.content}
+                      </p>
+                    ) : null}
+                    {currentLesson.bulletPoints && currentLesson.bulletPoints.length > 0 && (
+                      <ul
+                        className="list-disc space-y-2 pl-5 text-sm"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        {currentLesson.bulletPoints.map((point) => (
+                          <li key={point}>{point}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {currentLesson.note && (
+                      <p
+                        className="mt-4 text-sm font-semibold"
+                        style={{ color: "var(--lavender-mist)" }}
+                      >
+                        {currentLesson.note}
+                      </p>
+                    )}
+                  </div>
                 )}
               </div>
 

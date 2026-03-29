@@ -8,6 +8,8 @@ export interface Lesson {
   id: string;
   title: string;
   content: string;
+  bulletPoints?: string[];
+  note?: string;
 }
 
 export interface ModuleItem {
@@ -94,12 +96,71 @@ export const MODULES: ModuleItem[] = [
     description:
       "Step-by-step guide for what to do after a crash: stay calm, stay safe, exchange information, and report when required.",
     lessons: [
-      { id: "1", title: "Stay Calm and Check for Injuries", content: "" },
-      { id: "2", title: "Move to a Safe Location", content: "" },
-      { id: "3", title: "Call Emergency Services if Needed", content: "" },
-      { id: "4", title: "Exchange Information", content: "" },
-      { id: "5", title: "Document the Scene", content: "" },
-      { id: "6", title: "Report the Accident", content: "" },
+      {
+        id: "1",
+        title: "Stay Calm and Check for Injuries",
+        content: "If an accident happens, the first thing is to stay calm and check if anyone is injured.",
+        bulletPoints: [
+          "Check yourself and passengers",
+          "Check people in the other vehicle",
+          "Call 911 immediately if someone is injured",
+        ],
+      },
+      {
+        id: "2",
+        title: "Move to a Safe Location",
+        content: "If the accident is minor and the vehicles can move:",
+        bulletPoints: [
+          "Turn on hazard lights",
+          "Move the vehicle to the side of the road",
+          "Avoid blocking traffic",
+        ],
+      },
+      {
+        id: "3",
+        title: "Call Emergency Services if Needed",
+        content: "Call 911 if:",
+        bulletPoints: [
+          "Someone is injured",
+          "Vehicles are heavily damaged",
+          "The road is blocked",
+          "There is a fire or danger",
+        ],
+      },
+      {
+        id: "4",
+        title: "Exchange Information",
+        content: "Drivers must exchange important details. Collect:",
+        bulletPoints: [
+          "Full name",
+          "Phone number",
+          "Driver's license number",
+          "License plate number",
+          "Insurance company and policy number",
+        ],
+      },
+      {
+        id: "5",
+        title: "Document the Scene",
+        content: "Take photos and gather evidence. Important things to photograph:",
+        bulletPoints: [
+          "Damage to vehicles",
+          "License plates",
+          "Road conditions",
+          "Traffic signs or signals",
+          "Position of vehicles",
+        ],
+      },
+      {
+        id: "6",
+        title: "Report the Accident",
+        content: "In Ontario, accidents must be reported if:",
+        bulletPoints: [
+          "Damage exceeds $2000",
+          "Someone is injured",
+        ],
+        note: "You must report to a Collision Reporting Centre.",
+      },
     ],
   },
   {
