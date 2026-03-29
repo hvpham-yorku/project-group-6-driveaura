@@ -8,7 +8,7 @@ import {
   type LicenseLevel,
   type PathwayLevel,
 } from "./data";
-import { getCompletedLessonKeys } from "./progress";
+import { getCompletedLessonKeys, isModuleUnlocked } from "./progress";
 
 /* Inline SVG icons — no external library */
 function IconArrowRight() {
@@ -207,6 +207,130 @@ function ModulesProgressBar() {
   );
 }
 
+function IconLock() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  );
+}
+
+function AllModulesList() {
+  const [unlockedIds, setUnlockedIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    function refresh() {
+      setUnlockedIds(
+        new Set(MODULES.filter((m) => isModuleUnlocked(m.id, MODULES)).map((m) => m.id))
+      );
+    }
+    refresh();
+    window.addEventListener("storage", refresh);
+    return () => window.removeEventListener("storage", refresh);
+  }, []);
+
+  return (
+    <div className="space-y-4">
+      {MODULES.map((m) => {
+        const locked = !unlockedIds.has(m.id);
+        if (locked) {
+          return (
+            <div
+              key={m.id}
+              className="flex flex-wrap items-center gap-3 rounded-xl border-2 border-dashed p-4 opacity-60"
+              style={{
+                backgroundColor: "var(--midnight-indigo)",
+                borderColor: "var(--lavender-mist)",
+              }}
+            >
+              <span
+                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-bold"
+                style={{
+                  backgroundColor: "var(--void-purple)",
+                  color: "var(--lavender-mist)",
+                }}
+              >
+                {m.licenseLevel}
+              </span>
+              <div className="min-w-0 flex-1">
+                <h3
+                  className="font-semibold"
+                  style={{ color: "var(--ghost-white)" }}
+                >
+                  {m.title}
+                </h3>
+                <p
+                  className="mt-0.5 line-clamp-2 text-sm"
+                  style={{ color: "var(--lavender-mist)" }}
+                >
+                  {m.description}
+                </p>
+              </div>
+              <span
+                className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium"
+                style={{ color: "var(--lavender-mist)" }}
+              >
+                <IconLock />
+                Locked
+              </span>
+            </div>
+          );
+        }
+        return (
+          <Link
+            key={m.id}
+            href={`/modules/${m.id}`}
+            className="flex flex-wrap items-center gap-3 rounded-xl border-2 border-transparent p-4 transition-all hover:border-[var(--electric-cyan)]"
+            style={{ backgroundColor: "var(--midnight-indigo)" }}
+          >
+            <span
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-bold"
+              style={{
+                backgroundColor: "var(--void-purple)",
+                color: "var(--lavender-mist)",
+              }}
+            >
+              {m.licenseLevel}
+            </span>
+            <div className="min-w-0 flex-1">
+              <h3
+                className="font-semibold"
+                style={{ color: "var(--ghost-white)" }}
+              >
+                {m.title}
+              </h3>
+              <p
+                className="mt-0.5 line-clamp-2 text-sm"
+                style={{ color: "var(--lavender-mist)" }}
+              >
+                {m.description}
+              </p>
+            </div>
+            <span
+              className="shrink-0 text-sm font-medium"
+              style={{ color: "var(--electric-cyan)" }}
+            >
+              Open →
+            </span>
+          </Link>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function ModulesPage() {
   return (
     <main
@@ -278,48 +402,9 @@ export default function ModulesPage() {
             className="mb-6 max-w-2xl text-sm"
             style={{ color: "var(--lavender-mist)" }}
           >
-            Every module in the Learning Hub. Click to open and see lessons.
+            Complete each module in order to unlock the next one.
           </p>
-          <div className="space-y-4">
-            {MODULES.map((m) => (
-              <Link
-                key={m.id}
-                href={`/modules/${m.id}`}
-                className="flex flex-wrap items-center gap-3 rounded-xl border-2 border-transparent p-4 transition-all hover:border-[var(--electric-cyan)]"
-                style={{ backgroundColor: "var(--midnight-indigo)" }}
-              >
-                <span
-                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-bold"
-                  style={{
-                    backgroundColor: "var(--void-purple)",
-                    color: "var(--lavender-mist)",
-                  }}
-                >
-                  {m.licenseLevel}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <h3
-                    className="font-semibold"
-                    style={{ color: "var(--ghost-white)" }}
-                  >
-                    {m.title}
-                  </h3>
-                  <p
-                    className="mt-0.5 line-clamp-2 text-sm"
-                    style={{ color: "var(--lavender-mist)" }}
-                  >
-                    {m.description}
-                  </p>
-                </div>
-                <span
-                  className="shrink-0 text-sm font-medium"
-                  style={{ color: "var(--electric-cyan)" }}
-                >
-                  Open →
-                </span>
-              </Link>
-            ))}
-          </div>
+          <AllModulesList />
         </section>
       </div>
     </main>

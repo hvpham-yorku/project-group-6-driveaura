@@ -33,6 +33,7 @@ export default function LoginClient() {
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [signupSuccess, setSignupSuccess] = useState(false);
 
   useEffect(() => {
     if (!loading && user) router.replace(next);
@@ -51,10 +52,12 @@ export default function LoginClient() {
       }
       if (mode === "login") {
         await signInWithEmailAndPassword(auth, email, password);
+        router.replace(next);
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
+        setSignupSuccess(true);
+        setTimeout(() => router.replace(next), 4000);
       }
-      router.replace(next);
     } catch (err) {
       setError(getFriendlyAuthError(String(err)));
     } finally {
@@ -92,6 +95,12 @@ export default function LoginClient() {
             Sign in to access DriveAura.
           </p>
         </header>
+
+        {signupSuccess ? (
+          <div className="mb-4 rounded-lg border border-[#39FF14]/40 bg-[#0F051D] px-3 py-2 text-sm text-[#39FF14]">
+            Account created! Welcome to DriveAura — redirecting you now…
+          </div>
+        ) : null}
 
         {error ? (
           <div className="mb-4 rounded-lg border border-[#FF3B3F]/35 bg-[#0F051D] px-3 py-2 text-sm text-[#F5F5F7]">

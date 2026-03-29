@@ -39,6 +39,7 @@ import { QUIZZES } from "@/app/quizzes/data";
 import {
   getCompletedLessonsForModule,
   isLessonComplete,
+  isModuleUnlocked,
   setLessonComplete,
 } from "../progress";
 import { awardLessonPoints } from "@/lib/auraPoints";
@@ -1762,6 +1763,17 @@ function ModuleReaderContent() {
     [moduleId]
   );
 
+  const [moduleUnlocked, setModuleUnlocked] = useState(true);
+
+  useEffect(() => {
+    function checkLock() {
+      setModuleUnlocked(isModuleUnlocked(moduleId, MODULES));
+    }
+    checkLock();
+    window.addEventListener("storage", checkLock);
+    return () => window.removeEventListener("storage", checkLock);
+  }, [moduleId]);
+
   const lessonIndex = useMemo(() => {
     if (!moduleItem?.lessons.length) return 0;
     const idx = lessonParam
@@ -1839,6 +1851,50 @@ function ModuleReaderContent() {
           <IconChevronLeft />
           Back to Learning Hub
         </Link>
+      </main>
+    );
+  }
+
+  if (!moduleUnlocked) {
+    return (
+      <main
+        className="mx-auto min-h-screen px-4 py-12"
+        style={{ backgroundColor: "var(--void-purple)" }}
+      >
+        <div
+          className="mx-auto max-w-md rounded-2xl border border-[#00F5FF]/20 p-8 text-center"
+          style={{ backgroundColor: "var(--midnight-indigo)" }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="mx-auto mb-4 h-12 w-12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ color: "var(--lavender-mist)" }}
+            aria-hidden
+          >
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          <h2 className="mb-2 text-xl font-bold" style={{ color: "var(--ghost-white)" }}>
+            Module Locked
+          </h2>
+          <p className="mb-6 text-sm" style={{ color: "var(--lavender-mist)" }}>
+            Complete the previous module first to unlock <strong>{moduleItem.title}</strong>.
+          </p>
+          <Link
+            href={`/modules/level/${moduleItem.licenseLevel}`}
+            className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium"
+            style={{ backgroundColor: "var(--crimson-spark)", color: "var(--ghost-white)" }}
+          >
+            <IconChevronLeft />
+            Back to {moduleItem.licenseLevel} modules
+          </Link>
+        </div>
       </main>
     );
   }

@@ -10,7 +10,7 @@ import {
   type LicenseLevel,
   type ModuleItem,
 } from "../../data";
-import { getCompletedLessonKeys } from "../../progress";
+import { getCompletedLessonKeys, isModuleUnlocked } from "../../progress";
 
 function IconArrowRight() {
   return (
@@ -73,7 +73,70 @@ function IconBook() {
   );
 }
 
-function ModuleCard({ module: m }: { module: ModuleItem }) {
+function IconLock() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  );
+}
+
+function ModuleCard({ module: m, locked }: { module: ModuleItem; locked: boolean }) {
+  if (locked) {
+    return (
+      <div
+        className="block rounded-xl border-2 border-dashed p-5 opacity-60"
+        style={{
+          backgroundColor: "var(--midnight-indigo)",
+          borderColor: "var(--lavender-mist)",
+        }}
+        aria-disabled="true"
+      >
+        <span
+          className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium"
+          style={{
+            backgroundColor: "var(--void-purple)",
+            color: "var(--lavender-mist)",
+          }}
+        >
+          <IconBook />
+          {m.category}
+        </span>
+        <h3
+          className="mb-2 text-lg font-semibold"
+          style={{ color: "var(--ghost-white)" }}
+        >
+          {m.title}
+        </h3>
+        <p
+          className="mb-4 line-clamp-2 text-sm"
+          style={{ color: "var(--lavender-mist)" }}
+        >
+          {m.description}
+        </p>
+        <span
+          className="inline-flex items-center gap-2 text-sm font-medium"
+          style={{ color: "var(--lavender-mist)" }}
+        >
+          <IconLock />
+          Complete the previous module to unlock
+        </span>
+      </div>
+    );
+  }
+
   return (
     <Link
       href={`/modules/${m.id}`}
@@ -143,10 +206,25 @@ function LevelPageContent() {
   const levelTotal = levelLessonKeys.size;
 
   const [completedCount, setCompletedCount] = useState(0);
+  const [unlockedIds, setUnlockedIds] = useState<Set<string>>(new Set());
+
   useEffect(() => {
     const keys = getCompletedLessonKeys().filter((k) => levelLessonKeys.has(k));
     setCompletedCount(keys.length);
-  }, [license, levelLessonKeys]);
+    setUnlockedIds(
+      new Set(modulesForLicense.filter((m) => isModuleUnlocked(m.id, MODULES)).map((m) => m.id))
+    );
+
+    function onStorage() {
+      const next = getCompletedLessonKeys().filter((k) => levelLessonKeys.has(k));
+      setCompletedCount(next.length);
+      setUnlockedIds(
+        new Set(modulesForLicense.filter((m) => isModuleUnlocked(m.id, MODULES)).map((m) => m.id))
+      );
+    }
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, [license, levelLessonKeys, modulesForLicense]);
 
   const levelPercent =
     levelTotal > 0 ? Math.round((completedCount / levelTotal) * 100) : 0;
@@ -244,7 +322,7 @@ function LevelPageContent() {
             </h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {modulesForLicense.map((m) => (
-                <ModuleCard key={m.id} module={m} />
+                <ModuleCard key={m.id} module={m} locked={!unlockedIds.has(m.id)} />
               ))}
             </div>
           </section>

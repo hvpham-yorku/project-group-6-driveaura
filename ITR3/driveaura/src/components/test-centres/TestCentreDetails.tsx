@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin, AlertTriangle, ExternalLink } from "lucide-react";
+import { MapPin, ExternalLink } from "lucide-react";
 import type { DrivingCentre } from "@/data/drivingCentres";
 
 interface TestCentreDetailsProps {
@@ -66,28 +66,6 @@ export default function TestCentreDetails({ centre }: TestCentreDetailsProps) {
         )}
       </div>
 
-      {/* Route links + Key watch-outs below the map */}
-      <div className="mt-4 flex-shrink-0 space-y-4">
-        <section aria-label="Key watch-outs">
-          <h2 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-[#B8B0D3]">
-            <AlertTriangle className="h-3.5 w-3.5" aria-hidden />
-            Key watch-outs
-          </h2>
-          <ul className="space-y-1.5">
-            {centre.checkpoints.map((checkpoint, index) => (
-              <li
-                key={index}
-                className="flex gap-2 rounded-lg border border-[#00F5FF]/20 bg-[#1C1132] py-2 pl-3 pr-3 text-sm text-[#F5F5F7]"
-              >
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#39FF14]/20 text-xs font-semibold text-[#39FF14]">
-                  {index + 1}
-                </span>
-                {checkpoint}
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
     </div>
   );
 }
