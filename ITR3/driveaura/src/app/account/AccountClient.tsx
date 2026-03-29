@@ -29,16 +29,24 @@ function formatWhen(date: Date) {
   }).format(date);
 }
 
-function safeDateFromRecord(record: ReadinessCheckRecord): Date | null {
-  const anyCreatedAt = record.createdAt as unknown as { toDate?: () => Date } | null;
-  if (anyCreatedAt && typeof anyCreatedAt.toDate === "function") return anyCreatedAt.toDate();
+function timestampFromFirestoreField(value: unknown): Date | null {
+  const candidate = value as { toDate?: () => Date } | null | undefined;
+  if (candidate && typeof candidate.toDate === "function") {
+    return candidate.toDate();
+  }
   return null;
 }
 
+function safeDateFromRecord(record: ReadinessCheckRecord): Date | null {
+  return timestampFromFirestoreField(
+    (record as { createdAt?: unknown }).createdAt,
+  );
+}
+
 function safeDateFromManualShift(record: ManualShiftSessionRecord): Date | null {
-  const anyCreatedAt = record.createdAt as unknown as { toDate?: () => Date } | null;
-  if (anyCreatedAt && typeof anyCreatedAt.toDate === "function") return anyCreatedAt.toDate();
-  return null;
+  return timestampFromFirestoreField(
+    (record as { createdAt?: unknown }).createdAt,
+  );
 }
 
 function SettingsPanel() {
