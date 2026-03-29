@@ -152,6 +152,11 @@ function QuizContent() {
     }
   }, [results?.passed, quizId]);
 
+  const moduleItem = useMemo(
+    () => MODULES.find((m) => m.id === quizId),
+    [quizId]
+  );
+
   if (!quiz) {
     return (
       <main
@@ -170,11 +175,6 @@ function QuizContent() {
       </main>
     );
   }
-
-  const moduleItem = useMemo(
-    () => MODULES.find((m) => m.id === quizId),
-    [quizId]
-  );
 
   return (
     <main
