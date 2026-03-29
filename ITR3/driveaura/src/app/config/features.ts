@@ -52,7 +52,8 @@ export const practiceFeatures: readonly FeatureItem[] = [
   {
     href: "/user-as-examiner",
     label: "User as Examiner",
-    description: "Spot mistakes in scenario clips and build examiner-level awareness.",
+    description:
+      "Practice mock grading: read case studies, classify errors as minor or major on an MTO-style rubric, and earn Aura Points.",
   },
   {
     href: "/weather-training",
