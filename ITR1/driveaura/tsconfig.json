@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "customConditions": ["import"],
+    "customConditions": [
+      "import"
+    ],
     "lib": [
       "dom",
       "dom.iterable",
