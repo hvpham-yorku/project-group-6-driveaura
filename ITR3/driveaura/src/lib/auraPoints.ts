@@ -13,6 +13,8 @@ const TOTAL_KEY = "driveaura-aura-points";
 const EARNED_LESSONS_KEY = "driveaura-aura-earned-lessons";
 /** Tracks which quiz IDs have already earned points. */
 const EARNED_QUIZZES_KEY = "driveaura-aura-earned-quizzes";
+/** Tracks User-as-Examiner scenario IDs that have already earned Mock Grading points. */
+const EARNED_EXAMINER_SCENARIOS_KEY = "driveaura-aura-earned-examiner-scenarios";
 
 /** Custom DOM event dispatched whenever points change. */
 export const AURA_POINTS_UPDATED_EVENT = "driveaura-aura-points-updated";
@@ -28,6 +30,8 @@ export const AURA_POINT_VALUES = {
   QUIZ: 15,
   ASSESSMENT: 10,
   GAME: 20,
+  /** First correct Mock Grading verdict per scenario. */
+  EXAMINER_SCENARIO: 12,
 } as const;
 
 // ─── Private helpers ──────────────────────────────────────────────────────────
@@ -117,26 +121,52 @@ export function awardQuizPoints(quizId: string): number {
   return pts;
 }
 
+/**
+ * Award Aura Points for a correct Mock Grading verdict (first time per scenario).
+ */
+export function awardExaminerScenarioPoints(scenarioId: string): number {
+  const earned = readSet(EARNED_EXAMINER_SCENARIOS_KEY);
+  if (earned.has(scenarioId)) return 0;
+
+  const pts = AURA_POINT_VALUES.EXAMINER_SCENARIO;
+  const total = readNumber(TOTAL_KEY) + pts;
+
+  earned.add(scenarioId);
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(TOTAL_KEY, String(total));
+  }
+  writeSet(EARNED_EXAMINER_SCENARIOS_KEY, earned);
+  dispatchUpdate({ earned: pts, total });
+  return pts;
+}
+
 /** Breakdown of points earned per category. */
 export interface AuraPointsBreakdown {
   lessons: number;
   quizzes: number;
+  examinerScenarios: number;
   total: number;
   earnedLessonCount: number;
   earnedQuizCount: number;
+  earnedExaminerScenarioCount: number;
 }
 
 /** Returns a breakdown of how points were earned. */
 export function getAuraPointsBreakdown(): AuraPointsBreakdown {
   const earnedLessonCount = readSet(EARNED_LESSONS_KEY).size;
   const earnedQuizCount = readSet(EARNED_QUIZZES_KEY).size;
+  const earnedExaminerScenarioCount = readSet(EARNED_EXAMINER_SCENARIOS_KEY).size;
   const lessons = earnedLessonCount * AURA_POINT_VALUES.LESSON;
   const quizzes = earnedQuizCount * AURA_POINT_VALUES.QUIZ;
+  const examinerScenarios =
+    earnedExaminerScenarioCount * AURA_POINT_VALUES.EXAMINER_SCENARIO;
   return {
     lessons,
     quizzes,
-    total: lessons + quizzes,
+    examinerScenarios,
+    total: lessons + quizzes + examinerScenarios,
     earnedLessonCount,
     earnedQuizCount,
+    earnedExaminerScenarioCount,
   };
 }

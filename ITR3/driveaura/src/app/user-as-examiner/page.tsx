@@ -63,16 +63,15 @@ function ScenarioCard({ scenario }: { scenario: ExaminerScenario }) {
         <h2 className="mb-2 text-lg font-semibold text-ghost-white">
           {scenario.title}
         </h2>
-        <p className="mb-4 flex-1 text-sm text-lavender-mist line-clamp-2">
-          Watch the 10-second clip as the examiner and spot the driver&apos;s
-          mistake.
+        <p className="mb-4 flex-1 text-sm text-lavender-mist line-clamp-3">
+          {scenario.caseStudy}
         </p>
         <Link
           href={`/user-as-examiner/${scenario.id}`}
           className="inline-flex items-center justify-center gap-2 rounded bg-crimson-spark px-4 py-2 text-sm font-medium text-ghost-white transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-electric-cyan focus:ring-offset-2 focus:ring-offset-void-purple"
         >
           <IconPlay />
-          Start scenario
+          Mock grading
         </Link>
       </div>
     </article>
@@ -86,13 +85,63 @@ export default function UserAsExaminerListPage() {
         <h1 className="mb-6 text-2xl font-bold text-ghost-white sm:text-3xl">
           User as Examiner
         </h1>
-        <p className="mb-8 text-lavender-mist">
-          Act as the examiner: watch each 10-second first-person driving clip and
-          identify what the driver did wrong. Practice spotting common
-          automatic-fail violations and earn examiner-style feedback.
+        <p className="mb-6 text-lavender-mist">
+          Act as the examiner: read each case study and classify the driver error
+          on an MTO-style rubric. Submit your verdict, earn Aura Points when
+          correct, and review official-style guidance when not.
         </p>
 
-        <section aria-label="Spot the mistake scenarios">
+        <section
+          aria-labelledby="rubric-explainer-heading"
+          className="mb-10 rounded-lg border border-electric-cyan/30 bg-midnight-indigo p-5 shadow-lg shadow-black/20 sm:p-6"
+        >
+          <h2
+            id="rubric-explainer-heading"
+            className="mb-3 text-lg font-semibold text-ghost-white"
+          >
+            Minor vs major — what to choose
+          </h2>
+          <p className="mb-4 text-sm leading-relaxed text-lavender-mist">
+            Ontario road tests use deductions for errors. For this practice tool,
+            use the labels below the same way an examiner thinks about risk and
+            rule violations—not every mistake is equally serious.
+          </p>
+          <ul className="space-y-4 text-sm leading-relaxed text-lavender-mist">
+            <li>
+              <span className="font-semibold text-electric-cyan">Minor error</span>
+              <span className="text-lavender-mist">
+                {" "}
+                — A mistake that shows imperfect technique or timing but does{" "}
+                <strong className="text-ghost-white">not</strong> put people in
+                clear danger, break a fundamental rule (e.g. full stop at a stop
+                sign), or create a serious conflict. Examples: slightly late
+                signal when you still signaled before moving, a bit wide on a turn
+                with no oncoming issue, or a small positioning fix that stayed
+                under control.
+              </span>
+            </li>
+            <li>
+              <span className="font-semibold text-crimson-spark">
+                Major / critical error
+              </span>
+              <span className="text-lavender-mist">
+                {" "}
+                — A serious violation or unsafe act examiners treat as
+                high-risk: right-of-way failures, ignoring controls (rolling
+                stops, red lights), missing blind spots or shoulder checks when
+                they matter for safety, speeding in sensitive zones, or forcing
+                others to brake or swerve. These often match automatic-fail
+                territory on a real test.
+              </span>
+            </li>
+          </ul>
+          <p className="mt-4 text-sm text-lavender-mist/90">
+            Read the case study, pick the column that best matches how serious the
+            error is, then open a scenario to try mock grading.
+          </p>
+        </section>
+
+        <section aria-label="Mock grading scenarios">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {USER_AS_EXAMINER_SCENARIOS.map((s) => (
               <ScenarioCard key={s.id} scenario={s} />
