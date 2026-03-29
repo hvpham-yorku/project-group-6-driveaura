@@ -35,6 +35,7 @@ import {
   saveUserModuleProgress,
 } from "@/lib/firebase/client";
 import { MODULES, type Lesson } from "../data";
+import { QUIZZES } from "@/app/quizzes/data";
 import {
   getCompletedLessonsForModule,
   isLessonComplete,
@@ -7134,7 +7135,8 @@ function ModuleReaderContent() {
                     Next lesson →
                   </Link>
                 )}
-                {lessonIndex === moduleItem.lessons.length - 1 && (
+                {lessonIndex === moduleItem.lessons.length - 1 &&
+                  QUIZZES.some((q) => q.id === moduleId) && (
                   <Link
                     href={`/quizzes/${moduleId}`}
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:opacity-95"
