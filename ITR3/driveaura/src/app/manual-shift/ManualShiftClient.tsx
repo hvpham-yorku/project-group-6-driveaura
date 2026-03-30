@@ -22,6 +22,9 @@ import {
 import { EngineAudio } from "@/lib/manual-shift/audio";
 import { getScenarioSteps, type ScenarioStep } from "@/lib/manual-shift/scenarios";
 
+/** Keys that need preventDefault while playing so the page does not scroll. */
+const MANUAL_SHIFT_KEYS_PREVENT_DEFAULT = new Set([" ", "arrowup", "arrowdown"]);
+
 // ─── SVG Helpers ──────────────────────────────────────────────────────────────
 
 function svgPt(deg: number, r: number): { x: number; y: number } {
@@ -380,12 +383,14 @@ function ResultsScreen({
   onSave,
   saving,
   saved,
+  saveError,
 }: {
   result: SessionResult;
   onPlayAgain: () => void;
   onSave: () => void;
   saving: boolean;
   saved: boolean;
+  saveError: string | null;
 }) {
   const { user } = useAuth();
   const mins = Math.floor(result.sessionTimeSec / 60);
@@ -428,21 +433,28 @@ function ResultsScreen({
           </button>
 
           {user ? (
-            <button
-              type="button"
-              onClick={onSave}
-              disabled={saving || saved}
-              className={[
-                "rounded-full px-6 py-3 text-sm font-semibold text-white transition",
-                saved
-                  ? "bg-[#39FF14]/25 text-[#39FF14] cursor-default"
-                  : saving
-                    ? "bg-[#FF3B3F]/50 cursor-wait"
-                    : "bg-[#1C1132] border border-[#00F5FF]/25 text-[#F5F5F7] hover:border-[#00F5FF]/60",
-              ].join(" ")}
-            >
-              {saved ? "Saved to account ✓" : saving ? "Saving…" : "Save to account"}
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={onSave}
+                disabled={saving || saved}
+                className={[
+                  "rounded-full px-6 py-3 text-sm font-semibold text-white transition",
+                  saved
+                    ? "bg-[#39FF14]/25 text-[#39FF14] cursor-default"
+                    : saving
+                      ? "bg-[#FF3B3F]/50 cursor-wait"
+                      : "bg-[#1C1132] border border-[#00F5FF]/25 text-[#F5F5F7] hover:border-[#00F5FF]/60",
+                ].join(" ")}
+              >
+                {saved ? "Saved to account ✓" : saving ? "Saving…" : "Save to account"}
+              </button>
+              {saveError ? (
+                <p className="w-full basis-full text-sm text-[#FF3B3F]" role="alert">
+                  {saveError}
+                </p>
+              ) : null}
+            </>
           ) : (
             <Link
               href="/login?next=%2Fmanual-shift"
@@ -544,6 +556,7 @@ export default function ManualShiftClient() {
   const [scenarioStep, setScenarioStep] = useState(0);
   const [saving, setSaving]     = useState(false);
   const [saved,  setSaved]      = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   // Mutable refs — not react state, used in the rAF loop
   const simRef          = useRef<EngineState | null>(null);
@@ -661,6 +674,7 @@ export default function ManualShiftClient() {
     lastShiftUpRef.current   = false;
     lastShiftDownRef.current = false;
     setSaved(false);
+    setSaveError(null);
 
     // Init audio (user interaction just happened — context allowed)
     if (!audioRef.current) audioRef.current = new EngineAudio();
@@ -704,11 +718,9 @@ export default function ManualShiftClient() {
 
   // ── Keyboard events ───────────────────────────────────────────────────────
   useEffect(() => {
-    const PREVENT = new Set([" ", "arrowup", "arrowdown"]);
-
     const onDown = (e: KeyboardEvent) => {
       const k = e.key.toLowerCase();
-      if (phase === "playing" && PREVENT.has(k)) e.preventDefault();
+      if (phase === "playing" && MANUAL_SHIFT_KEYS_PREVENT_DEFAULT.has(k)) e.preventDefault();
       if (k === "p" && (phase === "playing" || phase === "paused")) { togglePause(); return; }
       keysRef.current.add(k);
     };
@@ -734,6 +746,7 @@ export default function ManualShiftClient() {
   const handleSave = useCallback(async () => {
     if (!user || !simRef.current || !cfgRef.current) return;
     setSaving(true);
+    setSaveError(null);
     try {
       const s = simRef.current;
       await saveManualShiftSession({
@@ -750,6 +763,9 @@ export default function ManualShiftClient() {
       });
       setSaved(true);
       void logAnalyticsEvent("manual_shift_saved", { score: s.score, auraEarned: s.auraEarned });
+    } catch (e) {
+      console.error("saveManualShiftSession failed", e);
+      setSaveError("Could not save to your account. Check your connection and try again.");
     } finally {
       setSaving(false);
     }
@@ -758,6 +774,8 @@ export default function ManualShiftClient() {
   const handlePlayAgain = useCallback(() => {
     audioRef.current?.destroy();
     audioRef.current = null;
+    setSaveError(null);
+    setSaved(false);
     setPhase("setup");
   }, []);
 
@@ -785,6 +803,7 @@ export default function ManualShiftClient() {
         onSave={handleSave}
         saving={saving}
         saved={saved}
+        saveError={saveError}
       />
     );
   }

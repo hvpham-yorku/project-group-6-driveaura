@@ -5,10 +5,10 @@
 
 import type {
   ChecklistCategoryId,
+  ChecklistCategoryResponse,
   ChecklistReport,
   ChecklistState,
 } from "./types";
-import type { ChecklistCategoryResponse } from "./types";
 import {
   CHECKLIST_CATEGORY_IDS,
   CHECKLIST_CATEGORY_LABELS,
@@ -45,7 +45,7 @@ function getCategoryCompletionRatio(
   }
   const sub = state[id]?.subChecks ?? [];
   const completed = sub.filter(Boolean).length;
-  return items.length === 0 ? 0 : completed / items.length;
+  return completed / items.length;
 }
 
 /** Pass if all categories >= 75% (sub-check completion or pass). */
