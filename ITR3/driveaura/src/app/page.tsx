@@ -13,7 +13,6 @@ const heroQuickLinks: readonly NavFeature[] = [
   { href: "/modules", label: "Modules" },
   { href: "/test-centres", label: "Test Centres" },
   { href: "/test-checklist", label: "Checklist" },
-  { href: "/quizzes", label: "Quizzes" },
   { href: "/readiness-check", label: "Readiness" },
 ];
 
@@ -94,7 +93,7 @@ export default function Home() {
           <article className="rounded-2xl border border-[#00F5FF]/10 bg-[#1C1132] p-5 text-center">
             <p className="text-sm font-semibold text-[#00F5FF]">02. Practice smarter</p>
             <p className="mt-3 text-sm text-[#B8B0D3]">
-              Use the Passenger Checklist, quizzes, and test centre tools like a mock exam.
+              Use the Passenger Checklist, module quizzes, and test centre tools like a mock exam.
             </p>
           </article>
           <article className="rounded-2xl border border-[#00F5FF]/10 bg-[#1C1132] p-5 text-center">

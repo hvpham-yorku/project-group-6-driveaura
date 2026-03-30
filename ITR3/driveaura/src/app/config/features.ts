@@ -15,11 +15,6 @@ export const learningFeatures: readonly FeatureItem[] = [
     description: "Personalized G1 to G learning pathways with structured lessons.",
   },
   {
-    href: "/quizzes",
-    label: "Quizzes",
-    description: "Short checks to reinforce concepts and track mastery progress.",
-  },
-  {
     href: "/data-visualization",
     label: "Progress Insights",
     description: "Visual analytics to understand strengths and improvement areas.",
