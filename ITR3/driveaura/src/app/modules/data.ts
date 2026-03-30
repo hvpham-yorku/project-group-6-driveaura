@@ -257,14 +257,75 @@ export const MODULES: ModuleItem[] = [
     description:
       "Identifying risks, scanning, blind spots, and reacting safely in real traffic.",
     lessons: [
-      { id: "1", title: "Scanning & space cushions", content: "" },
-      { id: "2", title: "Blind spots & mirror checks", content: "" },
-      { id: "3", title: "Intersections & pedestrian hazards", content: "" },
-      { id: "4", title: "Following distance & speed choice", content: "" },
+      {
+        id: "1",
+        title: "Scanning & space cushions",
+        content:
+          "Effective scanning means moving your eyes continuously — not staring at the vehicle ahead. Aim to look 12–15 seconds ahead in city driving and up to 30 seconds on highways so you have time to react before a hazard reaches you.",
+        bulletPoints: [
+          "Sweep your eyes from side to side across the full width of the road",
+          "Check your mirrors every 5–8 seconds to maintain situational awareness",
+          "Maintain a space cushion on all four sides of your vehicle — front, rear, left, and right",
+          "If a vehicle closes your front cushion, ease off the gas to rebuild your following gap",
+          "Identify an escape route (open lane or shoulder) before you actually need it",
+        ],
+      },
+      {
+        id: "2",
+        title: "Blind spots & mirror checks",
+        content:
+          "Mirrors eliminate most blind spots, but not all. The zone alongside your rear quarter panel — roughly beside and slightly behind your shoulder — cannot be seen in any mirror. A quick shoulder check before every lane change or merge is mandatory.",
+        bulletPoints: [
+          "Set mirrors before every drive: side mirrors should barely show the side of your car",
+          "Check mirrors before braking, turning, changing lanes, and when stopped at lights",
+          "Perform a shoulder check over the appropriate shoulder for the direction you are moving",
+          "Cyclists and motorcyclists frequently occupy blind spots — always check twice",
+          "Convex (wide-angle) passenger mirrors compress distance; objects are closer than they appear",
+        ],
+        note: "Ontario law requires a shoulder check before every lane change and merge.",
+      },
+      {
+        id: "3",
+        title: "Intersections & pedestrian hazards",
+        content:
+          "More than 40% of collisions occur at or near intersections. Even when you have a green light, scan left-right-left before proceeding and watch for pedestrians who may still be crossing.",
+        bulletPoints: [
+          "Slow down and cover the brake as you approach any intersection",
+          "Scan left, right, then left again before entering, even on a green",
+          "Watch for pedestrians starting to cross on the opposite pedestrian signal",
+          "Be alert for drivers running red or amber lights from cross traffic",
+          "Treat every uncontrolled intersection (no sign or signal) as a yield",
+          "Look for cyclists in the crosswalk or alongside your vehicle before turning right",
+        ],
+      },
+      {
+        id: "4",
+        title: "Following distance & speed choice",
+        content:
+          "The 3-second rule gives you minimum safe following distance at normal speeds. Increase to 4–5 seconds in rain, snow, fog, or when following large trucks. Never drive faster than conditions allow — posted limits assume ideal conditions.",
+        bulletPoints: [
+          "Pick a fixed landmark; count '1 one-thousand, 2 one-thousand, 3 one-thousand' after the car ahead passes it",
+          "If you reach the landmark before finishing the count, drop back",
+          "Double your gap at night, in rain, snow, or fog",
+          "Leave extra space behind large trucks — their stopping distance is much longer",
+          "Adjust speed for curves, hills, slippery surfaces, and reduced visibility — not just speed signs",
+          "Slow down before a curve, not during it",
+        ],
+      },
       {
         id: "5",
         title: "Defensive responses (brake, steer, escape routes)",
-        content: "",
+        content:
+          "When a hazard appears, most drivers instinctively steer around it faster than they can stop. Practice identifying your escape route before you need it — open lane, shoulder, or empty curb lane. If braking hard, brake in a straight line whenever possible.",
+        bulletPoints: [
+          "Look where you want to go, not at the hazard — your vehicle follows your eyes",
+          "In a panic stop with ABS: press the brake pedal hard and hold it down; do not pump",
+          "If ABS is not available, threshold brake — apply firm pressure just short of lockup",
+          "Steering around an obstacle is often faster than braking to a stop at highway speeds",
+          "Always have a pre-planned escape: empty lane to the right is the safest default",
+          "After avoiding a hazard, check mirrors and re-establish a safe following gap",
+        ],
+        note: "ABS is standard on all vehicles made after 2004. Do not pump the brake — hold it down and steer.",
       },
     ],
   },
@@ -276,11 +337,79 @@ export const MODULES: ModuleItem[] = [
     description:
       "Parallel parking, reverse parking, hill parking, and slow-speed control.",
     lessons: [
-      { id: "1", title: "Slow-speed control (creep, clutch/brake balance)", content: "" },
-      { id: "2", title: "Parallel parking", content: "" },
-      { id: "3", title: "Reverse parking", content: "" },
-      { id: "4", title: "Perpendicular parking", content: "" },
-      { id: "5", title: "Hill parking (uphill/downhill)", content: "" },
+      {
+        id: "1",
+        title: "Slow-speed control (creep, clutch/brake balance)",
+        content:
+          "Low-speed manoeuvres require smooth, precise control of throttle, brake, and steering. In automatic vehicles, use light throttle or let the vehicle creep at idle. In manual vehicles, feather the clutch at the friction point to control crawl speed without stalling.",
+        bulletPoints: [
+          "In automatic: release the brake gently to creep; tap the brake to slow or stop without lurching",
+          "In manual: find the clutch friction point — the vehicle moves without engine lag or stalling",
+          "Use only fingertip pressure on the steering wheel; over-gripping reduces sensitivity at low speed",
+          "Look in the direction you are moving, not directly in front of the bumper",
+          "At very low speeds, small steering inputs have large effects — move the wheel slowly",
+          "In tight spaces, use a spotter outside the vehicle and stop the moment they signal",
+        ],
+      },
+      {
+        id: "2",
+        title: "Parallel parking",
+        content:
+          "Parallel parking means reversing into a space alongside the curb between two parked vehicles. The space must be at least 1.5 times the length of your vehicle. Signal, scan, and reverse slowly — this is the manoeuvre most commonly tested on the G2 road test.",
+        bulletPoints: [
+          "Signal and stop alongside the vehicle ahead of the space, leaving about 1 metre between you",
+          "Reverse slowly until your rear bumper is level with that vehicle's rear bumper",
+          "Turn the wheel sharply toward the curb (right for right-side parking)",
+          "When your vehicle is at a 45-degree angle to the curb, straighten the wheel",
+          "Continue reversing until your front clears the vehicle ahead, then turn the wheel away from the curb",
+          "Pull forward to centre yourself in the space — aim to finish within 30 cm of the curb",
+          "Check both mirrors and do a shoulder check before opening your door",
+        ],
+        note: "Ontario law: park within 15 cm of the curb. Signal before every parallel park attempt.",
+      },
+      {
+        id: "3",
+        title: "Reverse parking",
+        content:
+          "Reverse parking (backing into a space) is safer for exiting because you leave nose-first into traffic with full visibility. It takes more time to park but significantly reduces the risk when leaving. Many G2 examiners look for this skill.",
+        bulletPoints: [
+          "Drive past the space and signal before stopping",
+          "Check mirrors and blind spots; reverse slowly toward the space entrance",
+          "Turn the wheel toward the space once your rear axle aligns with the space edge",
+          "Straighten the wheel as the vehicle enters the space and centre yourself between the lines",
+          "Use all mirrors plus shoulder checks throughout — parking sensors are a supplement, not a substitute",
+          "Stop before any part of the vehicle overhangs the end of the space",
+        ],
+      },
+      {
+        id: "4",
+        title: "Perpendicular parking",
+        content:
+          "Perpendicular (angle) parking is common in lots and garages. You can enter nose-first or reverse-in; reverse-in is preferred because exiting forward is safer. Always park centred in the bay and ensure you leave enough room for passengers to open doors.",
+        bulletPoints: [
+          "Approach at a slow, steady speed and signal your intention",
+          "For nose-in: begin turning early so the vehicle tracks into the centre of the bay",
+          "For reverse-in: drive one bay past and then reverse, turning sharply into the space",
+          "Check that you are centred between the lines before shutting off",
+          "Look for pedestrians walking behind parked cars before reversing out",
+          "When reversing out, back slowly until you can see past the adjacent vehicles, then stop and check both ways",
+        ],
+      },
+      {
+        id: "5",
+        title: "Hill parking (uphill/downhill)",
+        content:
+          "When parking on a hill, gravity must be counteracted by both the parking brake and the wheels turned to use the curb as a physical stop. If the parking brake ever fails, the wheel position determines whether the vehicle rolls into traffic or into the curb.",
+        bulletPoints: [
+          "Uphill with a curb: turn front wheels away from the curb (to the left); if brakes fail, the curb stops the car",
+          "Downhill with a curb: turn front wheels toward the curb (to the right); curb acts as a wheel stop",
+          "No curb (uphill or downhill): turn front wheels toward the edge of the road (right), so the car rolls off the road rather than into traffic",
+          "Always apply the parking brake before shifting to Park (automatic) or selecting a gear (manual)",
+          "On steep hills, leave the vehicle in a lower gear to add engine braking resistance",
+          "Place a wheel chock if available — especially on very steep slopes or in a manual vehicle",
+        ],
+        note: "Ontario G2 road test includes hill parking. An examiner will check wheel direction and parking brake engagement.",
+      },
     ],
   },
   {

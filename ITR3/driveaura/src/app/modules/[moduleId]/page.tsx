@@ -3,7 +3,7 @@
 /// <reference types="react" />
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useMemo, useState } from "react";
 import {
   AlertTriangle,
@@ -31,7 +31,6 @@ import { useAuth } from "@/components/auth/AuthProvider";
 import dynamic from "next/dynamic";
 import { G2CarExplorer } from "@/components/G2CarExplorer";
 import { VehicleExplorer } from "@/components/VehicleExplorer";
-import AccidentModuleUI from "./AccidentModuleUI";
 
 const GHighSpeedLessonDynamic = dynamic(
   () => import("../lessons/GHighSpeedLesson"),
@@ -44,11 +43,17 @@ import {
 import { MODULES, type Lesson } from "../data";
 import { QUIZZES } from "@/app/quizzes/data";
 import {
+  areAllLessonsComplete,
   getCompletedLessonsForModule,
   isLessonComplete,
-  isModuleUnlocked,
   setLessonComplete,
 } from "../progress";
+import { isModuleUnlocked } from "@/lib/learning/moduleUnlock";
+import {
+  fetchUserQuizProgressMap,
+  passedQuizIdsFromMap,
+} from "@/lib/firebase/userQuizProgress";
+import { setQuizEntryAllowed } from "@/lib/learning/quizEntry";
 import { awardLessonPoints } from "@/lib/auraPoints";
 import {
   ROAD_MANEUVERS_CONTENT,
@@ -1761,7 +1766,8 @@ function GEnvironmentalAwarenessLesson({ lessonId }: { lessonId: string }) {
 function ModuleReaderContent() {
   const params = useParams();
   const searchParams = useSearchParams();
-  const { user } = useAuth();
+  const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
   const moduleId = typeof params.moduleId === "string" ? params.moduleId : "";
   const lessonParam = searchParams.get("lesson");
 
@@ -1769,17 +1775,6 @@ function ModuleReaderContent() {
     () => MODULES.find((m) => m.id === moduleId),
     [moduleId]
   );
-
-  const [moduleUnlocked, setModuleUnlocked] = useState(true);
-
-  useEffect(() => {
-    function checkLock() {
-      setModuleUnlocked(isModuleUnlocked(moduleId, MODULES));
-    }
-    checkLock();
-    window.addEventListener("storage", checkLock);
-    return () => window.removeEventListener("storage", checkLock);
-  }, [moduleId]);
 
   const lessonIndex = useMemo(() => {
     if (!moduleItem?.lessons.length) return 0;
@@ -1793,7 +1788,35 @@ function ModuleReaderContent() {
   const [progressSyncError, setProgressSyncError] = useState<string | null>(null);
   const [g2PassengerTab, setG2PassengerTab] = useState<"first6" | "after6">("first6");
   const [g2PathsTab, setG2PathsTab] = useState<"demerits" | "escalating">("demerits");
+  const [unlockLoading, setUnlockLoading] = useState(false);
+  const [showIncompleteQuizModal, setShowIncompleteQuizModal] = useState(false);
+  const [showQuizConfirmModal, setShowQuizConfirmModal] = useState(false);
   const currentLesson = moduleItem?.lessons[lessonIndex];
+
+  useEffect(() => {
+    if (authLoading || !moduleItem || !user?.uid) {
+      setUnlockLoading(false);
+      return;
+    }
+    let cancelled = false;
+    setUnlockLoading(true);
+    void (async () => {
+      try {
+        const map = await fetchUserQuizProgressMap(user.uid);
+        if (cancelled) return;
+        const ids = passedQuizIdsFromMap(map);
+        if (!isModuleUnlocked(moduleId, ids)) {
+          router.replace(`/modules/level/${moduleItem.licenseLevel}`);
+          return;
+        }
+      } finally {
+        if (!cancelled) setUnlockLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [authLoading, user?.uid, moduleId, moduleItem, router]);
 
   useEffect(() => {
     let cancelled = false;
@@ -1862,47 +1885,14 @@ function ModuleReaderContent() {
     );
   }
 
-  if (!moduleUnlocked) {
+  if (unlockLoading) {
     return (
-      <main
-        className="mx-auto min-h-screen px-4 py-12"
-        style={{ backgroundColor: "var(--void-purple)" }}
+      <div
+        className="flex min-h-screen items-center justify-center"
+        style={{ backgroundColor: "var(--void-purple)", color: "var(--lavender-mist)" }}
       >
-        <div
-          className="mx-auto max-w-md rounded-2xl border border-[#00F5FF]/20 p-8 text-center"
-          style={{ backgroundColor: "var(--midnight-indigo)" }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="mx-auto mb-4 h-12 w-12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={{ color: "var(--lavender-mist)" }}
-            aria-hidden
-          >
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-          </svg>
-          <h2 className="mb-2 text-xl font-bold" style={{ color: "var(--ghost-white)" }}>
-            Module Locked
-          </h2>
-          <p className="mb-6 text-sm" style={{ color: "var(--lavender-mist)" }}>
-            Complete the previous module first to unlock <strong>{moduleItem.title}</strong>.
-          </p>
-          <Link
-            href={`/modules/level/${moduleItem.licenseLevel}`}
-            className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium"
-            style={{ backgroundColor: "var(--crimson-spark)", color: "var(--ghost-white)" }}
-          >
-            <IconChevronLeft />
-            Back to {moduleItem.licenseLevel} modules
-          </Link>
-        </div>
-      </main>
+        Loading…
+      </div>
     );
   }
 
@@ -6947,11 +6937,6 @@ function ModuleReaderContent() {
                       </ul>
                     </div>
                   </div>
-                ) : moduleId && moduleId.includes("accident") ? (
-                  <AccidentModuleUI
-                    title={moduleItem?.title ?? ""}
-                    description={moduleItem?.description ?? ""}
-                  />
                 ) : moduleId === "g2-essential-road-maneuvers" &&
                   ROAD_MANEUVERS_CONTENT[currentLesson.id] ? (
                   <ManeuverLessonContent
@@ -7058,8 +7043,16 @@ function ModuleReaderContent() {
                 )}
                 {lessonIndex === moduleItem.lessons.length - 1 &&
                   QUIZZES.some((q) => q.id === moduleId) && (
-                  <Link
-                    href={`/quizzes/${moduleId}`}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const ids = moduleItem.lessons.map((l) => l.id);
+                      if (!areAllLessonsComplete(moduleId, ids)) {
+                        setShowIncompleteQuizModal(true);
+                        return;
+                      }
+                      setShowQuizConfirmModal(true);
+                    }}
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:opacity-95"
                     style={{
                       backgroundColor: "var(--electric-cyan)",
@@ -7067,7 +7060,7 @@ function ModuleReaderContent() {
                     }}
                   >
                     Start quiz
-                  </Link>
+                  </button>
                 )}
               </div>
             </>
@@ -7078,6 +7071,106 @@ function ModuleReaderContent() {
           )}
         </div>
       </div>
+
+      {showIncompleteQuizModal ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="incomplete-quiz-title"
+        >
+          <div
+            className="max-w-md rounded-xl border-2 p-6 shadow-xl"
+            style={{
+              backgroundColor: "var(--midnight-indigo)",
+              borderColor: "var(--lavender-mist)",
+            }}
+          >
+            <h2
+              id="incomplete-quiz-title"
+              className="mb-3 text-lg font-semibold"
+              style={{ color: "var(--ghost-white)" }}
+            >
+              Finish your lessons first
+            </h2>
+            <p className="mb-6 text-sm" style={{ color: "var(--lavender-mist)" }}>
+              Complete every lesson in this module before you can start the quiz for{" "}
+              <span className="font-semibold text-[var(--ghost-white)]">{moduleItem?.title}</span>.
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowIncompleteQuizModal(false)}
+              className="rounded-lg px-4 py-2 text-sm font-medium text-white transition hover:opacity-95"
+              style={{ backgroundColor: "var(--crimson-spark)" }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      {showQuizConfirmModal ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="quiz-confirm-title"
+        >
+          <div
+            className="max-w-md rounded-xl border-2 p-6 shadow-xl"
+            style={{
+              backgroundColor: "var(--midnight-indigo)",
+              borderColor: "var(--lavender-mist)",
+            }}
+          >
+            <h2
+              id="quiz-confirm-title"
+              className="mb-3 text-lg font-semibold"
+              style={{ color: "var(--ghost-white)" }}
+            >
+              Before you start
+            </h2>
+            <ul
+              className="mb-6 list-inside list-disc space-y-2 text-sm"
+              style={{ color: "var(--lavender-mist)" }}
+            >
+              <li>
+                You need <span className="font-semibold text-[var(--ghost-white)]">70%</span> to pass
+                and unlock the next module.
+              </li>
+              <li>
+                Until you pass, you have <span className="font-semibold text-[var(--ghost-white)]">3</span>{" "}
+                tries. After 3 failed attempts, redo this module&apos;s lessons to unlock the quiz again.
+              </li>
+            </ul>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => setShowQuizConfirmModal(false)}
+                className="rounded-lg border-2 px-4 py-2 text-sm font-medium transition hover:opacity-95"
+                style={{
+                  borderColor: "var(--lavender-mist)",
+                  color: "var(--ghost-white)",
+                }}
+              >
+                Back
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setQuizEntryAllowed(moduleId);
+                  setShowQuizConfirmModal(false);
+                  router.push(`/quizzes/${moduleId}`);
+                }}
+                className="rounded-lg px-4 py-2 text-sm font-medium text-white transition hover:opacity-95"
+                style={{ backgroundColor: "var(--crimson-spark)" }}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </main>
   );
 }

@@ -86,3 +86,21 @@ export function isModuleComplete(
   const completedKeys = getCompletedLessonKeys();
   return lessons.every((l) => completedKeys.includes(`${moduleId}-${l.id}`));
 }
+
+/** Returns true if every lessonId in the list is marked complete for the given module. */
+export function areAllLessonsComplete(moduleId: string, lessonIds: string[]): boolean {
+  return lessonIds.every((lid) => isLessonComplete(moduleId, lid));
+}
+
+const MODULE_PROGRESS_EVENT = "driveaura-module-progress-updated";
+
+/** Remove all completed-lesson keys for one module (e.g. after quiz lockout). */
+export function clearModuleProgress(moduleId: string): void {
+  const prefix = `${moduleId}-`;
+  const current = getStored();
+  const next = current.filter((k) => !k.startsWith(prefix));
+  setStored(next);
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent(MODULE_PROGRESS_EVENT));
+  }
+}

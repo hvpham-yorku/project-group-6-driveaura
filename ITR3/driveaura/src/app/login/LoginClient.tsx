@@ -6,7 +6,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
+import { createUserProfile } from "@/lib/firebase/users";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
@@ -31,9 +33,20 @@ export default function LoginClient() {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [signupSuccess, setSignupSuccess] = useState(false);
+
+  function switchMode(next: "login" | "signup") {
+    setMode(next);
+    setError(null);
+    setUsername("");
+    setConfirmPassword("");
+    setPassword("");
+    setEmail("");
+  }
 
   useEffect(() => {
     if (!loading && user) router.replace(next);
@@ -42,6 +55,15 @@ export default function LoginClient() {
   async function handleEmailAuth(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+
+    if (mode === "signup") {
+      const trimmed = username.trim();
+      if (!trimmed) { setError("Please enter a username."); return; }
+      if (trimmed.length < 2) { setError("Username must be at least 2 characters."); return; }
+      if (trimmed.length > 30) { setError("Username must be 30 characters or fewer."); return; }
+      if (password !== confirmPassword) { setError("Passwords do not match."); return; }
+    }
+
     setSubmitting(true);
     try {
       const auth = getFirebaseAuth();
@@ -54,7 +76,12 @@ export default function LoginClient() {
         await signInWithEmailAndPassword(auth, email, password);
         router.replace(next);
       } else {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const { user: newUser } = await createUserWithEmailAndPassword(auth, email, password);
+        const trimmedUsername = username.trim();
+        await Promise.all([
+          updateProfile(newUser, { displayName: trimmedUsername }),
+          createUserProfile(newUser.uid, trimmedUsername, email),
+        ]);
         setSignupSuccess(true);
         setTimeout(() => router.replace(next), 4000);
       }
@@ -124,6 +151,26 @@ export default function LoginClient() {
         </div>
 
         <form onSubmit={handleEmailAuth} className="space-y-3">
+          {mode === "signup" && (
+            <label className="block">
+              <span className="mb-1 block text-sm text-[#B8B0D3]">
+                Username
+                <span className="ml-1 text-xs text-[#B8B0D3]/60">(shown on leaderboard)</span>
+              </span>
+              <input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                type="text"
+                autoComplete="username"
+                required
+                minLength={2}
+                maxLength={30}
+                className="w-full rounded-lg border border-[#00F5FF]/20 bg-[#0F051D] px-3 py-2 text-sm text-[#F5F5F7] outline-none placeholder:text-[#B8B0D3]/60 focus:border-[#00F5FF] focus:ring-2 focus:ring-[#00F5FF]/15"
+                placeholder="e.g. SpeedDemon99"
+              />
+            </label>
+          )}
+
           <label className="block">
             <span className="mb-1 block text-sm text-[#B8B0D3]">Email</span>
             <input
@@ -151,6 +198,22 @@ export default function LoginClient() {
             />
           </label>
 
+          {mode === "signup" && (
+            <label className="block">
+              <span className="mb-1 block text-sm text-[#B8B0D3]">Confirm password</span>
+              <input
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                type="password"
+                autoComplete="new-password"
+                required
+                minLength={6}
+                className="w-full rounded-lg border border-[#00F5FF]/20 bg-[#0F051D] px-3 py-2 text-sm text-[#F5F5F7] outline-none placeholder:text-[#B8B0D3]/60 focus:border-[#00F5FF] focus:ring-2 focus:ring-[#00F5FF]/15"
+                placeholder="••••••••"
+              />
+            </label>
+          )}
+
           <button
             disabled={submitting}
             type="submit"
@@ -166,7 +229,7 @@ export default function LoginClient() {
               Don&apos;t have an account?{" "}
               <button
                 type="button"
-                onClick={() => setMode("signup")}
+                onClick={() => switchMode("signup")}
                 className="font-semibold text-[#00F5FF] hover:underline"
               >
                 Sign up
@@ -177,7 +240,7 @@ export default function LoginClient() {
               Already have an account?{" "}
               <button
                 type="button"
-                onClick={() => setMode("login")}
+                onClick={() => switchMode("login")}
                 className="font-semibold text-[#00F5FF] hover:underline"
               >
                 Log in

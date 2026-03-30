@@ -10,7 +10,13 @@ import {
   type LicenseLevel,
   type ModuleItem,
 } from "../../data";
-import { getCompletedLessonKeys, isModuleUnlocked } from "../../progress";
+import { getCompletedLessonKeys } from "../../progress";
+import { isModuleUnlocked } from "@/lib/learning/moduleUnlock";
+import {
+  fetchUserQuizProgressMap,
+  passedQuizIdsFromMap,
+} from "@/lib/firebase/userQuizProgress";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 function IconArrowRight() {
   return (
@@ -177,6 +183,7 @@ function ModuleCard({ module: m, locked }: { module: ModuleItem; locked: boolean
 }
 
 function LevelPageContent() {
+  const { user } = useAuth();
   const params = useParams();
   const licenseParam = params.license;
   const rawSegment =
@@ -222,20 +229,25 @@ function LevelPageContent() {
   useEffect(() => {
     const keys = getCompletedLessonKeys().filter((k) => levelLessonKeys.has(k));
     setCompletedCount(keys.length);
-    setUnlockedIds(
-      new Set(modulesForLicense.filter((m) => isModuleUnlocked(m.id, MODULES)).map((m) => m.id))
-    );
+  }, [license, levelLessonKeys]);
 
-    function onStorage() {
-      const next = getCompletedLessonKeys().filter((k) => levelLessonKeys.has(k));
-      setCompletedCount(next.length);
+  useEffect(() => {
+    if (!user?.uid) {
       setUnlockedIds(
-        new Set(modulesForLicense.filter((m) => isModuleUnlocked(m.id, MODULES)).map((m) => m.id))
+        new Set(modulesForLicense.filter((_, idx) => idx === 0).map((m) => m.id))
       );
+      return;
     }
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, [license, levelLessonKeys, modulesForLicense]);
+    let cancelled = false;
+    void fetchUserQuizProgressMap(user.uid).then((map) => {
+      if (cancelled) return;
+      const passedIds = passedQuizIdsFromMap(map);
+      setUnlockedIds(
+        new Set(modulesForLicense.filter((m) => isModuleUnlocked(m.id, passedIds)).map((m) => m.id))
+      );
+    });
+    return () => { cancelled = true; };
+  }, [user?.uid, modulesForLicense]);
 
   const levelPercent =
     levelTotal > 0 ? Math.round((completedCount / levelTotal) * 100) : 0;

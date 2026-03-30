@@ -12,796 +12,650 @@ import {
   type GateStopId,
 } from "@/lib/readiness/scoring";
 
-type StepId = "intro" | "gates" | "questions" | "results";
-
+// ─── Gate definitions ─────────────────────────────────────────────────────────
 type GateStop = {
   id: GateStopId;
+  emoji: string;
   title: string;
   prompt: string;
-  hardStop: boolean;
 };
 
 const gateStops: readonly GateStop[] = [
   {
     id: "alcoholOrDrugs",
-    title: "Alcohol / impairing substances",
-    prompt:
-      "Have you had alcohol, cannabis, or any impairing drugs in the last 8–12 hours (or do you feel any effects right now)?",
-    hardStop: true,
+    emoji: "🍺",
+    title: "Alcohol or drugs",
+    prompt: "Have you consumed alcohol, cannabis, or any impairing substance in the last 8–12 hours, or do you feel any effects right now?",
   },
   {
     id: "severeSleepiness",
+    emoji: "😴",
     title: "Severe sleepiness",
-    prompt:
-      "Are you fighting sleep (heavy eyelids, yawning constantly, or you’ve had any microsleeps)?",
-    hardStop: true,
+    prompt: "Are you fighting to stay awake — heavy eyelids, constant yawning, or you've had a microsleep in the past hour?",
   },
   {
     id: "dizzyOrFaint",
+    emoji: "💫",
     title: "Dizziness or faintness",
     prompt: "Do you feel dizzy, faint, or unusually lightheaded right now?",
-    hardStop: true,
   },
   {
     id: "panicOrOverwhelmed",
-    title: "Panic / overwhelmed",
-    prompt:
-      "Are you panicking, dissociating, or feeling too overwhelmed to safely track traffic and signs?",
-    hardStop: true,
-  },
-  {
-    id: "visionOrCoordinationIssue",
-    title: "Vision / coordination issue",
-    prompt:
-      "Do you have blurred vision, poor coordination, or anything that would slow reactions right now?",
-    hardStop: true,
-  },
-  {
-    id: "unsafeEnvironment",
-    title: "Unsafe environment",
-    prompt:
-      "Is your environment unsafe to start driving right now (e.g., aggressive conflict, you feel pressured, or you can’t stop distractions)?",
-    hardStop: false,
+    emoji: "⚡",
+    title: "Panic or overwhelm",
+    prompt: "Are you panicking, dissociating, or so overwhelmed that safely tracking traffic and signs feels impossible?",
   },
 ] as const;
 
-function formatScore(score: number) {
-  return `${Math.max(0, Math.min(100, Math.round(score)))}/100`;
+// ─── Score colour helpers ─────────────────────────────────────────────────────
+function scoreColor(score: number, forced: boolean) {
+  if (forced || score < 60) return { fg: "var(--crimson-spark)", bg: "rgba(255,59,63,0.12)", border: "rgba(255,59,63,0.35)" };
+  if (score < 80) return { fg: "#E9C452", bg: "rgba(233,196,82,0.1)", border: "rgba(233,196,82,0.3)" };
+  return { fg: "var(--neon-mint)", bg: "rgba(57,255,20,0.08)", border: "rgba(57,255,20,0.3)" };
 }
 
-function recommendationFor(score: number, forcedNoDrive: boolean) {
-  if (forcedNoDrive) {
-    return {
-      headline: "Not safe to drive right now",
-      subhead:
-        "Based on your check-in, the safest option is to pause and reset before driving.",
-      tone: "danger" as const,
-    };
-  }
+function ScoreRing({ score, forced }: { score: number; forced: boolean }) {
+  const display = forced ? 0 : score;
+  const { fg } = scoreColor(display, forced);
+  const r = 52;
+  const circ = 2 * Math.PI * r;
+  const dash = (display / 100) * circ;
 
-  const label = scoreLabel(score);
-  if (label === "Safe to drive") {
-    return {
-      headline: "You look ready to drive",
-      subhead: "Do a quick 60-second reset and keep distractions low.",
-      tone: "good" as const,
-    };
-  }
-  if (label === "Use caution") {
-    return {
-      headline: "Use caution before driving",
-      subhead:
-        "A short reset can make a real difference. Try the steps below, then re-check.",
-      tone: "caution" as const,
-    };
-  }
-  return {
-    headline: "Driving is not advised right now",
-    subhead:
-      "Take time to rest and regulate first. Use the steps below and re-check later.",
-    tone: "danger" as const,
-  };
+  return (
+    <div className="relative inline-flex items-center justify-center" style={{ width: 128, height: 128 }}>
+      <svg width={128} height={128} style={{ transform: "rotate(-90deg)" }}>
+        <circle cx={64} cy={64} r={r} fill="none" stroke="rgba(184,176,211,0.1)" strokeWidth={10} />
+        <circle
+          cx={64} cy={64} r={r} fill="none"
+          stroke={fg} strokeWidth={10}
+          strokeDasharray={`${dash} ${circ}`}
+          strokeLinecap="round"
+          style={{ filter: `drop-shadow(0 0 8px ${fg})`, transition: "stroke-dasharray 1.2s ease" }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-3xl font-black" style={{ color: "var(--ghost-white)" }}>{display}</span>
+        <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--lavender-mist)" }}>/ 100</span>
+      </div>
+    </div>
+  );
 }
 
-function toneClasses(tone: "good" | "caution" | "danger") {
-  switch (tone) {
-    case "good":
-      return "border-[#39FF14]/30 bg-[#1C1132] shadow-[0_0_30px_rgba(57,255,20,0.10)]";
-    case "caution":
-      return "border-[#00F5FF]/30 bg-[#1C1132] shadow-[0_0_30px_rgba(0,245,255,0.10)]";
-    case "danger":
-      return "border-[#FF3B3F]/30 bg-[#1C1132] shadow-[0_0_30px_rgba(255,59,63,0.12)]";
-  }
-}
-
-function BoxBreathing({ minutes = 2 }: { minutes?: number }) {
-  const totalSeconds = Math.max(30, Math.round(minutes * 60));
+// ─── Box breathing ────────────────────────────────────────────────────────────
+function BoxBreathing() {
   const [running, setRunning] = useState(false);
   const [t, setT] = useState(0);
+  const totalSeconds = 120;
 
   const phase = useMemo(() => {
     const sec = t % 16;
-    if (sec < 4) return { label: "Inhale", progress: sec / 4 };
-    if (sec < 8) return { label: "Hold", progress: (sec - 4) / 4 };
-    if (sec < 12) return { label: "Exhale", progress: (sec - 8) / 4 };
-    return { label: "Hold", progress: (sec - 12) / 4 };
+    if (sec < 4) return { label: "Inhale", progress: sec / 4, color: "var(--electric-cyan)" };
+    if (sec < 8) return { label: "Hold", progress: (sec - 4) / 4, color: "#E9C452" };
+    if (sec < 12) return { label: "Exhale", progress: (sec - 8) / 4, color: "var(--neon-mint)" };
+    return { label: "Hold", progress: (sec - 12) / 4, color: "#E9C452" };
   }, [t]);
 
   useEffect(() => {
     if (!running) return;
-    const id = window.setInterval(() => {
-      setT((prev) => prev + 1);
-    }, 1000);
+    const id = window.setInterval(() => setT((p) => p + 1), 1000);
     return () => window.clearInterval(id);
   }, [running]);
 
   const remaining = Math.max(0, totalSeconds - t);
   const done = remaining === 0;
 
-  useEffect(() => {
-    if (!running) return;
-    if (!done) return;
-    setRunning(false);
-  }, [done, running]);
+  useEffect(() => { if (done) setRunning(false); }, [done]);
 
   return (
-    <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#0F051D]/40 p-4">
-      <div className="flex items-start justify-between gap-4">
+    <div className="rounded-2xl border p-4" style={{ borderColor: "rgba(0,245,255,0.15)", backgroundColor: "rgba(0,0,0,0.2)" }}>
+      <div className="mb-3 flex items-center justify-between">
         <div>
-          <p className="text-sm font-semibold text-[#F5F5F7]">Box breathing</p>
-          <p className="mt-1 text-xs text-[#B8B0D3]">
-            A simple rhythm to slow the body down: inhale 4, hold 4, exhale 4, hold 4.
-          </p>
+          <p className="text-sm font-semibold" style={{ color: "var(--ghost-white)" }}>Box breathing</p>
+          <p className="text-xs" style={{ color: "var(--lavender-mist)" }}>4-4-4-4 rhythm. Inhale · Hold · Exhale · Hold.</p>
         </div>
         <button
           type="button"
-          onClick={() => {
-            if (running) {
-              setRunning(false);
-              return;
-            }
-            if (done) setT(0);
-            setRunning(true);
-          }}
-          className="rounded-full border border-[#00F5FF]/25 bg-[#1C1132] px-3 py-1.5 text-xs font-semibold text-[#F5F5F7] transition hover:border-[#00F5FF]/60"
+          onClick={() => { if (running) { setRunning(false); } else { if (done) setT(0); setRunning(true); } }}
+          className="rounded-full border px-3 py-1.5 text-xs font-semibold transition hover:opacity-90"
+          style={{ borderColor: "rgba(0,245,255,0.3)", color: "var(--ghost-white)", backgroundColor: "rgba(0,245,255,0.08)" }}
         >
-          {running ? "Pause" : done ? "Restart" : "Start"}
+          {running ? "Pause" : done ? "Again" : "Start"}
         </button>
       </div>
-
-      <div className="mt-4 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border border-[#00F5FF]/10 bg-[#1C1132]/60 p-3">
-          <p className="text-xs text-[#B8B0D3]">Phase</p>
-          <p className="mt-1 text-lg font-semibold text-[#F5F5F7]">{phase.label}</p>
-          <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-[#0F051D]">
-            <div
-              className="h-full bg-[#00F5FF]"
-              style={{ width: `${Math.round(phase.progress * 100)}%` }}
-            />
+      <div className="flex items-center gap-4">
+        <div className="text-center">
+          <p className="text-xl font-black" style={{ color: phase.color }}>{phase.label}</p>
+          <div className="mt-1 h-1.5 w-24 overflow-hidden rounded-full" style={{ backgroundColor: "rgba(184,176,211,0.1)" }}>
+            <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${phase.progress * 100}%`, backgroundColor: phase.color }} />
           </div>
         </div>
-
-        <div className="rounded-xl border border-[#00F5FF]/10 bg-[#1C1132]/60 p-3">
-          <p className="text-xs text-[#B8B0D3]">Remaining</p>
-          <p className="mt-1 text-lg font-semibold text-[#F5F5F7]">
-            {Math.floor(remaining / 60)}:{String(remaining % 60).padStart(2, "0")}
-          </p>
-          <p className="mt-1 text-xs text-[#B8B0D3]">
-            {done ? "Done. Take one normal breath." : "Keep shoulders relaxed."}
-          </p>
-        </div>
-
-        <div className="rounded-xl border border-[#00F5FF]/10 bg-[#1C1132]/60 p-3">
-          <p className="text-xs text-[#B8B0D3]">Tip</p>
-          <p className="mt-1 text-sm font-medium text-[#F5F5F7]">
-            Exhale like you’re fogging a mirror.
-          </p>
-          <p className="mt-1 text-xs text-[#B8B0D3]">Longer exhales calm faster.</p>
+        <div className="text-sm" style={{ color: "var(--lavender-mist)" }}>
+          {done ? "Done ✓" : `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, "0")} left`}
         </div>
       </div>
     </div>
   );
 }
 
-function GroundingSteps() {
-  const steps = [
-    { title: "5 things you can see", detail: "Name them slowly. Notice colors and shapes." },
-    { title: "4 things you can feel", detail: "Feet on floor, fabric, temperature." },
-    { title: "3 things you can hear", detail: "Near, far, and subtle sounds." },
-    { title: "2 things you can smell", detail: "Even faint smells count." },
-    { title: "1 thing you can taste", detail: "Sip water or notice your mouth." },
-  ] as const;
-
-  return (
-    <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#0F051D]/40 p-4">
-      <p className="text-sm font-semibold text-[#F5F5F7]">Grounding (5-4-3-2-1)</p>
-      <p className="mt-1 text-xs text-[#B8B0D3]">
-        Pull attention out of spirals and back into the present moment.
-      </p>
-      <ol className="mt-4 grid gap-2 sm:grid-cols-2">
-        {steps.map((s) => (
-          <li
-            key={s.title}
-            className="rounded-xl border border-[#00F5FF]/10 bg-[#1C1132]/60 p-3"
-          >
-            <p className="text-xs font-semibold text-[#00F5FF]">{s.title}</p>
-            <p className="mt-1 text-xs text-[#B8B0D3]">{s.detail}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
-}
-
-function FocusReset() {
-  const items = [
-    {
-      title: "60-second scan",
-      detail: "Slowly turn your head: left, centre, right. Notice 3 details in each view.",
-    },
-    {
-      title: "Hands-on-wheel rehearsal",
-      detail: "Imagine 3 upcoming actions: mirror check, shoulder check, smooth brake.",
-    },
-    {
-      title: "Distraction shutdown",
-      detail: "Silence notifications. Put phone out of reach. Set GPS before moving.",
-    },
-  ] as const;
-
-  return (
-    <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#0F051D]/40 p-4">
-      <p className="text-sm font-semibold text-[#F5F5F7]">Focus reset</p>
-      <p className="mt-1 text-xs text-[#B8B0D3]">
-        Build a “driving-only” mindset before you turn the key.
-      </p>
-      <ul className="mt-4 grid gap-2 sm:grid-cols-3">
-        {items.map((i) => (
-          <li
-            key={i.title}
-            className="rounded-xl border border-[#00F5FF]/10 bg-[#1C1132]/60 p-3"
-          >
-            <p className="text-xs font-semibold text-[#00F5FF]">{i.title}</p>
-            <p className="mt-1 text-xs text-[#B8B0D3]">{i.detail}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function CanadaEmergencyCard() {
-  return (
-    <div className="rounded-2xl border border-[#FF3B3F]/30 bg-[#1C1132] p-4">
-      <p className="text-sm font-semibold text-[#F5F5F7]">If you might be in danger</p>
-      <p className="mt-1 text-xs text-[#B8B0D3]">
-        If you feel unsafe, out of control, or at risk of harming yourself or someone else,
-        don’t drive.
-      </p>
-      <ul className="mt-3 space-y-2 text-xs text-[#B8B0D3]">
-        <li>
-          <span className="font-semibold text-[#FF3B3F]">Immediate danger:</span> call 911.
-        </li>
-        <li>
-          <span className="font-semibold text-[#FF3B3F]">Canada: 9-8-8</span> — call or text
-          for suicide crisis support.
-        </li>
-        <li>
-          <span className="font-semibold text-[#FF3B3F]">Talk Suicide Canada:</span>{" "}
-          1-833-456-4566 (or text 45645, where available).
-        </li>
-      </ul>
-      <p className="mt-3 text-[11px] text-[#B8B0D3]">
-        This tool is educational and not medical advice.
-      </p>
-    </div>
-  );
-}
+// ─── Main component ───────────────────────────────────────────────────────────
+type Phase = "intro" | "gates" | "questions" | "results";
 
 export default function ReadinessCheckClient() {
-  const { user, loading } = useAuth();
-  const [step, setStep] = useState<StepId>("intro");
-  const [gateAnswers, setGateAnswers] = useState<Record<GateStopId, boolean>>(() =>
-    Object.fromEntries(gateStops.map((g) => [g.id, false])) as Record<GateStopId, boolean>,
-  );
+  const { user, loading: authLoading } = useAuth();
+
+  const [phase, setPhase] = useState<Phase>("intro");
+  const [gateIndex, setGateIndex] = useState(0);
+  const [gateAnswers, setGateAnswers] = useState<Partial<Record<GateStopId, boolean>>>({});
+  const [questionIndex, setQuestionIndex] = useState(0);
   const [questionAnswers, setQuestionAnswers] = useState<Record<string, number>>({});
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [hardStopGate, setHardStopGate] = useState<GateStop | null>(null);
 
-  const forcedNoDrive = useMemo(
-    () => gateStops.some((g) => g.hardStop && gateAnswers[g.id]),
-    [gateAnswers],
-  );
+  useEffect(() => { void logAnalyticsEvent("readiness_check_viewed"); }, []);
+
+  const currentGate = gateStops[gateIndex];
+  const currentQuestion = readinessQuestions[questionIndex];
+  const totalGates = gateStops.length;
+  const totalQuestions = readinessQuestions.length;
 
   const readinessScore = useMemo(
     () => computeReadinessScore(questionAnswers),
-    [questionAnswers],
+    [questionAnswers]
   );
 
-  const rec = useMemo(
-    () => recommendationFor(readinessScore, forcedNoDrive),
-    [forcedNoDrive, readinessScore],
-  );
+  const displayScore = hardStopGate ? 0 : readinessScore;
+  const label = scoreLabel(displayScore);
+  const colors = scoreColor(displayScore, !!hardStopGate);
 
-  useEffect(() => {
-    void logAnalyticsEvent("readiness_check_viewed");
-  }, []);
+  function handleGateAnswer(yes: boolean) {
+    const gate = gateStops[gateIndex];
+    setGateAnswers((prev) => ({ ...prev, [gate.id]: yes }));
 
-  useEffect(() => {
+    if (yes) {
+      setHardStopGate(gate);
+      setPhase("results");
+      void logAnalyticsEvent("readiness_check_hard_stop", { gate: gate.id });
+      return;
+    }
+
+    if (gateIndex < totalGates - 1) {
+      setGateIndex((i) => i + 1);
+    } else {
+      setPhase("questions");
+      setQuestionIndex(0);
+    }
+  }
+
+  function handleQuestionAnswer(risk: number) {
+    const q = readinessQuestions[questionIndex];
+    setQuestionAnswers((prev) => ({ ...prev, [q.id]: risk }));
+
+    if (questionIndex < totalQuestions - 1) {
+      setQuestionIndex((i) => i + 1);
+    } else {
+      void logAnalyticsEvent("readiness_check_completed", { readinessScore, hardStop: false });
+      setPhase("results");
+    }
+  }
+
+  function restart() {
+    setPhase("intro");
+    setGateIndex(0);
+    setGateAnswers({});
+    setQuestionIndex(0);
+    setQuestionAnswers({});
     setSaved(false);
-  }, [gateAnswers, questionAnswers]);
+    setHardStopGate(null);
+  }
 
-  const steps: readonly { id: StepId; label: string }[] = [
-    { id: "intro", label: "Start" },
-    { id: "gates", label: "Quick safety checks" },
-    { id: "questions", label: "Readiness score" },
-    { id: "results", label: "Next steps" },
-  ];
+  const answeredGateCount = Object.keys(gateAnswers).length;
+  const answeredQuestionCount = Object.keys(questionAnswers).length;
 
-  const stepIndex = steps.findIndex((s) => s.id === step);
+  // ── Overall progress for the top bar ──
+  const totalSteps = totalGates + totalQuestions;
+  const doneSteps =
+    phase === "intro" ? 0
+    : phase === "gates" ? gateIndex
+    : phase === "questions" ? totalGates + questionIndex
+    : totalSteps;
+  const progressPct = totalSteps > 0 ? Math.round((doneSteps / totalSteps) * 100) : 0;
 
   return (
-    <main className="min-h-screen bg-[#0F051D] text-[#F5F5F7]">
-      <section
-        className="border-b border-[#00F5FF]/10"
+    <main className="min-h-screen" style={{ backgroundColor: "var(--void-purple)" }}>
+
+      {/* ── Header ── */}
+      <div
+        className="border-b px-4 py-6"
         style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(0,245,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,245,255,0.04) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
+          background: "linear-gradient(160deg, rgba(28,17,50,1) 0%, rgba(15,5,29,0.96) 100%)",
+          borderColor: "rgba(184,176,211,0.12)",
         }}
       >
-        <div className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="inline-flex rounded-full border border-[#00F5FF]/20 bg-[#1C1132] px-4 py-1.5 text-xs text-[#B8B0D3]">
-                DriveAura • Mental + physical check-in
-              </p>
-              <h1 className="mt-4 text-3xl font-semibold leading-tight sm:text-4xl">
-                Drive Readiness Check
-              </h1>
-              <p className="mt-3 max-w-2xl text-sm text-[#B8B0D3] sm:text-base">
-                Get a clear recommendation based on how you feel right now, plus step-by-step
-                strategies to reset stress, focus, and alertness before driving.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-4">
-              <p className="text-xs font-semibold text-[#00F5FF]">Important</p>
-              <p className="mt-1 text-xs text-[#B8B0D3]">
-                This tool is educational and not medical advice. If you feel impaired, unsafe,
-                or in crisis, don’t drive.
-              </p>
-            </div>
+        <div className="mx-auto max-w-xl">
+          <div className="mb-1 flex items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--lavender-mist)" }}>
+              DriveAura
+            </span>
+            <span style={{ color: "rgba(184,176,211,0.3)" }}>·</span>
+            <span className="text-xs" style={{ color: "var(--lavender-mist)" }}>Drive Readiness Check</span>
           </div>
+          <h1 className="text-2xl font-black tracking-tight" style={{ color: "var(--ghost-white)" }}>
+            Are you ready to drive?
+          </h1>
 
-          <div className="mt-8">
-            <div className="flex flex-wrap gap-2">
-              {steps.map((s, idx) => {
-                const active = idx === stepIndex;
-                const done = idx < stepIndex;
-                return (
-                  <span
-                    key={s.id}
-                    className={[
-                      "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs",
-                      active
-                        ? "border-[#00F5FF]/40 bg-[#1C1132] text-[#F5F5F7]"
-                        : done
-                          ? "border-[#00F5FF]/20 bg-[#0F051D]/40 text-[#B8B0D3]"
-                          : "border-[#00F5FF]/10 bg-[#0F051D]/20 text-[#B8B0D3]",
-                    ].join(" ")}
-                  >
-                    <span
-                      className={[
-                        "inline-flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-semibold",
-                        active
-                          ? "bg-[#00F5FF] text-[#0F051D]"
-                          : done
-                            ? "bg-[#00F5FF]/20 text-[#00F5FF]"
-                            : "bg-[#1C1132] text-[#B8B0D3]",
-                      ].join(" ")}
-                    >
-                      {idx + 1}
-                    </span>
-                    {s.label}
-                  </span>
-                );
-              })}
+          {/* Progress bar */}
+          {phase !== "intro" && phase !== "results" && (
+            <div className="mt-4">
+              <div className="mb-1 flex justify-between text-xs" style={{ color: "var(--lavender-mist)" }}>
+                <span>
+                  {phase === "gates"
+                    ? `Safety check ${gateIndex + 1} of ${totalGates}`
+                    : `Question ${questionIndex + 1} of ${totalQuestions}`}
+                </span>
+                <span>{progressPct}%</span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-full" style={{ backgroundColor: "rgba(184,176,211,0.12)" }}>
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${progressPct}%`,
+                    background: "linear-gradient(90deg, var(--electric-cyan), var(--neon-mint))",
+                    boxShadow: "0 0 6px rgba(0,245,255,0.5)",
+                  }}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        {step === "intro" ? (
-          <div className="grid gap-6 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-              <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-6">
-                <h2 className="text-xl font-semibold">What you’ll do</h2>
-                <ol className="mt-4 space-y-3 text-sm text-[#B8B0D3]">
-                  <li>
-                    <span className="font-semibold text-[#00F5FF]">Quick safety checks:</span>{" "}
-                    immediate “hard stops” (sleepiness, substances, panic, dizziness).
-                  </li>
-                  <li>
-                    <span className="font-semibold text-[#00F5FF]">Readiness score:</span> a
-                    short questionnaire to estimate driving readiness right now.
-                  </li>
-                  <li>
-                    <span className="font-semibold text-[#00F5FF]">Next steps:</span> clear
-                    guidance (rest, hydration, breathing, grounding, focus reset).
-                  </li>
-                </ol>
+      <div className="mx-auto max-w-xl px-4 py-10">
 
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      void logAnalyticsEvent("readiness_check_started");
-                      setStep("gates");
-                    }}
-                    className="rounded-full bg-[#FF3B3F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#e23337]"
-                  >
-                    Start check-in
-                  </button>
-                  <Link
-                    href="/"
-                    className="rounded-full border border-[#00F5FF]/25 bg-[#1C1132] px-6 py-3 text-sm font-semibold text-[#F5F5F7] transition hover:border-[#00F5FF]/60"
-                  >
-                    Back to home
-                  </Link>
-                </div>
-              </div>
+        {/* ════════ INTRO ════════ */}
+        {phase === "intro" && (
+          <div className="space-y-5">
+            <div
+              className="rounded-2xl border p-6"
+              style={{ borderColor: "rgba(0,245,255,0.15)", backgroundColor: "var(--midnight-indigo)" }}
+            >
+              <h2 className="mb-4 text-lg font-bold" style={{ color: "var(--ghost-white)" }}>
+                How it works
+              </h2>
+              <ol className="space-y-3">
+                {[
+                  { n: "1", label: "4 quick safety checks", sub: "Immediate hard-stops like alcohol, severe sleepiness, or dizziness." },
+                  { n: "2", label: "5 readiness questions", sub: "Alertness, sleep, stress, focus, and substances — answered one at a time." },
+                  { n: "3", label: "Your score + next steps", sub: "A clear recommendation and strategies to reset before you drive." },
+                ].map((s) => (
+                  <li key={s.n} className="flex items-start gap-3">
+                    <span
+                      className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-black"
+                      style={{ backgroundColor: "rgba(0,245,255,0.15)", color: "var(--electric-cyan)" }}
+                    >
+                      {s.n}
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold" style={{ color: "var(--ghost-white)" }}>{s.label}</p>
+                      <p className="text-xs" style={{ color: "var(--lavender-mist)" }}>{s.sub}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
 
-            <div className="space-y-4">
-              <CanadaEmergencyCard />
-              <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-4">
-                <p className="text-sm font-semibold text-[#F5F5F7]">Privacy</p>
-                <p className="mt-1 text-xs text-[#B8B0D3]">
-                  If you complete the check-in while signed in, your score and answers can be
-                  saved to your DriveAura account for history.
-                </p>
-              </div>
+            <div
+              className="rounded-2xl border p-4 text-xs"
+              style={{ borderColor: "rgba(255,59,63,0.2)", backgroundColor: "rgba(255,59,63,0.06)", color: "var(--lavender-mist)" }}
+            >
+              <span className="font-semibold" style={{ color: "var(--crimson-spark)" }}>Important: </span>
+              This is educational only — not medical advice. If you feel impaired, don&apos;t drive.
             </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                void logAnalyticsEvent("readiness_check_started");
+                setPhase("gates");
+              }}
+              className="w-full rounded-2xl py-4 text-base font-bold text-white transition hover:opacity-90"
+              style={{ backgroundColor: "var(--crimson-spark)" }}
+            >
+              Start check-in →
+            </button>
+
+            <Link
+              href="/"
+              className="block text-center text-sm transition hover:opacity-80"
+              style={{ color: "var(--lavender-mist)" }}
+            >
+              Back to home
+            </Link>
           </div>
-        ) : null}
+        )}
 
-        {step === "gates" ? (
-          <div className="grid gap-6 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-              <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-6">
-                <h2 className="text-xl font-semibold">Quick safety checks</h2>
-                <p className="mt-2 text-sm text-[#B8B0D3]">
-                  These checks catch situations where driving should be postponed right away.
-                </p>
+        {/* ════════ GATE (one at a time) ════════ */}
+        {phase === "gates" && currentGate && (
+          <div className="space-y-5">
+            {/* Gate card */}
+            <div
+              className="rounded-2xl border p-6"
+              style={{ borderColor: "rgba(255,59,63,0.2)", backgroundColor: "var(--midnight-indigo)" }}
+            >
+              <div className="mb-2 flex items-center gap-2">
+                <span className="text-2xl" role="img" aria-hidden>{currentGate.emoji}</span>
+                <span
+                  className="rounded-full px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide"
+                  style={{ backgroundColor: "rgba(255,59,63,0.15)", color: "var(--crimson-spark)", border: "1px solid rgba(255,59,63,0.25)" }}
+                >
+                  Hard stop if Yes
+                </span>
+              </div>
+              <h2 className="mb-2 text-lg font-bold" style={{ color: "var(--ghost-white)" }}>
+                {currentGate.title}
+              </h2>
+              <p className="mb-6 text-sm leading-relaxed" style={{ color: "var(--lavender-mist)" }}>
+                {currentGate.prompt}
+              </p>
 
-                <div className="mt-6 space-y-4">
-                  {gateStops.map((g) => {
-                    const value = gateAnswers[g.id];
-                    return (
-                      <fieldset
-                        key={g.id}
-                        className="rounded-2xl border border-[#00F5FF]/10 bg-[#0F051D]/35 p-4"
-                      >
-                        <legend className="px-1 text-sm font-semibold text-[#F5F5F7]">
-                          {g.title}
-                          {g.hardStop ? (
-                            <span className="ml-2 rounded-full border border-[#FF3B3F]/30 bg-[#1C1132] px-2 py-0.5 text-[11px] font-semibold text-[#FF3B3F]">
-                              hard stop
-                            </span>
-                          ) : null}
-                        </legend>
-                        <p className="mt-2 text-sm text-[#B8B0D3]">{g.prompt}</p>
-
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setGateAnswers((prev) => ({ ...prev, [g.id]: false }))
-                            }
-                            className={[
-                              "rounded-full border px-4 py-2 text-sm font-semibold transition",
-                              value === false
-                                ? "border-[#00F5FF]/50 bg-[#1C1132] text-[#F5F5F7]"
-                                : "border-[#00F5FF]/15 bg-[#0F051D]/30 text-[#B8B0D3] hover:border-[#00F5FF]/40",
-                            ].join(" ")}
-                          >
-                            No
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setGateAnswers((prev) => ({ ...prev, [g.id]: true }))
-                            }
-                            className={[
-                              "rounded-full border px-4 py-2 text-sm font-semibold transition",
-                              value === true
-                                ? "border-[#FF3B3F]/55 bg-[#1C1132] text-[#F5F5F7]"
-                                : "border-[#00F5FF]/15 bg-[#0F051D]/30 text-[#B8B0D3] hover:border-[#FF3B3F]/40",
-                            ].join(" ")}
-                          >
-                            Yes
-                          </button>
-                        </div>
-                      </fieldset>
-                    );
-                  })}
-                </div>
-
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setStep("intro")}
-                    className="rounded-full border border-[#00F5FF]/25 bg-[#1C1132] px-5 py-2.5 text-sm font-semibold text-[#F5F5F7] transition hover:border-[#00F5FF]/60"
-                  >
-                    Back
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setStep("questions")}
-                    className="rounded-full bg-[#FF3B3F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#e23337]"
-                  >
-                    Continue to score
-                  </button>
-                </div>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => handleGateAnswer(false)}
+                  className="rounded-xl py-4 text-base font-bold transition hover:opacity-90"
+                  style={{
+                    backgroundColor: "rgba(57,255,20,0.1)",
+                    border: "2px solid rgba(57,255,20,0.3)",
+                    color: "var(--neon-mint)",
+                  }}
+                >
+                  No
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleGateAnswer(true)}
+                  className="rounded-xl py-4 text-base font-bold transition hover:opacity-90"
+                  style={{
+                    backgroundColor: "rgba(255,59,63,0.1)",
+                    border: "2px solid rgba(255,59,63,0.3)",
+                    color: "var(--crimson-spark)",
+                  }}
+                >
+                  Yes
+                </button>
               </div>
             </div>
 
-            <div className="space-y-4">
-              {forcedNoDrive ? (
-                <div className="rounded-2xl border border-[#FF3B3F]/30 bg-[#1C1132] p-4">
-                  <p className="text-sm font-semibold text-[#F5F5F7]">Hard stop triggered</p>
-                  <p className="mt-1 text-xs text-[#B8B0D3]">
-                    If any hard stop is “Yes”, the safest option is to postpone driving. You can
-                    still continue to get a score and next steps.
-                  </p>
-                </div>
-              ) : (
-                <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-4">
-                  <p className="text-sm font-semibold text-[#F5F5F7]">Tip</p>
-                  <p className="mt-1 text-xs text-[#B8B0D3]">
-                    Be honest. This is a private check-in to support safer decisions.
-                  </p>
+            {/* Dots */}
+            <div className="flex justify-center gap-2">
+              {gateStops.map((_, i) => (
+                <span
+                  key={i}
+                  className="h-2 rounded-full transition-all duration-300"
+                  style={{
+                    width: i === gateIndex ? 20 : 8,
+                    backgroundColor: i < gateIndex
+                      ? "var(--neon-mint)"
+                      : i === gateIndex
+                        ? "var(--electric-cyan)"
+                        : "rgba(184,176,211,0.2)",
+                  }}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                if (gateIndex > 0) {
+                  setGateIndex((i) => i - 1);
+                } else {
+                  setPhase("intro");
+                }
+              }}
+              className="w-full text-center text-sm transition hover:opacity-80"
+              style={{ color: "var(--lavender-mist)" }}
+            >
+              ← Back
+            </button>
+          </div>
+        )}
+
+        {/* ════════ QUESTIONS (one at a time) ════════ */}
+        {phase === "questions" && currentQuestion && (
+          <div className="space-y-5">
+            <div
+              className="rounded-2xl border p-6"
+              style={{ borderColor: "rgba(0,245,255,0.15)", backgroundColor: "var(--midnight-indigo)" }}
+            >
+              <div className="mb-1 text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--electric-cyan)" }}>
+                Question {questionIndex + 1} of {totalQuestions}
+              </div>
+              <h2 className="mb-6 text-lg font-bold leading-snug" style={{ color: "var(--ghost-white)" }}>
+                {currentQuestion.prompt}
+              </h2>
+
+              <div className="space-y-2.5">
+                {currentQuestion.options.map((opt) => {
+                  const selected = questionAnswers[currentQuestion.id] === opt.risk;
+                  const riskColor =
+                    opt.risk === 0 ? "var(--neon-mint)"
+                    : opt.risk === 1 ? "#8EE4AF"
+                    : opt.risk === 2 ? "#E9C452"
+                    : opt.risk === 3 ? "#FF8C60"
+                    : "var(--crimson-spark)";
+
+                  return (
+                    <button
+                      key={opt.label}
+                      type="button"
+                      onClick={() => handleQuestionAnswer(opt.risk)}
+                      className="w-full rounded-xl px-4 py-3.5 text-left text-sm font-medium transition-all hover:opacity-90"
+                      style={{
+                        backgroundColor: selected ? "rgba(0,245,255,0.08)" : "rgba(0,0,0,0.15)",
+                        border: selected
+                          ? `2px solid ${riskColor}`
+                          : "2px solid rgba(184,176,211,0.12)",
+                        color: selected ? "var(--ghost-white)" : "var(--lavender-mist)",
+                        boxShadow: selected ? `0 0 12px ${riskColor}40` : "none",
+                      }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="h-2.5 w-2.5 shrink-0 rounded-full"
+                          style={{ backgroundColor: selected ? riskColor : "rgba(184,176,211,0.25)" }}
+                        />
+                        {opt.label}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Dots */}
+            <div className="flex justify-center gap-2">
+              {readinessQuestions.map((_, i) => (
+                <span
+                  key={i}
+                  className="h-2 rounded-full transition-all duration-300"
+                  style={{
+                    width: i === questionIndex ? 20 : 8,
+                    backgroundColor: questionAnswers[readinessQuestions[i].id] !== undefined
+                      ? "var(--electric-cyan)"
+                      : i === questionIndex
+                        ? "rgba(0,245,255,0.4)"
+                        : "rgba(184,176,211,0.2)",
+                  }}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                if (questionIndex > 0) {
+                  setQuestionIndex((i) => i - 1);
+                } else {
+                  setPhase("gates");
+                  setGateIndex(totalGates - 1);
+                }
+              }}
+              className="w-full text-center text-sm transition hover:opacity-80"
+              style={{ color: "var(--lavender-mist)" }}
+            >
+              ← Back
+            </button>
+          </div>
+        )}
+
+        {/* ════════ RESULTS ════════ */}
+        {phase === "results" && (
+          <div className="space-y-5">
+
+            {/* Score card */}
+            <div
+              className="rounded-2xl border p-6 text-center"
+              style={{ borderColor: colors.border, backgroundColor: colors.bg, boxShadow: `0 0 40px ${colors.border}` }}
+            >
+              <ScoreRing score={displayScore} forced={!!hardStopGate} />
+
+              <h2 className="mt-4 text-xl font-black" style={{ color: colors.fg }}>
+                {hardStopGate
+                  ? "Not safe to drive right now"
+                  : label === "Safe to drive"
+                    ? "You look ready to drive"
+                    : label === "Use caution"
+                      ? "Use caution before driving"
+                      : "Driving is not advised"}
+              </h2>
+              <p className="mt-2 text-sm" style={{ color: "var(--lavender-mist)" }}>
+                {hardStopGate
+                  ? `Hard stop: ${hardStopGate.title.toLowerCase()}. The safest option is to postpone.`
+                  : label === "Safe to drive"
+                    ? "Do a quick 60-second reset and keep distractions low."
+                    : label === "Use caution"
+                      ? "A short reset can make a real difference. Try the tools below first."
+                      : "Take time to rest and regulate. Use the steps below and re-check later."}
+              </p>
+
+              {hardStopGate && (
+                <div
+                  className="mx-auto mt-4 max-w-sm rounded-xl border p-3 text-sm"
+                  style={{ borderColor: "rgba(255,59,63,0.3)", backgroundColor: "rgba(255,59,63,0.08)", color: "var(--crimson-spark)" }}
+                >
+                  If you feel impaired or in crisis:{" "}
+                  <span className="font-bold">call 911</span> or text/call{" "}
+                  <span className="font-bold">9-8-8</span> (Canada crisis line).
                 </div>
               )}
-              <CanadaEmergencyCard />
-            </div>
-          </div>
-        ) : null}
 
-        {step === "questions" ? (
-          <div className="grid gap-6 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-              <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-6">
-                <h2 className="text-xl font-semibold">Readiness score</h2>
-                <p className="mt-2 text-sm text-[#B8B0D3]">
-                  Answer based on how you feel right now. We’ll generate a score and next steps.
-                </p>
-
-                <div className="mt-6 space-y-4">
-                  {readinessQuestions.map((q) => {
-                    const value = questionAnswers[q.id];
-                    return (
-                      <fieldset
-                        key={q.id}
-                        className="rounded-2xl border border-[#00F5FF]/10 bg-[#0F051D]/35 p-4"
-                      >
-                        <legend className="px-1 text-sm font-semibold text-[#F5F5F7]">
-                          {q.prompt}
-                        </legend>
-                        <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                          {q.options.map((opt) => (
-                            <button
-                              key={opt.label}
-                              type="button"
-                              onClick={() =>
-                                setQuestionAnswers((prev) => ({
-                                  ...prev,
-                                  [q.id]: opt.risk,
-                                }))
-                              }
-                              className={[
-                                "rounded-xl border px-3 py-2 text-left text-sm transition",
-                                value === opt.risk
-                                  ? "border-[#00F5FF]/55 bg-[#1C1132] text-[#F5F5F7]"
-                                  : "border-[#00F5FF]/15 bg-[#0F051D]/25 text-[#B8B0D3] hover:border-[#00F5FF]/40",
-                              ].join(" ")}
-                            >
-                              {opt.label}
-                            </button>
-                          ))}
-                        </div>
-                      </fieldset>
-                    );
-                  })}
-                </div>
-
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setStep("gates")}
-                    className="rounded-full border border-[#00F5FF]/25 bg-[#1C1132] px-5 py-2.5 text-sm font-semibold text-[#F5F5F7] transition hover:border-[#00F5FF]/60"
-                  >
-                    Back
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      void logAnalyticsEvent("readiness_check_completed", {
-                        readinessScore,
-                        hardStop: forcedNoDrive,
-                      });
-                      setStep("results");
-                    }}
-                    className="rounded-full bg-[#FF3B3F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#e23337]"
-                  >
-                    See results
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-4">
-                <p className="text-xs font-semibold text-[#00F5FF]">Current score</p>
-                <p className="mt-1 text-3xl font-semibold text-[#F5F5F7]">
-                  {formatScore(readinessScore)}
-                </p>
-                <p className="mt-1 text-xs text-[#B8B0D3]">
-                  {forcedNoDrive ? "Hard stop is active." : scoreLabel(readinessScore)}
-                </p>
-              </div>
-              <CanadaEmergencyCard />
-            </div>
-          </div>
-        ) : null}
-
-        {step === "results" ? (
-          <div className="grid gap-6 lg:grid-cols-3">
-            <div className="lg:col-span-2 space-y-6">
-              <div className={`rounded-2xl border p-6 ${toneClasses(rec.tone)}`}>
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
-                    <h2 className="text-xl font-semibold">{rec.headline}</h2>
-                    <p className="mt-2 text-sm text-[#B8B0D3]">{rec.subhead}</p>
-                  </div>
-                  <div className="rounded-2xl border border-[#00F5FF]/10 bg-[#0F051D]/35 px-4 py-3">
-                    <p className="text-xs font-semibold text-[#00F5FF]">Readiness score</p>
-                    <p className="mt-1 text-3xl font-semibold text-[#F5F5F7]">
-                      {formatScore(readinessScore)}
-                    </p>
-                    <p className="mt-1 text-xs text-[#B8B0D3]">
-                      {forcedNoDrive ? "Hard stop active" : scoreLabel(readinessScore)}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setGateAnswers(
-                        Object.fromEntries(gateStops.map((g) => [g.id, false])) as Record<
-                          GateStopId,
-                          boolean
-                        >,
-                      );
-                      setQuestionAnswers({});
-                      setSaved(false);
-                      setStep("gates");
-                    }}
-                    className="rounded-full border border-[#00F5FF]/25 bg-[#1C1132] px-5 py-2.5 text-sm font-semibold text-[#F5F5F7] transition hover:border-[#00F5FF]/60"
-                  >
-                    Re-check
-                  </button>
-
-                  {loading ? (
-                    <span className="text-sm text-[#B8B0D3]">Checking sign-in…</span>
-                  ) : user ? (
-                    <button
-                      type="button"
-                      disabled={saving || saved}
-                      onClick={async () => {
-                        setSaving(true);
-                        try {
-                          await saveReadinessCheck({
-                            userId: user.uid,
-                            readinessScore,
-                            gateStops: gateAnswers,
-                            answers: questionAnswers,
-                          });
-                          setSaved(true);
-                          void logAnalyticsEvent("readiness_check_saved", {
-                            readinessScore,
-                            hardStop: forcedNoDrive,
-                          });
-                        } finally {
-                          setSaving(false);
-                        }
-                      }}
-                      className={[
-                        "rounded-full px-6 py-3 text-sm font-semibold text-white transition",
-                        saved
-                          ? "bg-[#39FF14]/30 text-[#39FF14] cursor-default"
-                          : saving
-                            ? "bg-[#FF3B3F]/60 cursor-wait"
-                            : "bg-[#FF3B3F] hover:bg-[#e23337]",
-                      ].join(" ")}
-                    >
-                      {saved ? "Saved to account" : saving ? "Saving…" : "Save to account"}
-                    </button>
-                  ) : (
-                    <Link
-                      href="/login?next=%2Freadiness-check"
-                      className="rounded-full bg-[#FF3B3F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#e23337]"
-                    >
-                      Log in to save history
-                    </Link>
-                  )}
-                </div>
-              </div>
-
-              <div className="grid gap-4">
-                <BoxBreathing minutes={2} />
-                <GroundingSteps />
-                <FocusReset />
-              </div>
-
-              <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-6">
-                <h3 className="text-lg font-semibold">If driving isn’t advised, do this</h3>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-[#00F5FF]/10 bg-[#0F051D]/35 p-4">
-                    <p className="text-sm font-semibold text-[#F5F5F7]">Rest</p>
-                    <p className="mt-1 text-xs text-[#B8B0D3]">
-                      Take a break and re-check after a rest period. If you’re sleepy, a 15–20
-                      minute nap can help.
-                    </p>
-                  </div>
-                  <div className="rounded-2xl border border-[#00F5FF]/10 bg-[#0F051D]/35 p-4">
-                    <p className="text-sm font-semibold text-[#F5F5F7]">Hydration</p>
-                    <p className="mt-1 text-xs text-[#B8B0D3]">
-                      Drink water and have a light snack if needed. Avoid “energy spikes” that
-                      lead to a crash.
-                    </p>
-                  </div>
-                  <div className="rounded-2xl border border-[#00F5FF]/10 bg-[#0F051D]/35 p-4">
-                    <p className="text-sm font-semibold text-[#F5F5F7]">Postpone</p>
-                    <p className="mt-1 text-xs text-[#B8B0D3]">
-                      If you’re impaired or overwhelmed, postpone the trip and use another option
-                      (ride share, transit, or a friend).
-                    </p>
-                  </div>
-                  <div className="rounded-2xl border border-[#00F5FF]/10 bg-[#0F051D]/35 p-4">
-                    <p className="text-sm font-semibold text-[#F5F5F7]">Reach out</p>
-                    <p className="mt-1 text-xs text-[#B8B0D3]">
-                      If you feel unsafe or pressured to drive, contact someone you trust and
-                      ask for help with a safer plan.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <CanadaEmergencyCard />
-              <div className="rounded-2xl border border-[#00F5FF]/15 bg-[#1C1132]/70 p-4">
-                <p className="text-sm font-semibold text-[#F5F5F7]">Saved history</p>
-                <p className="mt-1 text-xs text-[#B8B0D3]">
-                  After saving, you can review recent check-ins in your account area.
-                </p>
-                <Link
-                  href="/account"
-                  className="mt-3 inline-flex rounded-full border border-[#00F5FF]/25 bg-[#1C1132] px-4 py-2 text-xs font-semibold text-[#F5F5F7] transition hover:border-[#00F5FF]/60"
+              {/* Save / Re-check buttons */}
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={restart}
+                  className="rounded-full border px-5 py-2.5 text-sm font-semibold transition hover:opacity-90"
+                  style={{ borderColor: "rgba(184,176,211,0.25)", color: "var(--ghost-white)", backgroundColor: "rgba(184,176,211,0.06)" }}
                 >
-                  Go to account
-                </Link>
+                  Re-check
+                </button>
+
+                {authLoading ? null : user ? (
+                  <button
+                    type="button"
+                    disabled={saving || saved}
+                    onClick={async () => {
+                      setSaving(true);
+                      try {
+                        const allGateAnswers = Object.fromEntries(
+                          gateStops.map((g) => [g.id, gateAnswers[g.id] ?? false])
+                        ) as Record<GateStopId, boolean>;
+                        await saveReadinessCheck({
+                          userId: user.uid,
+                          readinessScore: displayScore,
+                          gateStops: allGateAnswers,
+                          answers: questionAnswers,
+                        });
+                        setSaved(true);
+                        void logAnalyticsEvent("readiness_check_saved", { readinessScore: displayScore, hardStop: !!hardStopGate });
+                      } finally {
+                        setSaving(false);
+                      }
+                    }}
+                    className="rounded-full px-6 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
+                    style={{ backgroundColor: saved ? "rgba(57,255,20,0.3)" : "var(--crimson-spark)", color: saved ? "var(--neon-mint)" : "white" }}
+                  >
+                    {saved ? "✓ Saved" : saving ? "Saving…" : "Save to account"}
+                  </button>
+                ) : (
+                  <Link
+                    href="/login?next=%2Freadiness-check"
+                    className="rounded-full px-6 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+                    style={{ backgroundColor: "var(--crimson-spark)" }}
+                  >
+                    Log in to save
+                  </Link>
+                )}
               </div>
             </div>
+
+            {/* Reset tools (only shown when needed) */}
+            {(!hardStopGate) && (
+              <BoxBreathing />
+            )}
+
+            {/* If driving not advised — action steps */}
+            {(hardStopGate || displayScore < 60) && (
+              <div
+                className="rounded-2xl border p-5"
+                style={{ borderColor: "rgba(184,176,211,0.12)", backgroundColor: "var(--midnight-indigo)" }}
+              >
+                <h3 className="mb-4 text-base font-bold" style={{ color: "var(--ghost-white)" }}>
+                  What to do instead
+                </h3>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {[
+                    { icon: "😴", title: "Rest first", body: "A 15–20 min nap can significantly improve alertness. Set an alarm." },
+                    { icon: "🚗", title: "Alternative transport", body: "Rideshare, transit, or ask someone you trust to drive." },
+                    { icon: "💧", title: "Hydrate & eat", body: "Drink water and have a light snack before re-checking." },
+                    { icon: "📵", title: "Postpone the trip", body: "If possible, delay until you feel clear and rested." },
+                  ].map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-xl border p-3"
+                      style={{ borderColor: "rgba(184,176,211,0.1)", backgroundColor: "rgba(0,0,0,0.18)" }}
+                    >
+                      <p className="mb-1 text-lg">{item.icon}</p>
+                      <p className="text-sm font-semibold" style={{ color: "var(--ghost-white)" }}>{item.title}</p>
+                      <p className="text-xs" style={{ color: "var(--lavender-mist)" }}>{item.body}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Breathing for caution-level */}
+            {!hardStopGate && displayScore >= 60 && displayScore < 80 && (
+              <div
+                className="rounded-2xl border p-5"
+                style={{ borderColor: "rgba(184,176,211,0.12)", backgroundColor: "var(--midnight-indigo)" }}
+              >
+                <h3 className="mb-3 text-sm font-bold" style={{ color: "var(--ghost-white)" }}>Quick focus reset</h3>
+                <ul className="space-y-2 text-xs" style={{ color: "var(--lavender-mist)" }}>
+                  <li>✦ Scan slowly: head left → centre → right. Name 3 details in each view.</li>
+                  <li>✦ Silence all notifications. Put phone face-down and out of reach.</li>
+                  <li>✦ Rehearse 3 upcoming actions mentally: mirror check, shoulder check, smooth brake.</li>
+                </ul>
+              </div>
+            )}
+
+            <p className="text-center text-xs" style={{ color: "rgba(184,176,211,0.4)" }}>
+              This tool is educational and not medical advice.
+            </p>
           </div>
-        ) : null}
-      </section>
+        )}
+      </div>
     </main>
   );
 }
-
