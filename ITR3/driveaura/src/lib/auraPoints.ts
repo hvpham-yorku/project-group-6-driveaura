@@ -73,6 +73,30 @@ function dispatchUpdate(detail: AuraPointsEventDetail): void {
   window.dispatchEvent(new CustomEvent(AURA_POINTS_UPDATED_EVENT, { detail }));
 }
 
+type AwardOnceConfig = {
+  earnedSetKey: string;
+  earnedId: string;
+  points: number;
+};
+
+/**
+ * Single implementation for idempotent point awards (first completion only).
+ */
+function awardPointsOnce(config: AwardOnceConfig): number {
+  const { earnedSetKey, earnedId, points } = config;
+  const earned = readSet(earnedSetKey);
+  if (earned.has(earnedId)) return 0;
+
+  const total = readNumber(TOTAL_KEY) + points;
+  earned.add(earnedId);
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(TOTAL_KEY, String(total));
+  }
+  writeSet(earnedSetKey, earned);
+  dispatchUpdate({ earned: points, total });
+  return points;
+}
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 /** Returns the total Aura Points stored locally. */
@@ -85,20 +109,11 @@ export function getAuraPoints(): number {
  * Returns the points awarded (> 0) if this is the first time, or 0 if already earned.
  */
 export function awardLessonPoints(moduleId: string, lessonId: string): number {
-  const key = `${moduleId}-${lessonId}`;
-  const earned = readSet(EARNED_LESSONS_KEY);
-  if (earned.has(key)) return 0;
-
-  const pts = AURA_POINT_VALUES.LESSON;
-  const total = readNumber(TOTAL_KEY) + pts;
-
-  earned.add(key);
-  if (typeof window !== "undefined") {
-    window.localStorage.setItem(TOTAL_KEY, String(total));
-  }
-  writeSet(EARNED_LESSONS_KEY, earned);
-  dispatchUpdate({ earned: pts, total });
-  return pts;
+  return awardPointsOnce({
+    earnedSetKey: EARNED_LESSONS_KEY,
+    earnedId: `${moduleId}-${lessonId}`,
+    points: AURA_POINT_VALUES.LESSON,
+  });
 }
 
 /**
@@ -106,38 +121,22 @@ export function awardLessonPoints(moduleId: string, lessonId: string): number {
  * Returns the points awarded (> 0) if this is the first time, or 0 if already earned.
  */
 export function awardQuizPoints(quizId: string): number {
-  const earned = readSet(EARNED_QUIZZES_KEY);
-  if (earned.has(quizId)) return 0;
-
-  const pts = AURA_POINT_VALUES.QUIZ;
-  const total = readNumber(TOTAL_KEY) + pts;
-
-  earned.add(quizId);
-  if (typeof window !== "undefined") {
-    window.localStorage.setItem(TOTAL_KEY, String(total));
-  }
-  writeSet(EARNED_QUIZZES_KEY, earned);
-  dispatchUpdate({ earned: pts, total });
-  return pts;
+  return awardPointsOnce({
+    earnedSetKey: EARNED_QUIZZES_KEY,
+    earnedId: quizId,
+    points: AURA_POINT_VALUES.QUIZ,
+  });
 }
 
 /**
  * Award Aura Points for a correct Mock Grading verdict (first time per scenario).
  */
 export function awardExaminerScenarioPoints(scenarioId: string): number {
-  const earned = readSet(EARNED_EXAMINER_SCENARIOS_KEY);
-  if (earned.has(scenarioId)) return 0;
-
-  const pts = AURA_POINT_VALUES.EXAMINER_SCENARIO;
-  const total = readNumber(TOTAL_KEY) + pts;
-
-  earned.add(scenarioId);
-  if (typeof window !== "undefined") {
-    window.localStorage.setItem(TOTAL_KEY, String(total));
-  }
-  writeSet(EARNED_EXAMINER_SCENARIOS_KEY, earned);
-  dispatchUpdate({ earned: pts, total });
-  return pts;
+  return awardPointsOnce({
+    earnedSetKey: EARNED_EXAMINER_SCENARIOS_KEY,
+    earnedId: scenarioId,
+    points: AURA_POINT_VALUES.EXAMINER_SCENARIO,
+  });
 }
 
 /** Breakdown of points earned per category. */

@@ -138,7 +138,7 @@ export class EngineAudio {
 
       // ── Distortion (soft clip — adds harmonic richness) ───────
       this.distortion = ctx.createWaveShaper();
-      this.distortion.curve = makeDistortionCurve(200);
+      this.distortion.curve = Float32Array.from(makeDistortionCurve(200));
       this.distortion.oversample = "4x";
 
       // ── Bandpass (keeps tone centred on dominant note) ────────
