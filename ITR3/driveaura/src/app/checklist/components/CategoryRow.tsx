@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import type { ChecklistCategoryId, ChecklistCategoryResponse } from "../types";
 import { CHECKLIST_CATEGORY_LABELS, CHECKLIST_SUBITEMS } from "../types";
 
@@ -17,6 +18,17 @@ export function CategoryRow({ categoryId, value, onChange }: CategoryRowProps) {
   const subItems = CHECKLIST_SUBITEMS[categoryId];
   const hasSubItems = subItems.length > 0;
   const subChecks = value.subChecks ?? [];
+
+  /** Progress bar matches utils.getCategoryCompletionRatio (sub-checks vs Yes/No-only). */
+  const progressPercent = useMemo(() => {
+    if (hasSubItems) {
+      const total = subItems.length;
+      if (total === 0) return 0;
+      const done = subChecks.filter(Boolean).length;
+      return Math.round((done / total) * 100);
+    }
+    return value.pass ? 100 : 0;
+  }, [hasSubItems, subItems.length, subChecks, value.pass]);
 
   function setPass(pass: boolean) {
     onChange(categoryId, { ...value, pass });
@@ -99,7 +111,7 @@ export function CategoryRow({ categoryId, value, onChange }: CategoryRowProps) {
       <div className="mb-3 h-1 w-full rounded-full overflow-hidden" style={{ backgroundColor: "#0F051D" }}>
         <div
           className="h-full rounded-full transition-all duration-300"
-          style={{ backgroundColor: "#00F5FF", width: value.pass ? "100%" : "0%" }}
+          style={{ backgroundColor: "#00F5FF", width: `${progressPercent}%` }}
         />
       </div>
       {hasSubItems && (

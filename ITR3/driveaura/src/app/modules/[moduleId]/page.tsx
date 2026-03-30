@@ -6949,8 +6949,8 @@ function ModuleReaderContent() {
                   </div>
                 ) : moduleId && moduleId.includes("accident") ? (
                   <AccidentModuleUI
-                    title={currentModule.title}
-                    description={currentModule.description}
+                    title={moduleItem?.title ?? ""}
+                    description={moduleItem?.description ?? ""}
                   />
                 ) : moduleId === "g2-essential-road-maneuvers" &&
                   ROAD_MANEUVERS_CONTENT[currentLesson.id] ? (
