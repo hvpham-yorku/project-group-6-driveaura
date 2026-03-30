@@ -34,13 +34,18 @@ export async function saveReadinessCheck(input: {
   if (!db) return;
 
   const { userId, readinessScore, gateStops, answers } = input;
-  await addDoc(userReadinessChecksCollection(db, userId), {
-    userId,
-    readinessScore,
-    gateStops,
-    answers,
-    createdAt: serverTimestamp(),
-  });
+  try {
+    await addDoc(userReadinessChecksCollection(db, userId), {
+      userId,
+      readinessScore,
+      gateStops,
+      answers,
+      createdAt: serverTimestamp(),
+    });
+  } catch (err) {
+    console.error("saveReadinessCheck failed:", err);
+    throw new Error("Could not save readiness check. Please check your connection and try again.");
+  }
 }
 
 export async function fetchReadinessHistory(input: {
@@ -56,7 +61,13 @@ export async function fetchReadinessHistory(input: {
     firestoreLimit(Math.max(1, Math.min(50, input.limit ?? 10))),
   );
 
-  const snap = await getDocs(q);
+  let snap;
+  try {
+    snap = await getDocs(q);
+  } catch (err) {
+    console.error("fetchReadinessHistory failed:", err);
+    throw new Error("Could not load readiness history. Please check your connection and try again.");
+  }
   return snap.docs.map((docSnap) => {
     const data = docSnap.data() as Partial<ReadinessCheckRecord> & {
       readinessScore?: unknown;

@@ -28,9 +28,15 @@ import {
   Users,
 } from "lucide-react";
 import { useAuth } from "@/components/auth/AuthProvider";
+import dynamic from "next/dynamic";
 import { G2CarExplorer } from "@/components/G2CarExplorer";
 import { VehicleExplorer } from "@/components/VehicleExplorer";
 import AccidentModuleUI from "./AccidentModuleUI";
+
+const GHighSpeedLessonDynamic = dynamic(
+  () => import("../lessons/GHighSpeedLesson"),
+  { loading: () => <p style={{ color: "var(--lavender-mist)" }}>Loading lesson…</p> }
+);
 import {
   fetchUserModuleProgress,
   saveUserModuleProgress,
@@ -6952,7 +6958,7 @@ function ModuleReaderContent() {
                     content={ROAD_MANEUVERS_CONTENT[currentLesson.id]}
                   />
                 ) : moduleId === "g-high-speed-expressway-driving" ? (
-                  <GHighSpeedLesson lessonId={currentLesson.id} />
+                  <GHighSpeedLessonDynamic lessonId={currentLesson.id} />
                 ) : moduleId === "g-advanced-lane-management" ? (
                   <GAdvancedLaneLesson lessonId={currentLesson.id} />
                 ) : moduleId === "g-complex-intersections-hazard-perception" ? (
